@@ -1,4 +1,4 @@
-package com.smart.tvpos;
+package com.smart.novel;
 
 import android.content.Context;
 import android.support.multidex.MultiDex;
@@ -7,8 +7,8 @@ import android.text.TextUtils;
 import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.common.log.Elog;
 import com.smart.framework.library.common.utils.AppSharedPreferences;
-import com.smart.tvpos.util.Constants;
-import com.smart.tvpos.util.SharePreConstants;
+import com.smart.novel.util.SharePreConstants;
+import com.smart.novel.util.Constants;
 
 
 /**

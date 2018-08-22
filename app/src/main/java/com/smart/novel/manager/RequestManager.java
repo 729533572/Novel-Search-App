@@ -1,4 +1,4 @@
-package com.smart.tvpos.manager;
+package com.smart.novel.manager;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.bean.ResultBean;
 import com.smart.framework.library.common.log.Elog;
-import com.smart.tvpos.MyApplication;
+import com.smart.novel.MyApplication;
 import com.smart.tvpos.R;
 
 import java.io.IOException;

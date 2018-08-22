@@ -1,4 +1,4 @@
-package com.smart.tvpos.util;
+package com.smart.novel.util;
 
 /**
  * Created by qyd on 2016/12/22.

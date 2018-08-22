@@ -1,4 +1,4 @@
-package com.smart.tvpos.ui;
+package com.smart.novel.ui;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,14 +13,14 @@ import com.smart.framework.library.common.utils.AppSharedPreferences;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.common.utils.TimeCount;
 import com.smart.framework.library.netstatus.NetUtils;
-import com.smart.tvpos.MyApplication;
+import com.smart.novel.util.SharePreConstants;
+import com.smart.novel.MyApplication;
 import com.smart.tvpos.R;
-import com.smart.tvpos.bean.UserEntity;
-import com.smart.tvpos.global.API;
-import com.smart.tvpos.manager.ReqCallBack;
-import com.smart.tvpos.manager.RequestManager;
-import com.smart.tvpos.util.Constants;
-import com.smart.tvpos.util.SharePreConstants;
+import com.smart.novel.bean.UserEntity;
+import com.smart.novel.global.API;
+import com.smart.novel.manager.ReqCallBack;
+import com.smart.novel.manager.RequestManager;
+import com.smart.novel.util.Constants;
 
 import java.util.HashMap;
 

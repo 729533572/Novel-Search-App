@@ -1,4 +1,4 @@
-package com.smart.tvpos.util;
+package com.smart.novel.util;
 
 /**
  * Created by JoJo on 2017/10/24.

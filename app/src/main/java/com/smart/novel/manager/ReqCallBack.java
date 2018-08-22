@@ -1,4 +1,4 @@
-package com.smart.tvpos.manager;
+package com.smart.novel.manager;
 
 
 import com.smart.framework.library.bean.ErrorBean;

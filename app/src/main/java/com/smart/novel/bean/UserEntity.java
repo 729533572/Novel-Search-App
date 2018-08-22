@@ -1,4 +1,4 @@
-package com.smart.tvpos.bean;
+package com.smart.novel.bean;
 
 /**
  * Created by JoJo on 2018/6/21.

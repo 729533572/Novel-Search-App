@@ -1,4 +1,4 @@
-package com.smart.tvpos.global;
+package com.smart.novel.global;
 
 
 /**

@@ -5,7 +5,7 @@
 //import com.smart.framework.library.adapter.lv.CommonAdapterListView;
 //import com.smart.framework.library.adapter.lv.ViewHolderListView;
 //import com.smart.tvpos.R;
-//import com.smart.tvpos.bean.HomeMenuEntity;
+//import HomeMenuEntity;
 //
 ///**
 // * Created by JoJo on 2018/6/21.

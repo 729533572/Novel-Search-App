@@ -1,4 +1,4 @@
-package com.smart.tvpos.util;
+package com.smart.novel.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

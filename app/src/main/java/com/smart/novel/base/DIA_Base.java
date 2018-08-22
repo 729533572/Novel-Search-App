@@ -1,4 +1,4 @@
-package com.smart.tvpos.base;
+package com.smart.novel.base;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.smart.framework.library.common.utils.ScreenUtil;
-import com.smart.tvpos.MyApplication;
+import com.smart.novel.MyApplication;
 import com.smart.tvpos.R;
 
 import butterknife.ButterKnife;

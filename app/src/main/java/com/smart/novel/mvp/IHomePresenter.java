@@ -1,4 +1,4 @@
-package com.smart.tvpos.mvp;
+package com.smart.novel.mvp;
 
 /**
  * Created by JoJo on 2018/6/23.

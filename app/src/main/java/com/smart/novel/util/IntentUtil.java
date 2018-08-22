@@ -1,4 +1,4 @@
-package com.smart.tvpos.util;
+package com.smart.novel.util;
 
 /**
  * 跳转工具类

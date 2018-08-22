@@ -1,4 +1,4 @@
-package com.smart.tvpos.util;
+package com.smart.novel.util;
 
 import android.os.CountDownTimer;
 import android.util.Log;
