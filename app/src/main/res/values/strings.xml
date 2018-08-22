@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">助手家</string>
+    <string name="app_name">小说阅读神奇</string>
 
     <string name="network_loading">正在加载中...</string>
     <string name="network_error">网络不给力，请检查网络设置</string>
@@ -11,31 +11,6 @@
 
     <!--Crash异常处理-->
     <string name="arise_exception">亲，出现异常了</string>
-    <string name="activate_app_get_code">获取激活码</string>
     <string name="string_password">密码</string>
-    <string name="string_special_nurse">专护</string>
-    <string name="string_one_level">一级</string>
-    <string name="string_two_level">二级</string>
-    <string name="string_three_level">三级</string>
-    <string name="string_four_level">四级</string>
-    <string name="string_five_level">五级</string>
-    <string name="string_six_level">六级</string>
-    <string name="string_huliyuan">护理员</string>
-    <string name="string_hushi">护士</string>
-    <string name="string_yishi">医师</string>
-    <string name="string_guanlirenyuan">管理人员</string>
-    <string name="string_gongqinrenyuan">工勤人员</string>
-    <string name="string_percent_symbol">%</string>
-    <string name="string_handled">已处理</string>
-    <string name="string_unhandled">未处理</string>
-    <string name="string_unit_month">月</string>
-    <string name="string_age">年龄：</string>
-    <string name="string_sex">性别：</string>
-    <string name="string_three_fall_down">三级跌倒</string>
-    <string name="string_two_fall_down">二级跌倒</string>
-    <string name="string_one_fall_down">一级跌倒</string>
-    <!--title-->
-    <string name="string_home_title_zong">哈福云智慧养老数据监控平台</string>
-    <string name="string_title_watching_overview_zong">哈福云分院监控概览</string>
 
 </resources>

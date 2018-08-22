@@ -2,7 +2,6 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
     android:orientation="vertical">
 
     <TextView
@@ -23,8 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="left"
         android:layout_marginBottom="40px"
-        android:layout_marginTop="26px"
-        android:src="@drawable/bg_slogon" />
+        android:layout_marginTop="26px" />
 
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->

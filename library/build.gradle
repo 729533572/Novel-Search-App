@@ -53,4 +53,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     //    布局适配
     compile 'com.zhy:autolayout:1.4.5'
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'
 }

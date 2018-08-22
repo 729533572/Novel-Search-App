@@ -8,10 +8,13 @@
     <string name="common_load_more_end">亲！没有更多了</string>
     <string name="server_error">暂时无法响应，请稍后再试~</string>
     <string name="string_re_try">重新获取</string>
-    <!--首页 -->
-    <string name="company_name">XXXX服务有限公司</string>
-    <string name="company_phone">400-0000-0000</string>
 
     <string name="hint_input_phone">请输入账号</string>
     <string name="string_get_verify_code">获取验证码</string>
+
+
+    <!--接口异常处理-->
+    <string name="common_onfail">访问失败</string>
+    <string name="common_request_fail">服务器错误</string>
+    <string name="common_error_parse">解析异常</string>
 </resources>

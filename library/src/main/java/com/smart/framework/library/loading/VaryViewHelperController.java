@@ -237,14 +237,6 @@ public class VaryViewHelperController {
     }
 
 
-    /**
-     * 显示公司信息
-     */
-    public void showCompanyInfo() {
-        View layout = helper.inflate(R.layout.company_info);
-        helper.showLayout(layout);
-    }
-
     public void restore() {
         helper.restoreView();
     }

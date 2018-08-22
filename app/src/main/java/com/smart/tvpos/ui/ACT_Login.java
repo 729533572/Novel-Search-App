@@ -66,7 +66,6 @@ public class ACT_Login extends BaseActivity {
 
         String token = sharePre.getString(SharePreConstants.USER_SIGN);
         if (!TextUtils.isEmpty(token)) {
-            readyGo(ACT_Home.class);
             finish();
         } else {
             etPhone.setText(sharePre.getString(SharePreConstants.USER_NAME));
@@ -137,7 +136,6 @@ public class ACT_Login extends BaseActivity {
                 Constants.TYPE = sharePre.getString(SharePreConstants.TYPE);
                 Constants.BRANCH_NAME = sharePre.getString(SharePreConstants.BRANCH_NAME);
                 MyApplication.isLogin = true;
-                readyGo(ACT_Home.class);
                 finish();
             }
 

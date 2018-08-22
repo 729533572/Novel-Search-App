@@ -458,18 +458,6 @@ public abstract class BaseLazyFragment extends Fragment {
         mVaryViewHelperController.showEmpty(img, msg, bgColor, textColor, otherMsg);
     }
 
-
-    /**
-     * show company info
-     */
-    protected void showCompanyInfo() {
-        if (null == mVaryViewHelperController) {
-            throw new IllegalArgumentException("You must return a right target view for loading");
-        }
-
-        mVaryViewHelperController.showCompanyInfo();
-    }
-
     /**
      * toggle show error
      *

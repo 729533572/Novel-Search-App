@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/novel-search-app.iml" filepath="$PROJECT_DIR$/novel-search-app.iml" />
       <module fileurl="file://G:\other-work\rest_home_tvpos-dev\rest-home-tvpos.iml" filepath="G:\other-work\rest_home_tvpos-dev\rest-home-tvpos.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rest_home_tvpos-dev.iml" filepath="$PROJECT_DIR$/rest_home_tvpos-dev.iml" />
+      <module fileurl="file://D:\android-project\other-work\novel-search-app\rest_home_tvpos-dev.iml" filepath="D:\android-project\other-work\novel-search-app\rest_home_tvpos-dev.iml" />
     </modules>
   </component>
 </project>
