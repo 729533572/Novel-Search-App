@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.smart.framework.library.base.BaseFragment
 import com.smart.framework.library.bean.ErrorBean
-import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.R
-import kotlinx.android.synthetic.main.fra_bookshelf.*
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -44,12 +42,6 @@ class FRA_BookShelf : BaseFragment() {
     }
 
     override fun initViewsAndEvents() {
-        tv.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                var l: String? = null
-                CommonUtils.makeEventToast(mContext,l,false)
-            }
-        })
     }
 
 

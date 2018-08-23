@@ -25,6 +25,14 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_home
     }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        if (savedInstanceState != null) {
+//            mIndex = savedInstanceState.getInt("currTabIndex")
+//        }
+//        Elog.e("TAG","onCreate222")
+//    先执行initViewAndEvents(),再执行onCreate(),因为先走super.onCreate()父类的逻辑。
+//    }
 
     override fun getLoadingTargetView(): View? {
         return null
@@ -140,4 +148,10 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
     override fun isBindEventBusHere(): Boolean {
         return false
     }
+
+//    override fun onSaveInstanceState(outState: Bundle?) {
+//        super.onSaveInstanceState(outState)
+//        //记录fragment的位置,防止崩溃 activity被系统回收时，fragment重叠错乱
+//        outState!!.putInt("currTabIndex", mIndex)
+//    }
 }
