@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoFrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"></com.zhy.autolayout.AutoFrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_adadad"></View>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_bookshelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawablePadding="10px"
+            android:drawableTop="@drawable/tab_bookshelf_selector"
+            android:gravity="center"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:text="@string/string_bookshelf"
+            android:textColor="@color/tab_text_color_selector"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/rb_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawablePadding="10px"
+            android:drawableTop="@drawable/ic_message"
+            android:gravity="center"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:text="@string/string_search_novel"
+            android:textColor="@color/tab_text_color_selector"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/rb_ranklist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawablePadding="10px"
+            android:drawableTop="@drawable/ic_message"
+            android:gravity="center"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:text="@string/string_ranking_list"
+            android:textColor="@color/tab_text_color_selector"
+            android:textSize="10sp" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:button="@null"
+            android:drawablePadding="10px"
+            android:drawableTop="@drawable/ic_message"
+            android:gravity="center"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:text="@string/string_mine"
+            android:textColor="@color/tab_text_color_selector"
+            android:textSize="10sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

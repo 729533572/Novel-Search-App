@@ -42,7 +42,7 @@ dependencies {
     compile files('src/main/libs/systembartint-1.0.4.jar')
     compile files('src/main/libs/picasso-2.5.2.jar')
     compile files('src/main/libs/gson-2.3.jar')
-//    compile files('src/main/libs/android-support-v7-cardview.jar')
+    //    compile files('src/main/libs/android-support-v7-cardview.jar')
     compile files('src/main/libs/fastjson-1.1.31.jar')
     compile files('src/main/libs/universal-image-loader-1.9.5.jar')
     compile files('src/main/libs/core.jar')

@@ -9,13 +9,13 @@
     <application
         android:name="com.smart.novel.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_message"
+        android:icon="@drawable/ic_dishes_default_img"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.smart.novel.ui.ACT_Login"
+            android:name=".ui.ACT_Home"
             android:theme="@style/style_darkactionbar_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

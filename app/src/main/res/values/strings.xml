@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">小说阅读神奇</string>
+    <string name="app_name">口袋搜书</string>
 
     <string name="network_loading">正在加载中...</string>
     <string name="network_error">网络不给力，请检查网络设置</string>
@@ -12,5 +12,11 @@
     <!--Crash异常处理-->
     <string name="arise_exception">亲，出现异常了</string>
     <string name="string_password">密码</string>
+
+    <!--App首页——Home-->
+    <string name="string_bookshelf">书架</string>
+    <string name="string_search_novel">搜小说</string>
+    <string name="string_ranking_list">排行榜</string>
+    <string name="string_mine">我的</string>
 
 </resources>

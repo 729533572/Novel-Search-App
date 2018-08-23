@@ -1,4 +1,4 @@
-package com.smart.novel.ui;
+package com.smart.novel.test;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,16 +12,21 @@ import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.utils.AppSharedPreferences;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.common.utils.TimeCount;
+import com.smart.framework.library.net.ReqCallBack;
+import com.smart.framework.library.net.RequestManager;
 import com.smart.framework.library.netstatus.NetUtils;
-import com.smart.novel.util.SharePreConstants;
 import com.smart.novel.MyApplication;
-import com.smart.tvpos.R;
+import com.smart.novel.R;
 import com.smart.novel.bean.UserEntity;
+import com.smart.novel.db.bean.TestBean;
+import com.smart.novel.db.gen.TestBeanDao;
+import com.smart.novel.db.manager.DbManager;
 import com.smart.novel.global.API;
-import com.smart.novel.manager.ReqCallBack;
-import com.smart.novel.manager.RequestManager;
-import com.smart.novel.util.Constants;
+import com.smart.novel.util.SharePreConstants;
 
+import org.greenrobot.greendao.Property;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import butterknife.Bind;
@@ -48,6 +53,7 @@ public class ACT_Login extends BaseActivity {
     //验证码倒计时总时间
     private final int msgTime = 60 * 1000;
     private AppSharedPreferences sharePre;
+    private TestBean testBean;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -71,10 +77,6 @@ public class ACT_Login extends BaseActivity {
             etPhone.setText(sharePre.getString(SharePreConstants.USER_NAME));
             etPhone.setSelection(etPhone.getText().length());
         }
-
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, (int) (ScreenUtil.getScreenWidth(mContext) * 2.0f  / 5));
-//        layoutParams.addRule();
-//        llLogin.setLayoutParams(layoutParams);
     }
 
 
@@ -83,7 +85,9 @@ public class ACT_Login extends BaseActivity {
         switch (view.getId()) {
             //获取验证码
             case R.id.rb_get_code:
-                timer.start();
+                if (getLoginUser() != null) {
+                    CommonUtils.makeEventToast(mContext, getLoginUser().getMsg(), false);
+                }
                 break;
             //登录
             case R.id.rb_login:
@@ -102,11 +106,11 @@ public class ACT_Login extends BaseActivity {
      */
     private boolean doVerifyEmpty() {
         if (TextUtils.isEmpty(etPhone.getText().toString())) {
-            CommonUtils.makeEventToast(MyApplication.getContext(), "账号不能为空", false);
+            CommonUtils.makeEventToast(MyApplication.getInstance(), "账号不能为空", false);
             return false;
         }
         if (TextUtils.isEmpty(etPassword.getText().toString())) {
-            CommonUtils.makeEventToast(MyApplication.getContext(), "密码不能为空", false);
+            CommonUtils.makeEventToast(MyApplication.getInstance(), "密码不能为空", false);
             return false;
         }
         return true;
@@ -115,15 +119,13 @@ public class ACT_Login extends BaseActivity {
     private void requestLogin() {
         HashMap<String, String> params = new HashMap<>();
         params.put("a", "login");
-//        params.put("name", "hafuadmin");
-//        params.put("password", "666666");
         params.put("name", etPhone.getText().toString());
         params.put("password", etPassword.getText().toString());
         RequestManager.getInstance().requestGetByAsyn(API.SERVER_IP, params, new ReqCallBack<UserEntity>() {
             @Override
             public void onReqSuccess(UserEntity userEntity) {
                 dismissDialogLoad();
-                CommonUtils.makeEventToast(MyApplication.getContext(), "登录成功", false);
+                CommonUtils.makeEventToast(MyApplication.getInstance(), "登录成功", false);
                 //存储用户信息
                 sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());
                 sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");
@@ -131,26 +133,48 @@ public class ACT_Login extends BaseActivity {
                 sharePre.putString(SharePreConstants.TYPE, userEntity.getType());
                 sharePre.putString(SharePreConstants.BRANCH_NAME, userEntity.getBranchName());
                 sharePre.putBoolean(SharePreConstants.LOGOUT, false);
-                Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
-                Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
-                Constants.TYPE = sharePre.getString(SharePreConstants.TYPE);
-                Constants.BRANCH_NAME = sharePre.getString(SharePreConstants.BRANCH_NAME);
-                MyApplication.isLogin = true;
+//                Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
+//                Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
+//                Constants.TYPE = sharePre.getString(SharePreConstants.TYPE);
+//                Constants.BRANCH_NAME = sharePre.getString(SharePreConstants.BRANCH_NAME);
                 finish();
             }
 
             @Override
             public void onFailure(String result) {
                 dismissDialogLoad();
-                CommonUtils.makeEventToast(MyApplication.getContext(), result, false);
+                CommonUtils.makeEventToast(MyApplication.getInstance(), result, false);
             }
 
             @Override
             public void onReqFailed(ErrorBean error) {
                 dismissDialogLoad();
-                CommonUtils.makeEventToast(MyApplication.getContext(), error.getMsg(), false);
+                testBean = new TestBean();
+                testBean.setMsg(error.getMsg());
+                DbManager.getInstance().insertOrReplace(TestBean.class, testBean);
+                CommonUtils.makeEventToast(MyApplication.getInstance(), error.getMsg(), false);
             }
         });
+    }
+
+    /**
+     * 测试GreenDao
+     *
+     * @return
+     */
+    public TestBean getLoginUser() {
+        ArrayList<Property> properties = new ArrayList<Property>();
+        properties.add(TestBeanDao.Properties.Msg);
+        // 匹配条件
+        ArrayList<Object> objects = new ArrayList<Object>();
+        objects.add(testBean.getMsg());
+        TestBean userInfo = null;
+        try {
+            userInfo = (TestBean) DbManager.getInstance().query(TestBean.class, properties, objects);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userInfo;
     }
 
     @Override

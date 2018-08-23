@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
+//添加了才能使用tv_content.text = "",无需findViewbyId
+apply plugin: 'kotlin-android-extensions' //扩展插件
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -10,6 +13,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    //greendao
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.smart.novel.db.gen'
+        targetGenDir 'src/main/java'
     }
     signingConfigs {
         release {
@@ -46,13 +55,17 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'jp.wasabeef:glide-transformations:3.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'org.greenrobot:greendao:3.2.0'
     compile 'com.android.support:design:25.0.0-alpha1'
-    //    最新版本
+    //最新版本
     compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
-//    //圆角
-//    compile 'q.rorbin:badgeview:1.1.2'
+    //卡片cardview
     compile 'com.android.support:cardview-v7:25.1.0'
     compile 'com.android.support:multidex:1.0.1'
-
+    //支持kotlin混合开发
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //数据库
+    compile 'org.greenrobot:greendao:3.2.0'
+}
+repositories {
+    mavenCentral()
 }

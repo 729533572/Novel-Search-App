@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.smart.framework.library.common.utils.ScreenUtil;
 import com.smart.novel.MyApplication;
-import com.smart.tvpos.R;
+import com.smart.novel.R;
 
 import butterknife.ButterKnife;
 
