@@ -9,7 +9,7 @@ import com.smart.novel.R
 /**
  * Created by JoJo on 2018/8/23.
  * wechat:18510829974
- * description: 书架
+ * description: 排行榜
  */
 class FRA_RankingList : BaseFragment() {
     companion object {
