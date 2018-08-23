@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     //greendao
     greendao {
@@ -42,6 +43,14 @@ android {
             signingConfig signingConfigs.release
         }
     }
+    // 打开Data Binding , 这样我们可以通过声明式布局以精简的代码来绑定应用程序逻辑和布局
+    dataBinding {
+        enabled = true
+    }
+//  解决：Kotlin和DataBinding冲突  Unresolved reference: databinding 参考：https://blog.csdn.net/ethanco/article/details/54693140
+    kapt {
+        generateStubs = true
+    }
 }
 
 dependencies {
@@ -65,6 +74,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //数据库
     compile 'org.greenrobot:greendao:3.2.0'
+    //解决Kotlin和DataBinding冲突 Unresolved reference: databinding 参考：https://blog.csdn.net/victor_fang/article/details/54668326
+    kapt "com.android.databinding:compiler:$android_version" //android_version为Android plugin的版本
 }
 repositories {
     mavenCentral()

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -63,6 +65,7 @@ public abstract class BaseLazyFragment extends Fragment {
     private boolean mIsRegisterReceiver = false;
 
     private View container;
+    public ViewDataBinding viewDataBinding;
 
     @Override
     public void onAttach(Activity activity) {
@@ -82,7 +85,10 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (getContentViewLayoutID() != 0) {
-            return inflater.inflate(getContentViewLayoutID(), null);
+            // Inflate the layout for this fragment
+            viewDataBinding = DataBindingUtil.inflate(inflater, getContentViewLayoutID(), container, false);
+            return viewDataBinding.getRoot();
+//            return inflater.inflate(getContentViewLayoutID(), null);
         } else {
             return super.onCreateView(inflater, container, savedInstanceState);
         }
@@ -197,10 +203,11 @@ public abstract class BaseLazyFragment extends Fragment {
 
     /**
      * set loading target view
+     *
      * @param view
      */
-    public void setLoadingTargetView(View view){
-        if (null != view){
+    public void setLoadingTargetView(View view) {
+        if (null != view) {
             mVaryViewHelperController = new VaryViewHelperController(view);
         }
     }
@@ -208,8 +215,8 @@ public abstract class BaseLazyFragment extends Fragment {
     /**
      * restore view helper
      */
-    public void restoreViewHelper(){
-        if (null != mVaryViewHelperController){
+    public void restoreViewHelper() {
+        if (null != mVaryViewHelperController) {
             mVaryViewHelperController.restore();
         }
     }

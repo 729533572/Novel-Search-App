@@ -16,7 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    // 打开Data Binding , 这样我们可以通过声明式布局以精简的代码来绑定应用程序逻辑和布局
+    dataBinding{
+        enabled = true
+    }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -41,17 +44,25 @@ dependencies {
     compile files('src/main/libs/butterknife-7.0.1.jar')
     compile files('src/main/libs/systembartint-1.0.4.jar')
     compile files('src/main/libs/picasso-2.5.2.jar')
-    compile files('src/main/libs/gson-2.3.jar')
     //    compile files('src/main/libs/android-support-v7-cardview.jar')
     compile files('src/main/libs/fastjson-1.1.31.jar')
-    compile files('src/main/libs/universal-image-loader-1.9.5.jar')
     compile files('src/main/libs/core.jar')
-    compile files('src/main/libs/badgeview.jar')
     compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile files('src/main/libs/httpclient-4.5.1.jar')
-    compile files('src/main/libs/httpcore-4.4.3.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'
     //    布局适配
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
+    //    新版本的rxjava + retrofit
+    //rxandroid
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    //rxjava
+    compile 'io.reactivex.rxjava2:rxjava:2.1.10'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    //gsonConverter
+    compile 'com.squareup.retrofit2:converter-gson:2.4.0'
+    //rxjavaAdapter
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    //retrofit log打印
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 }

@@ -5,6 +5,11 @@ import android.view.View
 import com.smart.framework.library.base.BaseFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
+import com.smart.novel.databinding.FraBookshelfBinding
+import com.smart.novel.net.RxSchedulers
+import com.smart.novel.net.WeatherEntity
+import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
+import io.reactivex.observers.DisposableObserver
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -42,6 +47,20 @@ class FRA_BookShelf : BaseFragment() {
     }
 
     override fun initViewsAndEvents() {
+        RetrofitRxManager.getRequestService(mContext).getWeather("北京")
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(object : DisposableObserver<WeatherEntity>() {
+                    override fun onNext(bean: WeatherEntity) {
+                        var viewBinder =viewDataBinding as FraBookshelfBinding
+                        viewBinder.weather = bean
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+
+                    override fun onComplete() {
+                    }
+                })
     }
 
 
