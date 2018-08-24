@@ -121,8 +121,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (isBindEventBusHere()) {
             EventBus.getDefault().register(this);
         }
-//        SmartBarUtils.hide(getWindow().getDecorView());
-//        setTranslucentStatus(isApplyStatusBarTranslucency());
 
         mContext = this;
         TAG_LOG = this.getClass().getSimpleName();
@@ -140,6 +138,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
+
+        handleStatusBar();
 
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -163,6 +163,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
         registerReceiver();
     }
+
+    protected abstract void handleStatusBar();
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

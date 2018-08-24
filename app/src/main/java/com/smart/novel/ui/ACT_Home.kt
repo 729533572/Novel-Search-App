@@ -39,6 +39,7 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
     }
 
     override fun initViewsAndEvents() {
+//        super.initViewsAndEvents()
         switchFragment(mIndex)
         initListener()
     }

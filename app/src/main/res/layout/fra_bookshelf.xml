@@ -14,11 +14,8 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_FFFFFF"
         android:orientation="vertical">
-
         <include
-            android:id="@+id/titlebar"
             layout="@layout/inc_common_title"></include>
 
         <com.zhy.autolayout.AutoRelativeLayout
@@ -57,13 +54,6 @@
                 android:textColor="#2E3439"
                 android:textSize="12sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
-
-        <View
-            android:id="@+id/title_divider"
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="@drawable/bg_shape_gradient_line_reverse"
-            android:focusableInTouchMode="true" />
 
         <com.smart.framework.library.loading.MultipleStatusView
             android:id="@+id/multipleStatusView"

@@ -2,6 +2,7 @@
 <com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
 
@@ -9,16 +10,14 @@
         android:id="@+id/ll_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_slogon_one"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/bg_shape_solid_ffffff_coner_10"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/title_login"
+        <include layout="@layout/inc_common_title"></include>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#0ff000"></View>
+            android:layout_height="wrap_content"
+            android:text="精品死得好怕死的回复送皮带和视频第" />
 
         <TextView
             android:layout_width="wrap_content"

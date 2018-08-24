@@ -61,6 +61,11 @@ public class ACT_Login extends BaseActivity {
     }
 
     @Override
+    protected void handleStatusBar() {
+
+    }
+
+    @Override
     protected void getBundleExtras(Bundle extras) {
 
     }

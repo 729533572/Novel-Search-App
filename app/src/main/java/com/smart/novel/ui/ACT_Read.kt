@@ -1,23 +1,21 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
 
 /**
- * Created by JoJo on 2018/8/23.
- * wechat:18510829974
- * description:
+ * Created by JoJo on 2018/8/24.
+ *wechat：18510829974
+ *description：抓取网页：https://www.zhuishu.tw/id50438
  */
-class ACT_Login : ACT_Base() {
+class ACT_Read : ACT_Base() {
     override fun getBundleExtras(extras: Bundle?) {
-
     }
 
     override fun getContentViewLayoutID(): Int {
-        return R.layout.act_login
+        return R.layout.act_read
     }
 
     override fun getLoadingTargetView(): View? {
@@ -25,12 +23,7 @@ class ACT_Login : ACT_Base() {
     }
 
     override fun initViewsAndEvents() {
-//        super.initViewsAndEvents()
-        Log.e("TAG","initViewsAndEvents")
-    }
 
-    override fun toggleOverridePendingTransition(): Boolean {
-        return false
     }
 
     override fun isBindEventBusHere(): Boolean {

@@ -53,7 +53,7 @@ class FRA_BookShelf : BaseFragment() {
 
     override fun initViewsAndEvents() {
         //状态栏透明和间距处理(不作如下处理，则为android:theme="@style/style_darkactionbar_activity"该主题的黑色背景的状态栏)
-//        StatusBarUtil.darkMode(activity)//状态栏文字颜色：深色
+//        StatusBarUtil.darkMode(activity)//状态栏字体颜色及icon变黑
 //        StatusBarUtil.setPaddingSmart(activity, titlebar)
 
 
