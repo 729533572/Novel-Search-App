@@ -34,7 +34,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
         if (isApplyKitKatTranslucency()) {
             setSystemBarTintDrawable(getResources().getDrawable(R.drawable.sr_primary));
         }
-        hideBottomUIMenu();
+//        hideBottomUIMenu();
         //PushAgent.getInstance(mContext).onAppStart();
     }
 

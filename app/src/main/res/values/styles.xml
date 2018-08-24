@@ -26,15 +26,20 @@
     </style>
 
 
-    <!-- Activity主题 -->
+    <!-- Activity主题-黑色状态栏 -->
     <style name="style_darkactionbar_activity" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <!-- Activity主题 -->
+    <!-- Activity主题-全屏 -->
     <style name="style_full_screen" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="style_custom_dialog">

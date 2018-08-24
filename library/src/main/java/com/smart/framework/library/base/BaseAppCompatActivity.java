@@ -26,7 +26,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.R;
 import com.smart.framework.library.common.Constants;
-import com.smart.framework.library.common.utils.SmartBarUtils;
 import com.smart.framework.library.loading.LoadingDialog;
 import com.smart.framework.library.loading.VaryViewHelperController;
 import com.smart.framework.library.manager.ActivityTaskManager;
@@ -75,7 +74,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      * OverridePendingTransition
      */
     public enum TransitionMode {
-        LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE,ZOOM
+        LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE, ZOOM
     }
 
     private LoadingDialog mLoadingDialog;
@@ -122,8 +121,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         if (isBindEventBusHere()) {
             EventBus.getDefault().register(this);
         }
-        SmartBarUtils.hide(getWindow().getDecorView());
-        setTranslucentStatus(isApplyStatusBarTranslucency());
+//        SmartBarUtils.hide(getWindow().getDecorView());
+//        setTranslucentStatus(isApplyStatusBarTranslucency());
 
         mContext = this;
         TAG_LOG = this.getClass().getSimpleName();
@@ -185,10 +184,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * set loading target view
+     *
      * @param view
      */
-    public void setLoadingTargetView(View view){
-        if (null != view){
+    public void setLoadingTargetView(View view) {
+        if (null != view) {
             mVaryViewHelperController = new VaryViewHelperController(view);
         }
     }
@@ -402,9 +402,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * toggle show login
-     *
      */
-    protected void toggleshowLogin(){
+    protected void toggleshowLogin() {
         BaseApplication.getInstance().showLoginDialog();
     }
 
@@ -447,6 +446,7 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * show no clickable msg
+     *
      * @param img
      * @param msg
      */
@@ -494,7 +494,6 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
 
     /**
      * toggle show network error
-     *
      */
     protected void showServerError() {
         if (null == mVaryViewHelperController) {
@@ -579,7 +578,9 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         String runningActivity = activityManager.getRunningTasks(1).get(0).topActivity.getClassName();
         ActivityTaskManager.getInstance().putActivity(runningActivity, this);
-    };
+    }
+
+    ;
 
     /**
      * 注册广播

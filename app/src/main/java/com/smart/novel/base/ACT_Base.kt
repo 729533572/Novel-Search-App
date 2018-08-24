@@ -32,6 +32,9 @@ abstract class ACT_Base : BaseActivity() {
         return false
     }
 
+    override fun initViewsAndEvents() {
+    }
+
     override fun toggleOverridePendingTransition(): Boolean {
         return true
     }

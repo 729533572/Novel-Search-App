@@ -42,7 +42,6 @@ class FRA_Mine : BaseFragment() {
     }
 
     override fun initViewsAndEvents() {
-
     }
 
 

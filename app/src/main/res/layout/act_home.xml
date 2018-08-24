@@ -2,6 +2,7 @@
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_FFFFFF"
     android:orientation="vertical">
 
     <com.zhy.autolayout.AutoFrameLayout
@@ -13,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/color_adadad"></View>
+        android:background="@color/color_dedede"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
@@ -30,11 +31,11 @@
             android:drawablePadding="10px"
             android:drawableTop="@drawable/tab_bookshelf_selector"
             android:gravity="center"
-            android:paddingBottom="10px"
-            android:paddingTop="10px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"
             android:text="@string/string_bookshelf"
             android:textColor="@color/tab_text_color_selector"
-            android:textSize="10sp" />
+            android:textSize="9sp" />
 
         <RadioButton
             android:id="@+id/rb_search"
@@ -44,13 +45,13 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:drawablePadding="10px"
-            android:drawableTop="@drawable/ic_message"
+            android:drawableTop="@drawable/tab_searchnovel_selector"
             android:gravity="center"
-            android:paddingBottom="10px"
-            android:paddingTop="10px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"
             android:text="@string/string_search_novel"
             android:textColor="@color/tab_text_color_selector"
-            android:textSize="10sp" />
+            android:textSize="9sp" />
 
         <RadioButton
             android:id="@+id/rb_ranklist"
@@ -60,13 +61,13 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:drawablePadding="10px"
-            android:drawableTop="@drawable/ic_message"
+            android:drawableTop="@drawable/tab_ranklist_selector"
             android:gravity="center"
-            android:paddingBottom="10px"
-            android:paddingTop="10px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"
             android:text="@string/string_ranking_list"
             android:textColor="@color/tab_text_color_selector"
-            android:textSize="10sp" />
+            android:textSize="9sp" />
 
         <RadioButton
             android:id="@+id/rb_mine"
@@ -76,12 +77,12 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:drawablePadding="10px"
-            android:drawableTop="@drawable/ic_message"
+            android:drawableTop="@drawable/tab_mine_selector"
             android:gravity="center"
-            android:paddingBottom="10px"
-            android:paddingTop="10px"
+            android:paddingBottom="15px"
+            android:paddingTop="15px"
             android:text="@string/string_mine"
             android:textColor="@color/tab_text_color_selector"
-            android:textSize="10sp" />
+            android:textSize="9sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 </com.zhy.autolayout.AutoLinearLayout>

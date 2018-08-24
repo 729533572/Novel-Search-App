@@ -1,20 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
     <data>
+
         <variable
             name="weather"
-            type="com.smart.novel.net.WeatherEntity">
-        </variable>
+            type="com.smart.novel.net.WeatherEntity"></variable>
     </data>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv"
+        android:layout_height="match_parent"
+        android:background="@color/color_FFFFFF"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/titlebar"
+            layout="@layout/inc_common_title"></include>
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30px"
+            android:paddingRight="30px">
+
+            <TextView
+                android:id="@+id/tv_read_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:text="阅读历史"
+                android:textColor="#2E3439"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tv_read_history"
+                android:paddingTop="36px"
+                android:text="我的收藏"
+                android:textColor="@color/color_999999"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="共9本"
+                android:textColor="#2E3439"
+                android:textSize="12sp" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <View
+            android:id="@+id/title_divider"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@drawable/bg_shape_gradient_line_reverse"
+            android:focusableInTouchMode="true" />
+
+        <com.smart.framework.library.loading.MultipleStatusView
+            android:id="@+id/multipleStatusView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@{weather.message}" />
+            app:emptyView="@layout/layout_empty_view"
+            app:errorView="@layout/layout_error_view"
+            app:loadingView="@layout/layout_loading_view"
+            app:noNetworkView="@layout/no_network_view">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.city}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.date}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.message}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.data.ganmao}"
+                    android:textSize="20dp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.smart.framework.library.loading.MultipleStatusView>
+
     </com.zhy.autolayout.AutoLinearLayout>
 
 </layout>

@@ -8,7 +8,6 @@
     <color name="base_msg_color">#ff999999</color>
 
 
-
     <!--惠生活风格色-->
     <color name="black">#565656</color>
     <color name="benefit_style">#EB6100</color>
@@ -38,8 +37,12 @@
     <drawable name="sr_primary">@color/gplus_color_2</drawable>
     <drawable name="transparent">@android:color/transparent</drawable>
 
-    <!--助手家页面使用的通用颜色值-->
+    <!--页面使用的通用颜色值-->
     <color name="color_4e4e4e">#4e4e4e</color>
     <color name="color_b9b9b9">#b9b9b9</color>
     <color name="color_519bef">#519bef</color>
+    <!--loading页面背景颜色-->
+    <color name="color_f7f7f7">#f7f7f7</color>
+    <!--app主色-->
+    <color name="color_3AC270">#3AC270</color>
 </resources>

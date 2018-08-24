@@ -2,6 +2,7 @@ package com.smart.framework.library.loading.indicator;
 
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.animation.LinearInterpolator;
 
@@ -12,12 +13,13 @@ import com.nineoldandroids.animation.ValueAnimator;
  */
 public class BallTrianglePathIndicator extends BaseIndicatorController {
 
-    float[] translateX=new float[3],translateY=new float[3];
+    float[] translateX = new float[3], translateY = new float[3];
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
         paint.setStrokeWidth(3);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.parseColor("#3AC270"));
         for (int i = 0; i < 3; i++) {
             canvas.save();
             canvas.translate(translateX[i], translateY[i]);
@@ -28,30 +30,30 @@ public class BallTrianglePathIndicator extends BaseIndicatorController {
 
     @Override
     public void createAnimation() {
-        float startX=getWidth()/5;
-        float startY=getWidth()/5;
+        float startX = getWidth() / 5;
+        float startY = getWidth() / 5;
         for (int i = 0; i < 3; i++) {
-            final int index=i;
-            ValueAnimator translateXAnim= ValueAnimator.ofFloat(getWidth()/2,getWidth()-startX,startX,getWidth()/2);
-            if (i==1){
-                translateXAnim= ValueAnimator.ofFloat(getWidth()-startX,startX,getWidth()/2,getWidth()-startX);
-            }else if (i==2){
-                translateXAnim= ValueAnimator.ofFloat(startX,getWidth()/2,getWidth()-startX,startX);
+            final int index = i;
+            ValueAnimator translateXAnim = ValueAnimator.ofFloat(getWidth() / 2, getWidth() - startX, startX, getWidth() / 2);
+            if (i == 1) {
+                translateXAnim = ValueAnimator.ofFloat(getWidth() - startX, startX, getWidth() / 2, getWidth() - startX);
+            } else if (i == 2) {
+                translateXAnim = ValueAnimator.ofFloat(startX, getWidth() / 2, getWidth() - startX, startX);
             }
-            ValueAnimator translateYAnim= ValueAnimator.ofFloat(startY,getHeight()-startY,getHeight()-startY,startY);
-            if (i==1){
-                translateYAnim= ValueAnimator.ofFloat(getHeight()-startY,getHeight()-startY,startY,getHeight()-startY);
-            }else if (i==2){
-                translateYAnim= ValueAnimator.ofFloat(getHeight()-startY,startY,getHeight()-startY,getHeight()-startY);
+            ValueAnimator translateYAnim = ValueAnimator.ofFloat(startY, getHeight() - startY, getHeight() - startY, startY);
+            if (i == 1) {
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, getHeight() - startY, startY, getHeight() - startY);
+            } else if (i == 2) {
+                translateYAnim = ValueAnimator.ofFloat(getHeight() - startY, startY, getHeight() - startY, getHeight() - startY);
             }
 
             translateXAnim.setDuration(2000);
             translateXAnim.setInterpolator(new LinearInterpolator());
-                translateXAnim.setRepeatCount(-1);
+            translateXAnim.setRepeatCount(-1);
             translateXAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    translateX [index]= (float) animation.getAnimatedValue();
+                    translateX[index] = (float) animation.getAnimatedValue();
                     postInvalidate();
                 }
             });
@@ -63,7 +65,7 @@ public class BallTrianglePathIndicator extends BaseIndicatorController {
             translateYAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    translateY [index]= (float) animation.getAnimatedValue();
+                    translateY[index] = (float) animation.getAnimatedValue();
                     postInvalidate();
                 }
             });

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical">
+
+    <com.smart.framework.library.loading.LoadingIndicatorView
+        android:id="@+id/loadingIndicatorview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicator="BallTrianglePath" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/loading_text"
+        android:textColor="#9a9a9a" />
+
+</LinearLayout>

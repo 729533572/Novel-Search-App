@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <gradient
+                android:angle="90"
+                android:endColor="#f4f4f4"
+                android:startColor="#ffffff" />
+            <!--结束颜色,背景色:绿色.系统会自动绘制颜色-->
+            <!--角度:90 :从下到上-->
+
+        </shape>
+    </item>
+
+    <!--<item android:top="8dp">&lt;!&ndash;距离顶部8dp&ndash;&gt;-->
+    <!--<shape>-->
+    <!--<solid android:color="@color/color_ffffff" />-->
+    <!--</shape>-->
+    <!--</item>-->
+
+</layer-list>
