@@ -2,11 +2,15 @@ package com.smart.framework.library.loading;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.smart.framework.library.R;
 
@@ -140,6 +144,51 @@ public class MultipleStatusView extends RelativeLayout {
             }
             mOtherIds.add(mEmptyView.getId());
             addView(mEmptyView, 0, layoutParams);
+        }
+        showViewById(mEmptyView.getId());
+    }
+
+    private SparseArray<View> mViews = new SparseArray<>();
+
+    /**
+     * 通过viewId获取控件,减少findViewById的次数
+     *
+     * @param viewId
+     * @return
+     */
+    public <T extends View> T getView(View mConvertView, int viewId) {
+        View view = mViews.get(viewId);
+        if (view == null) {
+            view = mConvertView.findViewById(viewId);
+            mViews.put(viewId, view);
+        }
+        return (T) view;
+    }
+
+    /**
+     * 自定义icon 和Text 显示多种类型的空视图
+     */
+    public final void showEmpty(int imgSrcId, String text) {
+        View view = inflateView(mEmptyViewResId);
+        ImageView ivEmptyImg = getView(view, R.id.iv_empty_img);
+        TextView tvEmptyTxt = getView(view, R.id.tv_empty_txt);
+        if (imgSrcId != 0) {
+            ivEmptyImg.setImageResource(imgSrcId);
+        }
+        if (!TextUtils.isEmpty(text)) {
+            tvEmptyTxt.setText(text);
+        }
+        checkNull(view, "Empty view is null!");
+        mViewStatus = STATUS_EMPTY;
+        if (null == mEmptyView) {
+            mEmptyView = view;
+            View emptyRetryView = mEmptyView.findViewById(R.id.empty_retry_view);
+            //设置点击重试的监听-需在视图中指定一个控件，设置其id为empty_retry_view才能生效
+            if (null != mOnRetryClickListener && null != emptyRetryView) {
+                emptyRetryView.setOnClickListener(mOnRetryClickListener);
+            }
+            mOtherIds.add(mEmptyView.getId());
+            addView(mEmptyView, 0, DEFAULT_LAYOUT_PARAMS);
         }
         showViewById(mEmptyView.getId());
     }

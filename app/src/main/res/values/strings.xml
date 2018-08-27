@@ -18,5 +18,7 @@
     <string name="string_search_novel">搜小说</string>
     <string name="string_ranking_list">排行榜</string>
     <string name="string_mine">我的</string>
+    <!--空页面文字note-->
+    <string name="string_empty_bookshelf">快去添加书籍吧</string>
 
 </resources>

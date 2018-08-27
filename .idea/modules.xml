@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Novel-Search-App-Frame.iml" filepath="$PROJECT_DIR$/Novel-Search-App-Frame.iml" />
       <module fileurl="file://D:\android-project\other-work\novel-search-app\Novel-Search-App-Frame.iml" filepath="D:\android-project\other-work\novel-search-app\Novel-Search-App-Frame.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/novel-search-app.iml" filepath="$PROJECT_DIR$/novel-search-app.iml" />
       <module fileurl="file://G:\other-work\Novel-Search-App-Frame\novel-search-app.iml" filepath="G:\other-work\Novel-Search-App-Frame\novel-search-app.iml" />
       <module fileurl="file://G:\other-work\rest_home_tvpos-dev\rest-home-tvpos.iml" filepath="G:\other-work\rest_home_tvpos-dev\rest-home-tvpos.iml" />
       <module fileurl="file://D:\android-project\other-work\novel-search-app\rest_home_tvpos-dev.iml" filepath="D:\android-project\other-work\novel-search-app\rest_home_tvpos-dev.iml" />

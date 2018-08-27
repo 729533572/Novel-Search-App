@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.act_home.*
  * description:
  */
 class ACT_Home : ACT_Base(), View.OnClickListener {
+
     private var mFraBookShelf: BaseFragment? = null
     private var mFraSearch: BaseFragment? = null
     private var mFraRankingList: BaseFragment? = null

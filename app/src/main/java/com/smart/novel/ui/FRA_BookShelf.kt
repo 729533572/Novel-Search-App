@@ -3,9 +3,10 @@ package com.smart.novel.ui
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import com.smart.framework.library.base.BaseFragment
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.novel.MyApplication
 import com.smart.novel.R
+import com.smart.novel.base.FRA_Base
 import com.smart.novel.databinding.FraBookshelfBinding
 import com.smart.novel.net.RxSchedulers
 import com.smart.novel.net.WeatherEntity
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
  * wechat:18510829974
  * description: 书架
  */
-class FRA_BookShelf : BaseFragment() {
+class FRA_BookShelf : FRA_Base() {
+
     /**
      * companion object {}内：静态方法
      */
@@ -72,7 +74,8 @@ class FRA_BookShelf : BaseFragment() {
                         override fun onNext(bean: WeatherEntity) {
                             var viewBinder = viewDataBinding as FraBookshelfBinding
                             viewBinder.weather = bean
-                            multipleStatusView.showContent()
+//                            multipleStatusView.showContent()
+                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data,MyApplication.context.getString(R.string.string_empty_bookshelf))
                         }
 
                         override fun onError(e: Throwable) {

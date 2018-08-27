@@ -8,14 +8,17 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_reading_no_data" />
+        android:id="@+id/iv_empty_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_no_data" />
 
     <TextView
+        android:id="@+id/tv_empty_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30px"
+        android:textColor="@color/color_b1b1b1"
         android:text="@string/empty_view_hint"
         android:textSize="13sp" />
 

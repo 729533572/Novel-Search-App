@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 //添加了才能使用tv_content.text = "",无需findViewbyId
 apply plugin: 'kotlin-android-extensions' //扩展插件
 apply plugin: 'org.greenrobot.greendao'
+//解决：Kotlin和DataBinding冲突  Unresolved reference: databinding 参考：https://blog.csdn.net/ethanco/article/details/54693140
+apply plugin: 'kotlin-kapt' //扩展插件,没有这个，可能会无法直接使用控件的id得到view的对象
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"

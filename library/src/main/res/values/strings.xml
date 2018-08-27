@@ -19,10 +19,10 @@
     <string name="common_error_parse">解析异常</string>
 
     <!--MutistatusView-->
-    <string name="empty_view_hint">暂无数据</string>
+    <string name="empty_view_hint">空空如也</string>
     <string name="error_view_hint">加载失败</string>
     <string name="no_network_view_hint">网络异常</string>
     <string name="loading_text">加载中&#8230;</string>
-    <string name="data_error">数据获取失败(ㄒoㄒ)~~</string>
+    <string name="data_error">内容丢失在火星了(ㄒoㄒ)~~</string>
     <string name="no_network">请检查网络后点击重新加载</string>
 </resources>
