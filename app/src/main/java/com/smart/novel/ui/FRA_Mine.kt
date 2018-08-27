@@ -5,13 +5,15 @@ import android.view.View
 import com.smart.framework.library.base.BaseFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
+import com.smart.novel.mvp.model.TestModel
+import com.smart.novel.mvp.presenter.TestPresenter
 
 /**
  * Created by JoJo on 2018/8/23.
  * wechat:18510829974
  * description: 我的
  */
-class FRA_Mine : BaseFragment() {
+class FRA_Mine : BaseFragment<TestPresenter, TestModel>() {
     companion object {
         fun getInstance(): FRA_Mine {
             val fragment = FRA_Mine()
@@ -19,6 +21,8 @@ class FRA_Mine : BaseFragment() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+    override fun startEvents() {
     }
 
     override fun getContentViewLayoutID(): Int {
@@ -39,9 +43,6 @@ class FRA_Mine : BaseFragment() {
 
     override fun getLoadingTargetView(): View? {
         return null
-    }
-
-    override fun initViewsAndEvents() {
     }
 
 

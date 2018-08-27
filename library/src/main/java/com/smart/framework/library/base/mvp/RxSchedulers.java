@@ -1,4 +1,4 @@
-package com.smart.novel.net;
+package com.smart.framework.library.base.mvp;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

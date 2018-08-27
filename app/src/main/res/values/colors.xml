@@ -10,67 +10,9 @@
     <color name="color_00000000">#00000000</color>
     <color name="color_000000">#000000</color>
     <color name="color_FFFFFF">#FFFFFF</color>
-    <color name="color_666666">#666666</color>
-    <color name="color_bfbfbf">#bfbfbf</color>
-    <color name="color_fefeff">#fefeff</color>
-    <color name="color_6ea4ee">#6ea4ee</color>
-    <color name="color_acacac">#acacac</color>
-    <color name="color_55ddf2">#55ddf2</color>
-    <color name="color_d4f1ff">#d4f1ff</color>
-    <color name="color_53ddf2">#53ddf2</color>
-    <color name="color_0f3068">#0f3068</color>
-    <color name="color_284d8e">#284d8e</color>
-    <color name="color_09143b">#09143b</color>
-    <color name="color_red">#ff0000</color>
-    <color name="color_transparent">#00000000</color>
-    <color name="color_081638">#081638</color>
-    <color name="color_b0cddb">#b0cddb</color>
-    <color name="color_93acbb">#93acbb</color>
-    <color name="color_264c6a">#264c6a</color>
-    <color name="color_b69b4f">#b69b4f</color>
-    <color name="color_2b84b9">#2b84b9</color>
-    <color name="color_a9c6d6">#a9c6d6</color>
-    <!--环形饼状图颜色-员工统计-->
-    <color name="color_55c7f2">#55c7f2</color>
-    <color name="color_5ffefd">#5ffefd</color>
-    <color name="color_34617e">#34617e</color>
-    <color name="color_7c80fe">#7c80fe</color>
-    <color name="color_f1b133">#f1b133</color>
-    <color name="color_e36853">#e36853</color>
-    <color name="color_2e84ba">#2e84ba</color>
-
-    <!--接待入住-->
-    <color name="color_07f2ab">#07f2ab</color>
-    <color name="color_79d4d8">#79d4d8</color>
-    <color name="color_4388bc">#4388bc</color>
-    <color name="color_274782">#274782</color>
-    <color name="color_132450">#132450</color>
-    <color name="color_f6f9fb">#f6f9fb</color>
-    <!--入住养老趋势-->
-    <color name="color_4487bc">#4487bc</color>
-    <color name="color_efaf34">#efaf34</color>
-    <color name="color_b2bcd6">#b2bcd6</color>
-    <color name="color_60fdfd">#60fdfd</color>
-    <color name="color_8f9292">#8f9292</color>
-    <color name="color_555555">#555555</color>
-    <color name="color_adadad">#adadad</color>
-    <color name="color_e3e6e5">#e3e6e5</color>
-    <color name="color_2af0ae">#2af0ae</color>
-    <color name="color_68fdfe">#68fdfe</color>
-    <color name="color_3662a0">#3662a0</color>
-    <color name="color_eeeeee">#eeeeee</color>
-    <color name="color_529af0">#529af0</color>
-    <color name="color_feeed2">#feeed2</color>
-    <color name="color_d8dae1">#d8dae1</color>
-    <color name="color_dcdcdc">#dcdcdc</color>
-    <color name="color_d2d2d2">#d2d2d2</color>
-    <color name="color_868686">#868686</color>
-    <!--床垫状态所对应的文字颜色-->
-    <color name="color_4990e3">#4990e3</color>
-    <color name="color_facf88">#facf88</color>
-    <color name="color_c53e3d">#c53e3d</color>
-    <color name="color_bbbbbc">#bbbbbc</color>
-    <color name="color_bbbbbb">#bbbbbb</color>
     <color name="color_dedede">#dedede</color>
+    <color name="color_bbbbbb">#bbbbbb</color>
+    <!--首页-->
     <color name="color_999999">#999999</color>
+    <color name="color_adadad">#adadad</color>
 </resources>

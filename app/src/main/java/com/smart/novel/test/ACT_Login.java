@@ -12,8 +12,8 @@ import com.smart.framework.library.bean.ErrorBean;
 import com.smart.framework.library.common.utils.AppSharedPreferences;
 import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.common.utils.TimeCount;
-import com.smart.framework.library.net.ReqCallBack;
-import com.smart.framework.library.net.RequestManager;
+import com.smart.framework.library.net.okhttp.ReqCallBack;
+import com.smart.framework.library.net.okhttp.RequestManager;
 import com.smart.framework.library.netstatus.NetUtils;
 import com.smart.novel.MyApplication;
 import com.smart.novel.R;
@@ -75,11 +75,11 @@ public class ACT_Login extends BaseActivity {
         timer = new TimeCount(msgTime, countDownInterval, rbGetCode, mContext);
         sharePre = new AppSharedPreferences(this);
 
-        String token = sharePre.getString(SharePreConstants.USER_SIGN);
+        String token = sharePre.getString(SharePreConstants.Companion.getUSER_SIGN());
         if (!TextUtils.isEmpty(token)) {
             finish();
         } else {
-            etPhone.setText(sharePre.getString(SharePreConstants.USER_NAME));
+            etPhone.setText(sharePre.getString(SharePreConstants.Companion.getUSER_NAME()));
             etPhone.setSelection(etPhone.getText().length());
         }
     }
@@ -132,12 +132,12 @@ public class ACT_Login extends BaseActivity {
                 dismissDialogLoad();
                 CommonUtils.makeEventToast(MyApplication.getInstance(), "登录成功", false);
                 //存储用户信息
-                sharePre.putString(SharePreConstants.USER_SIGN, userEntity.getSign() == null ? "" : userEntity.getSign());
-                sharePre.putString(SharePreConstants.USER_ID, userEntity.getId() + "");
-                sharePre.putString(SharePreConstants.USER_NAME, userEntity.getName());
-                sharePre.putString(SharePreConstants.TYPE, userEntity.getType());
-                sharePre.putString(SharePreConstants.BRANCH_NAME, userEntity.getBranchName());
-                sharePre.putBoolean(SharePreConstants.LOGOUT, false);
+                sharePre.putString(SharePreConstants.Companion.getUSER_SIGN(), userEntity.getSign() == null ? "" : userEntity.getSign());
+                sharePre.putString(SharePreConstants.Companion.getUSER_ID(), userEntity.getId() + "");
+                sharePre.putString(SharePreConstants.Companion.getUSER_NAME(), userEntity.getName());
+                sharePre.putString(SharePreConstants.Companion.getTYPE(), userEntity.getType());
+                sharePre.putString(SharePreConstants.Companion.getBRANCH_NAME(), userEntity.getBranchName());
+                sharePre.putBoolean(SharePreConstants.Companion.getLOGOUT(), false);
 //                Constants.USER_ID = sharePre.getString(SharePreConstants.USER_ID);
 //                Constants.USER_SIGN = sharePre.getString(SharePreConstants.USER_SIGN);
 //                Constants.TYPE = sharePre.getString(SharePreConstants.TYPE);

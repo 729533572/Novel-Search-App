@@ -53,7 +53,6 @@ abstract class ACT_Base : BaseActivity() {
 //        StatusBarUtil.setPaddingSmart(this, fakeTitlleView)
         contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(context),
                 contentView.paddingRight, contentView.paddingBottom)
-        Log.e("TAG", "handleStatusBar")
     }
 
     override fun toggleOverridePendingTransition(): Boolean {

@@ -4,8 +4,12 @@ import android.content.Context
 import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
+import com.smart.framework.library.base.mvp.RxSchedulers
+import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
+import io.reactivex.Observable
+import io.reactivex.observers.DisposableObserver
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.Buffer
@@ -61,10 +65,51 @@ object RetrofitRxManager {
     }
 
     /**
+     * 不添加Retrofit cache
+     */
+    fun getRetrofit(): Retrofit? {
+        if (retrofit == null) {
+            synchronized(RetrofitRxManager::class.java) {
+                if (retrofit == null) {
+                    ///getExternalFilesDir:Android/data/包名/files/okhttp… (该路径通常挂载在/mnt/sdcard/下)
+                    var mClient = OkHttpClient.Builder()
+                            //添加公告查询参数
+//                            .addInterceptor(CommonQueryParamsInterceptor ())
+                            //处理多个Baseurl的拦截器
+//                            .addInterceptor(MutiBaseUrlInterceptor())
+                            .retryOnConnectionFailure(true)
+                            .addInterceptor(getHeaderInterceptor())
+                            .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
+                            .addInterceptor(CacheInterceptor())
+                            .addNetworkInterceptor(CacheInterceptor())//必须要有，否则会返回504
+                            .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                            .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                            .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                            .build()
+                    retrofit = Retrofit.Builder()
+                            .baseUrl(BASE_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .client(mClient)
+                            .build()
+                }
+            }
+        }
+        return retrofit
+    }
+
+    /**
      * 获取Api接口
      */
     fun getRequestService(context: Context): ApiService {
         return getRetrofit(context)!!.create(ApiService::class.java)
+    }
+
+    /**
+     * 获取Api接口
+     */
+    fun getRequestService(): ApiService {
+        return getRetrofit()!!.create(ApiService::class.java)
     }
 
     /**
@@ -137,7 +182,7 @@ object RetrofitRxManager {
                         .removeHeader("Pragma").build() // 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
             } else {
                 Log.e("Tag", "无网")
-                    //无网络时，设置超时为CACHE_STALE_LONG  只对get有用, post没有缓冲
+                //无网络时，设置超时为CACHE_STALE_LONG  只对get有用, post没有缓冲
                 return response.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
                         .removeHeader("Pragma").build()
             }
@@ -269,4 +314,23 @@ object RetrofitRxManager {
         return requestBody
 
     }
+
+    fun <T> doRequest(observable: Observable<T>, observerListener: BaseObserverListener<in Any>): DisposableObserver<T> {
+        return observable
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(object : DisposableObserver<T>() {
+                    override fun onNext(result: T) {
+                        observerListener.onNext(result)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        observerListener.onError(e)
+                    }
+
+                    override fun onComplete() {
+                        observerListener.onComplete()
+                    }
+                })
+    }
+
 }

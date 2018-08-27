@@ -1,9 +1,12 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import com.smart.framework.library.base.BaseFragment
+import com.smart.framework.library.base.mvp.BaseModel
+import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
 import kotlinx.android.synthetic.main.act_home.*
@@ -15,10 +18,10 @@ import kotlinx.android.synthetic.main.act_home.*
  */
 class ACT_Home : ACT_Base(), View.OnClickListener {
 
-    private var mFraBookShelf: BaseFragment? = null
-    private var mFraSearch: BaseFragment? = null
-    private var mFraRankingList: BaseFragment? = null
-    private var mFraMine: BaseFragment? = null
+    private var mFraBookShelf: Fragment? = null
+    private var mFraSearch: Fragment? = null
+    private var mFraRankingList: Fragment? = null
+    private var mFraMine: Fragment? = null
     private var mIndex = 0
     override fun getBundleExtras(extras: Bundle?) {
     }

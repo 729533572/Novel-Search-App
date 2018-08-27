@@ -46,4 +46,6 @@
     <!--app主色-->
     <color name="color_3AC270">#3AC270</color>
     <color name="color_b1b1b1">#b1b1b1</color>
+    <color name="color_tab_checked">@color/color_3AC270</color>
+    <color name="color_tab_unchecked">@color/color_b1b1b1</color>
 </resources>

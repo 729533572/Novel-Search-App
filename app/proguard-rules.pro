@@ -196,6 +196,20 @@
 -dontwarn com.squareup.okhttp3.**
 -keep class com.squareup.okhttp3.** { *;}
 -dontwarn okio.**
+#retrofit
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+#解决使用Retrofit+rxJava联网时，在6.0系统出现java.lang.InternalError奔溃的问题:http://blog.csdn.net/mp624183768/article/details/79242147
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 #过滤glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
@@ -210,20 +224,15 @@
 #------不需要混淆第三方类库----
 -keep class com.zhy.** {*;}
 
-#JPush配置 混淆
-#-dontoptimize
-#-dontpreverify
-#
-#-dontwarn cn.jpush.**
-#-keep class cn.jpush.** { *; }
-#-keep class * extends cn.jpush.android.helpers.JPushMessageReceiver { *; }
-#
-#-dontwarn cn.jiguang.**
-#-keep class cn.jiguang.** { *; }
-
+#GreenDao混淆配置
+-keep class de.greenrobot.event.** {*;}
+-keep class de.greenrobot.** {*;}
 #保持greenDao的方法不被混淆
-#-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
-##用来保持生成的表名不被混淆
-#    public static java.lang.String TABLENAME;
-#}
-#-keep class **$Properties
+#用来保持生成的表名不被混淆
+-keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
+    public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+#kotlin过滤警告
+-dontwarn kotlin.**

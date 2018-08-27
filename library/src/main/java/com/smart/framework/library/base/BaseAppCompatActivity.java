@@ -25,7 +25,12 @@ import android.widget.TextView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.R;
+import com.smart.framework.library.base.mvp.BaseModel;
+import com.smart.framework.library.base.mvp.BasePresenter;
+import com.smart.framework.library.base.mvp.IBaseView;
+import com.smart.framework.library.common.BroadcastConstants;
 import com.smart.framework.library.common.Constants;
+import com.smart.framework.library.common.utils.ClassReflectHelper;
 import com.smart.framework.library.loading.LoadingDialog;
 import com.smart.framework.library.loading.VaryViewHelperController;
 import com.smart.framework.library.manager.ActivityTaskManager;
@@ -41,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * 作者：addison on 11/12/15 14:01
  * 邮箱：lsf@yonyou.com
  */
-public abstract class BaseAppCompatActivity extends AppCompatActivity {
+public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends BaseModel> extends AppCompatActivity {
     /**
      * 日志标签，值为子类的classname
      */
@@ -69,6 +74,8 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      * loading control
      */
     private VaryViewHelperController mVaryViewHelperController = null;
+    private P mMvpPresenter;
+    private M mModel;
 
     /**
      * OverridePendingTransition
@@ -156,6 +163,16 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
         };
 
         NetStateReceiver.registerObserver(mNetChangeObserver);
+
+
+        //泛型MVP
+        mMvpPresenter = ClassReflectHelper.getT(this, 0);
+        mModel = ClassReflectHelper.getT(this, 1);
+        if (this instanceof IBaseView) {
+            if (mMvpPresenter != null && mModel != null) {
+                mMvpPresenter.setVM(this, mModel);
+            }
+        }
 
         initViewsAndEvents();
 
@@ -245,6 +262,11 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
                 broadcastReceiver = null;
             }
         }
+        if (mMvpPresenter != null) {
+            mMvpPresenter.onDestroy();
+        }
+        //防止内存泄露
+        mContext = null;
     }
 
     protected abstract void getBundleExtras(Bundle extras);
@@ -649,6 +671,9 @@ public abstract class BaseAppCompatActivity extends AppCompatActivity {
      * @param intent
      */
     protected void onReceiveBroadcast(int intent, Bundle bundle) {
+        if (intent == BroadcastConstants.LOGOUT) {
+            finish();
+        }
     }
 
     /**

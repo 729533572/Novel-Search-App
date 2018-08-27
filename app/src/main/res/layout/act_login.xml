@@ -31,12 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
-            android:background="@drawable/bg_shape_side_bfbfbf_coner_5"
             android:gravity="left"
             android:hint="@string/hint_input_phone"
             android:padding="16px"
             android:singleLine="true"
-            android:textColor="@color/color_acacac"
             android:textColorHint="@color/color_b9b9b9"
             android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
             android:textSize="12sp" />
@@ -76,11 +74,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10px"
-            android:background="@drawable/bg_shape_side_bfbfbf_coner_5"
             android:gravity="left"
             android:padding="16px"
             android:singleLine="true"
-            android:textColor="@color/color_acacac"
             android:textColorHint="@color/color_b9b9b9"
             android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
             android:textSize="12sp" />
@@ -92,7 +88,6 @@
             android:layout_gravity="center"
             android:layout_marginBottom="10px"
             android:layout_marginTop="52px"
-            android:background="@drawable/bg_selector_login_solid_corner_5"
             android:button="@null"
             android:checked="false"
             android:gravity="center"
@@ -101,7 +96,6 @@
             android:paddingRight="96px"
             android:paddingTop="18px"
             android:text="登录"
-            android:textColor="@color/color_fefeff"
             android:textSize="12sp" />
 
         <TextView
@@ -109,7 +103,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="如忘记账号密码请联系管理员"
-            android:textColor="@color/color_6ea4ee"
             android:textSize="9sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 </com.zhy.autolayout.AutoRelativeLayout>

@@ -110,6 +110,7 @@ public abstract class BaseLazyFragment extends Fragment {
         mScreenHeight = displayMetrics.heightPixels;
         mScreenWidth = displayMetrics.widthPixels;
 
+
         initViewsAndEvents();
 
         registerReceiver();
