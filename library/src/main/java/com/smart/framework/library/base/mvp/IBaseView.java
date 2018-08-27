@@ -32,14 +32,8 @@ public interface IBaseView {
     void dismissDialogLoading();
 
     /**
-     * show business error
+     * show business error :网络异常及数据错误等异常情况
      */
     void showBusinessError(ErrorBean error);
 
-    /**
-     * 网络连接失败，超时等
-     *
-     * @param msg
-     */
-    void showException(String msg);
 }

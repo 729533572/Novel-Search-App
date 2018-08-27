@@ -7,10 +7,11 @@ import com.smart.framework.library.common.utils.ClassReflectHelper;
 import com.smart.framework.library.loading.MultipleStatusView;
 
 /**
- * 作者：addison on 15/12/15 14:29
- * 邮箱：lsf@yonyou.com
+ * Created by JoJo on 2018/8/27.
+   wechat：18510829974
+  description：mvp的BaseFramen,需联网获取数据的Fragment的父类
  */
-public abstract class BaseFragment<P extends BasePresenter,M extends BaseModel> extends BaseLazyFragment implements IBaseView {
+public abstract class BaseMVPFragment<P extends BasePresenter,M extends BaseModel> extends BaseLazyFragment implements IBaseView {
 
     protected P mMvpPresenter;
     protected M mModel;
@@ -47,48 +48,6 @@ public abstract class BaseFragment<P extends BasePresenter,M extends BaseModel> 
         super.onPause();
     }
 
-//    @Override
-//    public void showError(String msg) {
-//        toggleShowError(true, msg, null);
-//    }
-//
-//    @Override
-//    public void showException(String msg) {
-//        toggleShowError(true, msg, null);
-//    }
-//
-//    @Override
-//    public void showNetError() {
-//        toggleNetworkError(true, null);
-//    }
-//
-//    @Override
-//    public void showLoading(String msg) {
-//        toggleShowLoading(true, null);
-//    }
-//
-//    @Override
-//    public void hideLoading() {
-//        toggleShowLoading(false, null);
-//    }
-//
-//    @Override
-//    public void showDialogLoading(String msg) {
-//        toggleShowDialogLoading(msg);
-//    }
-//
-//    @Override
-//    public void dismissDialogLoading() {
-//        dismissDialogLoad();
-//    }
-//
-//    @Override
-//    public void showBusinessError(ErrorBean error) {
-//        if (null != error.getCode() && error.getCode().equals("10000"))
-//            toggleshowLogin();
-//    }
-
-
     @Override
     public void showDialogLoading(String msg) {
         toggleShowDialogLoading(msg);
@@ -106,11 +65,6 @@ public abstract class BaseFragment<P extends BasePresenter,M extends BaseModel> 
 
     @Override
     public void hideLoading() {
-
-    }
-
-    @Override
-    public void showException(String msg) {
 
     }
 }

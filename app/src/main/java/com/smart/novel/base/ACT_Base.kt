@@ -1,10 +1,8 @@
 package com.smart.novel.base
 
-import android.util.Log
 import android.view.ViewGroup
 import com.hazz.kotlinmvp.utils.StatusBarUtil
 import com.smart.framework.library.base.BaseActivity
-import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication.Companion.context
 
@@ -12,11 +10,9 @@ import com.smart.novel.MyApplication.Companion.context
  * Created by JoJo on 2018/8/23.
  * wechat:18510829974
  * description: 非全屏的开启动画向右的Activity基类
+ * 不需要联网的Activity的基类
  */
 abstract class ACT_Base : BaseActivity() {
-    override fun showBusinessError(error: ErrorBean?) {
-    }
-
     override fun getRefreshTime(): Long {
         return 0
     }

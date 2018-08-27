@@ -1,9 +1,8 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
-import com.smart.framework.library.base.BaseFragment
+import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.databinding.FraBookshelfBinding
@@ -18,14 +17,7 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
  * wechat:18510829974
  * description: 书架
  */
-class FRA_BookShelf : BaseFragment<TestPresenter, TestModel>(), TestContract.View {
-
-    override fun showBusinessError(error: ErrorBean?) {
-    }
-
-    override fun showException(msg: String?) {
-    }
-
+class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.View {
 
     /**
      * companion object {}内：静态方法
@@ -40,30 +32,8 @@ class FRA_BookShelf : BaseFragment<TestPresenter, TestModel>(), TestContract.Vie
     }
 
     override fun startEvents() {
-        multipleStatusView.showLoading()
-        Handler().postDelayed({
-            mMvpPresenter.getTestData()
-        }, 1500)
+        mMvpPresenter.getTestData(multipleStatusView)
 
-//        multipleStatusView.showLoading()
-//        Handler().postDelayed({
-//            RetrofitRxManager.getRequestService(mContext).getWeather("北京")
-//                    .compose(RxSchedulers.io_main())
-//                    .subscribeWith(object : DisposableObserver<WeatherEntity>() {
-//                        override fun onNext(bean: WeatherEntity) {
-//                            var viewBinder = viewDataBinding as FraBookshelfBinding
-//                            viewBinder.weather = bean
-////                            multipleStatusView.showContent()
-//                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
-//                        }
-//
-//                        override fun onError(e: Throwable) {
-//                        }
-//
-//                        override fun onComplete() {
-//                        }
-//                    })
-//        }, 1500)
     }
 
     override fun getContentViewLayoutID(): Int {
@@ -87,10 +57,13 @@ class FRA_BookShelf : BaseFragment<TestPresenter, TestModel>(), TestContract.Vie
         return false
     }
 
+    override fun showBusinessError(error: ErrorBean?) {
+        multipleStatusView.showError()
+    }
+
     override fun getTestData(weatherEntity: WeatherEntity) {
 //        multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
         var viewBinder = viewDataBinding as FraBookshelfBinding
         viewBinder.weather = weatherEntity
-        multipleStatusView.showContent()
     }
 }

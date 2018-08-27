@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.smart.framework.library.R;
+import com.smart.framework.library.base.mvp.IBaseView;
 import com.smart.framework.library.common.ReceiveConstants;
+import com.smart.framework.library.loading.MultipleStatusView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.Timer;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
  * 作者：addison on 15/12/15 14:15
  * 邮箱：lsf@yonyou.com
  */
-public abstract class BaseActivity extends BaseAppCompatActivity implements BaseView {
+public abstract class BaseActivity extends BaseAppCompatActivity implements IBaseView {
 
     protected Toolbar mToolbar;
 
@@ -34,8 +36,6 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
         if (isApplyKitKatTranslucency()) {
             setSystemBarTintDrawable(getResources().getDrawable(R.drawable.sr_primary));
         }
-//        hideBottomUIMenu();
-        //PushAgent.getInstance(mContext).onAppStart();
     }
 
     @Override
@@ -146,31 +146,14 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements Base
         super.onDestroy();
     }
 
-
     @Override
-    public void showError(String msg) {
-        toggleShowError(true, msg, null);
-    }
+    public void showLoading(MultipleStatusView multipleStatusView, String msg) {
 
-    @Override
-    public void showException(String msg) {
-        toggleShowError(true, msg, null);
-    }
-
-    @Override
-    public void showNetError() {
-        toggleNetworkError(true, null);
-    }
-
-
-    @Override
-    public void showLoading(String msg) {
-        toggleShowLoading(true, null);
     }
 
     @Override
     public void hideLoading() {
-        toggleShowLoading(false, null);
+
     }
 
     @Override

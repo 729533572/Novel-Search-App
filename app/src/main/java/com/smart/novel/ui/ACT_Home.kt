@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
-import com.smart.framework.library.base.BaseFragment
-import com.smart.framework.library.base.mvp.BaseModel
-import com.smart.framework.library.base.mvp.IBaseView
+import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
 import kotlinx.android.synthetic.main.act_home.*
@@ -17,6 +15,9 @@ import kotlinx.android.synthetic.main.act_home.*
  * description:
  */
 class ACT_Home : ACT_Base(), View.OnClickListener {
+    override fun showBusinessError(error: ErrorBean?) {
+
+    }
 
     private var mFraBookShelf: Fragment? = null
     private var mFraSearch: Fragment? = null

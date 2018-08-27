@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions' //扩展插件
 apply plugin: 'org.greenrobot.greendao'
 //解决：Kotlin和DataBinding冲突  Unresolved reference: databinding 参考：https://blog.csdn.net/ethanco/article/details/54693140
-apply plugin: 'kotlin-kapt' //扩展插件,没有这个，可能会无法直接使用控件的id得到view的对象
+//apply plugin: 'kotlin-kapt' //扩展插件,没有这个，可能会无法直接使用控件的id得到view的对象,加上这个有时候会出现Error:Execution failed for task ':app:kaptDebugKotlin'. > Internal compiler，项目无法运行且代码中有编译错误报不出来
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -25,7 +25,6 @@ android {
     }
     signingConfigs {
         release {
-//            storeFile file('C:/develop/ming_bai.jks')
             storeFile file('resthome.jks')
             storePassword 'resthome123'
             keyAlias 'resthome'

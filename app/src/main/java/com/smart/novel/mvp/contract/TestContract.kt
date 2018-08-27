@@ -3,6 +3,7 @@ package com.smart.novel.mvp.contract
 import com.smart.framework.library.base.mvp.BaseModel
 import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
+import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.net.WeatherEntity
 import io.reactivex.Observable
 
@@ -21,6 +22,6 @@ class TestContract {
     }
 
     abstract class Presenter : BasePresenter<TestContract.View, TestContract.Model>() {
-        abstract fun getTestData()
+        abstract fun getTestData(multipleStatusView: MultipleStatusView)
     }
 }

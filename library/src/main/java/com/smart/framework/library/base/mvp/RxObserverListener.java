@@ -24,6 +24,10 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
 
     }
 
+    /**
+     * 统一处理异常情况：包括没网、数据返回错误等
+     * @param e
+     */
     @Override
     public void onError(Throwable e) {
         RetrofitException.ResponseThrowable responseThrowable = RetrofitException.getResponseThrowable(e);

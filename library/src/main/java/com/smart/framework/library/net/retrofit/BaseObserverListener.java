@@ -5,7 +5,7 @@ package com.smart.framework.library.net.retrofit;
  * wechat：18510829974
  * description：
  */
-public interface BaseObserverListener<T extends Object> {
+public interface BaseObserverListener<T> {
     void onNext(T result);
     void onComplete();
     void onError(Throwable e);

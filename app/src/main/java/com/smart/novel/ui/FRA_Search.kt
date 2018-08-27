@@ -2,7 +2,7 @@ package com.smart.novel.ui
 
 import android.os.Bundle
 import android.view.View
-import com.smart.framework.library.base.BaseFragment
+import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.mvp.model.TestModel
@@ -13,7 +13,7 @@ import com.smart.novel.mvp.presenter.TestPresenter
  * wechat:18510829974
  * description: 搜索小说
  */
-class FRA_Search : BaseFragment<TestPresenter, TestModel>() {
+class FRA_Search : BaseMVPFragment<TestPresenter, TestModel>() {
     companion object {
         fun getInstance(): FRA_Search {
             val fragment = FRA_Search()

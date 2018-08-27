@@ -27,10 +27,8 @@ import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.R;
 import com.smart.framework.library.base.mvp.BaseModel;
 import com.smart.framework.library.base.mvp.BasePresenter;
-import com.smart.framework.library.base.mvp.IBaseView;
 import com.smart.framework.library.common.BroadcastConstants;
 import com.smart.framework.library.common.Constants;
-import com.smart.framework.library.common.utils.ClassReflectHelper;
 import com.smart.framework.library.loading.LoadingDialog;
 import com.smart.framework.library.loading.VaryViewHelperController;
 import com.smart.framework.library.manager.ActivityTaskManager;
@@ -74,8 +72,6 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
      * loading control
      */
     private VaryViewHelperController mVaryViewHelperController = null;
-    private P mMvpPresenter;
-    private M mModel;
 
     /**
      * OverridePendingTransition
@@ -164,16 +160,6 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
 
         NetStateReceiver.registerObserver(mNetChangeObserver);
 
-
-        //泛型MVP
-        mMvpPresenter = ClassReflectHelper.getT(this, 0);
-        mModel = ClassReflectHelper.getT(this, 1);
-        if (this instanceof IBaseView) {
-            if (mMvpPresenter != null && mModel != null) {
-                mMvpPresenter.setVM(this, mModel);
-            }
-        }
-
         initViewsAndEvents();
 
         addToTask();
@@ -261,9 +247,6 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
             } finally {
                 broadcastReceiver = null;
             }
-        }
-        if (mMvpPresenter != null) {
-            mMvpPresenter.onDestroy();
         }
         //防止内存泄露
         mContext = null;
