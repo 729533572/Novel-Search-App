@@ -27,11 +27,11 @@
             app:errorView="@layout/layout_error_view"
             app:loadingView="@layout/layout_loading_view"
             app:noNetworkView="@layout/no_network_view">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
+
+            <com.github.jdsjlzx.recyclerview.LRecyclerView
                 android:id="@+id/recyclerview"
-                android:layout_height="wrap_content">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 
         </com.smart.framework.library.loading.MultipleStatusView>
 
