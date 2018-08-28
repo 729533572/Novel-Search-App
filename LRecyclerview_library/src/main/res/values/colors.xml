@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFB5B5B5</color>
+    <!--loading和下拉刷新文字颜色-->
+    <color name="color_73787d">#73787d</color>
+
+</resources>
