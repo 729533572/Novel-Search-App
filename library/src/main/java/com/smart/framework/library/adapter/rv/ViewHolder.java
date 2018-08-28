@@ -2,6 +2,8 @@ package com.smart.framework.library.adapter.rv;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 
 public class ViewHolder extends RecyclerView.ViewHolder
 {
+    private static ViewDataBinding viewDataBinding;
     private SparseArray<View> mViews;
     private View mConvertView;
     private Context mContext;
@@ -46,13 +49,24 @@ public class ViewHolder extends RecyclerView.ViewHolder
         return holder;
     }
 
-    public static ViewHolder createViewHolder(Context context,
+    public static BindingHolder createViewHolder(Context context,
                                               ViewGroup parent, int layoutId)
     {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
-                false);
-        ViewHolder holder = new ViewHolder(context, itemView);
-        return holder;
+//        View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
+//                false);
+//        ViewHolder holder = new ViewHolder(context, itemView);
+        viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
+//        return viewDataBinding.getRoot();
+//        return holder;
+        return new BindingHolder(context,viewDataBinding);
+    }
+    //CommonAdapter结合DataBinding使用
+    public static class BindingHolder extends ViewHolder {
+        public ViewDataBinding viewBinding;
+        public BindingHolder(Context context, ViewDataBinding viewDataBinding) {
+            super(context,viewDataBinding.getRoot());
+            viewBinding = viewDataBinding;
+        }
     }
 
     /**

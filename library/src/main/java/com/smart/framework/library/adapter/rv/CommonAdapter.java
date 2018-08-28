@@ -40,7 +40,7 @@ public abstract class CommonAdapter<T> extends MultiItemTypeAdapter<T>
             }
 
             @Override
-            public void convert(ViewHolder holder, T t, int position)
+            public void convert(ViewHolder.BindingHolder holder, T t, int position)
             {
                 CommonAdapter.this.convert(holder, t, position);
             }
@@ -49,7 +49,7 @@ public abstract class CommonAdapter<T> extends MultiItemTypeAdapter<T>
 
     protected abstract int itemLayoutId();
 
-    protected abstract void convert(ViewHolder holder, T t, int position);
+    protected abstract void convert(ViewHolder.BindingHolder holder, T t, int position);
     /**
      * 设置适配器的数据，添加数据
      *

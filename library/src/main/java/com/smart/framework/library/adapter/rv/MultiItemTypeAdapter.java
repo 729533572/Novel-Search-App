@@ -14,7 +14,7 @@ import java.util.List;
  * 支持多种ItemViewType的Adapter：每种Item类型对应一个ItemViewDelegete
  * 对于多中itemviewtype的处理参考：https://github.com/sockeqwe/AdapterDelegates ，有极高的扩展性。
  */
-public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder.BindingHolder> {
     protected Context mContext;
     protected List<T> mDatas = new ArrayList<>();
 
@@ -40,10 +40,11 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder.BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemViewDelegate itemViewDelegate = mItemViewDelegateManager.getItemViewDelegate(viewType);
         int layoutId = itemViewDelegate.getItemViewLayoutId();
-        ViewHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
+//        ViewHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
+        ViewHolder.BindingHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
         onViewHolderCreated(holder,holder.getConvertView());
         setListener(parent, holder, viewType);
         return holder;
@@ -53,7 +54,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     }
 
-    public void convert(ViewHolder holder, T t) {
+    public void convert(ViewHolder.BindingHolder holder, T t) {
         mItemViewDelegateManager.convert(holder, t, holder.getAdapterPosition());
     }
 
@@ -87,7 +88,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder.BindingHolder holder, int position) {
         convert(holder, mDatas.get(position));
     }
 

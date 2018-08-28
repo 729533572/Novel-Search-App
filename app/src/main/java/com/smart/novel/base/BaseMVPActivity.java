@@ -1,5 +1,6 @@
 package com.smart.novel.base;
 
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.hazz.kotlinmvp.utils.StatusBarUtil;
@@ -70,6 +71,11 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
     @Override
     protected void onNetworkDisConnected() {
 
+    }
+    //使用MultipleStatusView，暂时无用
+    @Override
+    protected View getLoadingTargetView() {
+        return null;
     }
 
     @Override

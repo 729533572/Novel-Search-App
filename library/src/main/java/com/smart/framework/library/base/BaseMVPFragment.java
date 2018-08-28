@@ -1,5 +1,7 @@
 package com.smart.framework.library.base;
 
+import android.view.View;
+
 import com.smart.framework.library.base.mvp.BaseModel;
 import com.smart.framework.library.base.mvp.BasePresenter;
 import com.smart.framework.library.base.mvp.IBaseView;
@@ -66,6 +68,11 @@ public abstract class BaseMVPFragment<P extends BasePresenter,M extends BaseMode
     @Override
     public void hideLoading() {
 
+    }
+    //使用MultipleStatusView，暂时无用
+    @Override
+    protected View getLoadingTargetView() {
+        return null;
     }
 }
 

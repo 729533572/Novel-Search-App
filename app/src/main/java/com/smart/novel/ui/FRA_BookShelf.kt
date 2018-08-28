@@ -55,10 +55,6 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
     override fun onUserInvisible() {
     }
 
-    override fun getLoadingTargetView(): View? {
-        return multipleStatusView
-    }
-
     override fun isBindEventBusHere(): Boolean {
         return false
     }

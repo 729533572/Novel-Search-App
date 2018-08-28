@@ -27,41 +27,11 @@
             app:errorView="@layout/layout_error_view"
             app:loadingView="@layout/layout_loading_view"
             app:noNetworkView="@layout/no_network_view">
-
-            <com.zhy.autolayout.AutoLinearLayout
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.city}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/tv_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.date}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.message}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.data.ganmao}"
-                    android:textSize="20dp" />
-            </com.zhy.autolayout.AutoLinearLayout>
+                android:id="@+id/recyclerview"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
 
         </com.smart.framework.library.loading.MultipleStatusView>
 
