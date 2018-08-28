@@ -13,48 +13,11 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/color_FFFFFF"
         android:orientation="vertical">
 
         <include layout="@layout/layout_search_title"></include>
-
-        <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="30px"
-            android:paddingRight="30px">
-
-            <TextView
-                android:id="@+id/tv_read_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:paddingBottom="30px"
-                android:paddingTop="30px"
-                android:text="阅读历史"
-                android:textColor="#2E3439"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_read_history"
-                android:paddingTop="36px"
-                android:text="我的收藏"
-                android:textColor="@color/color_999999"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/tv_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="共9本"
-                android:textColor="#2E3439"
-                android:textSize="12sp" />
-        </com.zhy.autolayout.AutoRelativeLayout>
 
         <com.smart.framework.library.loading.MultipleStatusView
             android:id="@+id/multipleStatusView"

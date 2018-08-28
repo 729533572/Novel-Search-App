@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -72,6 +74,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
      * loading control
      */
     private VaryViewHelperController mVaryViewHelperController = null;
+    protected ViewDataBinding viewDataBinding;
 
     /**
      * OverridePendingTransition
@@ -137,11 +140,11 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
         mScreenWidth = displayMetrics.widthPixels;
 
         if (getContentViewLayoutID() != 0) {
-            setContentView(getContentViewLayoutID());
+//            setContentView(getContentViewLayoutID());
+            viewDataBinding = DataBindingUtil.setContentView(this, getContentViewLayoutID());
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
-
         handleStatusBar();
 
         mNetChangeObserver = new NetChangeObserver() {

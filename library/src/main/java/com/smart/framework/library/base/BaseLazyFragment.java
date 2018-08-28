@@ -66,7 +66,7 @@ public abstract class BaseLazyFragment extends Fragment {
     private boolean mIsRegisterReceiver = false;
 
     private View container;
-    public ViewDataBinding viewDataBinding;
+    protected ViewDataBinding viewDataBinding;
     private Unbinder unBinder;
 
     @Override
