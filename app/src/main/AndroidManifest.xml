@@ -25,10 +25,10 @@
         <activity android:name=".ui.ACT_Login"></activity>
         <meta-data
             android:name="design_width"
-            android:value="1920" />
+            android:value="1080" />
         <meta-data
             android:name="design_height"
-            android:value="1100" />
+            android:value="1920" />
         <!--首页-数据监控-->
         <!--监控概览-->
         <!--护理进度-->

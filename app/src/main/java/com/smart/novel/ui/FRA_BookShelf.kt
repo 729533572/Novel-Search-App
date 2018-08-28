@@ -2,6 +2,7 @@ package com.smart.novel.ui
 
 import android.os.Bundle
 import android.view.View
+import butterknife.OnClick
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
@@ -34,6 +35,11 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
     override fun startEvents() {
         mMvpPresenter.getTestData(multipleStatusView)
 
+    }
+
+    @OnClick(R.id.tv_read_history)
+    fun onClick(view: View) {
+        readyGo(ACT_Login::class.java)
     }
 
     override fun getContentViewLayoutID(): Int {

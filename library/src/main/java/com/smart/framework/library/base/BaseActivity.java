@@ -18,6 +18,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 /**
  * 作者：addison on 15/12/15 14:15
@@ -28,6 +30,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements IBas
     protected Toolbar mToolbar;
 
     protected Activity mContext;
+    private Unbinder unBinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements IBas
         super.setContentView(layoutResID);
         mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
         mContext = this;
-        ButterKnife.bind(this);
+        unBinder = ButterKnife.bind(this);
         if (null != mToolbar) {
             setSupportActionBar(mToolbar);
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -144,6 +147,7 @@ public abstract class BaseActivity extends BaseAppCompatActivity implements IBas
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unBinder.unbind();
     }
 
     @Override

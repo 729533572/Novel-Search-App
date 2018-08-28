@@ -77,6 +77,9 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
     //解决Kotlin和DataBinding冲突 Unresolved reference: databinding 参考：https://blog.csdn.net/victor_fang/article/details/54668326
     kapt "com.android.databinding:compiler:$android_version" //android_version为Android plugin的版本
+    //butterknife控件插件
+//    compile 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 repositories {
     mavenCentral()

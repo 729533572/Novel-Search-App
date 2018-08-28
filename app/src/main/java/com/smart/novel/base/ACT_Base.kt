@@ -34,7 +34,7 @@ abstract class ACT_Base : BaseActivity() {
 
     /**
      * 不重写该方法，默认是黑色背景、白色icon白色字的状态栏
-     * 下面统一处理成白色背景，深色字体，icon的状态栏
+     * 下面统一处理成Activity全屏，白色背景，深色字体，icon的状态栏
      */
     override fun handleStatusBar() {
         val rootView = (findViewById(android.R.id.content)) as ViewGroup

@@ -41,7 +41,7 @@ dependencies {
     compile files('src/main/libs/nineoldandroids-2.4.0.jar')
     compile files('src/main/libs/eventbus-3.0.0-beta1.jar')
     compile files('src/main/libs/dom4j-2.0.0-RC1.jar')
-    compile files('src/main/libs/butterknife-7.0.1.jar')
+//    compile files('src/main/libs/butterknife-7.0.1.jar')
     compile files('src/main/libs/systembartint-1.0.4.jar')
     compile files('src/main/libs/picasso-2.5.2.jar')
     //    compile files('src/main/libs/android-support-v7-cardview.jar')
@@ -65,4 +65,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     //retrofit log打印
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    //butterknife控件插件
+    compile 'com.jakewharton:butterknife:8.8.1'
 }

@@ -14,7 +14,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/color_dedede"></View>
+        android:background="@color/color_f9f9f9"></View>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"

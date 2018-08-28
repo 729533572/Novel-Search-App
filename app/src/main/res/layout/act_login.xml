@@ -1,108 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_FFFFFF"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
+    <data>
 
+        <variable
+            name="weather"
+            type="com.smart.novel.net.WeatherEntity"></variable>
+    </data>
 
     <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/ll_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_FFFFFF"
         android:orientation="vertical">
 
-        <include layout="@layout/inc_common_title"></include>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="精品死得好怕死的回复送皮带和视频第" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="账号"
-            android:textColor="@color/color_4e4e4e"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10px"
-            android:gravity="left"
-            android:hint="@string/hint_input_phone"
-            android:padding="16px"
-            android:singleLine="true"
-            android:textColorHint="@color/color_b9b9b9"
-            android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
-            android:textSize="12sp" />
+        <include layout="@layout/layout_search_title"></include>
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:layout_marginTop="32px"
-            android:orientation="horizontal">
+            android:paddingLeft="30px"
+            android:paddingRight="30px">
+
+            <TextView
+                android:id="@+id/tv_read_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:text="阅读历史"
+                android:textColor="#2E3439"
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/string_password"
-                android:textColor="@color/color_4e4e4e"
-                android:textSize="12sp" />
+                android:layout_toRightOf="@+id/tv_read_history"
+                android:paddingTop="36px"
+                android:text="我的收藏"
+                android:textColor="@color/color_999999"
+                android:textSize="14sp" />
 
-            <RadioButton
-                android:id="@+id/rb_get_code"
+            <TextView
+                android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:button="@null"
-                android:text="@string/string_get_verify_code"
-                android:textColor="@color/color_519bef"
-                android:textSize="8sp"
-                android:visibility="visible" />
-
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="共9本"
+                android:textColor="#2E3439"
+                android:textSize="12sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
-        <EditText
-            android:id="@+id/et_password"
+        <com.smart.framework.library.loading.MultipleStatusView
+            android:id="@+id/multipleStatusView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10px"
-            android:gravity="left"
-            android:padding="16px"
-            android:singleLine="true"
-            android:textColorHint="@color/color_b9b9b9"
-            android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
-            android:textSize="12sp" />
+            android:layout_height="match_parent"
+            app:emptyView="@layout/layout_empty_view"
+            app:errorView="@layout/layout_error_view"
+            app:loadingView="@layout/layout_loading_view"
+            app:noNetworkView="@layout/no_network_view">
 
-        <RadioButton
-            android:id="@+id/rb_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10px"
-            android:layout_marginTop="52px"
-            android:button="@null"
-            android:checked="false"
-            android:gravity="center"
-            android:paddingBottom="18px"
-            android:paddingLeft="96px"
-            android:paddingRight="96px"
-            android:paddingTop="18px"
-            android:text="登录"
-            android:textSize="12sp" />
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="如忘记账号密码请联系管理员"
-            android:textSize="9sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.city}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tv_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.date}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.message}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{weather.data.ganmao}"
+                    android:textSize="20dp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.smart.framework.library.loading.MultipleStatusView>
+
     </com.zhy.autolayout.AutoLinearLayout>
-</com.zhy.autolayout.AutoRelativeLayout>
+
+</layout>

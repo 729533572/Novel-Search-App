@@ -5,7 +5,7 @@
     android:background="#f5f5f5"
     android:orientation="vertical">
 
-    <include layout="@layout/inc_common_title"></include>
+    <include layout="@layout/layout_common_title"></include>
 
     <ProgressBar
         android:id="@+id/pb_loading"

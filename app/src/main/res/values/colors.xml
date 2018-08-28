@@ -10,9 +10,10 @@
     <color name="color_00000000">#00000000</color>
     <color name="color_000000">#000000</color>
     <color name="color_FFFFFF">#FFFFFF</color>
-    <color name="color_dedede">#dedede</color>
+    <color name="color_e2e2e2">#dedede</color>
     <color name="color_bbbbbb">#bbbbbb</color>
     <!--首页-->
     <color name="color_999999">#999999</color>
     <color name="color_adadad">#adadad</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
 </resources>

@@ -21,6 +21,7 @@ import com.smart.framework.library.netstatus.NetStateReceiver;
 import com.smart.framework.library.netstatus.NetUtils;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -57,6 +58,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
      * loading view controller
      */
     private VaryViewHelperController mVaryViewHelperController = null;
+    private Unbinder unBinder;
+
     /**
      * overridePendingTransition mode
      */
@@ -149,7 +152,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+        unBinder = ButterKnife.bind(this);
         if (null != getLoadingTargetView()) {
             mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
         }
@@ -186,7 +189,8 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
+        unBinder.unbind();
         NetStateReceiver.removeRegisterObserver(mNetChangeObserver);
         if (isBindEventBusHere()) {
             EventBus.getDefault().unregister(this);

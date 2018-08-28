@@ -29,6 +29,7 @@ import com.smart.framework.library.loading.VaryViewHelperController;
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -66,6 +67,7 @@ public abstract class BaseLazyFragment extends Fragment {
 
     private View container;
     public ViewDataBinding viewDataBinding;
+    private Unbinder unBinder;
 
     @Override
     public void onAttach(Activity activity) {
@@ -97,7 +99,9 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+//        ButterKnife.bind(this, view);
+        unBinder = ButterKnife.bind(this, view);
+
         container = view;
         if (null != getLoadingTargetView()) {
             mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
@@ -119,7 +123,8 @@ public abstract class BaseLazyFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
+        unBinder.unbind();
     }
 
     @Override
