@@ -1,51 +1,57 @@
-package com.smart.framework.library.adapter.rv;
+package com.smart.framework.library.adapter.rv.normal;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
+
+import com.smart.framework.library.adapter.rv.ViewHolder;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by zhy on 16/4/9.
- * 结合了DataBinding使用的RecyclerView的CommonAdapter
+ * RecyclerView的CommonAdapter
  * 备注：lv包下的是ListView装配时使用的通用Adapter，使用见lv包下的CommonAdapterListView的备注信息
  */
-public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiItemTypeAdapter<T, B> {
+public abstract class CommonAdapterNormal<T> extends MultiTypeAdapterNormal<T>
+{
     protected Context mContext;
     protected int mLayoutId;
     protected LayoutInflater mInflater;
 
-    public CommonAdapter(Context context) {
+    public CommonAdapterNormal(Context context)
+    {
         super(context);
         mContext = context;
         mInflater = LayoutInflater.from(context);
 //        mLayoutId = layoutId;
 //        mDatas = datas;
         //返回：MultiItemTypeAdapter
-        addItemViewDelegate(new ItemViewDelegate<T, B>() {
+        addItemViewDelegate(new ItemViewDelegateNormal<T>()
+        {
             @Override
-            public int getItemViewLayoutId() {
+            public int getItemViewLayoutId()
+            {
                 return itemLayoutId();
             }
 
             @Override
-            public boolean isForViewType(T item, int position) {
+            public boolean isForViewType( T item, int position)
+            {
                 return true;
             }
 
             @Override
-            public void convert(B viewBinding, ViewHolder.BindingHolder holder, T t, int position) {
-                CommonAdapter.this.convert(viewBinding, holder, t, position);
+            public void convert(ViewHolder.BindingHolder holder, T t, int position)
+            {
+                CommonAdapterNormal.this.convert(holder, t, position);
             }
         });
     }
 
     protected abstract int itemLayoutId();
 
-    protected abstract void convert(B viewBinding, ViewHolder.BindingHolder holder, T t, int position);
-
+    protected abstract void convert(ViewHolder.BindingHolder holder, T t, int position);
     /**
      * 设置适配器的数据，添加数据
      *
@@ -61,7 +67,6 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
 
     /**
      * 设置适配器数据
-     *
      * @param dataList
      * @param isClear  是否需要清空list然后在加载数据
      */
@@ -102,7 +107,6 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
 
     /**
      * 清空集合，设置适配器数据
-     *
      * @param list
      */
     public void setDataList(Collection<T> list) {

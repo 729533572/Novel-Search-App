@@ -7,6 +7,7 @@ import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_SearchList
+import com.smart.novel.adapter.ADA_TestMultiple
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.UserEntity
 import com.smart.novel.mvp.contract.TestContract
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.act_login.*
  */
 class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View {
     var mAdapter: ADA_SearchList? = null
+    var mMutiAdapter: ADA_TestMultiple? = null
     var data = ArrayList<UserEntity>()
 
     override fun getBundleExtras(extras: Bundle?) {
@@ -29,12 +31,14 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
     }
 
     override fun startEvents() {
-        mAdapter = ADA_SearchList(this)
+//        mAdapter = ADA_SearchList(this)
+        mMutiAdapter = ADA_TestMultiple(this)
         recyclerview.layoutManager = LinearLayoutManager(this)
-        recyclerview.adapter = mAdapter
+        recyclerview.adapter = mMutiAdapter
 
         for (i in 0..50) {
             var user = UserEntity()
+            user.id = i
             user.name = "item=" + i
             data.add(user)
         }
@@ -63,6 +67,7 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
     }
 
     override fun getTestData(weather: WeatherEntity) {
-        mAdapter!!.update(data, true)
+//        mAdapter!!.update(data, true)
+        mMutiAdapter!!.update(data, true)
     }
 }

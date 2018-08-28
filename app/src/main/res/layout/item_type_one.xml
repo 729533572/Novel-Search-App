@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
+    <data>
+
+        <variable
+            name="user"
+            type="com.smart.novel.bean.UserEntity"></variable>
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_3AC270"
+        android:orientation="vertical"
+        android:padding="30dp"
+        android:text="@{String.valueOf(user.id)}" />
+</layout>

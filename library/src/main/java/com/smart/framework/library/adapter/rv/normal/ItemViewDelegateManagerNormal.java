@@ -1,23 +1,24 @@
-package com.smart.framework.library.adapter.rv;
+package com.smart.framework.library.adapter.rv.normal;
 
-import android.databinding.ViewDataBinding;
 import android.support.v4.util.SparseArrayCompat;
+
+import com.smart.framework.library.adapter.rv.ViewHolder;
 
 
 /**
  * Created by zhy on 16/6/22.
  * RecyclerView的itemView的委托管理类
  */
-public class ItemViewDelegateManager<T,B extends ViewDataBinding>
+public class ItemViewDelegateManagerNormal<T>
 {
-    SparseArrayCompat<ItemViewDelegate<T,B>> delegates = new SparseArrayCompat();
+    SparseArrayCompat<ItemViewDelegateNormal<T>> delegates = new SparseArrayCompat();
 
     public int getItemViewDelegateCount()
     {
         return delegates.size();
     }
 
-    public ItemViewDelegateManager<T,B> addDelegate(ItemViewDelegate<T,B> delegate)
+    public ItemViewDelegateManagerNormal<T> addDelegate(ItemViewDelegateNormal<T> delegate)
     {
         int viewType = delegates.size();
         if (delegate != null)
@@ -28,7 +29,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
         return this;
     }
 
-    public ItemViewDelegateManager<T,B> addDelegate(int viewType, ItemViewDelegate<T,B> delegate)
+    public ItemViewDelegateManagerNormal<T> addDelegate(int viewType, ItemViewDelegateNormal<T> delegate)
     {
         if (delegates.get(viewType) != null)
         {
@@ -42,7 +43,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
         return this;
     }
 
-    public ItemViewDelegateManager<T,B> removeDelegate(ItemViewDelegate<T,B> delegate)
+    public ItemViewDelegateManagerNormal<T> removeDelegate(ItemViewDelegateNormal<T> delegate)
     {
         if (delegate == null)
         {
@@ -57,7 +58,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
         return this;
     }
 
-    public ItemViewDelegateManager<T,B> removeDelegate(int itemType)
+    public ItemViewDelegateManagerNormal<T> removeDelegate(int itemType)
     {
         int indexToRemove = delegates.indexOfKey(itemType);
 
@@ -73,7 +74,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
         int delegatesCount = delegates.size();
         for (int i = delegatesCount - 1; i >= 0; i--)
         {
-            ItemViewDelegate<T,B> delegate = delegates.valueAt(i);
+            ItemViewDelegateNormal<T> delegate = delegates.valueAt(i);
             if (delegate.isForViewType( item, position))
             {
                 return delegates.keyAt(i);
@@ -83,16 +84,16 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
                 "No ItemViewDelegate added that matches position=" + position + " in data source");
     }
 
-    public void convert(B viewBinding, ViewHolder.BindingHolder holder, T item, int position)
+    public void convert(ViewHolder.BindingHolder holder, T item, int position)
     {
         int delegatesCount = delegates.size();
         for (int i = 0; i < delegatesCount; i++)
         {
-            ItemViewDelegate<T,B> delegate = delegates.valueAt(i);
+            ItemViewDelegateNormal<T> delegate = delegates.valueAt(i);
 
             if (delegate.isForViewType( item, position))
             {
-                delegate.convert(viewBinding,holder, item, position);
+                delegate.convert(holder, item, position);
                 return;
             }
         }
@@ -101,7 +102,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
     }
 
 
-    public ItemViewDelegate getItemViewDelegate(int viewType)
+    public ItemViewDelegateNormal<T> getItemViewDelegate(int viewType)
     {
         return delegates.get(viewType);
     }
@@ -111,7 +112,7 @@ public class ItemViewDelegateManager<T,B extends ViewDataBinding>
         return getItemViewDelegate(viewType).getItemViewLayoutId();
     }
 
-    public int getItemViewType(ItemViewDelegate itemViewDelegate)
+    public int getItemViewType(ItemViewDelegateNormal itemViewDelegate)
     {
         return delegates.indexOfValue(itemViewDelegate);
     }
