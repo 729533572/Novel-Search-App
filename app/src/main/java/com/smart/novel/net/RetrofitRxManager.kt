@@ -262,6 +262,10 @@ object RetrofitRxManager {
 
     private val BASE_URL_OTHER = "http://wthrcdn.etouch.cn/"
 
+    /**
+     *  添加可以处理多个Baseurl的拦截器：http://blog.csdn.net/qq_36707431/article/details/77680252
+     * Retrofit(OKHttp)多BaseUrl情况下url实时自动替换完美解决方法:https://www.2cto.com/kf/201708/663977.html
+     */
     class MutiBaseUrlInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain?): Response {
             //获取request
