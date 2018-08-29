@@ -44,7 +44,7 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
 
     protected abstract int itemLayoutId();
 
-    protected abstract void convert(B viewBinding, ViewHolder.BindingHolder holder, T t, int position);
+    protected abstract void convert(B viewBinding, ViewHolder.BindingHolder holder, T bean, int position);
 
     /**
      * 设置适配器的数据，添加数据

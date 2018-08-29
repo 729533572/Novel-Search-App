@@ -10,11 +10,11 @@ import com.smart.novel.db.bean.ReadHistoryEntity
 /**
  * Created by JoJo on 2018/8/29.
  * wechat:18510829974
- * description:
+ * description: 阅读历史
  */
 class ADA_ReadHistory constructor(context: Context) : CommonAdapter<ReadHistoryEntity, ItemBookShelfBinding>(context) {
-    override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, t: ReadHistoryEntity?, position: Int) {
-
+    override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, bean: ReadHistoryEntity?, position: Int) {
+        viewBinding!!.history = bean
     }
 
     override fun itemLayoutId(): Int {

@@ -20,7 +20,6 @@ import com.smart.novel.db.bean.ReadHistoryEntity
 import com.smart.novel.mvp.contract.TestContract
 import com.smart.novel.mvp.model.TestModel
 import com.smart.novel.mvp.presenter.TestPresenter
-import com.smart.novel.net.WeatherEntity
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
 
@@ -30,6 +29,7 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
  * description: 书架
  */
 class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.View, OnLoadMoreListener, OnRefreshListener {
+
     var mAdapter: ADA_ReadHistory? = null
     var data = ArrayList<ReadHistoryEntity>()
     val mColumnNum = 3//列表每行展示的个数
@@ -80,6 +80,11 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
                 }
                 if (itemPosition > mColumnNum) {
                     outRect.top = 50
+                }
+                //设置item距离左边的距离
+                outRect.left = 60
+                if (itemPosition == mAdapter!!.dataList.size + 1 || itemPosition == 0) {
+                    outRect.left = 0
                 }
             }
         })
@@ -142,9 +147,12 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
     override fun showBusinessError(error: ErrorBean?) {
         multipleStatusView.showError()
     }
+    override fun showException(error: ErrorBean?) {
 
-    override fun getTestData(weatherEntity: WeatherEntity) {
+    }
+
+    override fun getTestData(dataList: List<ReadHistoryEntity>) {
         tv_total.text = "共" + "9" + "本"
-        mAdapter!!.update(data, true)
+        mAdapter!!.update(dataList, true)
     }
 }

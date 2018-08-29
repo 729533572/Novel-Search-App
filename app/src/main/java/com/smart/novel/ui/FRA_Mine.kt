@@ -14,6 +14,7 @@ import com.smart.novel.mvp.presenter.TestPresenter
  * description: 我的
  */
 class FRA_Mine : BaseMVPFragment<TestPresenter, TestModel>() {
+
     companion object {
         fun getInstance(): FRA_Mine {
             val fragment = FRA_Mine()
@@ -22,14 +23,19 @@ class FRA_Mine : BaseMVPFragment<TestPresenter, TestModel>() {
             return fragment
         }
     }
-    override fun startEvents() {
-    }
 
     override fun getContentViewLayoutID(): Int {
         return R.layout.fra_mine
     }
 
+    override fun startEvents() {
+    }
+
     override fun showBusinessError(error: ErrorBean?) {
+    }
+
+    override fun showException(error: ErrorBean?) {
+
     }
 
     override fun onFirstUserVisible() {

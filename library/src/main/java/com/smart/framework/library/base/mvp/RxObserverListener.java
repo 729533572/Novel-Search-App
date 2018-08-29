@@ -26,6 +26,7 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
 
     /**
      * 统一处理异常情况：包括没网、数据返回错误等
+     *
      * @param e
      */
     @Override
@@ -36,8 +37,15 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
         errorBean.setMsg(responseThrowable.message);
         errorBean.setCode(StringUtil.getString(responseThrowable.code));
         if (mView != null) {
-            mView.showBusinessError(errorBean);
+            mView.showException(errorBean);
             mView.dismissDialogLoading();
+        }
+    }
+
+    @Override
+    public void onBusinessError(ErrorBean errorBean) {
+        if (mView != null) {
+            mView.showBusinessError(errorBean);
             mView.dismissDialogLoading();
         }
     }

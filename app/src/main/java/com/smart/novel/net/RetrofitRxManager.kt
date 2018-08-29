@@ -6,9 +6,13 @@ import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
 import com.smart.framework.library.base.mvp.RxSchedulers
+import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.utils.StringUtil
 import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
+import com.smart.novel.bean.BaseHttpResponse
+import com.smart.novel.global.API
 import com.smart.novel.net.WeatherEntity
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
@@ -21,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
+
 /**
  * Created by JoJo on 2018/1/15.
  * wechat:18510829974
@@ -31,7 +36,7 @@ object RetrofitRxManager {
     private var retrofit: Retrofit? = null
     //请求头信息
     private val HEADER_CONNECTION = "keep-alive"
-    private val BASE_URL = "https://www.sojson.com/open/api/"
+//    private val BASE_URL = "https://www.sojson.com/open/api/"
 
     fun getRetrofit(context: Context): Retrofit? {
         if (retrofit == null) {
@@ -55,7 +60,7 @@ object RetrofitRxManager {
                             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                             .build()
                     retrofit = Retrofit.Builder()
-                            .baseUrl(BASE_URL)
+                            .baseUrl(API.BASE_SERVER_IP)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .client(mClient)
@@ -89,7 +94,7 @@ object RetrofitRxManager {
                             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                             .build()
                     retrofit = Retrofit.Builder()
-                            .baseUrl(BASE_URL)
+                            .baseUrl(API.BASE_SERVER_IP)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .client(mClient)
@@ -321,12 +326,22 @@ object RetrofitRxManager {
 
     }
 
-    fun <T> doRequest(observable: Observable<T>, observerListener: BaseObserverListener<in Any>): DisposableObserver<T> {
+    /**
+     * 建立请求
+     */
+    fun <T> doRequest(observable: Observable<BaseHttpResponse<T>>, observerListener: BaseObserverListener<T>): DisposableObserver<BaseHttpResponse<T>> {
         return observable
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(object : DisposableObserver<T>() {
-                    override fun onNext(result: T) {
-                        observerListener.onNext(result)
+                .subscribeWith(object : DisposableObserver<BaseHttpResponse<T>>() {
+                    override fun onNext(result: BaseHttpResponse<T>) {
+                        if (result.status === 0) {
+                            observerListener.onSuccess(result.data)
+                        } else {
+                            var errorBean = ErrorBean()
+                            errorBean.code = StringUtil.getString(result.status)
+                            errorBean.msg = result.msg
+                            observerListener.onBusinessError(errorBean)
+                        }
                     }
 
                     override fun onError(e: Throwable) {
@@ -336,6 +351,18 @@ object RetrofitRxManager {
                     override fun onComplete() {
                         observerListener.onComplete()
                     }
+                    //未统一封装数据格式
+//                    override fun onNext(result: T) {
+//                        observerListener.onNext(result)
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        observerListener.onError(e)
+//                    }
+//
+//                    override fun onComplete() {
+//                        observerListener.onComplete()
+//                    }
                 })
     }
 

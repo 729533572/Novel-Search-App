@@ -2,7 +2,6 @@ package com.smart.novel.ui
 
 import android.os.Bundle
 import android.view.View
-import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
 
@@ -12,9 +11,6 @@ import com.smart.novel.base.ACT_Base
  * description: webview
  */
 class ACT_WebView : ACT_Base(){
-    override fun showBusinessError(error: ErrorBean?) {
-
-    }
 
     override fun getBundleExtras(extras: Bundle?) {
 

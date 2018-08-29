@@ -10,6 +10,6 @@ public class API {
     //正式环境
 //    public static final String BASE_SERVER_IP = "http://www.hafuyun.com";
     //开发环境
-    public static final String BASE_SERVER_IP = "http://47.93.24.205";
+    public static final String BASE_SERVER_IP = "http://47.93.24.205/api/";
 
 }

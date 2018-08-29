@@ -2,8 +2,8 @@ package com.smart.novel.mvp.presenter
 
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
+import com.smart.novel.db.bean.ReadHistoryEntity
 import com.smart.novel.mvp.contract.TestContract
-import com.smart.novel.net.WeatherEntity
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 
 /**
@@ -14,10 +14,9 @@ import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 class TestPresenter : TestContract.Presenter() {
     override fun getTestData(multipleStatusView: MultipleStatusView) {
         multipleStatusView.showLoading()
-        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getTestData(), object : RxObserverListener<Any>(mView) {
-            override fun onNext(result: Any?) {
-                var weather=result as WeatherEntity
-                mView.getTestData(weather)
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getTestData(), object : RxObserverListener<List<ReadHistoryEntity>>(mView) {
+            override fun onSuccess(result: List<ReadHistoryEntity>) {
+                mView.getTestData(result)
                 multipleStatusView.showContent()
             }
         }))

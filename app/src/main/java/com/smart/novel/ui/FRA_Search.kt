@@ -14,6 +14,7 @@ import com.smart.novel.mvp.presenter.TestPresenter
  * description: 搜索小说
  */
 class FRA_Search : BaseMVPFragment<TestPresenter, TestModel>() {
+
     companion object {
         fun getInstance(): FRA_Search {
             val fragment = FRA_Search()
@@ -23,15 +24,18 @@ class FRA_Search : BaseMVPFragment<TestPresenter, TestModel>() {
         }
     }
 
-    override fun startEvents() {
-
-    }
-
     override fun getContentViewLayoutID(): Int {
         return R.layout.fra_search
     }
 
+    override fun startEvents() {
+
+    }
+
     override fun showBusinessError(error: ErrorBean?) {
+    }
+
+    override fun showException(error: ErrorBean?) {
     }
 
     override fun onFirstUserVisible() {

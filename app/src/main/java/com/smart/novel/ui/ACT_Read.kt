@@ -15,7 +15,16 @@ import com.smart.novel.mvp.presenter.TestPresenter
  *description：抓取网页：https://www.zhuishu.tw/id50438
  */
 class ACT_Read : BaseMVPActivity<TestPresenter, TestModel>(), IBaseView {
+
+    override fun getContentViewLayoutID(): Int {
+        return R.layout.act_read
+    }
+
     override fun startEvents() {
+
+    }
+
+    override fun showException(error: ErrorBean?) {
 
     }
 
@@ -26,13 +35,10 @@ class ACT_Read : BaseMVPActivity<TestPresenter, TestModel>(), IBaseView {
     override fun getBundleExtras(extras: Bundle?) {
     }
 
-    override fun getContentViewLayoutID(): Int {
-        return R.layout.act_read
-    }
-
     override fun getLoadingTargetView(): View? {
         return null
     }
+
     override fun isBindEventBusHere(): Boolean {
         return false
     }

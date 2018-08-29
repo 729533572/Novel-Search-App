@@ -13,10 +13,10 @@ import com.smart.novel.adapter.ADA_SearchList
 import com.smart.novel.adapter.ADA_TestMultiple
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.UserEntity
+import com.smart.novel.db.bean.ReadHistoryEntity
 import com.smart.novel.mvp.contract.TestContract
 import com.smart.novel.mvp.model.TestModel
 import com.smart.novel.mvp.presenter.TestPresenter
-import com.smart.novel.net.WeatherEntity
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.act_login.*
 
@@ -81,7 +81,9 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
         return false
     }
 
-    override fun getTestData(weather: WeatherEntity) {
+    override fun showException(error: ErrorBean?) {
+    }
+    override fun getTestData(dataList: List<ReadHistoryEntity>) {
 //        mAdapter!!.update(data, true)
 //        multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
         mMutiAdapter!!.update(data, true)

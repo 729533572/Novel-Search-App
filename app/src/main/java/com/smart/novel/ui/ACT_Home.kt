@@ -15,10 +15,6 @@ import kotlinx.android.synthetic.main.act_home.*
  * description:
  */
 class ACT_Home : ACT_Base(), View.OnClickListener {
-    override fun showBusinessError(error: ErrorBean?) {
-
-    }
-
     private var mFraBookShelf: Fragment? = null
     private var mFraSearch: Fragment? = null
     private var mFraRankingList: Fragment? = null
@@ -155,6 +151,13 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
         return false
     }
 
+    override fun showException(error: ErrorBean?) {
+
+    }
+
+    override fun showBusinessError(error: ErrorBean?) {
+
+    }
 //    override fun onSaveInstanceState(outState: Bundle?) {
 //        super.onSaveInstanceState(outState)
 //        //记录fragment的位置,防止崩溃 activity被系统回收时，fragment重叠错乱

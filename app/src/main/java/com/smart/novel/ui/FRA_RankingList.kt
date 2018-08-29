@@ -14,7 +14,6 @@ import com.smart.novel.mvp.presenter.TestPresenter
  * description: 排行榜
  */
 class FRA_RankingList : BaseMVPFragment<TestPresenter, TestModel>() {
-
     companion object {
         fun getInstance(): FRA_RankingList {
             val fragment = FRA_RankingList()
@@ -23,13 +22,19 @@ class FRA_RankingList : BaseMVPFragment<TestPresenter, TestModel>() {
             return fragment
         }
     }
-    override fun startEvents() {
-    }
+
     override fun getContentViewLayoutID(): Int {
         return R.layout.fra_banklist
     }
 
+    override fun startEvents() {
+    }
+
     override fun showBusinessError(error: ErrorBean?) {
+    }
+
+    override fun showException(error: ErrorBean?) {
+
     }
 
     override fun onFirstUserVisible() {

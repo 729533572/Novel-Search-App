@@ -1,5 +1,7 @@
 package com.zongxueguan.naochanle_android.retrofitrx
 
+import com.smart.novel.bean.BaseHttpResponse
+import com.smart.novel.db.bean.ReadHistoryEntity
 import com.smart.novel.net.WeatherEntity
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -138,6 +140,9 @@ interface ApiService {
 //    如果Oberserver<String> 则会报错：onErrorExpected a string but was BEGIN_OBJECT at line 1 column 2 path $
     @GET("weather/json.shtml")
     fun getWeather(@Query("city") city: String): Observable<WeatherEntity>
+
+    @GET("search/fictions?keyword=帝国&&page=1")
+    fun searchNovel(): Observable<BaseHttpResponse<List<ReadHistoryEntity>>>
 
 
     /**

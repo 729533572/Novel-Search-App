@@ -1,7 +1,8 @@
 package com.smart.novel.mvp.model
 
+import com.smart.novel.bean.BaseHttpResponse
+import com.smart.novel.db.bean.ReadHistoryEntity
 import com.smart.novel.mvp.contract.TestContract
-import com.smart.novel.net.WeatherEntity
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import io.reactivex.Observable
 
@@ -12,8 +13,9 @@ import io.reactivex.Observable
  */
 
 class TestModel:TestContract.Model{
-    override fun getTestData(): Observable<WeatherEntity> {
-        return RetrofitRxManager.getRequestService().getWeather("北京")
+    override fun getTestData(): Observable<BaseHttpResponse<List<ReadHistoryEntity>>> {
+//        return RetrofitRxManager.getRequestService().getWeather("北京")
+        return RetrofitRxManager.getRequestService().searchNovel()
     }
 //    override fun getTestData() {
 //        RetrofitRxManager.getRequestService().getWeather("北京")

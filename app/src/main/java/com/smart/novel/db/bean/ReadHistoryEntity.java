@@ -1,7 +1,5 @@
 package com.smart.novel.db.bean;
 
-import java.util.List;
-
 /**
  * Created by JoJo on 2018/8/29.
  * wechat:18510829974
@@ -11,132 +9,166 @@ import java.util.List;
 public class ReadHistoryEntity {
 
     /**
-     * status : 0
-     * msg : success
-     * data : [{"id":1,"book_id":33,"user_id":3,"chapter_number":1,"chapter_name":"第一章离家","is_favored":1,"create_time":"2018-08-25T03:29:45.575Z","update_time":"2018-08-25T04:58:36.633Z","user_book_reading_cnt":8},{"id":5,"book_id":38,"user_id":3,"chapter_number":1,"chapter_name":"第三章挺漂亮一姑娘","is_favored":1,"create_time":"2018-08-25T04:53:44.682Z","update_time":"2018-08-25T04:58:30.378Z","user_book_reading_cnt":3},{"id":6,"book_id":34,"user_id":3,"chapter_number":1,"chapter_name":"第三章挺漂亮一姑娘","is_favored":1,"create_time":"2018-08-25T05:02:02.838Z","update_time":"2018-08-25T05:02:02.838Z","user_book_reading_cnt":1}]
+     * id : 5644
+     * name_cn : 黑金总裁，豪门新婚告急
+     * author : 黑岛菜
+     * content_update_time : 2018-05-27T09:06:15.000Z
+     * catagory : 0
+     * covor_url : https://www.zhuishu.tw/cover/56/56920.jpg
+     * origin_website : https://www.zhuishu.tw
+     * is_finished : 0
+     * word_count : 0
+     * read_count : 0
+     * comment : 洛夏烟四年前糊里糊涂的强过他之后，甩给薄君臣两张软妹币作为答谢取悦费！四年后再见，却是……帝国酒店空中西餐厅外走廊，肤白眼靓的娇俏女孩被摁在电梯门口：“小野猫，惹了我，就该负起你的责……”女人眼眸斜睨嗤笑：“怎么负责，你嫁我？”薄刃的嘴角含着浅笑，男人在她耳旁吐着热气：“巧得很，我倒是还真缺一个暖被窝的主！”
+     * is_prior_one : 0
+     * create_time : 2018-08-20T07:15:59.009Z
+     * update_time : 2018-08-20T07:15:59.009Z
+     * gender : -1
+     * keyword_hit_cnt : 0
      */
 
-    private int status;
-    private String msg;
-    private List<DataBean> data;
+    private int id;
+    private String name_cn;
+    private String author;
+    private String content_update_time;
+    private int catagory;
+    private String covor_url;
+    private String origin_website;
+    private int is_finished;
+    private int word_count;
+    private int read_count;
+    private String comment;
+    private int is_prior_one;
+    private String create_time;
+    private String update_time;
+    private int gender;
+    private int keyword_hit_cnt;
 
-    public int getStatus() {
-        return status;
+    public int getId() {
+        return id;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getName_cn() {
+        return name_cn;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setName_cn(String name_cn) {
+        this.name_cn = name_cn;
     }
 
-    public List<DataBean> getData() {
-        return data;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setData(List<DataBean> data) {
-        this.data = data;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public static class DataBean {
-        /**
-         * id : 1
-         * book_id : 33
-         * user_id : 3
-         * chapter_number : 1
-         * chapter_name : 第一章离家
-         * is_favored : 1
-         * create_time : 2018-08-25T03:29:45.575Z
-         * update_time : 2018-08-25T04:58:36.633Z
-         * user_book_reading_cnt : 8
-         */
+    public String getContent_update_time() {
+        return content_update_time;
+    }
 
-        private int id;
-        private int book_id;
-        private int user_id;
-        private int chapter_number;
-        private String chapter_name;
-        private int is_favored;
-        private String create_time;
-        private String update_time;
-        private int user_book_reading_cnt;
+    public void setContent_update_time(String content_update_time) {
+        this.content_update_time = content_update_time;
+    }
 
-        public int getId() {
-            return id;
-        }
+    public int getCatagory() {
+        return catagory;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public void setCatagory(int catagory) {
+        this.catagory = catagory;
+    }
 
-        public int getBook_id() {
-            return book_id;
-        }
+    public String getCovor_url() {
+        return covor_url;
+    }
 
-        public void setBook_id(int book_id) {
-            this.book_id = book_id;
-        }
+    public void setCovor_url(String covor_url) {
+        this.covor_url = covor_url;
+    }
 
-        public int getUser_id() {
-            return user_id;
-        }
+    public String getOrigin_website() {
+        return origin_website;
+    }
 
-        public void setUser_id(int user_id) {
-            this.user_id = user_id;
-        }
+    public void setOrigin_website(String origin_website) {
+        this.origin_website = origin_website;
+    }
 
-        public int getChapter_number() {
-            return chapter_number;
-        }
+    public int getIs_finished() {
+        return is_finished;
+    }
 
-        public void setChapter_number(int chapter_number) {
-            this.chapter_number = chapter_number;
-        }
+    public void setIs_finished(int is_finished) {
+        this.is_finished = is_finished;
+    }
 
-        public String getChapter_name() {
-            return chapter_name;
-        }
+    public int getWord_count() {
+        return word_count;
+    }
 
-        public void setChapter_name(String chapter_name) {
-            this.chapter_name = chapter_name;
-        }
+    public void setWord_count(int word_count) {
+        this.word_count = word_count;
+    }
 
-        public int getIs_favored() {
-            return is_favored;
-        }
+    public int getRead_count() {
+        return read_count;
+    }
 
-        public void setIs_favored(int is_favored) {
-            this.is_favored = is_favored;
-        }
+    public void setRead_count(int read_count) {
+        this.read_count = read_count;
+    }
 
-        public String getCreate_time() {
-            return create_time;
-        }
+    public String getComment() {
+        return comment;
+    }
 
-        public void setCreate_time(String create_time) {
-            this.create_time = create_time;
-        }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-        public String getUpdate_time() {
-            return update_time;
-        }
+    public int getIs_prior_one() {
+        return is_prior_one;
+    }
 
-        public void setUpdate_time(String update_time) {
-            this.update_time = update_time;
-        }
+    public void setIs_prior_one(int is_prior_one) {
+        this.is_prior_one = is_prior_one;
+    }
 
-        public int getUser_book_reading_cnt() {
-            return user_book_reading_cnt;
-        }
+    public String getCreate_time() {
+        return create_time;
+    }
 
-        public void setUser_book_reading_cnt(int user_book_reading_cnt) {
-            this.user_book_reading_cnt = user_book_reading_cnt;
-        }
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getKeyword_hit_cnt() {
+        return keyword_hit_cnt;
+    }
+
+    public void setKeyword_hit_cnt(int keyword_hit_cnt) {
+        this.keyword_hit_cnt = keyword_hit_cnt;
     }
 }

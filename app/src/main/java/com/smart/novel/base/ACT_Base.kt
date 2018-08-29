@@ -3,6 +3,7 @@ package com.smart.novel.base
 import android.view.ViewGroup
 import com.hazz.kotlinmvp.utils.StatusBarUtil
 import com.smart.framework.library.base.BaseActivity
+import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication.Companion.context
 
@@ -28,6 +29,13 @@ abstract class ACT_Base : BaseActivity() {
     override fun onNetworkDisConnected() {
     }
 
+    override fun showException(error: ErrorBean?) {
+
+    }
+
+    override fun showBusinessError(error: ErrorBean?) {
+
+    }
     override fun isApplyStatusBarTranslucency(): Boolean {
         return false
     }
