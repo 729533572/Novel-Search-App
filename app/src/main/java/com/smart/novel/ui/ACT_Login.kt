@@ -32,6 +32,10 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
 
     var data = ArrayList<UserEntity>()
 
+    override fun getContentViewLayoutID(): Int {
+        return R.layout.act_login
+    }
+
     override fun getBundleExtras(extras: Bundle?) {
 
     }
@@ -39,7 +43,7 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
     override fun startEvents() {
 //        mAdapter = ADA_SearchList(this)
         mMutiAdapter = ADA_TestMultiple(this)
-        RecyclerViewHelper.initMutiTypeRecyclerView(recyclerview, mMutiAdapter!!,this)
+        RecyclerViewHelper.initMutiTypeRecyclerView(recyclerview, mMutiAdapter!!, this)
         recyclerview.setOnRefreshListener(this)
         recyclerview.setOnLoadMoreListener(this)
 
@@ -63,10 +67,6 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
 
     }
 
-    override fun getContentViewLayoutID(): Int {
-        return R.layout.act_login
-    }
-
     @OnClick(R.id.tv_do_search, R.id.et_search_keywords)
     fun onClick(view: View) {
         when (view.id) {
@@ -83,6 +83,7 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
 
     override fun getTestData(weather: WeatherEntity) {
 //        mAdapter!!.update(data, true)
+//        multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
         mMutiAdapter!!.update(data, true)
     }
 }

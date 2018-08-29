@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            layout="@layout/layout_common_title"></include>
+
+        <include layout="@layout/layout_common_title"></include>
 
         <com.zhy.autolayout.AutoRelativeLayout
             android:layout_width="match_parent"
@@ -24,25 +24,89 @@
             android:paddingLeft="30px"
             android:paddingRight="30px">
 
-            <TextView
-                android:id="@+id/tv_read_history"
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_read_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30px"
+                android:orientation="vertical"
                 android:paddingBottom="30px"
-                android:paddingTop="30px"
-                android:text="阅读历史"
-                android:textColor="#2E3439"
-                android:textSize="17sp" />
+                android:paddingTop="30px">
 
-            <TextView
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_read_history"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12px"
+                        android:text="阅读历史"
+                        android:textColor="@color/color_2E3439"
+                        android:textSize="17sp" />
+
+                    <View
+                        android:layout_width="50px"
+                        android:layout_height="4px"
+                        android:background="@color/color_3AC270"></View>
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/ll_read_history"
+                    android:paddingTop="6px"
+                    android:text="阅读历史"
+                    android:textColor="@color/color_999999"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_my_collected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_read_history"
-                android:paddingTop="36px"
-                android:text="我的收藏"
-                android:textColor="@color/color_999999"
-                android:textSize="14sp" />
+                android:layout_toRightOf="@+id/ll_read_history"
+                android:orientation="vertical"
+                android:paddingBottom="30px"
+                android:paddingTop="30px">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12px"
+                        android:layout_toRightOf="@+id/ll_read_history"
+                        android:text="我的收藏"
+                        android:textColor="@color/color_2E3439"
+                        android:textSize="17sp" />
+
+                    <View
+                        android:layout_width="50px"
+                        android:layout_height="4px"
+                        android:background="@color/color_3AC270"
+                        android:visibility="visible"></View>
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/ll_read_history"
+                    android:paddingTop="6px"
+                    android:text="我的收藏"
+                    android:textColor="@color/color_999999"
+                    android:textSize="14sp"
+                    android:visibility="visible" />
+            </com.zhy.autolayout.AutoLinearLayout>
 
             <TextView
                 android:id="@+id/tv_total"
@@ -50,54 +114,29 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:text="共9本"
                 android:textColor="#2E3439"
                 android:textSize="12sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
+
+        <include layout="@layout/layout_title_divider_line"></include>
 
         <com.smart.framework.library.loading.MultipleStatusView
             android:id="@+id/multipleStatusView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_horizontal"
             app:emptyView="@layout/layout_empty_view"
             app:errorView="@layout/layout_error_view"
             app:loadingView="@layout/layout_loading_view"
             app:noNetworkView="@layout/no_network_view">
 
-            <com.zhy.autolayout.AutoLinearLayout
+            <com.github.jdsjlzx.recyclerview.LRecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.city}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/tv_last_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.date}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.message}"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@{weather.data.ganmao}"
-                    android:textSize="20dp" />
-            </com.zhy.autolayout.AutoLinearLayout>
+                android:overScrollMode="never"
+                android:background="@color/color_999999"
+                android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
 
         </com.smart.framework.library.loading.MultipleStatusView>
 

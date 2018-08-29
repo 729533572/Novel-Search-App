@@ -2,6 +2,7 @@ package com.smart.novel.util
 
 import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import com.github.jdsjlzx.recyclerview.LRecyclerView
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter
 import com.github.jdsjlzx.recyclerview.ProgressStyle
@@ -34,17 +35,17 @@ class RecyclerViewHelper {
         }
 
         //初始化普通的LRecyclerView
-        fun initRecyclerView(mRecyclerView: LRecyclerView, mAdapter: MultiItemTypeAdapter<*, *>, context: Activity) {
+        fun initRecyclerView(mRecyclerView: LRecyclerView, mAdapter: MultiItemTypeAdapter<*, *>, context: Activity, layoutManager: RecyclerView.LayoutManager) {
             var mLrecyclViewAdapter = LRecyclerViewAdapter(mAdapter)
+            mRecyclerView.layoutManager = layoutManager
             mRecyclerView.adapter = mLrecyclViewAdapter
-            mRecyclerView.setHasFixedSize(true)
-            mRecyclerView.layoutManager = LinearLayoutManager(context)
             mRecyclerView.setRefreshProgressStyle(ProgressStyle.TriangleSkewSpin)
             mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallBeat);
+            mRecyclerView.setHasFixedSize(true)
             //设置头部文字颜色
-            mRecyclerView.setHeaderViewColor(R.color.color_3AC270, R.color.color_73787d, R.color.color_f9f9f9)
+            mRecyclerView.setHeaderViewColor(R.color.color_3AC270, R.color.color_73787d, R.color.color_FFFFFF)
             //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
-            mRecyclerView.setFooterViewColor(R.color.color_3AC270, R.color.color_73787d, R.color.color_f9f9f9)
+            mRecyclerView.setFooterViewColor(R.color.color_3AC270, R.color.color_73787d, R.color.color_FFFFFF)
             //设置底部加载文字提示
             mRecyclerView.setFooterViewHint(MyApplication.context.getString(R.string.list_footer_loading), MyApplication.context.getString(R.string.list_footer_end), MyApplication.context.getString(R.string.list_footer_network_error))
         }

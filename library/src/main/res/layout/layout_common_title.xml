@@ -55,4 +55,5 @@
         android:layout_height="2px"
         android:background="@drawable/bg_shape_gradient_line_reverse"
         android:focusableInTouchMode="true" />
+    <!-- android:focusableInTouchMode="true"  使列表RecyclerView能正常获取焦点，避免出现下列刷新不灵敏的问题-->
 </com.zhy.autolayout.AutoLinearLayout>
