@@ -7,24 +7,105 @@
     <data>
 
         <variable
-            name="user"
-            type="com.smart.novel.bean.UserEntity"></variable>
+            name="searchBean"
+            type="com.smart.novel.db.bean.SearchResultBean"></variable>
     </data>
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px">
 
         <ImageView
-            android:layout_width="150px"
-            android:layout_height="200px"
-            android:src="@drawable/ic_reading_no_data" />
+            android:id="@+id/iv_cover"
+            android:layout_width="166px"
+            android:layout_height="240px"
+            android:layout_marginTop="36px"
+            android:background="@drawable/bg_shape_cover_image_stroke_dfdfdf"
+            android:padding="1px"
+            android:scaleType="fitXY"
+            app:imageUrl="@{searchBean.covor_url}" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@{user.name}" />
-    </com.zhy.autolayout.AutoLinearLayout>
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20px"
+                android:includeFontPadding="false"
+                android:text="@{searchBean.name_cn}"
+                android:textColor="@color/color_2E3439"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10px"
+                android:text="@{searchBean.author}"
+                android:textColor="@color/color_666666"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="22px"
+                android:ellipsize="end"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:text="@{searchBean.comment}"
+                android:textColor="@color/color_999999"
+                android:textSize="12sp" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_shape_noveltype_coner_50"
+                    android:paddingBottom="6px"
+                    android:paddingLeft="24px"
+                    android:paddingRight="24px"
+                    android:paddingTop="6px"
+                    android:text="励志"
+                    android:textColor="@color/color_F1B52F"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_shape_update_status_coner_50"
+                    android:paddingBottom="6px"
+                    android:paddingLeft="24px"
+                    android:paddingRight="24px"
+                    android:paddingTop="6px"
+                    android:text="更新中"
+                    android:textColor="@color/color_3AC270"
+                    android:textSize="10sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <include
+            layout="@layout/layout_title_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/ll_info"
+            android:layout_marginTop="30px"></include>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
 </layout>

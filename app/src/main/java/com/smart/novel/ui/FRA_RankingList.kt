@@ -5,15 +5,15 @@ import android.view.View
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
-import com.smart.novel.mvp.model.TestModel
-import com.smart.novel.mvp.presenter.TestPresenter
+import com.smart.novel.mvp.model.BookShelfModel
+import com.smart.novel.mvp.presenter.BookShelfPresenter
 
 /**
  * Created by JoJo on 2018/8/23.
  * wechat:18510829974
  * description: 排行榜
  */
-class FRA_RankingList : BaseMVPFragment<TestPresenter, TestModel>() {
+class FRA_RankingList : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     companion object {
         fun getInstance(): FRA_RankingList {
             val fragment = FRA_RankingList()

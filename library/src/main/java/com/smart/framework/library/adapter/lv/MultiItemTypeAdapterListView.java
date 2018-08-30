@@ -1,6 +1,8 @@
 package com.smart.framework.library.adapter.lv;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ public class MultiItemTypeAdapterListView<T> extends BaseAdapter {
     protected List<T> mDatas = new ArrayList<>();
 
     private ItemViewDelegateManagerListView mItemViewDelegateManagerListView;
+    private ViewDataBinding viewDataBinding;
 
 
     public MultiItemTypeAdapterListView(Context context) {
@@ -50,31 +53,29 @@ public class MultiItemTypeAdapterListView<T> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ItemViewDelegateListView itemViewDelegateListView = mItemViewDelegateManagerListView.getItemViewDelegate(mDatas.get(position), position);
         int layoutId = itemViewDelegateListView.getItemViewLayoutId();
-        ViewHolderListView viewHolder = null ;
-        if (convertView == null)
-        {
-            View itemView = LayoutInflater.from(mContext).inflate(layoutId, parent,
-                    false);
-            viewHolder = new ViewHolderListView(mContext, itemView, parent, position);
+        ViewHolderListView viewHolder = null;
+        if (convertView == null) {
+//            View itemView = LayoutInflater.from(mContext).inflate(layoutId, parent,
+//                    false);
+            viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext), layoutId, parent, false);
+            viewHolder = new ViewHolderListView(mContext, viewDataBinding.getRoot(), parent, position);
             viewHolder.mLayoutId = layoutId;
-            onViewHolderCreated(viewHolder,viewHolder.getConvertView());
-        } else
-        {
+            onViewHolderCreated(viewHolder, viewHolder.getConvertView());
+        } else {
             viewHolder = (ViewHolderListView) convertView.getTag();
             viewHolder.mPosition = position;
         }
 
-
-        convert(viewHolder, getItem(position), position);
+        convert(viewDataBinding, viewHolder, getItem(position), position);
         return viewHolder.getConvertView();
     }
 
-    protected void convert(ViewHolderListView viewHolder, T item, int position) {
-        mItemViewDelegateManagerListView.convert(viewHolder, item, position);
+    protected void convert(ViewDataBinding viewDataBinding, ViewHolderListView viewHolder, T item, int position) {
+        mItemViewDelegateManagerListView.convert(viewDataBinding,viewHolder, item, position);
     }
 
-    public void onViewHolderCreated(ViewHolderListView holder , View itemView )
-    {}
+    public void onViewHolderCreated(ViewHolderListView holder, View itemView) {
+    }
 
     @Override
     public int getCount() {

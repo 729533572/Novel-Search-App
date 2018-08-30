@@ -6,15 +6,15 @@ import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
-import com.smart.novel.mvp.model.TestModel
-import com.smart.novel.mvp.presenter.TestPresenter
+import com.smart.novel.mvp.model.BookShelfModel
+import com.smart.novel.mvp.presenter.BookShelfPresenter
 
 /**
  * Created by JoJo on 2018/8/24.
  *wechat：18510829974
  *description：抓取网页：https://www.zhuishu.tw/id50438
  */
-class ACT_Read : BaseMVPActivity<TestPresenter, TestModel>(), IBaseView {
+class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseView {
 
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_read

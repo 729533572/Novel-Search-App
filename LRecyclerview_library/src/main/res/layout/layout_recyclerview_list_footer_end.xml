@@ -5,11 +5,23 @@
     android:gravity="center"
     android:orientation="horizontal">
 
+    <View
+        android:layout_width="10dp"
+        android:layout_height="1px"
+        android:background="@color/color_b1b1b1"></View>
+
     <TextView
         android:id="@+id/loading_end_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/list_footer_end"
         android:textColor="@color/color_73787d"
         android:textSize="13sp" />
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="1dp"
+        android:background="@color/color_b1b1b1"></View>
 </LinearLayout>

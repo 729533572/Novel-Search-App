@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.smart.framework.library.widgets.IOSScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_no_search_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_search_no_result_header"></include>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_FFFFFF"
+            android:orientation="vertical">
+            <!--热门搜索-->
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="340px"
+                android:paddingBottom="32px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:paddingTop="34px">
+
+                <TextView
+                    android:id="@+id/tv_hot_search_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门搜索"
+                    android:textColor="@color/color_2E3439"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/btn_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="4px"
+                    android:text="换一批"
+                    android:textColor="@color/color_2F9FF2"
+                    android:textSize="13sp" />
+
+                <com.smart.framework.library.widgets.tag.TagFlowLayout
+                    android:id="@+id/flowTagview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tv_hot_search_txt" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <include layout="@layout/layout_wide_divider_f7f7f7"></include>
+
+            <!--搜索历史-->
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="34px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="26px"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
+                    android:text="搜索历史"
+                    android:textColor="@color/color_2E3439"
+                    android:textSize="15sp" />
+
+                <include layout="@layout/layout_title_divider_line"></include>
+
+                <com.smart.framework.library.widgets.BanSlideListView
+                    android:id="@+id/listviewSearchHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@null"
+                    android:scrollbars="none"></com.smart.framework.library.widgets.BanSlideListView>
+
+                <!--清除历史记录-->
+                <include layout="@layout/layout_clear_history_footer"></include>
+
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.smart.framework.library.widgets.IOSScrollView>
+

@@ -16,21 +16,37 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_search_keywords"
-            android:layout_width="wrap_content"
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_shape_search_coner_20"
-            android:drawableLeft="@drawable/ic_arrow_left"
-            android:drawablePadding="20px"
-            android:gravity="center_vertical"
-            android:hint="请输入书名"
-            android:paddingBottom="16px"
-            android:paddingLeft="22px"
-            android:paddingRight="22px"
-            android:paddingTop="16px"
-            android:textSize="12sp" />
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/et_search_keywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_shape_search_coner_50"
+                android:drawableLeft="@drawable/ic_nav_bar_search"
+                android:drawablePadding="20px"
+                android:gravity="center_vertical"
+                android:hint="请输入书名"
+                android:paddingBottom="16px"
+                android:paddingLeft="22px"
+                android:paddingRight="22px"
+                android:paddingTop="16px"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/iv_clear_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px"
+                android:padding="10px"
+                android:src="@drawable/ic_btn_search_box_delete" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
 
         <TextView
             android:id="@+id/tv_do_search"
@@ -42,5 +58,5 @@
             android:textSize="13sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <include layout="@layout/layout_title_divider_line"></include>
+    <include layout="@layout/layout_gradient_divider_line"></include>
 </com.zhy.autolayout.AutoLinearLayout>

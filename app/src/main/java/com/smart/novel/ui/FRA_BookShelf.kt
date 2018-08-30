@@ -16,10 +16,10 @@ import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
-import com.smart.novel.db.bean.ReadHistoryEntity
-import com.smart.novel.mvp.contract.TestContract
-import com.smart.novel.mvp.model.TestModel
-import com.smart.novel.mvp.presenter.TestPresenter
+import com.smart.novel.db.bean.ReadHistoryBean
+import com.smart.novel.mvp.contract.BookShelfContract
+import com.smart.novel.mvp.model.BookShelfModel
+import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
 
@@ -28,10 +28,10 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
  * wechat:18510829974
  * description: 书架
  */
-class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.View, OnLoadMoreListener, OnRefreshListener {
+class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
 
     var mAdapter: ADA_ReadHistory? = null
-    var data = ArrayList<ReadHistoryEntity>()
+    var data = ArrayList<ReadHistoryBean>()
     val mColumnNum = 3//列表每行展示的个数
 
     /**
@@ -52,7 +52,7 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
 
     override fun startEvents() {
         for (i in 0..16) {
-            var history = ReadHistoryEntity()
+            var history = ReadHistoryBean()
             data.add(history)
         }
 
@@ -60,7 +60,7 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
 
         initListener()
 
-        mMvpPresenter.getTestData(multipleStatusView)
+        mMvpPresenter.getBookShelfData(multipleStatusView)
 
     }
 
@@ -69,7 +69,7 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
      */
     private fun initRecyclerView() {
         mAdapter = ADA_ReadHistory(activity)
-        RecyclerViewHelper.initRecyclerView(recyclerview, mAdapter!!, activity, GridLayoutManager(activity, 3))
+        RecyclerViewHelper.initRecyclerView(activity, recyclerview, mAdapter!!, GridLayoutManager(activity, 3))
         recyclerview.setOnRefreshListener(this)
         recyclerview.setOnLoadMoreListener(this)
         recyclerview.addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -147,11 +147,12 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
     override fun showBusinessError(error: ErrorBean?) {
         multipleStatusView.showError()
     }
+
     override fun showException(error: ErrorBean?) {
 
     }
 
-    override fun getTestData(dataList: List<ReadHistoryEntity>) {
+    override fun getBookShelfData(dataList: List<ReadHistoryBean>) {
         tv_total.text = "共" + "9" + "本"
         mAdapter!!.update(dataList, true)
     }

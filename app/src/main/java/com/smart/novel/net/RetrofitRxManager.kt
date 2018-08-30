@@ -1,7 +1,6 @@
 package com.zongxueguan.naochanle_android.retrofitrx
 
 import android.content.Context
-import android.os.Handler
 import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
@@ -13,7 +12,6 @@ import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.bean.BaseHttpResponse
 import com.smart.novel.global.API
-import com.smart.novel.net.WeatherEntity
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.*
@@ -369,25 +367,25 @@ object RetrofitRxManager {
     /**
      * 直接使用RetrofitRxManager请求
      */
-    fun doNormalRequest() {
-//        multipleStatusView.showLoading()
-        Handler().postDelayed({
-            RetrofitRxManager.getRequestService().getWeather("北京")
-                    .compose(RxSchedulers.io_main())
-                    .subscribeWith(object : DisposableObserver<WeatherEntity>() {
-                        override fun onNext(bean: WeatherEntity) {
-//                            var viewBinder = viewDataBinding as FraBookshelfBinding
-//                            viewBinder.weather = bean
-////                            multipleStatusView.showContent()
-//                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
-                        }
-
-                        override fun onError(e: Throwable) {
-                        }
-
-                        override fun onComplete() {
-                        }
-                    })
-        }, 1500)
-    }
+//    fun doNormalRequest() {
+////        multipleStatusView.showLoading()
+//        Handler().postDelayed({
+//            RetrofitRxManager.getRequestService().getWeather("北京")
+//                    .compose(RxSchedulers.io_main())
+//                    .subscribeWith(object : DisposableObserver<WeatherEntity>() {
+//                        override fun onNext(bean: WeatherEntity) {
+////                            var viewBinder = viewDataBinding as FraBookshelfBinding
+////                            viewBinder.weather = bean
+//////                            multipleStatusView.showContent()
+////                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+//                        }
+//
+//                        override fun onError(e: Throwable) {
+//                        }
+//
+//                        override fun onComplete() {
+//                        }
+//                    })
+//        }, 1500)
+//    }
 }

@@ -5,7 +5,6 @@ import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.framework.library.adapter.rv.normal.ItemViewDelegateNormal
 import com.smart.novel.R
 import com.smart.novel.bean.UserEntity
-import com.smart.novel.databinding.ItemSearchResultBinding
 
 /**
  * Created by JoJo on 2018/8/28.
@@ -15,7 +14,7 @@ import com.smart.novel.databinding.ItemSearchResultBinding
 class ViewTypeTwo constructor(context: Activity) : ItemViewDelegateNormal<UserEntity> {
 
     override fun convert(holder: ViewHolder.BindingHolder, t: UserEntity?, position: Int) {
-        (holder.viewBinding as ItemSearchResultBinding).user = t
+//        (holder.viewBinding as ItemSearchResultBinding).user = t
     }
 
     override fun getItemViewLayoutId(): Int {

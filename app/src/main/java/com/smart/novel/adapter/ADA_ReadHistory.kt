@@ -5,15 +5,15 @@ import com.smart.framework.library.adapter.rv.CommonAdapter
 import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.novel.R
 import com.smart.novel.databinding.ItemBookShelfBinding
-import com.smart.novel.db.bean.ReadHistoryEntity
+import com.smart.novel.db.bean.ReadHistoryBean
 
 /**
  * Created by JoJo on 2018/8/29.
  * wechat:18510829974
  * description: 阅读历史
  */
-class ADA_ReadHistory constructor(context: Context) : CommonAdapter<ReadHistoryEntity, ItemBookShelfBinding>(context) {
-    override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, bean: ReadHistoryEntity?, position: Int) {
+class ADA_ReadHistory constructor(context: Context) : CommonAdapter<ReadHistoryBean, ItemBookShelfBinding>(context) {
+    override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, bean: ReadHistoryBean?, position: Int) {
         viewBinding!!.history = bean
     }
 

@@ -5,24 +5,24 @@ import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.bean.BaseHttpResponse
-import com.smart.novel.db.bean.ReadHistoryEntity
+import com.smart.novel.db.bean.ReadHistoryBean
 import io.reactivex.Observable
 
 /**
  * Created by JoJo on 2018/8/27.
  * wechat:18510829974
- * description:
+ * description: 书架模块
  */
-class TestContract {
+class BookShelfContract {
     interface View : IBaseView {
-        fun getTestData(dataList: List<ReadHistoryEntity>)
+        fun getBookShelfData(dataList: List<ReadHistoryBean>)
     }
 
     interface Model : BaseModel {
-        fun getTestData(): Observable<BaseHttpResponse<List<ReadHistoryEntity>>>
+        fun getBookShelfData(): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
     }
 
-    abstract class Presenter : BasePresenter<TestContract.View, TestContract.Model>() {
-        abstract fun getTestData(multipleStatusView: MultipleStatusView)
+    abstract class Presenter : BasePresenter<BookShelfContract.View, BookShelfContract.Model>() {
+        abstract fun getBookShelfData(multipleStatusView: MultipleStatusView)
     }
 }
