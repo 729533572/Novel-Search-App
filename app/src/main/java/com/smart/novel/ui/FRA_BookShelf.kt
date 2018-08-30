@@ -114,7 +114,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     fun onClick(view: View) {
         when (view.id) {
             R.id.ll_read_history -> {
-                CommonUtils.makeEventToast(MyApplication.context, "阅读历史", false)
+                CommonUtils.makeEventToast(MyApplication.context, MyApplication.context.getString(R.string.string_read_history), false)
                 ll_read_history.getChildAt(0).visibility = View.VISIBLE
                 ll_read_history.getChildAt(1).visibility = View.GONE
                 ll_my_collected.getChildAt(0).visibility = View.GONE
@@ -122,7 +122,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 //                readyGo(ACT_Login::class.java)
             }
             R.id.ll_my_collected -> {
-                CommonUtils.makeEventToast(MyApplication.context, "我的收藏", false)
+                CommonUtils.makeEventToast(MyApplication.context, MyApplication.context.getString(R.string.string_mine_collected), false)
                 ll_my_collected.getChildAt(0).visibility = View.VISIBLE
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
@@ -153,7 +153,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     }
 
     override fun getBookShelfData(dataList: List<ReadHistoryBean>) {
-        tv_total.text = "共" + "9" + "本"
+        tv_total.text = "共" + dataList.size + "本"
         mAdapter!!.update(dataList, true)
     }
 }

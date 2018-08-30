@@ -7,15 +7,15 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_FFFFFF"
         android:orientation="vertical">
 
         <include layout="@layout/layout_search_no_result_header"></include>
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_FFFFFF"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
             <!--热门搜索-->
             <com.zhy.autolayout.AutoRelativeLayout
@@ -76,6 +76,7 @@
                     android:id="@+id/listviewSearchHistory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:listSelector="@drawable/transparent"
                     android:divider="@null"
                     android:scrollbars="none"></com.smart.framework.library.widgets.BanSlideListView>
 

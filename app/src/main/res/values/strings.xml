@@ -18,7 +18,13 @@
     <string name="string_search_novel">搜小说</string>
     <string name="string_ranking_list">排行榜</string>
     <string name="string_mine">我的</string>
-    <!--空页面文字note-->
+    <!--书架-->
+    <string name="string_read_history">阅读历史</string>
+    <string name="string_mine_collected">我的收藏</string>
     <string name="string_empty_bookshelf">快去添加书籍吧</string>
+    <!--搜小说-->
+    <string name="string_clear_history">清除历史记录</string>
+    <string name="string_clear_history_success">清除成功</string>
+
 
 </resources>

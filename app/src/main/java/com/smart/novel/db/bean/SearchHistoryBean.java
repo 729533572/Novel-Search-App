@@ -12,32 +12,27 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class SearchHistoryBean {
     @Id(autoincrement = true)
-    public Long searchId;
+    public Long id;
     public String searchKeyWords;
-
-    @Generated(hash = 1122525751)
-    public SearchHistoryBean(Long searchId, String searchKeyWords) {
-        this.searchId = searchId;
+    @Generated(hash = 1354987317)
+    public SearchHistoryBean(Long id, String searchKeyWords) {
+        this.id = id;
         this.searchKeyWords = searchKeyWords;
     }
-
     @Generated(hash = 1570282321)
     public SearchHistoryBean() {
     }
-
-    public Long getSearchId() {
-        return this.searchId;
+    public Long getId() {
+        return this.id;
     }
-
-    public void setSearchId(Long searchId) {
-        this.searchId = searchId;
+    public void setId(Long id) {
+        this.id = id;
     }
-
     public String getSearchKeyWords() {
         return this.searchKeyWords;
     }
-
     public void setSearchKeyWords(String searchKeyWords) {
         this.searchKeyWords = searchKeyWords;
     }
+
 }

@@ -1,7 +1,6 @@
-package com.smart.framework.library.adapter.lv;
+package com.smart.framework.library.adapter.lv.normal;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +9,7 @@ public abstract class CommonAdapterListView<T> extends MultiItemTypeAdapterListV
 
     public CommonAdapterListView(Context context) {
         super(context);
-
+        
         addItemViewDelegate(new ItemViewDelegateListView<T>() {
             @Override
             public int getItemViewLayoutId() {
@@ -23,16 +22,15 @@ public abstract class CommonAdapterListView<T> extends MultiItemTypeAdapterListV
             }
 
             @Override
-            public void convert(ViewDataBinding viewDataBinding, ViewHolderListView holder, T t, int position) {
-                CommonAdapterListView.this.convert(viewDataBinding, holder, t, position);
+            public void convert(ViewHolderListView holder, T t, int position) {
+                CommonAdapterListView.this.convert(holder, t, position);
             }
-
         });
     }
 
     protected abstract int itemLayoutId();
 
-    protected abstract void convert(ViewDataBinding viewDataBinding, ViewHolderListView holder, T bean, int position);
+    protected abstract void convert(ViewHolderListView viewHolder, T item, int position);
 
     /**
      * 设置适配器的数据，添加数据

@@ -19,7 +19,7 @@
         android:paddingLeft="76px"
         android:paddingRight="76px"
         android:paddingTop="16px"
-        android:text="清除历史记录"
+        android:text="@string/string_clear_history"
         android:textColor="@color/color_2E3439"
         android:textSize="13sp" />
 </com.zhy.autolayout.AutoLinearLayout><!--清除历史记录-->

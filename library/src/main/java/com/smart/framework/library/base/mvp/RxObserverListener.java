@@ -1,8 +1,9 @@
 package com.smart.framework.library.base.mvp;
 
-import android.util.Log;
-
+import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.bean.ErrorBean;
+import com.smart.framework.library.common.log.Elog;
+import com.smart.framework.library.common.utils.CommonUtils;
 import com.smart.framework.library.common.utils.StringUtil;
 import com.smart.framework.library.net.retrofit.BaseObserverListener;
 
@@ -32,13 +33,14 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
     @Override
     public void onError(Throwable e) {
         RetrofitException.ResponseThrowable responseThrowable = RetrofitException.getResponseThrowable(e);
-        Log.e("TAG", "e.code=" + responseThrowable.code + responseThrowable.message);
+        Elog.e("TAG", "e.code=" + responseThrowable.code + responseThrowable.message);
         ErrorBean errorBean = new ErrorBean();
         errorBean.setMsg(responseThrowable.message);
         errorBean.setCode(StringUtil.getString(responseThrowable.code));
         if (mView != null) {
             mView.showException(errorBean);
             mView.dismissDialogLoading();
+            CommonUtils.makeEventToast(BaseApplication.getInstance(), responseThrowable.message, false);
         }
     }
 
@@ -47,6 +49,7 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
         if (mView != null) {
             mView.showBusinessError(errorBean);
             mView.dismissDialogLoading();
+            CommonUtils.makeEventToast(BaseApplication.getInstance(), errorBean.getMsg(), false);
         }
     }
 }
