@@ -7,8 +7,8 @@ import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
+import com.smart.novel.bean.SearchResultBean
 import com.smart.novel.databinding.ItemSearchResultBinding
-import com.smart.novel.db.bean.SearchResultBean
 
 /**
  * Created by JoJo on 2018/8/28.

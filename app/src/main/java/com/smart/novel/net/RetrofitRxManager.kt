@@ -10,8 +10,8 @@ import com.smart.framework.library.common.utils.StringUtil
 import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
-import com.smart.novel.bean.BaseHttpResponse
 import com.smart.novel.global.API
+import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.*
@@ -151,7 +151,6 @@ object RetrofitRxManager {
             val request = chain!!.request()
             val requestBuilder = request.newBuilder()
                     .addHeader("Connection", HEADER_CONNECTION)
-                    .addHeader("api_key", "mingjiazongxueguan")
 //                    .addHeader("authorization", UserConstants.AUTHORIZATION)// TOKEN
                     .method(request.method(), request.body())
                     .build()
@@ -182,11 +181,11 @@ object RetrofitRxManager {
             var response = chain.proceed(request)
             if (NetUtils.isNetworkConnected(MyApplication.context)) {
                 var cacheControl: String = request.cacheControl().toString()
-                Log.e("Tag", "有网")
+//                Log.e("Tag", "有网")
                 return response.newBuilder().header("Cache-Control", cacheControl)
                         .removeHeader("Pragma").build() // 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
             } else {
-                Log.e("Tag", "无网")
+//                Log.e("Tag", "无网")
                 //无网络时，设置超时为CACHE_STALE_LONG  只对get有用, post没有缓冲
                 return response.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
                         .removeHeader("Pragma").build()

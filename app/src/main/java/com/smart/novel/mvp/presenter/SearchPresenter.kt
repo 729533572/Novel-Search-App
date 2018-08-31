@@ -2,8 +2,8 @@ package com.smart.novel.mvp.presenter
 
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
-import com.smart.novel.db.bean.HotSearchBean
-import com.smart.novel.db.bean.SearchResultBean
+import com.smart.novel.bean.HotSearchBean
+import com.smart.novel.bean.SearchResultBean
 import com.smart.novel.mvp.contract.SearchContract
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 

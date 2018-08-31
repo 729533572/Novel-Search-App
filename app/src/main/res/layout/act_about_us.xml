@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
+    <data>
+
+        <variable
+            name="rankBean"
+            type="com.smart.novel.bean.RankListBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_common_title"></include>
+
+        <com.smart.framework.library.widgets.IOSScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/layout_no_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_f7f7f7">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="34px"
+                android:paddingRight="34px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="80px"
+                    android:text="关于我们"
+                    android:textColor="@color/color_333333"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/tv_hot_search_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:text="公司简介
+大连万合互动网络科技有限公司
+“精华在笔端，咫尺匠心难。”
+五年匠心，追求卓越作品，推敲打磨，潜心雕琢，同时深谙产品品牌借助文字设计的推广之道，专注于为中小企业以及创业公司提供品牌策划、文案策划、平面设计、网络整合营销以及微信公众号代运营综合服务。
+匠心造物，从软文字句，到设计颜色，资深成员精心设计，始终坚守，安静专注，与浮躁无关。从品牌实际情况出发，结合丰富的实战经验，提炼贴心的营销策划匠心精华，项目进程和稿件质量都深得客户认可。
+匠心，用最美的年华做最喜欢最擅长的事情，将岁月打磨成作品，用作品丰厚岁月，二十位品牌推广营销匠人，百个知名品牌服务经验，在文案行业发展迅速，口碑佳。
+
+
+文案策划
+新闻稿、微信稿、论坛稿等各类稿件撰写，能够将文章的内容和品牌产品信息巧妙融合，运用SEO搜索引擎优化等方式，宣传品牌产品。
+“人心惟危，道心惟微；惟精惟一，允直阙中”执着匠心，二十余人专业编辑团队，专注代写十余年，同时代高效发布，一站式省心服务。
+
+品牌策划
+能够节约公司时间、精力成本，低价高质，即时响应，专业团队多年品牌故事、企业文化策划经验，走心沟通。团队成员拥有深厚的文案功底，优秀的思想力和创造力。“文章做到极处，无有他奇，只是恰好。”用心沟通，恰到好处。
+
+平面设计
+为企业繁杂琐碎的设计工作，提供快速、系统的解决方案。设计包括平面物料类、会议活动类、网络营销类等作品，量身定制专属企业平面设计方案。
+
+网络整合营销
+私人定制，专属宣传推广套餐，定制宣传计划。把握网络营销时代下，宣传推广事半功倍的新机遇。设计符合宣传推广时代发展的整合营销套餐，精致精准，匠心独运。
+
+微信公众号代运营
+针对公众号品牌粉丝推广，实现点对点营销，新媒体时代，运用互联网思维，以及雄厚的文字实力来吸引潜在客户，维系粉丝。匠心文案项目周期短，可协调性强，专业新媒体编辑、策划清晰定位，坚信内容为王。"
+                    android:textColor="@color/color_333333"
+                    android:textSize="13sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.smart.framework.library.widgets.IOSScrollView>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</layout>

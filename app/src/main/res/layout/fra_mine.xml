@@ -1,17 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data></data>
+    <data>
 
-    <LinearLayout
+        <variable
+            name="user"
+            type="com.smart.novel.bean.UserBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
+
+        <com.zhy.autolayout.AutoFrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#dedede"
-            android:gravity="center"
-            android:text="我的" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_mine_head_portrait_bg"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:src="@drawable/ic_mine_default_avatar" />
+        </com.zhy.autolayout.AutoFrameLayout>
+
+        <!--登录状态-->
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_logined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="110px"
+            android:layout_marginTop="40px"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="18387402384"
+                android:textColor="@color/color_333333"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:text="一只特立独行的猪"
+                android:textColor="@color/color_999999"
+                android:textSize="13sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <!--未登录状态-->
+        <TextView
+            android:id="@+id/tv_un_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="110px"
+            android:layout_marginTop="40px"
+            android:background="@drawable/bg_shape_stroke_color_3ac270_corner_4"
+            android:paddingBottom="16px"
+            android:paddingLeft="80px"
+            android:paddingRight="80px"
+            android:paddingTop="16px"
+            android:text="登录"
+            android:textColor="@color/color_3AC270"
+            android:visibility="gone" />
+
+        <com.smart.framework.library.widgets.BanSlideListView
+            android:id="@+id/listviewMine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent"
+            android:divider="@null"
+            android:listSelector="@drawable/transparent"
+            android:scrollbars="none"></com.smart.framework.library.widgets.BanSlideListView>
+    </com.zhy.autolayout.AutoLinearLayout>
+
 </layout>

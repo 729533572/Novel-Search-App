@@ -1,4 +1,4 @@
-package com.smart.novel.db.bean;
+package com.smart.novel.bean;
 
 /**
  * Created by JoJo on 2018/8/30.

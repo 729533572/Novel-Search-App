@@ -120,24 +120,7 @@
 
         <include layout="@layout/layout_title_divider_line"></include>
 
-        <com.smart.framework.library.loading.MultipleStatusView
-            android:id="@+id/multipleStatusView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            app:emptyView="@layout/layout_empty_view"
-            app:errorView="@layout/layout_error_view"
-            app:loadingView="@layout/layout_loading_view"
-            app:noNetworkView="@layout/no_network_view">
-
-            <com.github.jdsjlzx.recyclerview.LRecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
-
-        </com.smart.framework.library.loading.MultipleStatusView>
+        <include layout="@layout/layout_common_recyclview"></include>
 
     </com.zhy.autolayout.AutoLinearLayout>
 

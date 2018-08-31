@@ -13,7 +13,6 @@
     <color name="color_e2e2e2">#dedede</color>
     <color name="color_bbbbbb">#bbbbbb</color>
     <!--首页-->
-    <color name="color_999999">#999999</color>
     <color name="color_adadad">#adadad</color>
     <color name="color_f8f8f8">#f8f8f8</color>
     <color name="color_2E3439">#2E3439</color>
@@ -23,4 +22,7 @@
     <color name="color_f0fbf4">#f0fbf4</color>
     <color name="color_dfdfdf">#dfdfdf</color>
     <color name="color_e5e5e5">#e5e5e5</color>
+    <color name="color_c7c7c7">#c7c7c7</color>
+    <color name="color_dedede">#dedede</color>
+    <color name="color_333333">#333333</color>
 </resources>

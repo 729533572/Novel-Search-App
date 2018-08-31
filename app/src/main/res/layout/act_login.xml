@@ -13,10 +13,114 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/color_FFFFFF"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="30px"
+        android:paddingRight="30px">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220px"
+            android:text="注册登录"
+            android:textColor="@color/color_2E3439"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:layout_marginTop="84px"
+            android:text="手机号"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:hint="请输入手机号"
+            android:inputType="number"
+            android:paddingLeft="6px"
+            android:textColor="@color/color_2E3439"
+            android:textColorHint="@color/color_dedede"
+            android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_marginBottom="70px"
+            android:layout_marginTop="18px"
+            android:background="@color/color_c7c7c7"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:text="验证码"
+            android:textColor="@color/color_666666"
+            android:textSize="10sp" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:paddingLeft="6px"
+                android:textColor="@color/color_2E3439"
+                android:textColorHint="@color/color_dedede"
+                android:textCursorDrawable="@drawable/bg_shape_et_cursor_color"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="30px"
+                android:layout_marginRight="20px"
+                android:background="@color/color_c7c7c7"></View>
+
+            <RadioButton
+                android:id="@+id/btn_get_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="@string/string_get_verify_code"
+                android:textColor="@color/color_999999"
+                android:textSize="15sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_marginTop="18px"
+            android:background="@color/color_c7c7c7"></View>
+
+
+        <RadioButton
+            android:id="@+id/rb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="90px"
+            android:background="@drawable/bg_login_shape_solid_3ac270"
+            android:button="@null"
+            android:paddingBottom="30px"
+            android:paddingLeft="260px"
+            android:paddingRight="260px"
+            android:paddingTop="30px"
+            android:text="登录"
+            android:textColor="#9ce0b7" />
     </com.zhy.autolayout.AutoLinearLayout>
 
 </layout>

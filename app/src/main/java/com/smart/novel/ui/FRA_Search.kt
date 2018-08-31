@@ -15,9 +15,9 @@ import com.smart.novel.R
 import com.smart.novel.adapter.ADA_HotSearchTag
 import com.smart.novel.adapter.ADA_SearchHistory
 import com.smart.novel.adapter.ADA_SearchList
-import com.smart.novel.db.bean.HotSearchBean
+import com.smart.novel.bean.HotSearchBean
+import com.smart.novel.bean.SearchResultBean
 import com.smart.novel.db.bean.SearchHistoryBean
-import com.smart.novel.db.bean.SearchResultBean
 import com.smart.novel.db.manager.DbManager
 import com.smart.novel.mvp.contract.SearchContract
 import com.smart.novel.mvp.model.SearchModel
@@ -147,7 +147,7 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
      * 热门搜索
      */
     override fun getHotSearchList(hotList: List<HotSearchBean>) {
-        mHotSearchAdapter = ADA_HotSearchTag(hotList, mContext)
+        mHotSearchAdapter = ADA_HotSearchTag(hotList)
         flowTagview.setAdapter(mHotSearchAdapter)
     }
 

@@ -1,12 +1,12 @@
-package com.smart.novel.db.bean;
+package com.smart.novel.bean;
 
 /**
  * Created by JoJo on 2018/8/29.
  * wechat:18510829974
- * description: 搜小说结果列表实体
+ * description: 阅读历史
  */
 
-public class SearchResultBean {
+public class ReadHistoryBean {
 
     /**
      * id : 5644

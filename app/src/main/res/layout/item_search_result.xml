@@ -8,7 +8,7 @@
 
         <variable
             name="searchBean"
-            type="com.smart.novel.db.bean.SearchResultBean"></variable>
+            type="com.smart.novel.bean.SearchResultBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20px"
-                    android:background="@drawable/bg_shape_noveltype_coner_50"
+                    android:background="@drawable/bg_shape_noveltype_coner_100"
                     android:paddingBottom="6px"
                     android:paddingLeft="24px"
                     android:paddingRight="24px"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20px"
-                    android:background="@drawable/bg_shape_update_status_coner_50"
+                    android:background="@drawable/bg_shape_update_status_coner_100"
                     android:paddingBottom="6px"
                     android:paddingLeft="24px"
                     android:paddingRight="24px"

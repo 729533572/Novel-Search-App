@@ -1,8 +1,8 @@
 package com.smart.novel.mvp.model
 
-import com.smart.novel.bean.BaseHttpResponse
-import com.smart.novel.db.bean.ReadHistoryBean
+import com.smart.novel.bean.ReadHistoryBean
 import com.smart.novel.mvp.contract.BookShelfContract
+import com.smart.novel.net.BaseHttpResponse
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import io.reactivex.Observable
 

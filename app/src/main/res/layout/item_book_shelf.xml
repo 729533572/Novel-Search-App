@@ -6,7 +6,7 @@
 
         <variable
             name="history"
-            type="com.smart.novel.db.bean.ReadHistoryBean"></variable>
+            type="com.smart.novel.bean.ReadHistoryBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout

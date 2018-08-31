@@ -4,8 +4,8 @@ import android.content.Context
 import com.smart.framework.library.adapter.rv.CommonAdapter
 import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.novel.R
+import com.smart.novel.bean.ReadHistoryBean
 import com.smart.novel.databinding.ItemBookShelfBinding
-import com.smart.novel.db.bean.ReadHistoryBean
 
 /**
  * Created by JoJo on 2018/8/29.

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 /**
  * Created by JoJo on 2018/8/29.
+ *
  * wechat：18510829974
  * description：Databinding中的ImageView与Glide结合使用,自定义ImageViewBindingAdapter
  */
@@ -24,5 +25,10 @@ public class ImageViewBindingAdapter {
     @BindingAdapter({"app:imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
         GlideHelper.loadImage(url, imageView, 0);
+    }
+
+    @BindingAdapter("bind:image")
+    public static void loadLocalImage(ImageView image, int resId) {
+        image.setImageResource(resId);
     }
 }

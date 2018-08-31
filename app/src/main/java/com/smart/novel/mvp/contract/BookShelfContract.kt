@@ -4,8 +4,8 @@ import com.smart.framework.library.base.mvp.BaseModel
 import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
-import com.smart.novel.bean.BaseHttpResponse
-import com.smart.novel.db.bean.ReadHistoryBean
+import com.smart.novel.bean.ReadHistoryBean
+import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 
 /**
@@ -19,6 +19,7 @@ class BookShelfContract {
     }
 
     interface Model : BaseModel {
+        //返回的只有BaseHttpResponse的data部分
         fun getBookShelfData(): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
     }
 

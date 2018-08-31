@@ -4,9 +4,9 @@ import com.smart.framework.library.base.mvp.BaseModel
 import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
-import com.smart.novel.bean.BaseHttpResponse
-import com.smart.novel.db.bean.HotSearchBean
-import com.smart.novel.db.bean.SearchResultBean
+import com.smart.novel.bean.HotSearchBean
+import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 
 /**

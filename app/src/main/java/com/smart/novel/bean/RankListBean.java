@@ -1,29 +1,29 @@
-package com.smart.novel.db.bean;
+package com.smart.novel.bean;
 
 /**
- * Created by JoJo on 2018/8/29.
+ * Created by JoJo on 2018/8/31.
  * wechat:18510829974
- * description: 阅读历史
+ * description: 排行榜列表实体
  */
 
-public class ReadHistoryBean {
+public class RankListBean {
 
     /**
-     * id : 5644
-     * name_cn : 黑金总裁，豪门新婚告急
-     * author : 黑岛菜
-     * content_update_time : 2018-05-27T09:06:15.000Z
+     * id : 256
+     * name_cn : 不败天骄
+     * author : 火树嘎嘎
+     * content_update_time : 2018-08-18T16:23:59.000Z
      * catagory : 0
-     * covor_url : https://www.zhuishu.tw/cover/56/56920.jpg
+     * covor_url : https://www.zhuishu.tw/cover/50/50191.jpg
      * origin_website : https://www.zhuishu.tw
      * is_finished : 0
      * word_count : 0
      * read_count : 0
-     * comment : 洛夏烟四年前糊里糊涂的强过他之后，甩给薄君臣两张软妹币作为答谢取悦费！四年后再见，却是……帝国酒店空中西餐厅外走廊，肤白眼靓的娇俏女孩被摁在电梯门口：“小野猫，惹了我，就该负起你的责……”女人眼眸斜睨嗤笑：“怎么负责，你嫁我？”薄刃的嘴角含着浅笑，男人在她耳旁吐着热气：“巧得很，我倒是还真缺一个暖被窝的主！”
+     * comment : 沧海桑田，世界大变！　　这个时代武技缺失，地阶武技都已是难得，但他身怀多种天阶武技。　　这个时代灵药遍地，炼丹师成了最尊贵的职业，而他曾被称为尘丹皇。　　这个时代曾经的一个个绝世天才已然陨落，他却获得新生，带着一个时代的优势崛起成为天骄！　　不败天骄读者群：176370881微信号：huoshugaga1，微博：火树嘎嘎
      * is_prior_one : 0
-     * create_time : 2018-08-20T07:15:59.009Z
-     * update_time : 2018-08-20T07:15:59.009Z
-     * gender : -1
+     * create_time : 2018-08-19T06:41:45.046Z
+     * update_time : 2018-08-19T06:41:45.046Z
+     * gender : 1
      * keyword_hit_cnt : 0
      */
 

@@ -16,12 +16,13 @@ import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
-import com.smart.novel.db.bean.ReadHistoryBean
+import com.smart.novel.bean.ReadHistoryBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
+import kotlinx.android.synthetic.main.layout_common_recyclview.*
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -31,7 +32,6 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
 class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
 
     var mAdapter: ADA_ReadHistory? = null
-    var data = ArrayList<ReadHistoryBean>()
     val mColumnNum = 3//列表每行展示的个数
 
     /**
@@ -51,10 +51,8 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     }
 
     override fun startEvents() {
-        for (i in 0..16) {
-            var history = ReadHistoryBean()
-            data.add(history)
-        }
+//        var actHome = activity as ACT_Home
+//        actHome.lightModeStatusBar()
 
         initRecyclerView()
 
@@ -119,7 +117,6 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_read_history.getChildAt(1).visibility = View.GONE
                 ll_my_collected.getChildAt(0).visibility = View.GONE
                 ll_my_collected.getChildAt(1).visibility = View.VISIBLE
-//                readyGo(ACT_Login::class.java)
             }
             R.id.ll_my_collected -> {
                 CommonUtils.makeEventToast(MyApplication.context, MyApplication.context.getString(R.string.string_mine_collected), false)
@@ -127,6 +124,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
+                readyGo(ACT_Login::class.java)
             }
         }
     }
@@ -154,6 +152,6 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun getBookShelfData(dataList: List<ReadHistoryBean>) {
         tv_total.text = "共" + dataList.size + "本"
-        mAdapter!!.update(dataList, true)
+        mAdapter!!.update(dataList!!, true)
     }
 }

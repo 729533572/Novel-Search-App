@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mineBean"
+            type="com.smart.novel.bean.MineBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="80px"
+        android:paddingLeft="80px"
+        android:paddingRight="80px">
+
+        <ImageView
+            android:id="@+id/iv_delete_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30px"
+            bind:image="@{mineBean.srcId}" />
+
+        <TextView
+            android:id="@+id/tv_item_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{mineBean.name}"
+            android:textColor="@color/color_2E3439"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:src="@drawable/ic_btn_open_details" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</layout>

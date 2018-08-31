@@ -1,9 +1,9 @@
 package com.smart.novel.mvp.model
 
-import com.smart.novel.bean.BaseHttpResponse
-import com.smart.novel.db.bean.HotSearchBean
-import com.smart.novel.db.bean.SearchResultBean
+import com.smart.novel.bean.HotSearchBean
+import com.smart.novel.bean.SearchResultBean
 import com.smart.novel.mvp.contract.SearchContract
+import com.smart.novel.net.BaseHttpResponse
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import io.reactivex.Observable
 

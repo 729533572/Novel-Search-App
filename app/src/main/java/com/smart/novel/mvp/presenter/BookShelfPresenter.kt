@@ -2,7 +2,7 @@ package com.smart.novel.mvp.presenter
 
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
-import com.smart.novel.db.bean.ReadHistoryBean
+import com.smart.novel.bean.ReadHistoryBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 

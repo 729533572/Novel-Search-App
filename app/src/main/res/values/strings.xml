@@ -25,6 +25,7 @@
     <!--搜小说-->
     <string name="string_clear_history">清除历史记录</string>
     <string name="string_clear_history_success">清除成功</string>
+    <string name="string_title_ranking">排行榜</string>
 
 
 </resources>

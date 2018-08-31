@@ -10,7 +10,7 @@
     <string name="string_re_try">重新获取</string>
 
     <string name="hint_input_phone">请输入账号</string>
-    <string name="string_get_verify_code">获取验证码</string>
+    <string name="string_get_verify_code">点击获取</string>
 
 
     <!--接口异常处理-->

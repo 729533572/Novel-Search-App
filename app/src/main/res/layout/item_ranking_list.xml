@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
+    <data>
+
+        <variable
+            name="rankBean"
+            type="com.smart.novel.bean.RankListBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px">
+
+        <com.zhy.autolayout.AutoFrameLayout
+            android:id="@+id/ll_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/iv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_ranking_list_first"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_rank_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10px"
+                android:layout_marginLeft="6px"
+                android:textColor="@color/color_2E3439"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </com.zhy.autolayout.AutoFrameLayout>
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="120px"
+            android:layout_height="160px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            android:layout_toRightOf="@+id/ll_rank"
+            android:background="@drawable/bg_shape_cover_image_stroke_dfdfdf"
+            android:padding="1px"
+            android:scaleType="fitXY"
+            app:imageUrl="@{rankBean.covor_url}" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="24px"
+            android:layout_toRightOf="@+id/iv_cover"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="14px"
+                android:includeFontPadding="false"
+                android:text="@{rankBean.name_cn}"
+                android:textColor="@color/color_2E3439"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="12px"
+                android:text="@{rankBean.author}"
+                android:textColor="@color/color_666666"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="22px"
+                android:ellipsize="end"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:text="@{rankBean.comment}"
+                android:textColor="@color/color_999999"
+                android:textSize="10sp" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <include
+            layout="@layout/layout_title_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/ll_info"
+            android:layout_marginTop="20px"></include>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+</layout>

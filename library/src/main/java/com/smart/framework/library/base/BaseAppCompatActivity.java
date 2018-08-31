@@ -46,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * 作者：addison on 11/12/15 14:01
  * 邮箱：lsf@yonyou.com
  */
-public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends BaseModel> extends AppCompatActivity {
+public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActivity {
     /**
      * 日志标签，值为子类的classname
      */
@@ -570,6 +570,14 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
         }
         TextView titleTV = (TextView) this.findViewById(R.id.tv_title);
         titleTV.setText(title);
+    }
+
+    /**
+     * 隐藏右边标题
+     */
+    public void hideTitleRightText() {
+        TextView titleTV = (TextView) this.findViewById(R.id.tv_right);
+        titleTV.setVisibility(View.GONE);
     }
 
     /**
