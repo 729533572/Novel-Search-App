@@ -4,8 +4,12 @@ import android.content.Context
 import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.smart.framework.library.base.mvp.RxSchedulers
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.StringUtil
 import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
@@ -47,6 +51,7 @@ object RetrofitRxManager {
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
+                            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context)))
                             .cache(cache)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
@@ -82,6 +87,7 @@ object RetrofitRxManager {
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
+                            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApplication.context)))
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
                             .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
@@ -242,6 +248,7 @@ object RetrofitRxManager {
                             responseBody.string(),
                             (t2 - t1) / 1e6, response.code()
                     ))
+            Elog.e("request", "cookie=" + SharedPrefsCookiePersistor(MyApplication.context))
             return response
         }
     }

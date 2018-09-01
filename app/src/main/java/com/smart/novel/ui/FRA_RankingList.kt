@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.layout_common_recyclview.*
  */
 class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), RankingContract.View, OnRefreshListener, OnLoadMoreListener {
     var mAdapter: ADA_RankingList? = null
-    @BindView(R.id.tv_right) lateinit var textRight: TextView
+    @BindView(R.id.tv_right) lateinit var tvRight: TextView
     @BindView(R.id.tv_title) lateinit var tvTile: TextView
 
     companion object {
@@ -44,7 +44,7 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
     }
 
     override fun startEvents() {
-        textRight!!.visibility = View.GONE
+        tvRight!!.visibility = View.GONE
         tvTile.setText(MyApplication.context.getString(R.string.string_title_ranking))
         mAdapter = ADA_RankingList(activity)
         RecyclerViewHelper.initRecyclerView(activity, recyclerview, mAdapter!!, LinearLayoutManager(activity))

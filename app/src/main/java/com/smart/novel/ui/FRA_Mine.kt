@@ -2,11 +2,16 @@ package com.smart.novel.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import butterknife.OnClick
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_MineList
 import com.smart.novel.bean.MineBean
+import com.smart.novel.databinding.FraMineBinding
+import com.smart.novel.db.AppDBHelper
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
 import kotlinx.android.synthetic.main.fra_mine.*
@@ -44,9 +49,27 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
         }
         mAdapter!!.update(data, true)
 
-        //动态改变状态栏样式
-//        var actHome = activity as ACT_Home
-//        actHome.lightModeStatusBar()
+
+        initListener()
+    }
+
+    private fun initListener() {
+        listviewMine.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    2 -> readyGo(ACT_AboutUs::class.java)
+                }
+            }
+        })
+    }
+
+    @OnClick(R.id.tv_un_login)
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.tv_un_login -> {
+                readyGo(ACT_Login::class.java)
+            }
+        }
     }
 
     override fun showBusinessError(error: ErrorBean?) {
@@ -60,6 +83,14 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     }
 
     override fun onUserVisible() {
+        if (MyApplication.isLogin) {
+            (viewDataBinding as FraMineBinding).user = AppDBHelper.getLoginUser()
+            tv_un_login.visibility = View.GONE
+            ll_logined.visibility = View.VISIBLE
+        } else {
+            tv_un_login.visibility = View.VISIBLE
+            ll_logined.visibility = View.GONE
+        }
     }
 
     override fun onUserInvisible() {

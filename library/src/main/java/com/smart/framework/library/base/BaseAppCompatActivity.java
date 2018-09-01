@@ -145,7 +145,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
-        handleStatusBar();
+        handleStatusBar(true);
 
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -170,7 +170,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         registerReceiver();
     }
 
-    protected abstract void handleStatusBar();
+    protected abstract void handleStatusBar(boolean isDarkMode);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

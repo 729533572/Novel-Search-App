@@ -50,6 +50,7 @@ public abstract class RxObserverListener<T> implements BaseObserverListener<T> {
             mView.showBusinessError(errorBean);
             mView.dismissDialogLoading();
             CommonUtils.makeEventToast(BaseApplication.getInstance(), errorBean.getMsg(), false);
+            Elog.e("TAG", "onBusinessError msg=" + errorBean.getMsg());
         }
     }
 }

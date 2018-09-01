@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -23,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
+                app:imageUrl="@{user.chat_head_uri}"
                 android:src="@drawable/ic_mine_default_avatar" />
         </com.zhy.autolayout.AutoFrameLayout>
 
@@ -36,12 +38,12 @@
             android:layout_marginTop="40px"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="18387402384"
+                android:text="@{user.phone}"
                 android:textColor="@color/color_333333"
                 android:textSize="18sp" />
 
@@ -49,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20px"
-                android:text="一只特立独行的猪"
+                android:text="@{user.user_name}"
                 android:textColor="@color/color_999999"
                 android:textSize="13sp" />
         </com.zhy.autolayout.AutoLinearLayout>
@@ -69,7 +71,7 @@
             android:paddingTop="16px"
             android:text="登录"
             android:textColor="@color/color_3AC270"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <com.smart.framework.library.widgets.BanSlideListView
             android:id="@+id/listviewMine"

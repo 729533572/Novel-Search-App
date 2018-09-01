@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/novel-search-app.iml" filepath="$PROJECT_DIR$/novel-search-app.iml" />
       <module fileurl="file://G:\other-work\novel-search-app-dev\novel-search-app.iml" filepath="G:\other-work\novel-search-app-dev\novel-search-app.iml" />
       <module fileurl="file://D:\android-project\other-work\novel-search-app\novel-search-app-dev.iml" filepath="D:\android-project\other-work\novel-search-app\novel-search-app-dev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp3-persistent-cookiejar/okhttp3-persistent-cookiejar.iml" filepath="$PROJECT_DIR$/okhttp3-persistent-cookiejar/okhttp3-persistent-cookiejar.iml" />
     </modules>
   </component>
 </project>

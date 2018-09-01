@@ -52,7 +52,7 @@
             android:text="管理"
             android:textColor="@color/color_2F9FF2"
             android:textSize="15sp"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
     </com.zhy.autolayout.AutoRelativeLayout>
 

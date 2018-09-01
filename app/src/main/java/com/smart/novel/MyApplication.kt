@@ -13,13 +13,15 @@ import kotlin.properties.Delegates
 class MyApplication : BaseApplication() {
     ////用companion object包裹，实现java中static的效果,包裹的方法或者变量都是static的
     companion object {
-          var context: Context by Delegates.notNull()
+        var context: Context by Delegates.notNull()
+        var isLogin: Boolean by Delegates.notNull()
     }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext

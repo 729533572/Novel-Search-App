@@ -25,6 +25,7 @@ class ACT_AboutUs : ACT_Base() {
 
     override fun initViewsAndEvents() {
         tvTile.setText("关于我们")
+
         ivLeft.visibility = View.VISIBLE
     }
 

@@ -1,8 +1,11 @@
 package com.smart.novel.db
 
-import com.smart.novel.db.bean.TestBean
-import com.smart.novel.db.gen.TestBeanDao
+import com.smart.framework.library.common.utils.AppSharedPreferences
+import com.smart.novel.MyApplication
+import com.smart.novel.bean.UserBean
+import com.smart.novel.db.gen.UserBeanDao
 import com.smart.novel.db.manager.DbManager
+import com.smart.novel.util.SharePreConstants
 import org.greenrobot.greendao.Property
 import java.util.*
 
@@ -18,15 +21,16 @@ class AppDBHelper {
          *
          * @return
          */
-        fun getLoginUser(): TestBean? {
+        fun getLoginUser(): UserBean? {
+            val sharePre = AppSharedPreferences(MyApplication.context)
             val properties = ArrayList<Property>()
-            properties.add(TestBeanDao.Properties.Msg)
+            properties.add(UserBeanDao.Properties.Id)
             // 匹配条件
             val objects = ArrayList<Any>()
-//        objects.add(testBean.getMsg()) //存储的主键
-            var userInfo: TestBean? = null
+            objects.add(sharePre.getString(SharePreConstants.USER_ID)) //存储的主键
+            var userInfo: UserBean? = null
             try {
-                userInfo = DbManager.getInstance().query(TestBean::class.java, properties, objects) as TestBean
+                userInfo = DbManager.getInstance().query(UserBean::class.java, properties, objects) as UserBean
             } catch (e: Exception) {
                 e.printStackTrace()
             }

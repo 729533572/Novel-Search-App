@@ -3,6 +3,7 @@ package com.smart.novel.mvp.contract
 import com.smart.framework.library.base.mvp.BaseModel
 import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
+import com.smart.novel.bean.UserBean
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 
@@ -13,17 +14,17 @@ import io.reactivex.Observable
  */
 class LoginContract {
     interface View : IBaseView {
-        fun sendCode(data: String)
-        fun login(userInfo: Any)
+        fun sendCode(data: Any)
+        fun login(userInfo: UserBean)
     }
 
     interface Model : BaseModel {
         fun sendCode(phone: String): Observable<BaseHttpResponse<Any>>
-        fun login(phone: String,code: String): Observable<BaseHttpResponse<Any>>
+        fun login(phone: String, code: String): Observable<BaseHttpResponse<UserBean>>
     }
 
     abstract class Presenter : BasePresenter<LoginContract.View, LoginContract.Model>() {
         abstract fun sendCode(phone: String)
-        abstract fun login(phone: String,code: String)
+        abstract fun login(phone: String, code: String)
     }
 }

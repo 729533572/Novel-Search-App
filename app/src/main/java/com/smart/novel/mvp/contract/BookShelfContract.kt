@@ -20,10 +20,10 @@ class BookShelfContract {
 
     interface Model : BaseModel {
         //返回的只有BaseHttpResponse的data部分
-        fun getBookShelfData(): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
+        fun getBookShelfData(type: String): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
     }
 
     abstract class Presenter : BasePresenter<BookShelfContract.View, BookShelfContract.Model>() {
-        abstract fun getBookShelfData(multipleStatusView: MultipleStatusView)
+        abstract fun getBookShelfData(type: String,multipleStatusView: MultipleStatusView)
     }
 }

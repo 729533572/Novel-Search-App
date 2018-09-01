@@ -6,6 +6,8 @@ import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.OnClick
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener
 import com.github.jdsjlzx.interfaces.OnRefreshListener
@@ -30,7 +32,7 @@ import kotlinx.android.synthetic.main.layout_common_recyclview.*
  * description: 书架
  */
 class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
-
+    @BindView(R.id.tv_right) lateinit var tvRight: TextView
     var mAdapter: ADA_ReadHistory? = null
     val mColumnNum = 3//列表每行展示的个数
 
@@ -53,12 +55,12 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     override fun startEvents() {
 //        var actHome = activity as ACT_Home
 //        actHome.lightModeStatusBar()
-
+        tvRight.visibility = View.VISIBLE
         initRecyclerView()
 
         initListener()
 
-        mMvpPresenter.getBookShelfData(multipleStatusView)
+        mMvpPresenter.getBookShelfData("read",multipleStatusView)
 
     }
 
@@ -124,7 +126,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
-                readyGo(ACT_Login::class.java)
+                mMvpPresenter.getBookShelfData("read",multipleStatusView)
             }
         }
     }

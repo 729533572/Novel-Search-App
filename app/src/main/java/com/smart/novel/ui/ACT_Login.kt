@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.View
 import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.utils.AppSharedPreferences
 import com.smart.framework.library.common.utils.TimeCount
+import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
+import com.smart.novel.bean.UserBean
+import com.smart.novel.db.manager.DbManager
 import com.smart.novel.mvp.contract.LoginContract
 import com.smart.novel.mvp.model.LoginModel
 import com.smart.novel.mvp.presenter.LoginPresenter
+import com.smart.novel.util.SharePreConstants
 import kotlinx.android.synthetic.main.act_login.*
 
 /**
@@ -18,6 +23,7 @@ import kotlinx.android.synthetic.main.act_login.*
  * description: 登录页面
  */
 class ACT_Login : BaseMVPActivity<LoginPresenter, LoginModel>(), LoginContract.View {
+
     var countDownTmer: TimeCount? = null
     //验证码倒计时时间：60s
     val msgTime = 60 * 1000
@@ -61,11 +67,14 @@ class ACT_Login : BaseMVPActivity<LoginPresenter, LoginModel>(), LoginContract.V
     override fun showException(error: ErrorBean?) {
     }
 
-    override fun login(userInfo: Any) {
-
+    override fun login(userInfo: UserBean) {
+        MyApplication.isLogin = true
+        DbManager.getInstance().insert(UserBean::class.java, userInfo)
+        AppSharedPreferences(MyApplication.context).putString(SharePreConstants.USER_ID, userInfo.id.toString())
+        finish()
     }
 
-    override fun sendCode(data: String) {
+    override fun sendCode(data: Any) {
     }
 
 }

@@ -1,9 +1,6 @@
 package com.zongxueguan.naochanle_android.retrofitrx
 
-import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.RankListBean
-import com.smart.novel.bean.ReadHistoryBean
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.*
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -45,13 +42,13 @@ interface ApiService {
      */
     @FormUrlEncoded //使用@Field时记得添加@FormUrlEncoded
     @POST("users/check/login/code")
-    fun login(@Field("phone") phone: String, @Field("code") code: String): Observable<BaseHttpResponse<Any>>
+    fun login(@Field("phone") phone: String, @Field("code") code: String): Observable<BaseHttpResponse<UserBean>>
 
     /**
      * 书架
      */
-    @GET("search/fictions?keyword=帝国&&page=1")
-    fun getReadHistory(): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
+    @GET("users/auth/get/my/fictions")
+    fun getReadHistory(@Query("type") type: String): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
 
     /**
      *  搜小说

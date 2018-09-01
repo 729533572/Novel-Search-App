@@ -55,12 +55,19 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
     }
 
     @Override
-    protected void handleStatusBar() {
+    protected void handleStatusBar(boolean isDarkMode) {
         ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
         ViewGroup contentView = (ViewGroup) rootView.getChildAt(0);
-        StatusBarUtil.Companion.darkMode(this);
-        contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop() + StatusBarUtil.Companion.getStatusBarHeight(this),
-                contentView.getPaddingRight(), contentView.getPaddingBottom());
+        if(isDarkMode) {
+            StatusBarUtil.Companion.darkMode(this);
+            contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop() + StatusBarUtil.Companion.getStatusBarHeight(this),
+                    contentView.getPaddingRight(), contentView.getPaddingBottom());
+        }else {
+            StatusBarUtil.Companion.immersive(this);
+            contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop(),
+                    contentView.getPaddingRight(), contentView.getPaddingBottom());
+        }
+
     }
 
     @Override

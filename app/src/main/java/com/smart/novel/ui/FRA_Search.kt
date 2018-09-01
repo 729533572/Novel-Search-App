@@ -23,7 +23,7 @@ import com.smart.novel.mvp.contract.SearchContract
 import com.smart.novel.mvp.model.SearchModel
 import com.smart.novel.mvp.presenter.SearchPresenter
 import com.smart.novel.util.RecyclerViewHelper
-import kotlinx.android.synthetic.main.fra_search.*
+import kotlinx.android.synthetic.main.layout_common_recyclview.*
 import kotlinx.android.synthetic.main.layout_search_no_result.*
 import kotlinx.android.synthetic.main.layout_search_no_result_header.*
 import kotlinx.android.synthetic.main.layout_search_title.*

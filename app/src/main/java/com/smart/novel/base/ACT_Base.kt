@@ -46,12 +46,18 @@ abstract class ACT_Base : BaseActivity() {
      * 不重写该方法，默认是黑色背景、白色icon白色字的状态栏
      * 下面统一处理成Activity 沉浸式，全屏：白色背景，深色字体，icon的状态栏
      */
-    override fun handleStatusBar() {
+    override fun handleStatusBar(isDarkMode: Boolean) {
         val rootView = (findViewById(android.R.id.content)) as ViewGroup
         val contentView = rootView.getChildAt(0) as ViewGroup
-        StatusBarUtil.darkMode(this)//状态栏字体颜色及icon变黑
-        contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(MyApplication.context),
-                contentView.paddingRight, contentView.paddingBottom)
+        if (isDarkMode){
+            StatusBarUtil.darkMode(this)//状态栏字体颜色及icon变黑
+            contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(MyApplication.context),
+                    contentView.paddingRight, contentView.paddingBottom)
+        }else{
+            StatusBarUtil.immersive(this)//白色icon白色字的状态栏
+            contentView.setPadding(contentView.paddingLeft, contentView.paddingTop,
+                    contentView.paddingRight, contentView.paddingBottom)
+        }
     }
 
     /**

@@ -17,6 +17,8 @@ buildscript {
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.0'
         //apt butterknife控件插件
 //        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        //PersistentCookieJar
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
     }
 }
 

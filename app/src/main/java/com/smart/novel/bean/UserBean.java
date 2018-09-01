@@ -1,47 +1,63 @@
 package com.smart.novel.bean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by JoJo on 2018/6/21.
  * wechat：18510829974
  * description：用户实体
  */
+@Entity
 public class UserBean {
 
     /**
-     * id : 3
+     * id : 5
      * user_name : 鱼乐小说用户
      * gender : 1
      * chat_head_uri :
-     * age : 0
-     * phone : 18516987934
-     * province : 广东
-     * city : 广州
-     * system_type :
-     * hardware_code :
-     * phone_brand :
-     * phone_version :
-     * last_login_time : 2018-08-25T03:02:21.591Z
-     * create_time : 2018-08-25T03:02:21.591Z
-     * update_time : 2018-08-25T03:02:21.591Z
+     * phone : 185****9974
+     * province :
+     * city :
+     * last_login_time : 2018-08-31T07:43:21.240Z
+     * create_time : 2018-08-31T07:43:21.240Z
+     * update_time : 2018-08-31T07:43:21.240Z
      * enable : 1
      */
-
+    @Id
     private int id;
     private String user_name;
     private int gender;
     private String chat_head_uri;
-    private int age;
     private String phone;
     private String province;
     private String city;
-    private String system_type;
-    private String hardware_code;
-    private String phone_brand;
-    private String phone_version;
     private String last_login_time;
     private String create_time;
     private String update_time;
     private int enable;
+
+    @Generated(hash = 1938839444)
+    public UserBean(int id, String user_name, int gender, String chat_head_uri,
+            String phone, String province, String city, String last_login_time,
+            String create_time, String update_time, int enable) {
+        this.id = id;
+        this.user_name = user_name;
+        this.gender = gender;
+        this.chat_head_uri = chat_head_uri;
+        this.phone = phone;
+        this.province = province;
+        this.city = city;
+        this.last_login_time = last_login_time;
+        this.create_time = create_time;
+        this.update_time = update_time;
+        this.enable = enable;
+    }
+
+    @Generated(hash = 1203313951)
+    public UserBean() {
+    }
 
     public int getId() {
         return id;
@@ -75,14 +91,6 @@ public class UserBean {
         this.chat_head_uri = chat_head_uri;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -105,38 +113,6 @@ public class UserBean {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getSystem_type() {
-        return system_type;
-    }
-
-    public void setSystem_type(String system_type) {
-        this.system_type = system_type;
-    }
-
-    public String getHardware_code() {
-        return hardware_code;
-    }
-
-    public void setHardware_code(String hardware_code) {
-        this.hardware_code = hardware_code;
-    }
-
-    public String getPhone_brand() {
-        return phone_brand;
-    }
-
-    public void setPhone_brand(String phone_brand) {
-        this.phone_brand = phone_brand;
-    }
-
-    public String getPhone_version() {
-        return phone_version;
-    }
-
-    public void setPhone_version(String phone_version) {
-        this.phone_version = phone_version;
     }
 
     public String getLast_login_time() {
