@@ -90,4 +90,8 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
         mAdapter!!.update(dataList!!, true)
     }
 
+    fun tabCheck() {
+
+    }
+
 }

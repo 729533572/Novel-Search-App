@@ -32,20 +32,20 @@ public class TimeCount extends CountDownTimer {
 
     @Override
     public void onFinish() {// 计时完毕时触发
-        // 设置倒计时结束后显示的提示文字
-        btnGetSecurityCode.setChecked(true);
         btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_3AC270));
-        btnGetSecurityCode.setText(context.getString(R.string.string_get_verify_code));
-        // 设置倒计时时不能点击
+        btnGetSecurityCode.setText(context.getString(R.string.string_re_get_verify_code));
+        // 设置倒计时完恢复点击
+        btnGetSecurityCode.setChecked(true);
         btnGetSecurityCode.setClickable(true);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onTick(long millisUntilFinished) {// 计时过程显示
+        // 设置倒计时时不能点击
         btnGetSecurityCode.setChecked(false);
         btnGetSecurityCode.setClickable(false);
         btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_999999));
-        btnGetSecurityCode.setText("剩余" + millisUntilFinished / 1000 + "S");
+        btnGetSecurityCode.setText("剩余" + millisUntilFinished / 1000 + "s");
     }
 }

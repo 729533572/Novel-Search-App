@@ -7,11 +7,10 @@ package com.smart.novel.util
  */
 class SharePreConstants {
     companion object {
-        val USER_SIGN = "user_sign"
+        val USER_PHONE = "user_phone"
         val USER_ID = "user_id"
         val USER_NAME = "user_name"
+        val USER_HEAD_AVATAR = "user_head_avatar"
         val LOGOUT = "logout"
-        val TYPE = "type"//分院,总院,平台
-        val BRANCH_NAME = "BRANCH_NAME"//院所名称
     }
 }

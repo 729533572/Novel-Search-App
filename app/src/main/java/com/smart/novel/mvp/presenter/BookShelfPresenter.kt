@@ -16,8 +16,8 @@ class BookShelfPresenter : BookShelfContract.Presenter() {
         multipleStatusView.showLoading()
         rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getBookShelfData(type), object : RxObserverListener<List<ReadHistoryBean>>(mView) {
             override fun onSuccess(result: List<ReadHistoryBean>) {
-                mView.getBookShelfData(result)
                 multipleStatusView.showContent()
+                mView.getBookShelfData(result)
             }
         }))
     }

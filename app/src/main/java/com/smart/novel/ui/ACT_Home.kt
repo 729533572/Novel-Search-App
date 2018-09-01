@@ -1,7 +1,6 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.view.View
 import com.smart.framework.library.bean.ErrorBean
@@ -15,10 +14,10 @@ import kotlinx.android.synthetic.main.act_home.*
  * description:
  */
 class ACT_Home : ACT_Base(), View.OnClickListener {
-    private var mFraBookShelf: Fragment? = null
-    private var mFraSearch: Fragment? = null
-    private var mFraRankingList: Fragment? = null
-    private var mFraMine: Fragment? = null
+    private var mFraBookShelf: FRA_BookShelf? = null
+    private var mFraSearch: FRA_Search? = null
+    private var mFraRankingList: FRA_RankingList? = null
+    private var mFraMine: FRA_Mine? = null
     private var mIndex = 0
     override fun getBundleExtras(extras: Bundle?) {
     }
@@ -40,7 +39,6 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
     }
 
     override fun initViewsAndEvents() {
-//        super.initViewsAndEvents()
         switchFragment(mIndex)
         initListener()
     }
@@ -126,6 +124,28 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
             }
         }
         transaction.commitNowAllowingStateLoss()
+        tabCheck(position)
+    }
+
+    /**
+     * fragment tabcheck
+     */
+    private fun tabCheck(position: Int) {
+        when(position){
+            0-> {
+                mFraBookShelf!!.tabCheck()
+            }
+            1->{
+                mFraSearch!!.tabCheck()
+            }
+            2->{
+                mFraRankingList!!.tabCheck()
+            }
+            3->{
+                mFraMine!!.tabCheck()
+            }
+        }
+
     }
 
     private fun hideAllFragments(transaction: FragmentTransaction) {

@@ -91,7 +91,7 @@
                 android:background="@color/color_c7c7c7"></View>
 
             <RadioButton
-                android:id="@+id/btn_get_code"
+                android:id="@+id/rb_get_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
@@ -120,7 +120,7 @@
             android:paddingRight="260px"
             android:paddingTop="30px"
             android:text="登录"
-            android:textColor="#9ce0b7" />
+            android:textColor="@drawable/bg_login_button_selector" />
     </com.zhy.autolayout.AutoLinearLayout>
 
 </layout>

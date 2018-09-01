@@ -20,8 +20,8 @@ class SearchPresenter : SearchContract.Presenter() {
         multipleStatusView.showLoading()
         rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getSearchResultList(keywords), object : RxObserverListener<List<SearchResultBean>>(mView) {
             override fun onSuccess(result: List<SearchResultBean>) {
-                mView.getSearchResultList(result)
                 multipleStatusView.showContent()
+                mView.getSearchResultList(result)
             }
         }))
     }

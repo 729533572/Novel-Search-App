@@ -17,8 +17,8 @@ class RankingPresenter : RankingContract.Presenter() {
         multipleStatusView.showLoading()
         rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getRankList(type), object : RxObserverListener<List<RankListBean>>(mView) {
             override fun onSuccess(result: List<RankListBean>) {
-                mView.getRankList(result)
                 multipleStatusView.showContent()
+                mView.getRankList(result)
             }
         }))
     }

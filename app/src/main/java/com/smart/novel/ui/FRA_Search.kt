@@ -199,4 +199,8 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
         mSearchHistoryAdapyer!!.update(mSearchHistoryList!!, true)
     }
 
+    fun tabCheck() {
+
+    }
+
 }

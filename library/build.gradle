@@ -71,4 +71,6 @@ dependencies {
     compile project(':LRecyclerview_library')
 //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
     compile project(':okhttp3-persistent-cookiejar')
+//    rxbinding
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 }
