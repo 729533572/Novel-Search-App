@@ -24,7 +24,7 @@ class ADA_RankingTitle constructor(context: Context) : CommonAdapterNormal<RankT
         var viewBinding = holder.viewBinding as ItemRankTitleBinding
         viewBinding.ranktitle = bean
         val convertView = holder.convertView as ViewGroup
-        if (bean.isCheck) {
+        if (mSelectPos==position) {
             convertView.getChildAt(0).visibility = View.VISIBLE
             convertView.getChildAt(1).visibility = View.GONE
         } else {
