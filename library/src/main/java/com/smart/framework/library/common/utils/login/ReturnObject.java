@@ -1,4 +1,4 @@
-package com.smart.framework.library.common.utils;
+package com.smart.framework.library.common.utils.login;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @version 2015.05.25
  */
 
-public class ReturnObject{
+public class ReturnObject {
 	public String name;
 	public boolean isSuccess;
 	public Object data;
