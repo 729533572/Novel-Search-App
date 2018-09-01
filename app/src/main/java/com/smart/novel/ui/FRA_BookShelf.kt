@@ -118,13 +118,14 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_read_history.getChildAt(1).visibility = View.GONE
                 ll_my_collected.getChildAt(0).visibility = View.GONE
                 ll_my_collected.getChildAt(1).visibility = View.VISIBLE
+                mMvpPresenter.getBookShelfData("read", multipleStatusView)
             }
             R.id.ll_my_collected -> {
                 ll_my_collected.getChildAt(0).visibility = View.VISIBLE
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
-                mMvpPresenter.getBookShelfData("read", multipleStatusView)
+                mMvpPresenter.getBookShelfData("like", multipleStatusView)
             }
         }
     }

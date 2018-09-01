@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="110px"
+                android:layout_marginTop="60px"
                 android:background="@drawable/bg_shape_stroke_color_3ac270_corner_100"
                 android:paddingBottom="20px"
                 android:paddingLeft="184px"

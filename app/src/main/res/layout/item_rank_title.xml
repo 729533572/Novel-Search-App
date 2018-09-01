@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="ranktitle"
+            type="com.smart.novel.bean.RankTitleBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_read_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50px"
+        android:orientation="vertical"
+        android:paddingBottom="30px"
+        android:paddingTop="30px">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_read_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12px"
+                android:text="@{ranktitle.name}"
+                android:textColor="@color/color_2E3439"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="50px"
+                android:layout_height="4px"
+                android:background="@color/color_3AC270"></View>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ll_read_history"
+            android:paddingTop="6px"
+            android:text="@{ranktitle.name}"
+            android:textColor="@color/color_999999"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</layout>
