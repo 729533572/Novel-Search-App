@@ -15,10 +15,11 @@
 
         <include layout="@layout/layout_common_title"></include>
 
-        <!--<com.smart.novel.wights.RankTitleView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"></com.smart.novel.wights.RankTitleView>-->
-        <include layout="@layout/layout_ranking_title_list"></include>
+        <com.smart.novel.wights.RankTitleView
+            android:id="@+id/rankTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.smart.novel.wights.RankTitleView>
+        <!--<include layout="@layout/layout_ranking_title_list"></include>-->
 
         <include layout="@layout/layout_title_divider_line"></include>
 

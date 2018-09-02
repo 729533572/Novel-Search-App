@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter;
 import com.smart.novel.R;
 import com.smart.novel.adapter.ADA_RankingTitle;
 import com.smart.novel.bean.RankTitleBean;
@@ -49,10 +50,43 @@ public class RankTitleView extends LinearLayout {
             datas.add(rankTitleBean);
         }
         mAdapter = new ADA_RankingTitle(mContext);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_ranking_title_list, null);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.HORIZONTAL,false));
+        //root参数必须为this,否则该自定义的布局无法显示出来
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_ranking_title_list, this);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerviewRankTitle);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(mAdapter);
         mAdapter.update(datas, true);
+
+        mAdapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                //设置选中效果
+//                for (i in 0..mTitleAdapter!!.dataList.size - 1) {
+//                    if (i == position) mTitleAdapter!!.dataList.get(i).isCheck = true else mTitleAdapter!!.dataList.get(i).isCheck = false
+//                }
+                if (mListener != null) {
+                    mListener.onTitleCheck(position);
+                }
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
+        });
+    }
+
+    public interface onTitleCheckListener {
+        void onTitleCheck(int position);
+    }
+
+    onTitleCheckListener mListener;
+
+    public void setonTitleCheckListener(onTitleCheckListener listener) {
+        this.mListener = listener;
+    }
+
+    public ADA_RankingTitle getAdapter() {
+        return mAdapter;
     }
 }
