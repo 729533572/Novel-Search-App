@@ -1,13 +1,10 @@
 package com.smart.novel.adapter
 
 import android.content.Context
-import android.view.View
 import com.smart.framework.library.adapter.rv.CommonAdapter
 import com.smart.framework.library.adapter.rv.ViewHolder
-import com.smart.framework.library.common.utils.CommonUtils
-import com.smart.novel.MyApplication
 import com.smart.novel.R
-import com.smart.novel.bean.RankListBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ItemRankingListBinding
 
 /**
@@ -15,8 +12,8 @@ import com.smart.novel.databinding.ItemRankingListBinding
  * wechat:18510829974
  * description: 排行榜列表Adapter
  */
-class ADA_RankingList constructor(context: Context) : CommonAdapter<RankListBean, ItemRankingListBinding>(context) {
-    override fun convert(viewBinding: ItemRankingListBinding?, holder: ViewHolder.BindingHolder, bean: RankListBean?, position: Int) {
+class ADA_RankingList constructor(context: Context) : CommonAdapter<NovelBean, ItemRankingListBinding>(context) {
+    override fun convert(viewBinding: ItemRankingListBinding?, holder: ViewHolder.BindingHolder, bean: NovelBean?, position: Int) {
         viewBinding!!.rankBean = bean
         when (position) {
             1 -> {
@@ -40,12 +37,6 @@ class ADA_RankingList constructor(context: Context) : CommonAdapter<RankListBean
                 holder.setText(R.id.tv_rank_num, position.toString())
             }
         }
-
-        holder!!.itemView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                CommonUtils.makeEventToast(MyApplication.context, "postion=" + position, false)
-            }
-        })
     }
 
     override fun itemLayoutId(): Int {

@@ -3,7 +3,7 @@ package com.smart.novel.mvp.presenter
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.SearchContract
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 
@@ -18,8 +18,8 @@ class SearchPresenter : SearchContract.Presenter() {
      */
     override fun getSearchResultList(multipleStatusView: MultipleStatusView, keywords: String) {
         multipleStatusView.showLoading()
-        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getSearchResultList(keywords), object : RxObserverListener<List<SearchResultBean>>(mView) {
-            override fun onSuccess(result: List<SearchResultBean>) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getSearchResultList(keywords), object : RxObserverListener<List<NovelBean>>(mView) {
+            override fun onSuccess(result: List<NovelBean>) {
                 multipleStatusView.showContent()
                 mView.getSearchResultList(result)
             }

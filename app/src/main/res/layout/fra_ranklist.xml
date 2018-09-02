@@ -5,7 +5,7 @@
 
         <variable
             name="rank"
-            type="com.smart.novel.bean.RankListBean"></variable>
+            type="com.smart.novel.bean.NovelBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout

@@ -5,7 +5,7 @@ import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 
@@ -16,12 +16,12 @@ import io.reactivex.Observable
  */
 class SearchContract {
     interface View : IBaseView {
-        fun getSearchResultList(dataList: List<SearchResultBean>)
+        fun getSearchResultList(dataList: List<NovelBean>)
         fun getHotSearchList(hotList: List<HotSearchBean>)
     }
 
     interface Model : BaseModel {
-        fun getSearchResultList(keywords: String): Observable<BaseHttpResponse<List<SearchResultBean>>>
+        fun getSearchResultList(keywords: String): Observable<BaseHttpResponse<List<NovelBean>>>
         fun getHotSearchList(): Observable<BaseHttpResponse<List<HotSearchBean>>>
     }
 

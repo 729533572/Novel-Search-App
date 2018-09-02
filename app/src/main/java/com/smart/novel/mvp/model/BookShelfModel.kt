@@ -1,6 +1,6 @@
 package com.smart.novel.mvp.model
 
-import com.smart.novel.bean.ReadHistoryBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.net.BaseHttpResponse
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
@@ -13,7 +13,7 @@ import io.reactivex.Observable
  */
 
 class BookShelfModel : BookShelfContract.Model{
-    override fun getBookShelfData(type:String): Observable<BaseHttpResponse<List<ReadHistoryBean>>> {
+    override fun getBookShelfData(type:String): Observable<BaseHttpResponse<List<NovelBean>>> {
         return RetrofitRxManager.getRequestService().getReadHistory(type)
     }
 }

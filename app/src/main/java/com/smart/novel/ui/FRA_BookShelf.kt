@@ -18,7 +18,7 @@ import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
-import com.smart.novel.bean.ReadHistoryBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
@@ -151,7 +151,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     }
 
-    override fun getBookShelfData(dataList: List<ReadHistoryBean>) {
+    override fun getBookShelfData(dataList: List<NovelBean>) {
         tv_total.text = "共" + dataList.size + "本"
         if (dataList!!.size > 0) mAdapter!!.update(dataList!!, true) else multipleStatusView.showEmpty(R.drawable.ic_reading_no_data,MyApplication.context.getString(R.string.string_empty_bookshelf))
     }

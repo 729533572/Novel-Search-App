@@ -16,7 +16,7 @@ import com.smart.novel.adapter.ADA_HotSearchTag
 import com.smart.novel.adapter.ADA_SearchHistory
 import com.smart.novel.adapter.ADA_SearchList
 import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.db.bean.SearchHistoryBean
 import com.smart.novel.db.manager.DbManager
 import com.smart.novel.mvp.contract.SearchContract
@@ -154,7 +154,7 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
     /**
      * 搜索结果
      */
-    override fun getSearchResultList(dataList: List<SearchResultBean>) {
+    override fun getSearchResultList(dataList: List<NovelBean>) {
         if (dataList!!.size > 0) {
             showResultView(true, false)
             mAdapter!!.update(dataList, true)
