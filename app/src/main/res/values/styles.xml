@@ -61,6 +61,16 @@
     </style>
     <!--底部弹窗动画-->
     <style name="style_bottom_in_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+    <!--上方弹窗动画-->
+    <style name="style_top_in_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/top_in</item>
+        <item name="android:windowExitAnimation">@anim/top_out</item>
+    </style>
+    <!--上方弹窗渐变动画-->
+    <style name="style_fade_in_anim" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
