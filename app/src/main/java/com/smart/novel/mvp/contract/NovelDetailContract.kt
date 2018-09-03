@@ -5,6 +5,7 @@ import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.bean.ChapterBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 
@@ -16,13 +17,22 @@ import io.reactivex.Observable
 class NovelDetailContract {
     interface View : IBaseView {
         fun getChapterList(dataList: List<ChapterBean>)
+        //小说id
+        fun doCollect(result: Any)
+
+        //获取小说详情信息
+        fun getNovelDetail(novelBean: NovelBean)
     }
 
     interface Model : BaseModel {
         fun getChapterList(id: String, type: String, page: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+        fun doCollect(id: String): Observable<BaseHttpResponse<Any>>
+        fun getNovelDetail(id: String): Observable<BaseHttpResponse<NovelBean>>
     }
 
     abstract class Presenter : BasePresenter<View, Model>() {
         abstract fun getChapterList(multipleStatusView: MultipleStatusView, id: String, type: String, page: String)
+        abstract fun doCollect(id: String)
+        abstract fun getNovelDetail(id: String)
     }
 }

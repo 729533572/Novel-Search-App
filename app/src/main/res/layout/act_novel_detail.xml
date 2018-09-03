@@ -9,22 +9,28 @@
             type="com.smart.novel.bean.NovelBean"></variable>
     </data>
 
-    <com.zhy.autolayout.AutoFrameLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_FFFFFF">
 
+        <include
+            android:id="@+id/ll_title"
+            layout="@layout/layout_common_title"></include>
+
         <com.smart.framework.library.widgets.IOSScrollView
             android:id="@+id/layout_no_search_result"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ll_title"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/layout_common_title"></include>
 
                 <com.zhy.autolayout.AutoRelativeLayout
                     android:layout_width="match_parent"
@@ -112,7 +118,7 @@
                                 android:textSize="10sp" />
                         </com.zhy.autolayout.AutoLinearLayout>
                     </com.zhy.autolayout.AutoLinearLayout>
-
+                    <!--小说详情描述内容-查看更多-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,18 +126,12 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="22px"
                         android:layout_marginTop="10px"
-                        android:ellipsize="end"
-                        android:inputType="textMultiLine"
-                        android:lines="3"
                         android:text="@{novelBean.comment}"
                         android:textColor="@color/color_999999"
                         android:textSize="12sp" />
                 </com.zhy.autolayout.AutoRelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10px"
-                    android:background="@color/color_f7f7f7"></View>
+                <include layout="@layout/layout_wide_10_divider_f7f7f7"></include>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -148,6 +148,7 @@
                     android:id="@+id/multipleStatusView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="160px"
                     android:gravity="center_horizontal"
                     app:emptyView="@layout/layout_empty_view"
                     app:errorView="@layout/layout_error_view"
@@ -162,61 +163,17 @@
             </com.zhy.autolayout.AutoLinearLayout>
         </com.smart.framework.library.widgets.IOSScrollView>
 
-        <com.zhy.autolayout.AutoLinearLayout
+        <include
+            layout="@layout/layout_title_divider_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_above="@+id/ll_footer"></include>
+
+        <include
+            android:id="@+id/ll_footer"
+            layout="@layout/layout_novel_detail_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:paddingLeft="50px">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:drawablePadding="14px"
-                android:drawableTop="@drawable/ic_tab_bar_collect_normal"
-                android:gravity="center"
-                android:paddingBottom="15px"
-                android:paddingTop="15px"
-                android:text="收藏"
-                android:textColor="#2D343A"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:drawablePadding="14px"
-                android:drawableTop="@drawable/ic_tab_bar_share_normal"
-                android:gravity="center"
-                android:paddingBottom="15px"
-                android:paddingTop="15px"
-                android:text="分享"
-                android:textColor="#2D343A"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:drawablePadding="14px"
-                android:drawableTop="@drawable/ic_tab_bar_all_sections"
-                android:gravity="center"
-                android:paddingBottom="15px"
-                android:paddingTop="15px"
-                android:text="全部章节"
-                android:textColor="#2D343A"
-                android:textSize="11sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:background="@color/color_3AC270"
-                android:drawablePadding="14px"
-                android:gravity="center"
-                android:text="优化阅读"
-                android:textColor="@color/color_FFFFFF"
-                android:textSize="16sp" />
-        </com.zhy.autolayout.AutoLinearLayout>
-    </com.zhy.autolayout.AutoFrameLayout>
+            android:layout_alignParentBottom="true"></include>
+    </com.zhy.autolayout.AutoRelativeLayout>
 </layout>

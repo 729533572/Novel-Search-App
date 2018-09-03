@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="@color/color_FFFFFF"
+    android:paddingLeft="50px">
+
+    <RadioButton
+        android:id="@+id/btn_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:background="@android:color/transparent"
+        android:button="@null"
+        android:drawablePadding="14px"
+        android:drawableTop="@drawable/btn_collect_selector"
+        android:gravity="center"
+        android:paddingBottom="15px"
+        android:paddingTop="15px"
+        android:text="收藏"
+        android:textColor="@color/btn_collect_text_color_selector"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/btn_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:drawablePadding="14px"
+        android:drawableTop="@drawable/ic_tab_bar_share_normal"
+        android:gravity="center"
+        android:paddingBottom="15px"
+        android:paddingTop="15px"
+        android:text="分享"
+        android:textColor="#2D343A"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/btn_all_chapters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:drawablePadding="14px"
+        android:drawableTop="@drawable/ic_tab_bar_all_sections"
+        android:gravity="center"
+        android:paddingBottom="15px"
+        android:paddingTop="15px"
+        android:text="全部章节"
+        android:textColor="#2D343A"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/btn_read"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:background="@color/color_3AC270"
+        android:drawablePadding="14px"
+        android:gravity="center"
+        android:text="优化阅读"
+        android:textColor="@color/color_FFFFFF"
+        android:textSize="16sp" />
+</com.zhy.autolayout.AutoLinearLayout>

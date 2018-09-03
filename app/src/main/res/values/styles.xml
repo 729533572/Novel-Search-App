@@ -61,8 +61,8 @@
     </style>
     <!--底部弹窗动画-->
     <style name="style_bottom_in_anim" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/dialog_bottom_in_anim</item>
-        <item name="android:windowExitAnimation">@anim/dialog_bottom_out_anim</item>
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
 
 </resources>

@@ -77,4 +77,12 @@ interface ApiService {
     @GET("fictions/{id}/chapters")
     fun getChapterList(@Path("id") id: String, @Query("latest") type: String, @Query("page") page: String): Observable<BaseHttpResponse<List<ChapterBean>>>
 
+    //小说详情信息
+    @GET("fictions/get/info")
+    fun getNovelDetail(@Query("id") id: String): Observable<BaseHttpResponse<NovelBean>>
+
+    //收藏小说
+    @POST("users//auth/like/fiction/{id}")
+    fun doCollect(@Path("id") id: String): Observable<BaseHttpResponse<Any>>
+
 }

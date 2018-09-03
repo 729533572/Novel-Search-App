@@ -53,7 +53,7 @@
                     android:layout_below="@+id/tv_hot_search_txt" />
             </com.zhy.autolayout.AutoRelativeLayout>
 
-            <include layout="@layout/layout_wide_divider_f7f7f7"></include>
+            <include layout="@layout/layout_wide_20_divider_f7f7f7"></include>
 
             <!--搜索历史-->
             <com.zhy.autolayout.AutoLinearLayout

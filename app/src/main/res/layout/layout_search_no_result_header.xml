@@ -15,6 +15,6 @@
         android:paddingTop="52px"
         android:text="暂无搜索结果，换个关键词试试？" />
 
-    <include layout="@layout/layout_wide_divider_f7f7f7"></include>
+    <include layout="@layout/layout_wide_20_divider_f7f7f7"></include>
 
 </com.zhy.autolayout.AutoLinearLayout>

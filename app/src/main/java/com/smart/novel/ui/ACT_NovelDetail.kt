@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
+import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ChapterList
@@ -25,6 +26,7 @@ wechat：18510829974
 description：小说详情页
  */
 class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), NovelDetailContract.View {
+
     var novelBean: NovelBean? = null
     var mAdapter: ADA_ChapterList? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
@@ -46,13 +48,36 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
 
         mAdapter = ADA_ChapterList(this)
-        recyclerviewChapters.layoutManager = LinearLayoutManager(this)
+
+        val layoutManager = object : LinearLayoutManager(this) {
+            override fun canScrollVertically(): Boolean {
+                // 直接禁止垂直滑动
+                return false
+            }
+        }
+        recyclerviewChapters.layoutManager = layoutManager
         recyclerviewChapters.adapter = mAdapter
 
         mMvpPresenter.getChapterList(multipleStatusView, novelBean!!.id, "n", "1")
 
     }
 
+    @OnClick(R.id.btn_collect, R.id.btn_share, R.id.btn_all_chapters, R.id.btn_read)
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.btn_collect -> {
+            }
+            R.id.btn_share -> {
+            }
+            R.id.btn_all_chapters -> {
+                var bundle = Bundle()
+                bundle.putString(PageDataConstants.NOVEL_ID, novelBean!!.id)
+                readyGo(ACT_AllChapters::class.java, bundle)
+            }
+            R.id.btn_read -> {
+            }
+        }
+    }
 
     override fun isBindEventBusHere(): Boolean {
         return false
@@ -65,7 +90,16 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun getChapterList(dataList: List<ChapterBean>) {
-        mAdapter!!.update(dataList, true)
+        if (dataList == null) return
+        if (dataList.size >= 5) mAdapter!!.update(dataList.subList(0, 5), true) else mAdapter!!.update(dataList, true)
+
     }
 
+    override fun doCollect(result: Any) {
+    }
+
+    //是否已收藏
+    override fun getNovelDetail(novelBean: NovelBean) {
+
+    }
 }

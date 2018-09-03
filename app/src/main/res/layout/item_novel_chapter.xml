@@ -8,12 +8,13 @@
             type="com.smart.novel.bean.ChapterBean"></variable>
     </data>
 
-    <com.zhy.autolayout.AutoLinearLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30px"
@@ -38,17 +39,22 @@
                 android:textColor="@color/color_3f3f3f"
                 android:textSize="13sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_section_newest" />
         </com.zhy.autolayout.AutoLinearLayout>
 
         <View
+            android:id="@+id/v_divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:layout_below="@+id/ll_content"
             android:layout_marginLeft="30px"
             android:background="@color/color_e5e5e5"></View>
-    </com.zhy.autolayout.AutoLinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/v_divider"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_section_newest" />
+    </com.zhy.autolayout.AutoRelativeLayout>
 
 </layout>

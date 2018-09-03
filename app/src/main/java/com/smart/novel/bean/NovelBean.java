@@ -8,7 +8,7 @@ import java.io.Serializable;
  * description: 小说实体-排行榜、搜索结果，阅读历史、我的收藏
  */
 
-public class NovelBean implements Serializable{
+public class NovelBean implements Serializable {
 
     /**
      * id : 256
@@ -45,6 +45,15 @@ public class NovelBean implements Serializable{
     private String update_time;
     private int gender;
     private int keyword_hit_cnt;
+    private String like;//是否已收藏
+
+    public String getLike() {
+        return like == null ? "" : like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
+    }
 
     public String getId() {
         return id;

@@ -9,5 +9,6 @@ class PageDataConstants {
     companion object {
         val BANNER_URL = "banner_url"
         val NOVEL_BEAN = "novel_bean"
+        val NOVEL_ID = "novel_id"
     }
 }
