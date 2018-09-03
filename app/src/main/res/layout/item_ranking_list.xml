@@ -9,9 +9,8 @@
 
         <variable
             name="rankBean"
-            type="com.smart.novel.bean.RankListBean"></variable>
+            type="com.smart.novel.bean.NovelBean"></variable>
     </data>
-
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

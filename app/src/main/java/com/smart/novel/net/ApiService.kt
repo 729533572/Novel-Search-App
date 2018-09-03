@@ -1,6 +1,9 @@
 package com.zongxueguan.naochanle_android.retrofitrx
 
-import com.smart.novel.bean.*
+import com.smart.novel.bean.ChapterBean
+import com.smart.novel.bean.HotSearchBean
+import com.smart.novel.bean.NovelBean
+import com.smart.novel.bean.UserBean
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -48,14 +51,14 @@ interface ApiService {
      * 书架
      */
     @GET("users/auth/get/my/fictions")
-    fun getReadHistory(@Query("type") type: String): Observable<BaseHttpResponse<List<ReadHistoryBean>>>
+    fun getReadHistory(@Query("type") type: String): Observable<BaseHttpResponse<List<NovelBean>>>
 
     /**
      *  搜小说
      */
     //搜小说结果
     @GET("search/fictions")
-    fun searchNovel(@Query("keyword") keyword: String): Observable<BaseHttpResponse<List<SearchResultBean>>>
+    fun searchNovel(@Query("keyword") keyword: String): Observable<BaseHttpResponse<List<NovelBean>>>
 
     //热门搜索
     @GET("search/top/keywords")
@@ -65,6 +68,13 @@ interface ApiService {
      * 排行榜
      */
     @GET("popular/fictions")
-    fun getRankList(@Query("type") type: String): Observable<BaseHttpResponse<List<RankListBean>>>
+    fun getRankList(@Query("type") type: String): Observable<BaseHttpResponse<List<NovelBean>>>
+
+    /**
+     * 小说详情
+     */
+    //通过小说id获取小说章节
+    @GET("fictions/{id}/chapters")
+    fun getChapterList(@Path("id") id: String, @Query("latest") type: String, @Query("page") page: String): Observable<BaseHttpResponse<List<ChapterBean>>>
 
 }

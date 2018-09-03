@@ -5,7 +5,7 @@
 
         <variable
             name="rank"
-            type="com.smart.novel.bean.RankListBean"></variable>
+            type="com.smart.novel.bean.NovelBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -14,6 +14,14 @@
         android:orientation="vertical">
 
         <include layout="@layout/layout_common_title"></include>
+
+        <com.smart.novel.wights.RankTitleView
+            android:id="@+id/rankTitleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.smart.novel.wights.RankTitleView>
+        <!--<include layout="@layout/layout_ranking_title_list"></include>-->
+
+        <include layout="@layout/layout_title_divider_line"></include>
 
         <include layout="@layout/layout_common_recyclview"></include>
     </com.zhy.autolayout.AutoLinearLayout>

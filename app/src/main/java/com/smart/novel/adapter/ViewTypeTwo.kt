@@ -22,7 +22,7 @@ class ViewTypeTwo constructor(context: Activity) : ItemViewDelegateNormal<UserBe
     }
 
     override fun isForViewType(item: UserBean, position: Int): Boolean {
-        return item.id != 1
+        return item.id.equals("2")
     }
 
 

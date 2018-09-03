@@ -1,7 +1,7 @@
 package com.smart.novel.mvp.model
 
 import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.SearchContract
 import com.smart.novel.net.BaseHttpResponse
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
@@ -18,7 +18,7 @@ class SearchModel : SearchContract.Model {
         return RetrofitRxManager.getRequestService().searchHotList()
     }
 
-    override fun getSearchResultList(keywords: String): Observable<BaseHttpResponse<List<SearchResultBean>>> {
+    override fun getSearchResultList(keywords: String): Observable<BaseHttpResponse<List<NovelBean>>> {
         return RetrofitRxManager.getRequestService().searchNovel(keywords)
     }
 }

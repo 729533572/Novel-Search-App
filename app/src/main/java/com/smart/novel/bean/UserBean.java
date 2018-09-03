@@ -26,7 +26,7 @@ public class UserBean {
      * enable : 1
      */
     @Id
-    private int id;
+    private String id;
     private String user_name;
     private int gender;
     private String chat_head_uri;
@@ -37,9 +37,8 @@ public class UserBean {
     private String create_time;
     private String update_time;
     private int enable;
-
-    @Generated(hash = 1938839444)
-    public UserBean(int id, String user_name, int gender, String chat_head_uri,
+    @Generated(hash = 1207308265)
+    public UserBean(String id, String user_name, int gender, String chat_head_uri,
             String phone, String province, String city, String last_login_time,
             String create_time, String update_time, int enable) {
         this.id = id;
@@ -54,96 +53,74 @@ public class UserBean {
         this.update_time = update_time;
         this.enable = enable;
     }
-
     @Generated(hash = 1203313951)
     public UserBean() {
     }
-
-    public int getId() {
-        return id;
+    public String getId() {
+        return this.id;
     }
-
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
-
     public String getUser_name() {
-        return user_name;
+        return this.user_name;
     }
-
     public void setUser_name(String user_name) {
         this.user_name = user_name;
     }
-
     public int getGender() {
-        return gender;
+        return this.gender;
     }
-
     public void setGender(int gender) {
         this.gender = gender;
     }
-
     public String getChat_head_uri() {
-        return chat_head_uri;
+        return this.chat_head_uri;
     }
-
     public void setChat_head_uri(String chat_head_uri) {
         this.chat_head_uri = chat_head_uri;
     }
-
     public String getPhone() {
-        return phone;
+        return this.phone;
     }
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
     public String getProvince() {
-        return province;
+        return this.province;
     }
-
     public void setProvince(String province) {
         this.province = province;
     }
-
     public String getCity() {
-        return city;
+        return this.city;
     }
-
     public void setCity(String city) {
         this.city = city;
     }
-
     public String getLast_login_time() {
-        return last_login_time;
+        return this.last_login_time;
     }
-
     public void setLast_login_time(String last_login_time) {
         this.last_login_time = last_login_time;
     }
-
     public String getCreate_time() {
-        return create_time;
+        return this.create_time;
     }
-
     public void setCreate_time(String create_time) {
         this.create_time = create_time;
     }
-
     public String getUpdate_time() {
-        return update_time;
+        return this.update_time;
     }
-
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
     }
-
     public int getEnable() {
-        return enable;
+        return this.enable;
     }
-
     public void setEnable(int enable) {
         this.enable = enable;
     }
+
 }

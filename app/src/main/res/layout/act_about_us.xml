@@ -7,7 +7,7 @@
 
         <variable
             name="rankBean"
-            type="com.smart.novel.bean.RankListBean"></variable>
+            type="com.smart.novel.bean.NovelBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -17,7 +17,7 @@
 
         <include layout="@layout/layout_common_title"></include>
 
-        <com.smart.framework.library.widgets.IOSScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.smart.framework.library.widgets.IOSScrollView
             android:id="@+id/layout_no_search_result"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -7,7 +7,7 @@ import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
-import com.smart.novel.bean.SearchResultBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ItemSearchResultBinding
 
 /**
@@ -15,8 +15,8 @@ import com.smart.novel.databinding.ItemSearchResultBinding
  * wechat:18510829974
  * description: 搜索结果列表Adapter
  */
-class ADA_SearchList constructor(context: Context) : CommonAdapter<SearchResultBean, ItemSearchResultBinding>(context) {
-    override fun convert(viewBinding: ItemSearchResultBinding?, holder: ViewHolder.BindingHolder?, bean: SearchResultBean?, position: Int) {
+class ADA_SearchList constructor(context: Context) : CommonAdapter<NovelBean, ItemSearchResultBinding>(context) {
+    override fun convert(viewBinding: ItemSearchResultBinding?, holder: ViewHolder.BindingHolder?, bean: NovelBean?, position: Int) {
         viewBinding!!.searchBean = bean
         holder!!.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

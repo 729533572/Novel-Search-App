@@ -94,7 +94,7 @@ public class DbManager {
      * @param object
      * @return
      */
-    public long insertOrReplace(Class<? extends Object> entityClass, Object object) {
+    public Long insertOrReplace(Class<? extends Object> entityClass, Object object) {
         if (null == object) {
             return -1L;
         }

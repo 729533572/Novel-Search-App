@@ -38,20 +38,24 @@ object RetrofitRxManager {
     private var retrofit: Retrofit? = null
     //请求头信息
     private val HEADER_CONNECTION = "keep-alive"
-//    private val BASE_URL = "https://www.sojson.com/open/api/"
+    //    private val BASE_URL = "https://www.sojson.com/open/api/"
+    var persistentCookieJar: PersistentCookieJar? = null
 
     fun getRetrofit(context: Context): Retrofit? {
         if (retrofit == null) {
             synchronized(RetrofitRxManager::class.java) {
                 if (retrofit == null) {
                     ///getExternalFilesDir:Android/data/包名/files/okhttp… (该路径通常挂载在/mnt/sdcard/下)
+                    val sharedPrefsCookiePersistor = SharedPrefsCookiePersistor(context)
+                    val setCookieCache = SetCookieCache()
+                    persistentCookieJar = PersistentCookieJar(setCookieCache, sharedPrefsCookiePersistor)
                     val cache = Cache(File(context.getExternalFilesDir("ok"), ""), 14 * 1024 * 100)
                     var mClient = OkHttpClient.Builder()
                             //添加公告查询参数
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
-                            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context)))
+                            .cookieJar(persistentCookieJar)
                             .cache(cache)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
@@ -79,6 +83,9 @@ object RetrofitRxManager {
      */
     fun getRetrofit(): Retrofit? {
         if (retrofit == null) {
+            val sharedPrefsCookiePersistor = SharedPrefsCookiePersistor(MyApplication.context)
+            val setCookieCache = SetCookieCache()
+            persistentCookieJar = PersistentCookieJar(setCookieCache, sharedPrefsCookiePersistor)
             synchronized(RetrofitRxManager::class.java) {
                 if (retrofit == null) {
                     ///getExternalFilesDir:Android/data/包名/files/okhttp… (该路径通常挂载在/mnt/sdcard/下)
@@ -87,7 +94,7 @@ object RetrofitRxManager {
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
-                            .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApplication.context)))
+                            .cookieJar(persistentCookieJar)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
                             .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
@@ -338,7 +345,7 @@ object RetrofitRxManager {
                 .compose(RxSchedulers.io_main())
                 .subscribeWith(object : DisposableObserver<BaseHttpResponse<T>>() {
                     override fun onNext(result: BaseHttpResponse<T>) {
-                        if (result.status === 0) {
+                        if (result.status == 0) {
                             observerListener.onSuccess(result.data)
                         } else {
                             var errorBean = ErrorBean()

@@ -8,7 +8,7 @@
 
         <variable
             name="searchBean"
-            type="com.smart.novel.bean.SearchResultBean"></variable>
+            type="com.smart.novel.bean.NovelBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoRelativeLayout

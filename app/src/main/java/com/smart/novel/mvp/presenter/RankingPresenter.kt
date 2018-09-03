@@ -2,7 +2,7 @@ package com.smart.novel.mvp.presenter
 
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
-import com.smart.novel.bean.RankListBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.RankingContract
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 
@@ -15,10 +15,10 @@ import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 class RankingPresenter : RankingContract.Presenter() {
     override fun getRankList(multipleStatusView: MultipleStatusView, type: String) {
         multipleStatusView.showLoading()
-        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getRankList(type), object : RxObserverListener<List<RankListBean>>(mView) {
-            override fun onSuccess(result: List<RankListBean>) {
-                mView.getRankList(result)
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getRankList(type), object : RxObserverListener<List<NovelBean>>(mView) {
+            override fun onSuccess(result: List<NovelBean>) {
                 multipleStatusView.showContent()
+                mView.getRankList(result)
             }
         }))
     }
