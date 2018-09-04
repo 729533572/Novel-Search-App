@@ -82,6 +82,8 @@ dependencies {
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
 //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
 //    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+    //网页html格式数据解析
+    compile 'org.jsoup:jsoup:1.10.3'
 }
 repositories {
     mavenCentral()

@@ -23,6 +23,7 @@ import com.smart.novel.dialog.DIA_Share
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
+import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import kotlinx.android.synthetic.main.act_novel_detail.*
 import kotlinx.android.synthetic.main.layout_novel_detail_footer.*
@@ -80,6 +81,9 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                 val chapterBean = mAdapter!!.dataList.get(position)
                 mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
+
+                //跳转到阅读页面
+                IntentUtil.intentToReadNovel(this@ACT_NovelDetail, chapterBean)
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {

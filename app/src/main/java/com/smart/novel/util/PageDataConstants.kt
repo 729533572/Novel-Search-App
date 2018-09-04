@@ -10,5 +10,6 @@ class PageDataConstants {
         val BANNER_URL = "banner_url"
         val NOVEL_BEAN = "novel_bean"
         val NOVEL_ID = "novel_id"
+        val CHAPTER_BEAN = "chapter_bean"
     }
 }

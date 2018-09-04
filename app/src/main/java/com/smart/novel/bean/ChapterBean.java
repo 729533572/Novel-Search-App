@@ -1,11 +1,13 @@
 package com.smart.novel.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by JoJo on 2018/9/2.
  * wechat：18510829974
  * description：小说章节
  */
-public class ChapterBean {
+public class ChapterBean implements Serializable{
 
 
     /**

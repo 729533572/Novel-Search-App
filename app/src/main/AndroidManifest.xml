@@ -35,6 +35,7 @@
         <activity android:name=".ui.ACT_NovelDetail"></activity>
         <activity android:name=".ui.ACT_AboutUs"></activity>
         <activity android:name=".ui.ACT_AllChapters"></activity>
+        <activity android:name=".ui.ACT_Read"></activity>
     </application>
 
 </manifest>

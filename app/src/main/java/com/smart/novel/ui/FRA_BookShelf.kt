@@ -174,6 +174,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteReadRecord(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
+        mMvpPresenter.getBookShelfData("read", multipleStatusView)
     }
 
     /**
@@ -181,6 +182,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteCollect(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
+        mMvpPresenter.getBookShelfData("like", multipleStatusView)
     }
 
     fun tabCheck() {
