@@ -14,12 +14,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="162px"
-            android:layout_height="232px"
-            android:layout_marginBottom="20px"
-            android:scaleType="fitXY"
-            app:imageUrl="@{history.covor_url}" />
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="180px"
+            android:layout_height="250px"
+            android:layout_marginBottom="20px">
+
+            <ImageView
+                android:layout_width="162px"
+                android:layout_height="232px"
+                android:layout_alignParentBottom="true"
+                android:scaleType="fitXY"
+                app:imageUrl="@{history.covor_url}" />
+
+            <ImageView
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_bookrack_delete_book" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"

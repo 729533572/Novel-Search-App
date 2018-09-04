@@ -21,4 +21,21 @@ class BookShelfPresenter : BookShelfContract.Presenter() {
             }
         }))
     }
+
+    //删除阅读记录
+    override fun deleteReadRecord(id: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.deleteReadRecord(id), object : RxObserverListener<Any>(mView) {
+            override fun onSuccess(result: Any) {
+                mView.deleteReadRecord(result)
+            }
+        }))
+    }
+
+    override fun deleteCollect(id: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.deleteCollect(id), object : RxObserverListener<Any>(mView) {
+            override fun onSuccess(result: Any) {
+                mView.deleteCollect(result)
+            }
+        }))
+    }
 }

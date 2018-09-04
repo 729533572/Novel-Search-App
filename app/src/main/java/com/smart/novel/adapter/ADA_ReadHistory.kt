@@ -15,10 +15,24 @@ import com.smart.novel.databinding.ItemBookShelfBinding
 class ADA_ReadHistory constructor(context: Context) : CommonAdapter<NovelBean, ItemBookShelfBinding>(context) {
     override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, bean: NovelBean?, position: Int) {
         viewBinding!!.history = bean
+
+//        if (bean!!.is_finished.equals("1")) holder!!.setVisible(R.id.btn_delete, false) else holder!!.setVisible(R.id.btn_delete, true)
+
+        holder!!.setOnClickListener(R.id.btn_delete,{ if (mListener != null) mListener!!.onDeleteBtnClick(bean!!) })
+
     }
 
     override fun itemLayoutId(): Int {
         return R.layout.item_book_shelf
     }
 
+    interface OnDeleteBtnClickListener {
+        fun onDeleteBtnClick(bean: NovelBean)
+    }
+
+    var mListener: OnDeleteBtnClickListener? = null
+
+    fun setOnDeleteBtnClickListener(listener: OnDeleteBtnClickListener) {
+        mListener = listener
+    }
 }

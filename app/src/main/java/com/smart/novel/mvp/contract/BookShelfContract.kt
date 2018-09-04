@@ -16,14 +16,23 @@ import io.reactivex.Observable
 class BookShelfContract {
     interface View : IBaseView {
         fun getBookShelfData(dataList: List<NovelBean>)
+        fun deleteReadRecord(result: Any)
+        fun deleteCollect(result: Any)
     }
 
     interface Model : BaseModel {
         //返回的只有BaseHttpResponse的data部分
         fun getBookShelfData(type: String): Observable<BaseHttpResponse<List<NovelBean>>>
+
+        fun deleteReadRecord(id: String): Observable<BaseHttpResponse<Any>>
+
+        fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>>
     }
 
     abstract class Presenter : BasePresenter<BookShelfContract.View, BookShelfContract.Model>() {
-        abstract fun getBookShelfData(type: String,multipleStatusView: MultipleStatusView)
+        abstract fun getBookShelfData(type: String, multipleStatusView: MultipleStatusView)
+        abstract fun deleteReadRecord(id: String)
+        abstract fun deleteCollect(id: String)
+
     }
 }

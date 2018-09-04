@@ -79,10 +79,23 @@ interface ApiService {
 
     //小说详情信息
     @GET("fictions/get/info")
-    fun getNovelDetail(@Query("id") id: String): Observable<BaseHttpResponse<NovelBean>>
+    fun getNovelDetail(@Query("id") id: String): Observable<BaseHttpResponse<List<NovelBean>>>
 
     //收藏小说
     @POST("users//auth/like/fiction/{id}")
     fun doCollect(@Path("id") id: String): Observable<BaseHttpResponse<Any>>
+
+    //删除收藏
+    @POST("users//auth/unlike/fiction/{id}")
+    fun deleteCollect(@Path("id") id: String): Observable<BaseHttpResponse<Any>>
+
+    //增加小说阅读记录
+    @FormUrlEncoded //使用@Field时记得添加@FormUrlEncoded
+    @POST("users/auth/read/fiction/{id}")
+    fun addReadRecord(@Path("id") id: String, @Field("chapter_name") chapter_name: String, @Field("chapter_number") chapter_number: String): Observable<BaseHttpResponse<Any>>
+
+    //删除小说阅读记录
+    @POST("users/auth/unread/fiction/{id}")
+    fun deleteReadRecord(@Path("id") id: String): Observable<BaseHttpResponse<Any>>
 
 }

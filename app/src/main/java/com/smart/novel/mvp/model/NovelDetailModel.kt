@@ -14,15 +14,22 @@ import io.reactivex.Observable
  */
 
 class NovelDetailModel : NovelDetailContract.Model {
-    override fun getNovelDetail(id: String): Observable<BaseHttpResponse<NovelBean>> {
+    override fun getNovelDetail(id: String): Observable<BaseHttpResponse<List<NovelBean>>> {
         return RetrofitRxManager.getRequestService().getNovelDetail(id)
+    }
+
+    override fun getChapterList(id: String, type: String, page: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().getChapterList(id, type, page)
     }
 
     override fun doCollect(id: String): Observable<BaseHttpResponse<Any>> {
         return RetrofitRxManager.getRequestService().doCollect(id)
     }
 
-    override fun getChapterList(id: String, type: String, page: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
-        return RetrofitRxManager.getRequestService().getChapterList(id, type, page)
+    override fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>> {
+        return RetrofitRxManager.getRequestService().deleteCollect(id)
+    }
+    override fun addReadRecord(id: String,chapter_name:String,chapter_number:String): Observable<BaseHttpResponse<Any>> {
+        return RetrofitRxManager.getRequestService().addReadRecord(id,chapter_name,chapter_number)
     }
 }

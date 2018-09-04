@@ -17,22 +17,30 @@ import io.reactivex.Observable
 class NovelDetailContract {
     interface View : IBaseView {
         fun getChapterList(dataList: List<ChapterBean>)
+        //获取小说详情信息
+        fun getNovelDetail(novelBean: List<NovelBean>)
+
         //小说id
         fun doCollect(result: Any)
 
-        //获取小说详情信息
-        fun getNovelDetail(novelBean: NovelBean)
+        fun deleteCollect(result: Any)
+        //增加阅读记录
+        fun addReadRecord(result: Any)
     }
 
     interface Model : BaseModel {
         fun getChapterList(id: String, type: String, page: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+        fun getNovelDetail(id: String): Observable<BaseHttpResponse<List<NovelBean>>>
         fun doCollect(id: String): Observable<BaseHttpResponse<Any>>
-        fun getNovelDetail(id: String): Observable<BaseHttpResponse<NovelBean>>
+        fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>>
+        fun addReadRecord(id: String, chapter_name: String, chapter_number: String): Observable<BaseHttpResponse<Any>>
     }
 
     abstract class Presenter : BasePresenter<View, Model>() {
         abstract fun getChapterList(multipleStatusView: MultipleStatusView, id: String, type: String, page: String)
-        abstract fun doCollect(id: String)
         abstract fun getNovelDetail(id: String)
+        abstract fun doCollect(id: String)
+        abstract fun deleteCollect(id: String)
+        abstract fun addReadRecord(id: String, chapter_name: String, chapter_number: String)
     }
 }

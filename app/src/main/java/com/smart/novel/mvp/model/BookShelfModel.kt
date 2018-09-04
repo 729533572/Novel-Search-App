@@ -12,8 +12,17 @@ import io.reactivex.Observable
  * description:书架模块
  */
 
-class BookShelfModel : BookShelfContract.Model{
-    override fun getBookShelfData(type:String): Observable<BaseHttpResponse<List<NovelBean>>> {
+class BookShelfModel : BookShelfContract.Model {
+
+    override fun getBookShelfData(type: String): Observable<BaseHttpResponse<List<NovelBean>>> {
         return RetrofitRxManager.getRequestService().getReadHistory(type)
+    }
+
+    override fun deleteReadRecord(id: String): Observable<BaseHttpResponse<Any>> {
+        return RetrofitRxManager.getRequestService().deleteReadRecord(id)
+    }
+
+    override fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>> {
+        return RetrofitRxManager.getRequestService().deleteCollect(id)
     }
 }

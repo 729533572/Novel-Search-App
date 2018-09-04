@@ -28,7 +28,7 @@ public class NovelBean implements Serializable {
      * gender : 1
      * keyword_hit_cnt : 0
      */
-
+    private String book_id;//小说id
     private String id;
     private String name_cn;
     private String author;
@@ -46,6 +46,14 @@ public class NovelBean implements Serializable {
     private int gender;
     private int keyword_hit_cnt;
     private String like;//是否已收藏
+
+    public String getBook_id() {
+        return book_id == null ? "" : book_id;
+    }
+
+    public void setBook_id(String book_id) {
+        this.book_id = book_id;
+    }
 
     public String getLike() {
         return like == null ? "" : like;

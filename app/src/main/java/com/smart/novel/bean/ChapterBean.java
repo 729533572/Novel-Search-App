@@ -31,6 +31,15 @@ public class ChapterBean {
     private int read_count;
     private String create_time;
     private String update_time;
+    private boolean latest; //是否是最新章节
+
+    public boolean isLatest() {
+        return latest;
+    }
+
+    public void setLatest(boolean latest) {
+        this.latest = latest;
+    }
 
     public String getId() {
         return id;
@@ -49,7 +58,7 @@ public class ChapterBean {
     }
 
     public String getChapter_number() {
-        return "第" + chapter_number + "章";
+        return  chapter_number;
     }
 
     public void setChapter_number(String chapter_number) {

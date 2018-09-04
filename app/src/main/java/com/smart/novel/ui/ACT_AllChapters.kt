@@ -8,6 +8,8 @@ import android.widget.PopupWindow
 import butterknife.OnClick
 import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.utils.CommonUtils
+import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ChapterFilter
 import com.smart.novel.adapter.ADA_ChapterList
@@ -69,6 +71,18 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 mMvpPresenter.getChapterList(multipleStatusView, novelId!!, "n", (position + 1).toString())
                 tv_chapter_filter.setText(mAdapterFilter!!.dataList.get(position).filterRange)
                 mPopWindow!!.dismiss()
+            }
+
+            override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
+                return false
+            }
+
+        })
+        mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
+            override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                val chapterBean = mAdapter!!.dataList.get(position)
+                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
+                CommonUtils.makeEventToast(MyApplication.context, chapterBean.chapter_name, false)
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
@@ -142,12 +156,17 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
     }
 
-    /**
-     * 获取小说详情信息
-     */
-    override fun getNovelDetail(novelBean: NovelBean) {
+    override fun deleteCollect(result: Any) {
 
     }
 
+    /**
+     * 获取小说详情信息
+     */
+    override fun getNovelDetail(novelBean: List<NovelBean>) {
+    }
 
+    override fun addReadRecord(result: Any) {
+
+    }
 }

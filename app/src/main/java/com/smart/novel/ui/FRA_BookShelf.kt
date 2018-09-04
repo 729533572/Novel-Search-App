@@ -22,6 +22,7 @@ import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
+import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
 import kotlinx.android.synthetic.main.layout_common_recyclview.*
@@ -58,10 +59,9 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         tvRight.visibility = View.VISIBLE
         initRecyclerView()
 
-        initListener()
-
         mMvpPresenter.getBookShelfData("read", multipleStatusView)
 
+        initListener()
     }
 
     /**
@@ -91,15 +91,25 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     }
 
     private fun initListener() {
+        //item点击事件
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
                 return false
             }
 
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
-                CommonUtils.makeEventToast(MyApplication.context, "position=" + position, false)
+                var realPos = position - 1
+                IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))
             }
         })
+        //删除按钮
+        mAdapter!!.setOnDeleteBtnClickListener(object : ADA_ReadHistory.OnDeleteBtnClickListener {
+            override fun onDeleteBtnClick(bean: NovelBean) {
+                CommonUtils.makeEventToast(MyApplication.context, "删除", false)
+                mMvpPresenter.deleteReadRecord(bean.book_id)
+            }
+        })
+
     }
 
     override fun onRefresh() {
@@ -110,7 +120,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
     }
 
-    @OnClick(R.id.ll_read_history, R.id.ll_my_collected)
+    @OnClick(R.id.ll_read_history, R.id.ll_my_collected, R.id.tv_right)
     fun onClick(view: View) {
         when (view.id) {
             R.id.ll_read_history -> {
@@ -126,6 +136,9 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
                 mMvpPresenter.getBookShelfData("like", multipleStatusView)
+            }
+            R.id.tv_right -> {
+                CommonUtils.makeEventToast(MyApplication.context, "管理", false)
             }
         }
     }
@@ -153,7 +166,21 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun getBookShelfData(dataList: List<NovelBean>) {
         tv_total.text = "共" + dataList.size + "本"
-        if (dataList!!.size > 0) mAdapter!!.update(dataList!!, true) else multipleStatusView.showEmpty(R.drawable.ic_reading_no_data,MyApplication.context.getString(R.string.string_empty_bookshelf))
+        if (dataList!!.size > 0) mAdapter!!.update(dataList!!, true) else multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+    }
+
+    /**
+     * 删除阅读记录
+     */
+    override fun deleteReadRecord(result: Any) {
+        CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
+    }
+
+    /**
+     * 删除收藏
+     */
+    override fun deleteCollect(result: Any) {
+        CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
     }
 
     fun tabCheck() {
