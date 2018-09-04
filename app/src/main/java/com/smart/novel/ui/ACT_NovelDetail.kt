@@ -14,6 +14,7 @@ import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ActNovelDetailBinding
+import com.smart.novel.dialog.DIA_Share
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
@@ -31,6 +32,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     var mAdapter: ADA_ChapterList? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     @BindView(R.id.tv_title) lateinit var tvTile: TextView
+    var mShareDialog: DIA_Share? = null
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_novel_detail
     }
@@ -46,6 +48,8 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //展示小说详情信息
         (viewDataBinding as ActNovelDetailBinding).novelBean = novelBean
 
+        //分享弹窗
+        mShareDialog = DIA_Share(this)
 
         mAdapter = ADA_ChapterList(this)
 
@@ -67,8 +71,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         when (view.id) {
             R.id.btn_collect -> {
             }
-            R.id.btn_share -> {
-            }
+            R.id.btn_share -> mShareDialog!!.dialog.show()
             R.id.btn_all_chapters -> {
                 var bundle = Bundle()
                 bundle.putString(PageDataConstants.NOVEL_ID, novelBean!!.id)

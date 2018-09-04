@@ -4,11 +4,10 @@ import android.content.Context
 import android.view.View
 import com.smart.framework.library.adapter.rv.CommonAdapter
 import com.smart.framework.library.adapter.rv.ViewHolder
-import com.smart.framework.library.common.utils.CommonUtils
-import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ItemSearchResultBinding
+import com.smart.novel.util.IntentUtil
 
 /**
  * Created by JoJo on 2018/8/28.
@@ -20,7 +19,7 @@ class ADA_SearchList constructor(context: Context) : CommonAdapter<NovelBean, It
         viewBinding!!.searchBean = bean
         holder!!.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                CommonUtils.makeEventToast(MyApplication.context, "postion=" + position, false)
+              IntentUtil.intentToNovelDetail(mContext,bean!!)
             }
         })
     }

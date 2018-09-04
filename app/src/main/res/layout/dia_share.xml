@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/btn_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="16px"
+            android:drawableTop="@drawable/ic_btn_share_wechat"
+            android:gravity="center_horizontal"
+            android:paddingBottom="50px"
+            android:paddingTop="50px"
+            android:text="微信"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="16px"
+            android:drawableTop="@drawable/ic_btn_share_qq"
+            android:gravity="center_horizontal"
+            android:paddingBottom="50px"
+            android:paddingTop="50px"
+            android:text="QQ"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_weibo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="16px"
+            android:drawableTop="@drawable/ic_btn_share_weibo"
+            android:gravity="center_horizontal"
+            android:paddingBottom="50px"
+            android:paddingTop="50px"
+            android:text="微博"
+            android:textColor="@color/color_999999"
+            android:textSize="12sp" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_e5e5e5"></View>
+
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="24px"
+        android:paddingTop="24px"
+        android:text="取消"
+        android:textColor="@color/color_2E3439"
+        android:textSize="15sp" />
+</com.zhy.autolayout.AutoLinearLayout>

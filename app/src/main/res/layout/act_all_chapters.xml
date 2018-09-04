@@ -44,6 +44,7 @@
                 android:background="@drawable/bg_shape_stroke_1_c3c3c3">
 
                 <TextView
+                    android:id="@+id/tv_chapter_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -84,7 +85,9 @@
             <com.github.jdsjlzx.recyclerview.LRecyclerView
                 android:id="@+id/recyclerviewAllChapters"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.github.jdsjlzx.recyclerview.LRecyclerView>
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none"></com.github.jdsjlzx.recyclerview.LRecyclerView>
         </com.smart.framework.library.loading.MultipleStatusView>
     </com.zhy.autolayout.AutoLinearLayout>
 </layout>

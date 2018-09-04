@@ -2,53 +2,46 @@ package com.smart.novel.dialog
 
 import android.app.Activity
 import android.app.Dialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import butterknife.BindView
+import android.widget.LinearLayout
 import butterknife.ButterKnife
-import com.smart.framework.library.common.utils.ScreenUtil
+import butterknife.OnClick
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ChapterList
 import com.smart.novel.bean.ChapterBean
-import com.smart.novel.util.RecyclerViewHelper
 
 
 /**
  * Created by JoJo on 2018/9/3.
  * wechat:18510829974
- * description: 小说所有章节筛选弹窗
+ * description: 分享弹窗
  */
 
-class DIA_ChaptersFilter
+class DIA_Share
 (protected var mContext: Activity) : Dialog(mContext) {
-    @BindView(R.id.recyclerviewFilter) lateinit var recyclerviewFilter: RecyclerView
     protected var mDialog: Dialog
     protected var mContentView: View
     var mAdapter: ADA_ChapterList? = null
 
     init {
         mDialog = Dialog(mContext, R.style.style_custom_dialog)
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_chapters_filter, null)
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_share, null)
         ButterKnife.bind(this, mContentView)
         mDialog.setContentView(mContentView)
-
-        mAdapter = ADA_ChapterList(mContext)
-        RecyclerViewHelper.initNormalRecyclerView(mContext, recyclerviewFilter, mAdapter!!, LinearLayoutManager(mContext))
     }
 
     val dialog: Dialog
         get() {
             mDialog.setCanceledOnTouchOutside(true)
             mDialog.window!!.setWindowAnimations(R.style.style_bottom_in_anim)
-            mDialog.window!!.setGravity(Gravity.TOP)
+            mDialog.window!!.setGravity(Gravity.BOTTOM)
             val lp = mDialog.window!!.attributes
-            lp.dimAmount = 0.2f
+            lp.dimAmount = 0.4f
             lp.alpha = 1f
-            lp.width = ScreenUtil.getScreenWidth(mContext)
-            lp.height = 1200
+            lp.width = LinearLayout.LayoutParams.MATCH_PARENT
+//            lp.height = 1200
             // 设置点击屏幕Dialog消失
             // 背景灰度
             // 设置宽度
@@ -57,6 +50,15 @@ class DIA_ChaptersFilter
             return mDialog
         }
 
+    @OnClick(R.id.btn_cancel)
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.btn_cancel -> mDialog.dismiss()
+            R.id.btn_wechat -> mListener!!.onShareBoardClick(0)
+            R.id.btn_qq -> mListener!!.onShareBoardClick(1)
+            R.id.btn_weibo -> mListener!!.onShareBoardClick(2)
+        }
+    }
 
     /**
      * 传入数据
@@ -64,7 +66,7 @@ class DIA_ChaptersFilter
      * @param dataList
      * @return
      */
-    fun refreshData(dataList: List<ChapterBean>): DIA_ChaptersFilter {
+    fun refreshData(dataList: List<ChapterBean>): DIA_Share {
         mAdapter!!.update(dataList, true)
         return this
     }
@@ -73,5 +75,10 @@ class DIA_ChaptersFilter
     //    public void onClick(View view) {
     //
     //    }
+    interface OnShareBoardClickListener {
+        fun onShareBoardClick(position: Int)
+    }
+
+    var mListener: OnShareBoardClickListener? = null
 }
 

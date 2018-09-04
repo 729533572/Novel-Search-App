@@ -29,4 +29,5 @@
     <color name="color_3f3f3f">#3F3F3F</color>
     <color name="color_c3c3c3">#c3c3c3</color>
     <color name="color_2d343a">#2d343a</color>
+    <color name="bg_popupwindow">#8f000000</color>
 </resources>
