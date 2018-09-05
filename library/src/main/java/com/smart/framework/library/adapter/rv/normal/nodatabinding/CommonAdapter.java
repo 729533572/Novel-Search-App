@@ -1,7 +1,6 @@
-package com.smart.framework.library.adapter.rv;
+package com.smart.framework.library.adapter.rv.normal.nodatabinding;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 
 import java.util.Collection;
@@ -9,10 +8,10 @@ import java.util.List;
 
 /**
  * Created by zhy on 16/4/9.
- * 结合了DataBinding使用的RecyclerView的CommonAdapter
+ * RecyclerView的CommonAdapter 正常的CommonAdapter
  * 备注：lv包下的是ListView装配时使用的通用Adapter，使用见lv包下的CommonAdapterListView的备注信息
  */
-public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiItemTypeAdapter<T, B> {
+public abstract class CommonAdapter<T> extends MultiItemTypeAdapter<T> {
     protected Context mContext;
     protected int mLayoutId;
     protected LayoutInflater mInflater;
@@ -24,7 +23,7 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
 //        mLayoutId = layoutId;
 //        mDatas = datas;
         //返回：MultiItemTypeAdapter
-        addItemViewDelegate(new ItemViewDelegate<T, B>() {
+        addItemViewDelegate(new ItemViewDelegate<T>() {
             @Override
             public int getItemViewLayoutId() {
                 return itemLayoutId();
@@ -36,15 +35,15 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
             }
 
             @Override
-            public void convert(B viewBinding, ViewHolder.BindingHolder holder, T t, int position) {
-                CommonAdapter.this.convert(viewBinding, holder, t, position);
+            public void convert(ViewHolder holder, T t, int position) {
+                CommonAdapter.this.convert(holder, t, position);
             }
         });
     }
 
     protected abstract int itemLayoutId();
 
-    protected abstract void convert(B viewBinding, ViewHolder.BindingHolder holder, T bean, int position);
+    protected abstract void convert(ViewHolder holder, T t, int position);
 
     /**
      * 设置适配器的数据，添加数据
@@ -76,6 +75,22 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
     }
 
     /**
+     * 单条刷新
+     *
+     * @param dataList
+     * @param isClear  是否需要清空list然后在加载数据
+     */
+    public void update(List<T> dataList, Boolean isClear, int position) {
+        if (isClear) {
+            clear();
+        }
+        if (dataList != null) {
+            mDatas.addAll(dataList);
+        }
+        notifyItemChanged(position);
+    }
+
+    /**
      * 清除集合数据
      */
     public void clear() {
@@ -86,13 +101,15 @@ public abstract class CommonAdapter<T, B extends ViewDataBinding> extends MultiI
     public void remove(int position) {
         if (mDatas != null && mDatas.size() > 0) {
             // 数据移除
-            this.mDatas.remove(position);
+            this.mDatas.remove(position - 1);
             // 界面移除
             notifyItemRemoved(position - 1);
+            notifyItemRangeChanged(0, getItemCount());
+//            notifyDataSetChanged();
             // 刷新位置
-            if (position != (mDatas.size())) { // 如果移除的是最后一个，忽略
-                notifyItemRangeChanged(position - 1, getItemCount() - position);
-            }
+//            if (position != (mDatas.size())) { // 如果移除的是最后一个，忽略
+//                notifyItemRangeChanged(position - 1, getItemCount() - position + 1);
+//            }
         }
     }
 

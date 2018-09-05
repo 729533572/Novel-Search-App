@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
+import com.smart.framework.library.common.utils.ScreenUtil
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
@@ -29,9 +30,13 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
         chapterBean = extras!!.getSerializable(PageDataConstants.CHAPTER_BEAN) as ChapterBean?
     }
 
+    override fun handleStatusBar(isDarkMode: Boolean) {
+        super.handleStatusBar(false)
+    }
 
     override fun startEvents() {
         Thread(Runnable {
+            multipleStatusView.showLoading()
             val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
             conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
             conn.header("Accept-Encoding", "gzip, deflate, sdch");
@@ -39,8 +44,10 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
             val content = conn.get().getElementById("content")
             Elog.e("content", content.text())
-            tv_content.post({
-                tv_content.setText(chapterBean!!.chapter_name + content.text())
+            webview.post({
+                multipleStatusView.showContent()
+                tv_chapter_name.setText(chapterBean!!.chapter_name)
+                webview.loadDataWithBaseURL(null, ScreenUtil.getNewContent(content.text()), "text/html", "UTF-8", null)
             })
         }).start()
     }

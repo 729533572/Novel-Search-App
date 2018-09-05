@@ -1,4 +1,4 @@
-package com.smart.framework.library.adapter.rv;
+package com.smart.framework.library.adapter.rv.normal.databinding;
 
 
 import android.databinding.ViewDataBinding;

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.PopupWindow
 import butterknife.OnClick
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication

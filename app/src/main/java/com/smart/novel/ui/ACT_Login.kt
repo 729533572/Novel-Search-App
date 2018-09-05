@@ -20,6 +20,7 @@ import com.smart.novel.db.manager.DbManager
 import com.smart.novel.mvp.contract.LoginContract
 import com.smart.novel.mvp.model.LoginModel
 import com.smart.novel.mvp.presenter.LoginPresenter
+import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.SharePreConstants
 import kotlinx.android.synthetic.main.act_login.*
 
@@ -125,6 +126,7 @@ class ACT_Login : BaseMVPActivity<LoginPresenter, LoginModel>(), LoginContract.V
         sharePre!!.putString(SharePreConstants.USER_HEAD_AVATAR, userInfo.chat_head_uri)
         sharePre!!.putBoolean(SharePreConstants.LOGOUT, false)
         DbManager.getInstance().insertOrReplace(UserBean::class.java, userInfo)
+        sendBroadcast(BroadCastConstant.LOGIN_SUCCESS)
         finish()
     }
 

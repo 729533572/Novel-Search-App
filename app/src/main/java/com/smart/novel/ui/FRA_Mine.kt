@@ -8,14 +8,15 @@ import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.AppSharedPreferences
-import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_MineList
 import com.smart.novel.bean.MineBean
 import com.smart.novel.db.AppDBHelper
+import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
+import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.SharePreConstants
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import kotlinx.android.synthetic.main.fra_mine.*
@@ -77,13 +78,11 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     }
 
     private fun initListener() {
-        listviewMine.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                when (position) {
-                    2 -> readyGo(ACT_AboutUs::class.java)
-                }
+        listviewMine.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            when (position) {
+                2 -> readyGo(ACT_AboutUs::class.java)
             }
-        })
+        }
     }
 
     @OnClick(R.id.tv_un_login, R.id.btn_logot)
@@ -94,18 +93,22 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
             }
         //退出登录
             R.id.btn_logot -> {
-                CommonUtils.makeEventToast(MyApplication.context, "退出登录", false)
-                //清除cookie
-                RetrofitRxManager.persistentCookieJar!!.clear()
-                RetrofitRxManager.persistentCookieJar!!.clearSession()
-                showUserInfo(false)
-                MyApplication.isLogin = false
-                //清除用户信息
-                sharePre!!.putBoolean(SharePreConstants.LOGOUT, true)
-                sharePre!!.putString(SharePreConstants.USER_ID, "")
-                sharePre!!.putString(SharePreConstants.USER_NAME, "")
-                sharePre!!.putString(SharePreConstants.USER_PHONE, "")
-                sharePre!!.putString(SharePreConstants.USER_HEAD_AVATAR, "")
+                DialogUtils.showConfirmDialog(activity, "登录", "确定要退出登录吗?", object : DialogUtils.OnConfirmListener {
+                    override fun onDialogConfirm() {
+                        //清除cookie
+                        RetrofitRxManager.persistentCookieJar!!.clear()
+                        RetrofitRxManager.persistentCookieJar!!.clearSession()
+                        showUserInfo(false)
+                        MyApplication.isLogin = false
+                        //清除用户信息
+                        sharePre!!.putBoolean(SharePreConstants.LOGOUT, true)
+                        sharePre!!.putString(SharePreConstants.USER_ID, "")
+                        sharePre!!.putString(SharePreConstants.USER_NAME, "")
+                        sharePre!!.putString(SharePreConstants.USER_PHONE, "")
+                        sharePre!!.putString(SharePreConstants.USER_HEAD_AVATAR, "")
+                        sendBroadcast(BroadCastConstant.LOGOUT)
+                    }
+                })
             }
         }
     }

@@ -11,18 +11,22 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener
 import com.github.jdsjlzx.interfaces.OnRefreshListener
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
+import com.smart.framework.library.adapter.rv.normal.nodatabinding.MultiItemTypeAdapter
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
+import com.smart.novel.adapter.ADA_ReadHistoryNodataBinding
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
+import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
+import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
@@ -35,15 +39,22 @@ import kotlinx.android.synthetic.main.layout_common_recyclview.*
  */
 class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
     @BindView(R.id.tv_right) lateinit var tvRight: TextView
-    var mAdapter: ADA_ReadHistory? = null
+    var mAdapter: ADA_ReadHistoryNodataBinding? = null
     val mColumnNum = 3//列表每行展示的个数
     val TYPE_READ = "read"
     val TYPE_LIKE = "like"
     var requestType = TYPE_READ
     var mCurrentPage = 1
     var isEdit = false//false 管理 true 完成(可编辑)
+    var mData: ArrayList<NovelBean>? = null
     var deletePos = -1
-    var mData: List<NovelBean>? = null
+    var deleteItem: NovelBean? = null
+    var isRefreshing = false
+    override fun onReceiveBroadcast(intent: Int, bundle: Bundle?) {
+        when (intent) {
+            BroadCastConstant.LOGOUT, BroadCastConstant.LOGIN_SUCCESS -> requestData(requestType, false)
+        }
+    }
 
     /**
      * companion object {}内：静态方法
@@ -76,7 +87,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      * 处理列表
      */
     private fun initRecyclerView() {
-        mAdapter = ADA_ReadHistory(activity)
+        mAdapter = ADA_ReadHistoryNodataBinding(activity)
         RecyclerViewHelper.initRecyclerView(activity, recyclerview, mAdapter!!, GridLayoutManager(activity, 3))
         recyclerview.setOnRefreshListener(this)
         recyclerview.setOnLoadMoreListener(this)
@@ -118,22 +129,32 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
             }
         })
         //删除按钮
-        mAdapter!!.setOnDeleteBtnClickListener(object : ADA_ReadHistory.OnDeleteBtnClickListener {
+        mAdapter!!.setOnDeleteBtnClickListener(object : ADA_ReadHistory.OnDeleteBtnClickListener, ADA_ReadHistoryNodataBinding.OnDeleteBtnClickListener {
             override fun onDeleteBtnClick(position: Int, bean: NovelBean) {
-                deletePos = position
-                if (bean.type.equals(TYPE_READ)) mMvpPresenter.deleteReadRecord(bean.book_id) else mMvpPresenter.deleteCollect(bean.book_id)
+                deleteItem = bean
+                deletePos = position - 1
+                Elog.e("TAG", "deletePos=" + deletePos)
+                DialogUtils.showConfirmDialog(activity, "书架", "确定要移除吗?", object : DialogUtils.OnConfirmListener {
+                    override fun onDialogConfirm() {
+                        if (bean.type.equals(TYPE_READ)) mMvpPresenter.deleteReadRecord(bean.book_id) else mMvpPresenter.deleteCollect(bean.book_id)
+                    }
+                })
+
             }
         })
 
     }
 
+
     override fun onRefresh() {
-        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
+//        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
 //        Elog.e("type", requestType)
-        requestData(requestType,false)
+        isRefreshing = true
+        requestData(requestType, false)
     }
 
     override fun onLoadMore() {
+        isRefreshing = false
         Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
 //        Elog.e("type", requestType)
     }
@@ -148,7 +169,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_my_collected.getChildAt(0).visibility = View.GONE
                 ll_my_collected.getChildAt(1).visibility = View.VISIBLE
                 mCurrentPage = 1
-                requestData(TYPE_READ, false)
+                requestData(TYPE_READ, true)
             }
             R.id.ll_my_collected -> {
                 if (isEdit) return
@@ -157,7 +178,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
                 mCurrentPage = 1
-                requestData(TYPE_LIKE, false)
+                requestData(TYPE_LIKE, true)
             }
             R.id.tv_right -> {
                 //管理-完成
@@ -199,10 +220,19 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     }
 
+    /**
+     * 列表数据
+     */
     override fun getBookShelfData(dataList: List<NovelBean>) {
         tv_total.text = "共" + dataList.size + "本"
-        mData = dataList
-        if (dataList!!.size > 0) mAdapter!!.update(dataList!!, true) else multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+        mData = dataList as ArrayList<NovelBean>
+        if (dataList!!.size > 0) {
+            mAdapter!!.update(dataList!!, true)
+            multipleStatusView.showContent()
+        } else {
+            showEmpty()
+        }
+        if (isRefreshing) recyclerview.refreshComplete(1)
     }
 
     /**
@@ -210,7 +240,11 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteReadRecord(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
-        requestData(TYPE_READ, false)
+
+//        mAdapter!!.dataList.remove(deleteItem)
+//        mAdapter!!.notifyItemRemoved(deletePos - 1)
+        mAdapter!!.remove(deletePos)
+        if (mAdapter!!.dataList.size == 0) showEmpty()
     }
 
     /**
@@ -218,7 +252,11 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteCollect(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
-        requestData(TYPE_LIKE, false)
+
+//        mAdapter!!.dataList.remove(deleteItem)
+//        mAdapter!!.notifyItemRemoved(deletePos - 1)
+        mAdapter!!.remove(deletePos)
+        if (mAdapter!!.dataList.size == 0) showEmpty()
     }
 
     /**
@@ -227,6 +265,14 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     private fun requestData(type: String, isShowLoading: Boolean) {
         if (isShowLoading) mMvpPresenter.getBookShelfData(type, mCurrentPage.toString(), multipleStatusView) else mMvpPresenter.getBookShelfData(type, mCurrentPage.toString(), null)
         requestType = type
+    }
+
+    /**
+     * 展示空页面
+     */
+    private fun showEmpty() {
+        multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+        isEdit = false
     }
 
     fun tabCheck() {

@@ -2,8 +2,8 @@ package com.smart.novel.adapter
 
 import android.content.Context
 import android.view.View
-import com.smart.framework.library.adapter.rv.CommonAdapter
-import com.smart.framework.library.adapter.rv.ViewHolder
+import com.smart.framework.library.adapter.rv.normal.databinding.CommonAdapter
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder
 import com.smart.novel.R
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ItemSearchResultBinding

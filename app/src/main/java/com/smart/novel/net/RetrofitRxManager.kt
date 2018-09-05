@@ -338,7 +338,7 @@ object RetrofitRxManager {
     }
 
     /**
-     * 建立请求
+     * 建立请求 ：要求后端错误情况统一返回data 为null,否则返回[]或者""会报解析异常,无法回调到onBusinessError的情况
      */
     fun <T> doRequest(observable: Observable<BaseHttpResponse<T>>, observerListener: BaseObserverListener<T>): DisposableObserver<BaseHttpResponse<T>> {
         return observable

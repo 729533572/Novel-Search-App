@@ -9,7 +9,7 @@ import android.widget.TextView
 import butterknife.BindView
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener
 import com.github.jdsjlzx.interfaces.OnRefreshListener
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.MyApplication

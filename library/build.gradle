@@ -73,4 +73,6 @@ dependencies {
     compile project(':okhttp3-persistent-cookiejar')
 //    rxbinding
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //网页html格式数据解析
+    compile 'org.jsoup:jsoup:1.10.3'
 }

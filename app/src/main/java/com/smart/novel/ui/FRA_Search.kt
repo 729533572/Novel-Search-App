@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
+import android.widget.AdapterView
 import butterknife.OnClick
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.utils.CommonUtils
-import com.smart.framework.library.widgets.tag.FlowLayout
-import com.smart.framework.library.widgets.tag.TagFlowLayout
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_HotSearchTag
@@ -86,14 +85,17 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
                 mSearchHistoryAdapyer!!.update(arrayList, true)
             }
         })
-        flowTagview.setOnTagClickListener(object : TagFlowLayout.OnTagClickListener {
-            override fun onTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
-                et_search_keywords.setText(mHotSearchAdapter!!.getItem(position).search_keyword)
-                et_search_keywords.setSelection(et_search_keywords.text.toString().length)
-                mMvpPresenter.getSearchResultList(multipleStatusView, et_search_keywords.text.toString())
-                return true
-            }
-        })
+        listviewSearchHistory.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            et_search_keywords.setText(mSearchHistoryAdapyer!!.dataList.get(position).searchKeyWords)
+            et_search_keywords.setSelection(et_search_keywords.text.toString().length)
+            mMvpPresenter.getSearchResultList(multipleStatusView, et_search_keywords.text.toString())
+        }
+        flowTagview.setOnTagClickListener { view, position, parent ->
+            et_search_keywords.setText(mHotSearchAdapter!!.getItem(position).search_keyword)
+            et_search_keywords.setSelection(et_search_keywords.text.toString().length)
+            mMvpPresenter.getSearchResultList(multipleStatusView, et_search_keywords.text.toString())
+            true
+        }
     }
 
     @OnClick(R.id.tv_do_search, R.id.iv_clear_txt, R.id.btn_clear_history, R.id.btn_change)

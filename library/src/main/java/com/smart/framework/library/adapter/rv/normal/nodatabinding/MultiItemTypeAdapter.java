@@ -1,12 +1,9 @@
-package com.smart.framework.library.adapter.rv.normal;
+package com.smart.framework.library.adapter.rv.normal.nodatabinding;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
-import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,22 +14,22 @@ import java.util.List;
  * 支持多种ItemViewType的Adapter：每种Item类型对应一个ItemViewDelegete
  * 对于多中itemviewtype的处理参考：https://github.com/sockeqwe/AdapterDelegates ，有极高的扩展性。
  */
-public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.BindingHolder> {
+public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     protected Context mContext;
     protected List<T> mDatas = new ArrayList<>();
 
-    protected ItemViewDelegateManagerNormal mItemViewDelegateManager;
-    protected MultiItemTypeAdapter.OnItemClickListener mOnItemClickListener;
+    protected ItemViewDelegateManager mItemViewDelegateManager;
+    protected OnItemClickListener mOnItemClickListener;
 
-    public MultiTypeAdapterNormal(Context mContext) {
+    public MultiItemTypeAdapter(Context mContext) {
         this.mContext = mContext;
-        mItemViewDelegateManager = new ItemViewDelegateManagerNormal();
+        mItemViewDelegateManager = new ItemViewDelegateManager();
     }
 
-    public MultiTypeAdapterNormal(Context context, List<T> datas) {
+    public MultiItemTypeAdapter(Context context, List<T> datas) {
         mContext = context;
         mDatas = datas;
-        mItemViewDelegateManager = new ItemViewDelegateManagerNormal();
+        mItemViewDelegateManager = new ItemViewDelegateManager();
     }
 
     @Override
@@ -43,21 +40,20 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
 
 
     @Override
-    public ViewHolder.BindingHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemViewDelegateNormal itemViewDelegate = mItemViewDelegateManager.getItemViewDelegate(viewType);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ItemViewDelegate itemViewDelegate = mItemViewDelegateManager.getItemViewDelegate(viewType);
         int layoutId = itemViewDelegate.getItemViewLayoutId();
-//        ViewHolderNormal holder = ViewHolderNormal.createViewHolder(mContext, parent, layoutId);
-        ViewHolder.BindingHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
-        onViewHolderCreated(holder, holder.getConvertView());
+        ViewHolder holder = ViewHolder.createViewHolder(mContext, parent, layoutId);
+        onViewHolderCreated(holder,holder.getConvertView());
         setListener(parent, holder, viewType);
         return holder;
     }
 
-    public void onViewHolderCreated(ViewHolder holder, View itemView) {
+    public void onViewHolderCreated(ViewHolder holder, View itemView){
 
     }
 
-    public void convert(ViewHolder.BindingHolder holder, T t) {
+    public void convert(ViewHolder holder, T t) {
         mItemViewDelegateManager.convert(holder, t, holder.getAdapterPosition());
     }
 
@@ -73,7 +69,7 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
             public void onClick(View v) {
                 if (mOnItemClickListener != null) {
                     int position = viewHolder.getAdapterPosition();
-                    mOnItemClickListener.onItemClick(v, viewHolder, position);
+                    mOnItemClickListener.onItemClick(v, viewHolder , position);
                 }
             }
         });
@@ -91,7 +87,7 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder.BindingHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         convert(holder, mDatas.get(position));
     }
 
@@ -106,12 +102,12 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
         return mDatas;
     }
 
-    public MultiTypeAdapterNormal addItemViewDelegate(ItemViewDelegateNormal<T> itemViewDelegate) {
+    public MultiItemTypeAdapter addItemViewDelegate(ItemViewDelegate<T> itemViewDelegate) {
         mItemViewDelegateManager.addDelegate(itemViewDelegate);
         return this;
     }
 
-    public MultiTypeAdapterNormal addItemViewDelegate(int viewType, ItemViewDelegateNormal<T> itemViewDelegate) {
+    public MultiItemTypeAdapter addItemViewDelegate(int viewType,ItemViewDelegate<T> itemViewDelegate) {
         mItemViewDelegateManager.addDelegate(viewType, itemViewDelegate);
         return this;
     }
@@ -126,10 +122,9 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
         boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position);
     }
 
-    public void setOnItemClickListener(MultiItemTypeAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
-
     /**
      * 设置适配器的数据，添加数据
      *
@@ -145,7 +140,6 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
 
     /**
      * 设置适配器数据
-     *
      * @param dataList
      * @param isClear  是否需要清空list然后在加载数据
      */
@@ -186,7 +180,6 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
 
     /**
      * 清空集合，设置适配器数据
-     *
      * @param list
      */
     public void setDataList(Collection<T> list) {
@@ -195,4 +188,3 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
         notifyDataSetChanged();
     }
 }
-

@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter;
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter;
 import com.smart.novel.R;
 import com.smart.novel.adapter.ADA_RankingTitle;
 import com.smart.novel.bean.RankTitleBean;

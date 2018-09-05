@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
@@ -146,6 +146,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun deleteCollect(result: Any) {
+        CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
         requestNovelDetail()
     }
 

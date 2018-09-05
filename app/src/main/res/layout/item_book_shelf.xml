@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <variable
-            name="history"
-            type="com.smart.novel.bean.NovelBean"></variable>
-    </data>
-
-    <com.zhy.autolayout.AutoLinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 
-        <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_width="180px"
-            android:layout_height="250px"
-            android:layout_marginBottom="20px">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="180px"
+        android:layout_height="250px"
+        android:layout_marginBottom="20px">
 
-            <ImageView
-                android:layout_width="162px"
-                android:layout_height="232px"
-                android:layout_alignParentBottom="true"
-                android:scaleType="fitXY"
-                app:imageUrl="@{history.covor_url}" />
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="162px"
+            android:layout_height="232px"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_reading"/>
 
-            <ImageView
-                android:id="@+id/btn_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_bookrack_delete_book" />
-
-        </com.zhy.autolayout.AutoRelativeLayout>
-
-        <TextView
+        <ImageView
+            android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{history.name_cn}"
-            android:textColor="@color/color_2E3439"
-            android:textSize="13sp" />
-    </com.zhy.autolayout.AutoLinearLayout>
-</layout>
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_bookrack_delete_book" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_2E3439"
+        android:textSize="13sp" />
+</com.zhy.autolayout.AutoLinearLayout>
