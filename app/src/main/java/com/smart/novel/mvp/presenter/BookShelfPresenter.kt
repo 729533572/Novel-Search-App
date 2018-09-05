@@ -12,11 +12,11 @@ import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
  * description:书架模块
  */
 class BookShelfPresenter : BookShelfContract.Presenter() {
-    override fun getBookShelfData(type: String, multipleStatusView: MultipleStatusView) {
-        multipleStatusView.showLoading()
-        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getBookShelfData(type), object : RxObserverListener<List<NovelBean>>(mView) {
+    override fun getBookShelfData(type: String, page: String, multipleStatusView: MultipleStatusView?) {
+        if (multipleStatusView != null) multipleStatusView!!.showLoading()
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getBookShelfData(type, page), object : RxObserverListener<List<NovelBean>>(mView) {
             override fun onSuccess(result: List<NovelBean>) {
-                multipleStatusView.showContent()
+                if (multipleStatusView != null) multipleStatusView!!.showContent()
                 mView.getBookShelfData(result)
             }
         }))

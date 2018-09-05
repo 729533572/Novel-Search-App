@@ -14,8 +14,8 @@ import io.reactivex.Observable
 
 class BookShelfModel : BookShelfContract.Model {
 
-    override fun getBookShelfData(type: String): Observable<BaseHttpResponse<List<NovelBean>>> {
-        return RetrofitRxManager.getRequestService().getReadHistory(type)
+    override fun getBookShelfData(type: String ,page: String): Observable<BaseHttpResponse<List<NovelBean>>> {
+        return RetrofitRxManager.getRequestService().getReadHistory(type,page)
     }
 
     override fun deleteReadRecord(id: String): Observable<BaseHttpResponse<Any>> {

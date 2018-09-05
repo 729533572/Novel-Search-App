@@ -11,5 +11,6 @@ class PageDataConstants {
         val NOVEL_BEAN = "novel_bean"
         val NOVEL_ID = "novel_id"
         val CHAPTER_BEAN = "chapter_bean"
+        val TOTAL_SIZE = "total_size"
     }
 }

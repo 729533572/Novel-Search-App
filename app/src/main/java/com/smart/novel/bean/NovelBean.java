@@ -27,6 +27,7 @@ public class NovelBean implements Serializable {
      * update_time : 2018-08-19T06:41:45.046Z
      * gender : 1
      * keyword_hit_cnt : 0
+     * type:
      */
     private String book_id;//小说id
     private String id;
@@ -46,6 +47,13 @@ public class NovelBean implements Serializable {
     private int gender;
     private int keyword_hit_cnt;
     private String like;//是否已收藏
+    private String type;//read 阅读记录 like 收藏
+    private int total_size;//小说详情-返回的章节总数
+    private boolean isEdit;//是否可编辑
+    //阅读记录返回的章节信息
+    private String chapter_url;
+    private String chapter_number;
+    private String chapter_name;
 
     public String getBook_id() {
         return book_id == null ? "" : book_id;
@@ -55,16 +63,8 @@ public class NovelBean implements Serializable {
         this.book_id = book_id;
     }
 
-    public String getLike() {
-        return like == null ? "" : like;
-    }
-
-    public void setLike(String like) {
-        this.like = like;
-    }
-
     public String getId() {
-        return id;
+        return id == null ? "" : id;
     }
 
     public void setId(String id) {
@@ -72,7 +72,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getName_cn() {
-        return name_cn;
+        return name_cn == null ? "" : name_cn;
     }
 
     public void setName_cn(String name_cn) {
@@ -80,7 +80,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getAuthor() {
-        return author;
+        return author == null ? "" : author;
     }
 
     public void setAuthor(String author) {
@@ -88,7 +88,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getContent_update_time() {
-        return content_update_time;
+        return content_update_time == null ? "" : content_update_time;
     }
 
     public void setContent_update_time(String content_update_time) {
@@ -104,7 +104,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getCovor_url() {
-        return covor_url;
+        return covor_url == null ? "" : covor_url;
     }
 
     public void setCovor_url(String covor_url) {
@@ -112,7 +112,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getOrigin_website() {
-        return origin_website;
+        return origin_website == null ? "" : origin_website;
     }
 
     public void setOrigin_website(String origin_website) {
@@ -144,7 +144,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getComment() {
-        return comment;
+        return comment == null ? "" : comment;
     }
 
     public void setComment(String comment) {
@@ -160,7 +160,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getCreate_time() {
-        return create_time;
+        return create_time == null ? "" : create_time;
     }
 
     public void setCreate_time(String create_time) {
@@ -168,7 +168,7 @@ public class NovelBean implements Serializable {
     }
 
     public String getUpdate_time() {
-        return update_time;
+        return update_time == null ? "" : update_time;
     }
 
     public void setUpdate_time(String update_time) {
@@ -189,5 +189,61 @@ public class NovelBean implements Serializable {
 
     public void setKeyword_hit_cnt(int keyword_hit_cnt) {
         this.keyword_hit_cnt = keyword_hit_cnt;
+    }
+
+    public String getLike() {
+        return like == null ? "" : like;
+    }
+
+    public void setLike(String like) {
+        this.like = like;
+    }
+
+    public String getType() {
+        return type == null ? "" : type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getTotal_size() {
+        return total_size;
+    }
+
+    public void setTotal_size(int total_size) {
+        this.total_size = total_size;
+    }
+
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
+    }
+
+    public String getChapter_url() {
+        return chapter_url == null ? "" : chapter_url;
+    }
+
+    public void setChapter_url(String chapter_url) {
+        this.chapter_url = chapter_url;
+    }
+
+    public String getChapter_number() {
+        return chapter_number == null ? "" : chapter_number;
+    }
+
+    public void setChapter_number(String chapter_number) {
+        this.chapter_number = chapter_number;
+    }
+
+    public String getChapter_name() {
+        return chapter_name == null ? "" : chapter_name;
+    }
+
+    public void setChapter_name(String chapter_name) {
+        this.chapter_name = chapter_name;
     }
 }

@@ -51,7 +51,7 @@ interface ApiService {
      * 书架
      */
     @GET("users/auth/get/my/fictions")
-    fun getReadHistory(@Query("type") type: String): Observable<BaseHttpResponse<List<NovelBean>>>
+    fun getReadHistory(@Query("type") type: String, @Query("page") page: String): Observable<BaseHttpResponse<List<NovelBean>>>
 
     /**
      *  搜小说

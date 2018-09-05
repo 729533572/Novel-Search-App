@@ -24,7 +24,7 @@ public class ChapterBean implements Serializable{
      */
 
     private String id;
-    private int book_id;
+    private String book_id;
     private String chapter_number;
     private String chapter_name;
     private String chapter_url;
@@ -34,6 +34,17 @@ public class ChapterBean implements Serializable{
     private String create_time;
     private String update_time;
     private boolean latest; //是否是最新章节
+
+    public ChapterBean() {
+    }
+
+    public ChapterBean(String book_id, String chapter_number, String chapter_name, String chapter_url, String origin_website) {
+        this.book_id = book_id;
+        this.chapter_number = chapter_number;
+        this.chapter_name = chapter_name;
+        this.chapter_url = chapter_url;
+        this.origin_website = origin_website;
+    }
 
     public boolean isLatest() {
         return latest;
@@ -51,11 +62,11 @@ public class ChapterBean implements Serializable{
         this.id = id;
     }
 
-    public int getBook_id() {
+    public String getBook_id() {
         return book_id;
     }
 
-    public void setBook_id(int book_id) {
+    public void setBook_id(String book_id) {
         this.book_id = book_id;
     }
 

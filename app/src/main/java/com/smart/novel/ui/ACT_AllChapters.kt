@@ -21,6 +21,7 @@ import com.smart.novel.dialog.PopupChapterFilter.Companion.initPopupWindow
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
+import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.act_all_chapters.*
@@ -35,15 +36,17 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     var mCurrentPage = 1
     //总页数-每页默认返回100条数据
     var mTotalPage = 1
-    var mTotalSize = 100
+    var mTotalSize = 100//默认100章节
     var mAdapterFilter: ADA_ChapterFilter? = null
+    //筛选下拉菜单数据
     var mFilterList = ArrayList<ChapterFilterBean>()
 
-    var novelId: String? = null
+    var novelId: String = ""
     var mData: List<ChapterBean> = ArrayList()
     var mAdapter: ADA_ChapterList? = null
     override fun getBundleExtras(extras: Bundle?) {
         novelId = extras!!.getString(PageDataConstants.NOVEL_ID, "")
+        mTotalSize = extras!!.getInt(PageDataConstants.TOTAL_SIZE, 0)
     }
 
     override fun getContentViewLayoutID(): Int {
@@ -51,6 +54,9 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun startEvents() {
+        //处理章节筛选数据
+        handleFilterData()
+
         mAdapterFilter = ADA_ChapterFilter(this)
         //章节筛选弹窗
         mPopWindow = initPopupWindow(this, mAdapterFilter!!)
@@ -80,9 +86,11 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         })
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
-                val chapterBean = mAdapter!!.dataList.get(position)
+                var realPos = position - 1
+                val chapterBean = mAdapter!!.dataList.get(realPos)
+                //跳转到阅读页面
+                IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)
                 mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
-                CommonUtils.makeEventToast(MyApplication.context, chapterBean.chapter_name, false)
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
@@ -123,17 +131,12 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mData = dataList
         if (dataList == null) return
         if (dataList.size > 0) mAdapter!!.update(dataList, true)
-
-
-        //处理章节筛选数据
-        handleFilterData(dataList)
     }
 
     /**
      * 处理章节筛选数据
      */
-    private fun handleFilterData(dataList: List<ChapterBean>) {
-        mTotalSize = dataList.size + 346
+    private fun handleFilterData() {
         mTotalPage = mTotalSize / 100 + 1
 
         mFilterList.clear()
@@ -167,6 +170,6 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun addReadRecord(result: Any) {
-
+        CommonUtils.makeEventToast(MyApplication.context, "添加阅读记录成功", false)
     }
 }

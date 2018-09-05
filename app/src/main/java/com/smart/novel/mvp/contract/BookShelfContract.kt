@@ -22,7 +22,7 @@ class BookShelfContract {
 
     interface Model : BaseModel {
         //返回的只有BaseHttpResponse的data部分
-        fun getBookShelfData(type: String): Observable<BaseHttpResponse<List<NovelBean>>>
+        fun getBookShelfData(type: String, page: String): Observable<BaseHttpResponse<List<NovelBean>>>
 
         fun deleteReadRecord(id: String): Observable<BaseHttpResponse<Any>>
 
@@ -30,7 +30,7 @@ class BookShelfContract {
     }
 
     abstract class Presenter : BasePresenter<BookShelfContract.View, BookShelfContract.Model>() {
-        abstract fun getBookShelfData(type: String, multipleStatusView: MultipleStatusView)
+        abstract fun getBookShelfData(type: String, page: String, multipleStatusView: MultipleStatusView?)
         abstract fun deleteReadRecord(id: String)
         abstract fun deleteCollect(id: String)
 

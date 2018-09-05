@@ -18,6 +18,7 @@ import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
+import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
@@ -36,6 +37,13 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     @BindView(R.id.tv_right) lateinit var tvRight: TextView
     var mAdapter: ADA_ReadHistory? = null
     val mColumnNum = 3//列表每行展示的个数
+    val TYPE_READ = "read"
+    val TYPE_LIKE = "like"
+    var requestType = TYPE_READ
+    var mCurrentPage = 1
+    var isEdit = false//false 管理 true 完成(可编辑)
+    var deletePos = -1
+    var mData: List<NovelBean>? = null
 
     /**
      * companion object {}内：静态方法
@@ -59,7 +67,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         tvRight.visibility = View.VISIBLE
         initRecyclerView()
 
-        mMvpPresenter.getBookShelfData("read", multipleStatusView)
+        requestData(TYPE_READ, true)
 
         initListener()
     }
@@ -98,15 +106,22 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
             }
 
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                if (isEdit) return
                 var realPos = position - 1
-                IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))
+                var bean = mAdapter!!.dataList.get(realPos)
+                if (bean.type.equals(TYPE_READ)) {
+                    var chapterBean = ChapterBean(bean.book_id, bean.chapter_number, bean.chapter_name, bean.chapter_url, bean.origin_website)
+                    IntentUtil.intentToReadNovel(activity, chapterBean)
+                } else {
+                    IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))
+                }
             }
         })
         //删除按钮
         mAdapter!!.setOnDeleteBtnClickListener(object : ADA_ReadHistory.OnDeleteBtnClickListener {
-            override fun onDeleteBtnClick(bean: NovelBean) {
-                CommonUtils.makeEventToast(MyApplication.context, "删除", false)
-                mMvpPresenter.deleteReadRecord(bean.book_id)
+            override fun onDeleteBtnClick(position: Int, bean: NovelBean) {
+                deletePos = position
+                if (bean.type.equals(TYPE_READ)) mMvpPresenter.deleteReadRecord(bean.book_id) else mMvpPresenter.deleteCollect(bean.book_id)
             }
         })
 
@@ -114,31 +129,51 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun onRefresh() {
         Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
+//        Elog.e("type", requestType)
+        requestData(requestType,false)
     }
 
     override fun onLoadMore() {
         Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
+//        Elog.e("type", requestType)
     }
 
     @OnClick(R.id.ll_read_history, R.id.ll_my_collected, R.id.tv_right)
     fun onClick(view: View) {
         when (view.id) {
             R.id.ll_read_history -> {
+                if (isEdit) return
                 ll_read_history.getChildAt(0).visibility = View.VISIBLE
                 ll_read_history.getChildAt(1).visibility = View.GONE
                 ll_my_collected.getChildAt(0).visibility = View.GONE
                 ll_my_collected.getChildAt(1).visibility = View.VISIBLE
-                mMvpPresenter.getBookShelfData("read", multipleStatusView)
+                mCurrentPage = 1
+                requestData(TYPE_READ, false)
             }
             R.id.ll_my_collected -> {
+                if (isEdit) return
                 ll_my_collected.getChildAt(0).visibility = View.VISIBLE
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
-                mMvpPresenter.getBookShelfData("like", multipleStatusView)
+                mCurrentPage = 1
+                requestData(TYPE_LIKE, false)
             }
             R.id.tv_right -> {
-                CommonUtils.makeEventToast(MyApplication.context, "管理", false)
+                //管理-完成
+                if (!isEdit) {
+                    tvRight.setText("完成")
+                    isEdit = true
+                } else {
+                    tvRight.setText("管理")
+                    isEdit = false
+                }
+                var data = ArrayList<NovelBean>()
+                for (i in 0..mData!!.size - 1) {
+                    val bean = mData!!.get(i)
+                    bean.isEdit = isEdit
+                }
+                mAdapter!!.update(mData, true)
             }
         }
     }
@@ -166,6 +201,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun getBookShelfData(dataList: List<NovelBean>) {
         tv_total.text = "共" + dataList.size + "本"
+        mData = dataList
         if (dataList!!.size > 0) mAdapter!!.update(dataList!!, true) else multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
     }
 
@@ -174,7 +210,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteReadRecord(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
-        mMvpPresenter.getBookShelfData("read", multipleStatusView)
+        requestData(TYPE_READ, false)
     }
 
     /**
@@ -182,7 +218,15 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      */
     override fun deleteCollect(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
-        mMvpPresenter.getBookShelfData("like", multipleStatusView)
+        requestData(TYPE_LIKE, false)
+    }
+
+    /**
+     * 请求数据
+     */
+    private fun requestData(type: String, isShowLoading: Boolean) {
+        if (isShowLoading) mMvpPresenter.getBookShelfData(type, mCurrentPage.toString(), multipleStatusView) else mMvpPresenter.getBookShelfData(type, mCurrentPage.toString(), null)
+        requestType = type
     }
 
     fun tabCheck() {

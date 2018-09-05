@@ -16,10 +16,9 @@ class ADA_ReadHistory constructor(context: Context) : CommonAdapter<NovelBean, I
     override fun convert(viewBinding: ItemBookShelfBinding?, holder: ViewHolder.BindingHolder?, bean: NovelBean?, position: Int) {
         viewBinding!!.history = bean
 
-//        if (bean!!.is_finished.equals("1")) holder!!.setVisible(R.id.btn_delete, false) else holder!!.setVisible(R.id.btn_delete, true)
+        if (bean!!.isEdit) holder!!.setVisible(R.id.btn_delete, true) else holder!!.setVisible(R.id.btn_delete, false)
 
-        holder!!.setOnClickListener(R.id.btn_delete,{ if (mListener != null) mListener!!.onDeleteBtnClick(bean!!) })
-
+        holder!!.setOnClickListener(R.id.btn_delete, { if (mListener != null) mListener!!.onDeleteBtnClick(position, bean!!) })
     }
 
     override fun itemLayoutId(): Int {
@@ -27,7 +26,7 @@ class ADA_ReadHistory constructor(context: Context) : CommonAdapter<NovelBean, I
     }
 
     interface OnDeleteBtnClickListener {
-        fun onDeleteBtnClick(bean: NovelBean)
+        fun onDeleteBtnClick(position: Int, bean: NovelBean)
     }
 
     var mListener: OnDeleteBtnClickListener? = null

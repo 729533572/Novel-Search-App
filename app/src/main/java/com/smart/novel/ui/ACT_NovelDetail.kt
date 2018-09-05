@@ -39,6 +39,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     @BindView(R.id.tv_title) lateinit var tvTile: TextView
     var mShareDialog: DIA_Share? = null
+    var total_size = 100
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_novel_detail
     }
@@ -69,9 +70,9 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         recyclerviewChapters.adapter = mAdapter
 
         //章节列表数据
-        mMvpPresenter.getChapterList(multipleStatusView, novelBean!!.id, "", "")
+        mMvpPresenter.getChapterList(multipleStatusView, novelBean!!.book_id, "", "")
         //小说详情-(刷新小说是否收藏的状态)
-        mMvpPresenter.getNovelDetail(novelBean!!.id)
+        requestNovelDetail()
 
         initListener()
     }
@@ -98,17 +99,19 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         when (view.id) {
             R.id.btn_collect -> {
                 if (btn_collect.isSelected) {
-                    mMvpPresenter.deleteCollect(novelBean!!.id)
+                    mMvpPresenter.deleteCollect(novelBean!!.book_id)
                     CommonUtils.makeEventToast(MyApplication.context, "取消收藏", false)
                 } else {
-                    mMvpPresenter.doCollect(novelBean!!.id)
+                    mMvpPresenter.doCollect(novelBean!!.book_id)
                     CommonUtils.makeEventToast(MyApplication.context, "收藏", false)
                 }
             }
             R.id.btn_share -> mShareDialog!!.dialog.show()
+        //跳转到所有章节页面
             R.id.btn_all_chapters -> {
                 var bundle = Bundle()
-                bundle.putString(PageDataConstants.NOVEL_ID, novelBean!!.id)
+                bundle.putString(PageDataConstants.NOVEL_ID, novelBean!!.book_id)
+                bundle.putInt(PageDataConstants.TOTAL_SIZE, total_size)
                 readyGo(ACT_AllChapters::class.java, bundle)
             }
             R.id.btn_read -> {
@@ -138,26 +141,35 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun doCollect(result: Any) {
-        mMvpPresenter.getNovelDetail(novelBean!!.id)
+        requestNovelDetail()
         CommonUtils.makeEventToast(MyApplication.context, "添加收藏成功", false)
     }
 
     override fun deleteCollect(result: Any) {
-        mMvpPresenter.getNovelDetail(novelBean!!.id)
+        requestNovelDetail()
     }
+
 
     override fun addReadRecord(result: Any) {
         CommonUtils.makeEventToast(MyApplication.context, "添加阅读记录成功", false)
-
     }
 
-    //like-是否已收藏
+    /**
+     * 请求小说详情接口
+     */
+    private fun requestNovelDetail() {
+        mMvpPresenter.getNovelDetail(novelBean!!.book_id)
+    }
+
+    /**
+     * 请求小说详情回调
+     */
     override fun getNovelDetail(dataList: List<NovelBean>) {
         val bean = dataList!!.get(0)
-        if (!TextUtils.isEmpty(bean.like)) {
-            btn_collect.isSelected = true
-        } else {
-            btn_collect.isSelected = false
-        }
+        //设置是否收藏的状态
+        btn_collect.isSelected = !TextUtils.isEmpty(bean.like)//like-是否已收藏
+        //章节总数
+        total_size = bean.total_size
     }
+
 }
