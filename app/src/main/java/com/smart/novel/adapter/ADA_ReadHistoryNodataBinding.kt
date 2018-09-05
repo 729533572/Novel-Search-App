@@ -11,7 +11,7 @@ import com.smart.novel.bean.NovelBean
 /**
  * Created by JoJo on 2018/8/29.
  * wechat:18510829974
- * description: 阅读历史
+ * description: 阅读历史-没有加databinding的Adapter
  */
 class ADA_ReadHistoryNodataBinding constructor(context: Context) : CommonAdapter<NovelBean>(context) {
     override fun convert(holder: ViewHolder?, bean: NovelBean?, position: Int) {

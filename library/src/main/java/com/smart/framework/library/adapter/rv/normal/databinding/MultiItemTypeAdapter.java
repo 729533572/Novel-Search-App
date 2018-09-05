@@ -91,6 +91,8 @@ public class MultiItemTypeAdapter<T, B extends ViewDataBinding> extends Recycler
     @Override
     public void onBindViewHolder(ViewHolder.BindingHolder holder, int position) {
         convert((B) holder.viewBinding, holder, mDatas.get(position));
+        //!!!!!重要!!!!!      加一行，解决adapter加了databinding页面刷新闪烁的问题
+        holder.viewBinding.executePendingBindings();
     }
 
     @Override

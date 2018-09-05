@@ -11,7 +11,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.github.jdsjlzx.interfaces.OnLoadMoreListener
 import com.github.jdsjlzx.interfaces.OnRefreshListener
-import com.smart.framework.library.adapter.rv.normal.nodatabinding.MultiItemTypeAdapter
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.layout_common_recyclview.*
  */
 class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
     @BindView(R.id.tv_right) lateinit var tvRight: TextView
-    var mAdapter: ADA_ReadHistoryNodataBinding? = null
+    var mAdapter: ADA_ReadHistory? = null
     val mColumnNum = 3//列表每行展示的个数
     val TYPE_READ = "read"
     val TYPE_LIKE = "like"
@@ -87,7 +87,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      * 处理列表
      */
     private fun initRecyclerView() {
-        mAdapter = ADA_ReadHistoryNodataBinding(activity)
+        mAdapter = ADA_ReadHistory(activity)
         RecyclerViewHelper.initRecyclerView(activity, recyclerview, mAdapter!!, GridLayoutManager(activity, 3))
         recyclerview.setOnRefreshListener(this)
         recyclerview.setOnLoadMoreListener(this)
