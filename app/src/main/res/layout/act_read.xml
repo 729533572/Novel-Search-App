@@ -72,15 +72,15 @@
         <!--android:layout_marginBottom="150px"-->
         <!--android:layout_marginRight="30px"-->
         <!--android:src="@drawable/ic_btn_fiction_details_set" />-->
-        <com.smart.novel.wights.DragView
-            android:id="@+id/iv_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="150px"
-            android:layout_marginRight="30px"
-            android:src="@drawable/ic_btn_fiction_details_set" />
+        <!--<com.smart.novel.wights.DragView-->
+            <!--android:id="@+id/iv_setting"-->
+            <!--android:layout_width="100px"-->
+            <!--android:layout_height="100px"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginBottom="150px"-->
+            <!--android:layout_marginRight="30px"-->
+            <!--android:src="@drawable/ic_btn_fiction_details_set" />-->
 
     </com.smart.framework.library.loading.MultipleStatusView>
 </com.zhy.autolayout.AutoLinearLayout>

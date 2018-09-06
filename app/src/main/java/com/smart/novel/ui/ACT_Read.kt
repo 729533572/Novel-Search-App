@@ -3,11 +3,12 @@ package com.smart.novel.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import butterknife.BindView
-import butterknife.OnClick
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
+import com.smart.framework.library.common.utils.ScreenUtil
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
@@ -16,6 +17,7 @@ import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.read.ReadView
+import com.smart.novel.wights.SonnyJackDragView
 import kotlinx.android.synthetic.main.act_read.*
 import org.jsoup.Jsoup
 
@@ -40,23 +42,26 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
     override fun startEvents() {
         ivLeft.visibility = View.VISIBLE
         setHeaderTitle(chapterBean!!.name_cn)
-        Thread(Runnable {
-            multipleStatusView.showLoading()
-            val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
-            conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            conn.header("Accept-Encoding", "gzip, deflate, sdch");
-            conn.header("Accept-Language", "zh-CN,zh;q=0.8");
-            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-            val content = conn.get().getElementById("content")
-            Elog.e("content", content.text())
-            readView.post({
-                multipleStatusView.showContent()
-                tv_chapter_name.setText(chapterBean!!.chapter_name)
-                readView.setText(content.text())
-//                readview.loadDataWithBaseURL(null, ScreenUtil.getNewContent(content.text()), "text/html", "UTF-8", null)
-            })
-        }).start()
+        requestChapters()
 
+        val imageView = ImageView(this)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.setImageResource(R.drawable.ic_btn_fiction_details_set)
+        imageView.setOnClickListener { v ->
+            Toast.makeText(this@ACT_Read, "点击了...", Toast.LENGTH_SHORT).show()
+            DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
+        }
+
+        val sonnyJackDragView = SonnyJackDragView.Builder()
+                .setActivity(this)//当前Activity，不可为空
+                .setDefaultLeft(ScreenUtil.getScreenWidth(this) - 140)//初始位置左边距
+                .setDefaultTop(ScreenUtil.getScreenHeight(this) - ScreenUtil.getStatusBarHeight(this) - 400)//初始位置上边距
+                .setNeedNearEdge(false)//拖动停止后，是否移到边沿
+                .setSize(100)//DragView大小
+                .setView(imageView)//设置自定义的DragView，切记不可为空
+                .build()
+
+        //阅读的view的点击事件
         readView.setOnItemSelectListener(object : ReadView.OnItemSelectListener {
             override fun onTotalPage(totalPage: Int) {
                 mTotalPage = totalPage
@@ -73,29 +78,43 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
-//            override fun onItemSelect(index: Int) {
-//                if (index == 0) {
-//                    readView.PageDn()
-//                } else {
-//                    readView.PageUp()
-//                }
-//                readView.invalidate()
-//            }
         })
 
     }
 
-    @OnClick(R.id.iv_setting)
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.iv_setting -> {
-//                readView.setFontSize(100)
-//                ll_root.setBackgroundColor(Color.parseColor("#f8000000"))
-                DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
-
-            }
-        }
+    /**
+     * 请求章节内容-解析chapterBean!!.chapter_url
+     */
+    private fun requestChapters() {
+        Thread(Runnable {
+            multipleStatusView.showLoading()
+            val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
+            conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+            conn.header("Accept-Encoding", "gzip, deflate, sdch");
+            conn.header("Accept-Language", "zh-CN,zh;q=0.8");
+            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+            val content = conn.get().getElementById("content")
+            Elog.e("content", content.text())
+            readView.post({
+                multipleStatusView.showContent()
+                tv_chapter_name.setText(chapterBean!!.chapter_name)
+                readView.setText(content.text())
+    //                readview.loadDataWithBaseURL(null, ScreenUtil.getNewContent(content.text()), "text/html", "UTF-8", null)
+            })
+        }).start()
     }
+
+//    @OnClick(R.id.iv_setting)
+//    fun onClick(view: View) {
+//        when (view.id) {
+//            R.id.iv_setting -> {
+////                readView.setFontSize(100)
+////                ll_root.setBackgroundColor(Color.parseColor("#f8000000"))
+//                DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
+//
+//            }
+//        }
+//    }
 
     override fun showException(error: ErrorBean?) {
 
@@ -108,54 +127,10 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
     override fun isBindEventBusHere(): Boolean {
         return false
     }
-//
-//    //手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
-//    private var x1 = 0f
-//    private var x2 = 0f
-//    private var y1 = 0f
-//    private var y2 = 0f
-//    //滑动距离临界值
-//    private val maxDistance = 120f
-//
-//    /**
-//     * 手势触摸屏幕向下滑动达到maxDistance,则finish掉当前的Activity
-//     *
-//     * @param event
-//     * @return
-//     */
-//    override fun onTouchEvent(event: MotionEvent): Boolean {
-//        //继承了Activity的onTouchEvent方法，直接监听点击事件
-//        if (event.action == MotionEvent.ACTION_DOWN) {
-//            //当手指按下的时候
-//            x1 = event.x
-//            y1 = event.y
-//        }
-//        if (event.action == MotionEvent.ACTION_UP) {
-//            //当手指离开的时候
-//            x2 = event.x
-//            y2 = event.y
-//            //            Elog.e("TAG", "y2 - y1=" + (y2 - y1));
-//            if (y1 - y2 > maxDistance) {
-//                //                CommonUtils.makeEventToast(MyApplication.getContext(),"向上滑",false);
-//                //向下滑动并且向下滑动的距离大于水平距离
-//            } else if (y2 - y1 > maxDistance && y2 - y1 > Math.abs(x1 - x2)) {
-//                //                CommonUtils.makeEventToast(MyApplication.getContext(),"向下滑",false);
-//                finish()
-//            } else if (x1 - x2 > maxDistance) {
-//                CommonUtils.makeEventToast(MyApplication.context, "向左滑", false);
-//                readView.PageDn()
-//                readView.invalidate()
-//            } else if (x2 - x1 > maxDistance) {
-//                CommonUtils.makeEventToast(MyApplication.context, "向右滑", false);
-//                readView.PageUp()
-//                readView.invalidate()
-//            }
-//        }
-//        return super.onTouchEvent(event)
-//    }
-
 
 }
+
+
 //(1)解析String类型的html格式的数据
 //        val doc = Jsoup.parse("\n" +
 //                "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +

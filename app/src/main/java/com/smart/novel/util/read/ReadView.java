@@ -237,6 +237,7 @@ public class ReadView extends View {
             case MotionEvent.ACTION_DOWN:
                 downX = event.getX();
                 int index = 0;
+                //点击屏幕左边，上一页
                 if (downX < viewWidth / 2) {
                     index = 0;
                     listener.onScrollLeft();
