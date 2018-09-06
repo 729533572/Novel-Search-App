@@ -1,9 +1,6 @@
 package com.zongxueguan.naochanle_android.retrofitrx
 
-import com.smart.novel.bean.ChapterBean
-import com.smart.novel.bean.HotSearchBean
-import com.smart.novel.bean.NovelBean
-import com.smart.novel.bean.UserBean
+import com.smart.novel.bean.*
 import com.smart.novel.net.BaseHttpResponse
 import io.reactivex.Observable
 import okhttp3.RequestBody
@@ -98,4 +95,7 @@ interface ApiService {
     @POST("users/auth/unread/fiction/{id}")
     fun deleteReadRecord(@Path("id") id: String): Observable<BaseHttpResponse<Any>>
 
+    //通过小说名称、小说作者获取该小说其他网站的小说信息
+    @GET("fictions/get/info/backup/website/list")
+    fun getWebsiteList(@Query("author") author: String, @Query("book_name") book_name: String): Observable<BaseHttpResponse<List<WebsiteBean>>>
 }

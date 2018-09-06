@@ -83,6 +83,11 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE, ZOOM
     }
 
+    public enum StatusBarMode {
+        //黑色icon、文字——DARK   非沉浸式——NO_FULLSCREEN   白色icon、文字——LIGHT
+        DARK_NO_FULLSCREEN, DARK_FULLSCREEN, LIGHT_FULLSCREEN, LIGHT_NO_FULLSCREEN
+    }
+
     private LoadingDialog mLoadingDialog;
 
     private boolean mIsRegisterReceiver = false;
@@ -145,7 +150,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
-        handleStatusBar(true);
+        handleStatusBar(StatusBarMode.DARK_NO_FULLSCREEN);
 
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -170,7 +175,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         registerReceiver();
     }
 
-    protected abstract void handleStatusBar(boolean isDarkMode);
+    protected abstract void handleStatusBar(StatusBarMode mode);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -5,7 +5,7 @@
     android:background="#f5f5f5"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_common_title"></include>
+    <!--<include layout="@layout/layout_common_title"></include>-->
 
     <ProgressBar
         android:id="@+id/pb_loading"
@@ -16,7 +16,7 @@
         android:visibility="gone" />
 
     <WebView
-        android:id="@+id/banner_web"
+        android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
 

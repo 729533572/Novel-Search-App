@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="websiteBean"
+            type="com.smart.novel.bean.WebsiteBean"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20px"
+                android:layout_weight="1"
+                android:text="@{websiteBean.website_name}"
+                android:textColor="@color/color_2E3439"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_go_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="看原网页"
+                android:textColor="@color/color_3AC270"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/iv_newest_chapter"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_above="@+id/v_divider"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="90px"
+                android:layout_marginRight="30px"
+                android:background="@drawable/bg_website_selector"
+                android:button="@null"
+                android:clickable="false" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:id="@+id/v_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/ll_content"
+            android:layout_marginLeft="30px"
+            android:background="@color/color_e5e5e5"></View>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+</layout>

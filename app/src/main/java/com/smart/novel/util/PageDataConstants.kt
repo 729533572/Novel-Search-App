@@ -7,7 +7,7 @@ package com.smart.novel.util
  */
 class PageDataConstants {
     companion object {
-        val BANNER_URL = "banner_url"
+        val WEB_URL = "web_url"
         val NOVEL_BEAN = "novel_bean"
         val NOVEL_ID = "novel_id"
         val CHAPTER_BEAN = "chapter_bean"

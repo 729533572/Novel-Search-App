@@ -30,8 +30,8 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
         chapterBean = extras!!.getSerializable(PageDataConstants.CHAPTER_BEAN) as ChapterBean?
     }
 
-    override fun handleStatusBar(isDarkMode: Boolean) {
-        super.handleStatusBar(false)
+    override fun handleStatusBar(mode: StatusBarMode) {
+        super.handleStatusBar(StatusBarMode.DARK_FULLSCREEN)
     }
 
     override fun startEvents() {

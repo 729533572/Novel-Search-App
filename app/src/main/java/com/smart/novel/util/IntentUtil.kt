@@ -41,7 +41,7 @@ class IntentUtil {
         fun intentToWebView(context: Context, linkUrl: String) {
             val intent = Intent()
             val bundle = Bundle()
-            bundle.putString(PageDataConstants.BANNER_URL, linkUrl)
+            bundle.putString(PageDataConstants.WEB_URL, linkUrl)
             intent.setClass(context, ACT_WebView::class.java)
             intent.putExtras(bundle)
             context.startActivity(intent)

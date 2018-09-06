@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_ffffff"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="40px"
+    android:paddingLeft="30px"
+    android:paddingRight="30px"
+    android:paddingTop="40px">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上一章"
+        android:textColor="@color/color_3AC270"
+        android:textSize="13sp" />
+
+    <!--<SeekBar-->
+    <!--android:id="@+id/sb_progress"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="30px"-->
+    <!--android:layout_marginRight="30px"-->
+    <!--android:layout_weight="1"-->
+    <!--android:maxHeight="2dp"-->
+    <!--android:minHeight="2dp"-->
+    <!--android:progressDrawable="@drawable/seek_bar_progress_style"-->
+    <!--android:thumb="@drawable/ic_btn_check_selected" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="第一章 你是我的眼"
+        android:textColor="@color/color_2E3439"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下一章"
+        android:textColor="@color/color_3AC270"
+        android:textSize="13sp" />
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -45,31 +45,36 @@ abstract class ACT_Base : BaseActivity() {
     /**
      * 不重写该方法，默认是黑色背景、白色icon白色字的状态栏
      * 下面统一处理成Activity 沉浸式，全屏：白色背景，深色字体，icon的状态栏
+     * 下面处理的思想：设置Activity根布局的paddingTop空出状态栏的高度，把状态栏单独漏出来，实际上整个Activity是全屏模式的
+     * 注意：所有在Activity中使用非沉浸式时，需要指定根布局背景为白色，否则状态栏颜色和内容部分背景会不同意
      */
-    override fun handleStatusBar(isDarkMode: Boolean) {
+    override fun handleStatusBar(mode: StatusBarMode) {
         val rootView = (findViewById(android.R.id.content)) as ViewGroup
         val contentView = rootView.getChildAt(0) as ViewGroup
-        if (isDarkMode){
-            StatusBarUtil.darkMode(this)//状态栏字体颜色及icon变黑
-            contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(MyApplication.context),
-                    contentView.paddingRight, contentView.paddingBottom)
-        }else{
-            StatusBarUtil.immersive(this)//白色icon白色字的状态栏
-            contentView.setPadding(contentView.paddingLeft, contentView.paddingTop,
-                    contentView.paddingRight, contentView.paddingBottom)
+        when (mode) {
+            StatusBarMode.DARK_NO_FULLSCREEN -> {
+                StatusBarUtil.darkMode(this)//状态栏字体颜色及icon变黑
+                contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(MyApplication.context),
+                        contentView.paddingRight, contentView.paddingBottom)
+            }
+            StatusBarMode.DARK_FULLSCREEN -> {
+                StatusBarUtil.darkMode(this)//状态栏字体颜色及icon变黑 沉浸式
+                contentView.setPadding(contentView.paddingLeft, contentView.paddingTop,
+                        contentView.paddingRight, contentView.paddingBottom)
+            }
+            StatusBarMode.LIGHT_NO_FULLSCREEN -> {
+                StatusBarUtil.immersive(this)//白色icon白色字的状态栏
+                contentView.setPadding(contentView.paddingLeft, contentView.paddingTop + StatusBarUtil.getStatusBarHeight(MyApplication.context),
+                        contentView.paddingRight, contentView.paddingBottom)
+            }
+            StatusBarMode.LIGHT_FULLSCREEN -> {
+                StatusBarUtil.immersive(this)//白色icon白色字的状态栏 沉浸式
+                contentView.setPadding(contentView.paddingLeft, contentView.paddingTop,
+                        contentView.paddingRight, contentView.paddingBottom)
+            }
         }
     }
 
-    /**
-     * 沉浸式，全屏：白色icon白色字的状态栏
-     */
-    fun lightModeStatusBar() {
-        val rootView = (findViewById(android.R.id.content)) as ViewGroup
-        val contentView = rootView.getChildAt(0) as ViewGroup
-        StatusBarUtil.immersive(this)//白色icon白色字的状态栏
-        contentView.setPadding(contentView.paddingLeft, contentView.paddingTop,
-                contentView.paddingRight, contentView.paddingBottom)
-    }
 
     override fun getLoadingTargetView(): View? {
         return null

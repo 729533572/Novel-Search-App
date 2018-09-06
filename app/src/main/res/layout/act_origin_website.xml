@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--data节点下一个variable节点代表一个变量，
+    name属性根据需要自己取名，type为需要用到的Model的全路径，
+    功能相当于写代码的时候引入一个类的功能-->
+    <data>
+
+        <variable
+            name="weather"
+            type="com.smart.novel.net.WeatherEntity"></variable>
+    </data>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_f7f7f7"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_common_title"></include>
+
+            <include layout="@layout/layout_common_progress"></include>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20px"
+                android:background="@color/color_ffffff"></android.support.v7.widget.RecyclerView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</layout>

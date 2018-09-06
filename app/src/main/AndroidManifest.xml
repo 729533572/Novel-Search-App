@@ -36,6 +36,8 @@
         <activity android:name=".ui.ACT_AboutUs"></activity>
         <activity android:name=".ui.ACT_AllChapters"></activity>
         <activity android:name=".ui.ACT_Read"></activity>
+        <activity android:name=".ui.ACT_OriginWebsite"></activity>
+        <activity android:name=".ui.ACT_WebView"></activity>
     </application>
 
 </manifest>
