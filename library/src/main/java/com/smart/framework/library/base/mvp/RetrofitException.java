@@ -63,7 +63,7 @@ public class RetrofitException {
                 case SERVICE_UNAVAILABLE:
                 default:
                     ex.code = HTTP_ERROR;
-                    ex.message = "网络错误";
+                    ex.message = "请检查你的网络连接";
                     break;
             }
             return ex;
@@ -93,7 +93,7 @@ public class RetrofitException {
         } else {
             ex = new ResponseThrowable();
             ex.code = NETWORD_ERROR;
-            ex.message = "网络错误";
+            ex.message = "请检查你的网络连接";
             return ex;
         }
     }

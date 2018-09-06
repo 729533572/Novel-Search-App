@@ -121,7 +121,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 var realPos = position - 1
                 var bean = mAdapter!!.dataList.get(realPos)
                 if (bean.type.equals(TYPE_READ)) {
-                    var chapterBean = ChapterBean(bean.book_id, bean.chapter_number, bean.chapter_name, bean.chapter_url, bean.origin_website)
+                    var chapterBean = ChapterBean(bean.book_id, bean.name_cn, bean.chapter_number, bean.chapter_name, bean.chapter_url, bean.origin_website)
                     IntentUtil.intentToReadNovel(activity, chapterBean)
                 } else {
                     IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))
@@ -242,7 +242,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
 //        mAdapter!!.remove(deletePos)
 //        if (mAdapter!!.dataList.size == 0) showEmpty()
-        requestData(requestType,false)
+        requestData(requestType, false)
     }
 
     /**
@@ -252,7 +252,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
 //        mAdapter!!.remove(deletePos)
 //        if (mAdapter!!.dataList.size == 0) showEmpty()
-        requestData(requestType,false)
+        requestData(requestType, false)
     }
 
     /**

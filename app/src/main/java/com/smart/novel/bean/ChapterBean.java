@@ -25,6 +25,7 @@ public class ChapterBean implements Serializable{
 
     private String id;
     private String book_id;
+    private String name_cn;//小说名称
     private String chapter_number;
     private String chapter_name;
     private String chapter_url;
@@ -38,12 +39,21 @@ public class ChapterBean implements Serializable{
     public ChapterBean() {
     }
 
-    public ChapterBean(String book_id, String chapter_number, String chapter_name, String chapter_url, String origin_website) {
+    public ChapterBean(String book_id, String name_cn,String chapter_number, String chapter_name, String chapter_url, String origin_website) {
         this.book_id = book_id;
+        this.name_cn = name_cn;
         this.chapter_number = chapter_number;
         this.chapter_name = chapter_name;
         this.chapter_url = chapter_url;
         this.origin_website = origin_website;
+    }
+
+    public String getName_cn() {
+        return name_cn == null ? "" : name_cn;
+    }
+
+    public void setName_cn(String name_cn) {
+        this.name_cn = name_cn;
     }
 
     public boolean isLatest() {
