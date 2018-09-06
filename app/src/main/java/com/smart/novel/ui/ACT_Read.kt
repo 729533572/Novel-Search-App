@@ -11,6 +11,7 @@ import com.smart.framework.library.common.log.Elog
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
+import com.smart.novel.dialog.DIA_ReadSetting
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.PageDataConstants
@@ -88,8 +89,10 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
     fun onClick(view: View) {
         when (view.id) {
             R.id.iv_setting -> {
-                readView.setFontSize(100)
+//                readView.setFontSize(100)
 //                ll_root.setBackgroundColor(Color.parseColor("#f8000000"))
+                DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
+
             }
         }
     }

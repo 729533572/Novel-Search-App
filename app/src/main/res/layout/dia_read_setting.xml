@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_FFFFFF"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_common_progress"></include>
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_e5e5e5"></View>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@null"
+                android:drawableLeft="@drawable/btn_collect_selector"
+                android:gravity="center"
+                android:paddingBottom="32px"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:paddingTop="32px"
+                android:textColor="@color/btn_collect_text_color_selector"
+                android:textSize="13sp" />
+
+            <RadioButton
+                android:id="@+id/btn_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:button="@null"
+                android:drawablePadding="20px"
+                android:gravity="center"
+                android:paddingBottom="32px"
+                android:paddingTop="32px"
+                android:text="收藏"
+                android:textColor="@color/btn_collect_text_color_selector"
+                android:textSize="13sp" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="60px"
+            android:layout_gravity="center"
+            android:background="@color/color_e5e5e5"></View>
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_all_chapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="20px"
+                android:src="@drawable/ic_tab_bar_all_sections" />
+
+            <TextView
+                android:id="@+id/btn_all_chapters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="14px"
+                android:paddingBottom="32px"
+                android:paddingTop="32px"
+                android:text="全部章节"
+                android:textColor="#2D343A"
+                android:textSize="13sp" />
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

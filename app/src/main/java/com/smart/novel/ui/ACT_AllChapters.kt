@@ -88,6 +88,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                 var realPos = position - 1
                 val chapterBean = mAdapter!!.dataList.get(realPos)
+                chapterBean.totol_size = mTotalSize
                 //跳转到阅读页面
                 IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)
                 mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)

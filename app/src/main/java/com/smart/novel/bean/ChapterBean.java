@@ -35,7 +35,7 @@ public class ChapterBean implements Serializable{
     private String create_time;
     private String update_time;
     private boolean latest; //是否是最新章节
-
+    private int totol_size;//总章节数
     public ChapterBean() {
     }
 
@@ -46,6 +46,14 @@ public class ChapterBean implements Serializable{
         this.chapter_name = chapter_name;
         this.chapter_url = chapter_url;
         this.origin_website = origin_website;
+    }
+
+    public int getTotol_size() {
+        return totol_size;
+    }
+
+    public void setTotol_size(int totol_size) {
+        this.totol_size = totol_size;
     }
 
     public String getName_cn() {

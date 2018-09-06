@@ -40,6 +40,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     @BindView(R.id.tv_title) lateinit var tvTile: TextView
     var mShareDialog: DIA_Share? = null
     var total_size = 100
+    var novelDetailBean: NovelBean? = null
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_novel_detail
     }
@@ -84,6 +85,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
 
                 //跳转到阅读页面
+                chapterBean.totol_size = novelDetailBean!!.total_size
                 IntentUtil.intentToReadNovel(this@ACT_NovelDetail, chapterBean)
             }
 
@@ -109,10 +111,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             R.id.btn_share -> mShareDialog!!.dialog.show()
         //跳转到所有章节页面
             R.id.btn_all_chapters -> {
-                var bundle = Bundle()
-                bundle.putString(PageDataConstants.NOVEL_ID, novelBean!!.book_id)
-                bundle.putInt(PageDataConstants.TOTAL_SIZE, total_size)
-                readyGo(ACT_AllChapters::class.java, bundle)
+                IntentUtil.intentToAllChapters(this, novelBean!!.book_id, total_size)
             }
             R.id.btn_read -> {
             }
@@ -167,6 +166,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
      */
     override fun getNovelDetail(dataList: List<NovelBean>) {
         val bean = dataList!!.get(0)
+        novelDetailBean = bean
         //设置是否收藏的状态
         btn_collect.isSelected = !TextUtils.isEmpty(bean.like)//like-是否已收藏
         //章节总数

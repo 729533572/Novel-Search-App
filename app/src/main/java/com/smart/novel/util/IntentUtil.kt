@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
+import com.smart.novel.ui.ACT_AllChapters
 import com.smart.novel.ui.ACT_NovelDetail
 import com.smart.novel.ui.ACT_Read
 import com.smart.novel.ui.ACT_WebView
@@ -31,6 +32,17 @@ class IntentUtil {
             val bundle = Bundle()
             bundle.putSerializable(PageDataConstants.CHAPTER_BEAN, chapterBean)
             intent.setClass(context, ACT_Read::class.java)
+            intent.putExtras(bundle)
+            context.startActivity(intent)
+        }
+
+        //跳转到所有章节
+        fun intentToAllChapters(context: Context, book_id: String, total_size: Int) {
+            val intent = Intent()
+            val bundle = Bundle()
+            bundle.putString(PageDataConstants.NOVEL_ID, book_id)
+            bundle.putInt(PageDataConstants.TOTAL_SIZE, total_size)
+            intent.setClass(context, ACT_AllChapters::class.java)
             intent.putExtras(bundle)
             context.startActivity(intent)
         }

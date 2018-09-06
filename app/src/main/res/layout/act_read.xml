@@ -20,9 +20,9 @@
         app:noNetworkView="@layout/no_network_view">
 
         <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ll_root"
             android:background="@color/color_f7f7f7"
             android:orientation="vertical">
 
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:padding="40px"
                 app:color="@color/color_2E3439"
-                app:fontSize="15dp"
+                app:fontSize="16dp"
                 tools:ignore="MissingConstraints"></com.smart.novel.util.read.ReadView>
 
             <TextView
@@ -58,7 +58,21 @@
                 android:textSize="13sp" />
         </com.zhy.autolayout.AutoLinearLayout>
 
-        <ImageView
+        <!--<com.smart.novel.wights.DragFloatActionButton-->
+        <!--android:id="@+id/btn_setting"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--app:borderWidth="0.0dip"-->
+        <!--app:fabSize="normal"-->
+        <!--app:backgroundTint="#3A4047"-->
+        <!--android:clickable="true"-->
+        <!--app:layout_anchorGravity="bottom|right"-->
+        <!--android:scaleType="center"-->
+        <!--android:layout_marginBottom="150px"-->
+        <!--android:layout_marginRight="30px"-->
+        <!--android:src="@drawable/ic_btn_fiction_details_set" />-->
+        <com.smart.novel.wights.DragView
             android:id="@+id/iv_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

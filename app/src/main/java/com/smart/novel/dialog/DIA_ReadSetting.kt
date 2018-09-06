@@ -6,27 +6,35 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
+import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.smart.framework.library.common.utils.CommonUtils
+import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ChapterList
 import com.smart.novel.bean.ChapterBean
-
+import com.smart.novel.util.IntentUtil
 
 /**
- * Created by JoJo on 2018/9/3.
+ * Created by JoJo on 2018/9/6.
  * wechat:18510829974
- * description: 分享弹窗
+ * description: 阅读设置弹窗
  */
 
-class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
+class DIA_ReadSetting(protected var context: Activity) : Dialog(context) {
     protected var mDialog: Dialog
     protected var mContentView: View
     var mAdapter: ADA_ChapterList? = null
+    var mContext: Activity? = null
+    var mChapterBean: ChapterBean? = null
+    @BindView(R.id.tv_chapter_name) lateinit var tvChapterName:TextView
 
     init {
+        mContext = context
         mDialog = Dialog(mContext, R.style.style_custom_dialog)
-        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_share, null)
+        mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_read_setting, null)
         ButterKnife.bind(this, mContentView)
         mDialog.setContentView(mContentView)
     }
@@ -37,7 +45,7 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
             mDialog.window!!.setWindowAnimations(R.style.style_bottom_in_anim)
             mDialog.window!!.setGravity(Gravity.BOTTOM)
             val lp = mDialog.window!!.attributes
-            lp.dimAmount = 0.4f
+            lp.dimAmount = 0.2f
             lp.alpha = 1f
             lp.width = LinearLayout.LayoutParams.MATCH_PARENT
 //            lp.height = 1200
@@ -49,14 +57,16 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
             return mDialog
         }
 
-    @OnClick(R.id.btn_cancel)
+    @OnClick(R.id.rb_collect, R.id.ll_all_chapter)
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_cancel -> mDialog.dismiss()
-            R.id.btn_wechat -> mListener!!.onShareBoardClick(0)
-            R.id.btn_qq -> mListener!!.onShareBoardClick(1)
-            R.id.btn_weibo -> mListener!!.onShareBoardClick(2)
+            R.id.rb_collect -> CommonUtils.makeEventToast(MyApplication.context, "收藏", false)
+            R.id.ll_all_chapter -> {
+                IntentUtil.intentToAllChapters(mContext!!, mChapterBean!!.book_id, mChapterBean!!.totol_size)
+
+            }
         }
+        mDialog.dismiss()
     }
 
     /**
@@ -65,14 +75,12 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
      * @param dataList
      * @return
      */
-    fun refreshData(dataList: List<ChapterBean>): DIA_Share {
-        mAdapter!!.update(dataList, true)
+    fun refreshData(chapterBean: ChapterBean): DIA_ReadSetting {
+        mChapterBean = chapterBean
+        tvChapterName.setText(mChapterBean!!.chapter_name)
         return this
     }
 
-    //    @OnClick({R.id.tv_close, R.id.iv_clear_all, R.id.iv_switch_mode})
-    //    public void onClick(View view) {
-    //
     //    }
     interface OnShareBoardClickListener {
         fun onShareBoardClick(position: Int)
@@ -80,4 +88,3 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
 
     var mListener: OnShareBoardClickListener? = null
 }
-
