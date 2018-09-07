@@ -7,10 +7,7 @@
 
     <include layout="@layout/layout_common_progress"></include>
 
-    <View xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/color_e5e5e5"></View>
+    <include layout="@layout/layout_title_divider_line_e5e5e5"></include>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
@@ -20,7 +17,7 @@
 
         <com.zhy.autolayout.AutoLinearLayout
             android:id="@+id/ll_collect"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -33,6 +30,7 @@
                 android:background="@android:color/transparent"
                 android:button="@null"
                 android:drawableLeft="@drawable/btn_collect_selector"
+                android:focusable="false"
                 android:gravity="center"
                 android:paddingBottom="32px"
                 android:paddingLeft="20px"
@@ -41,8 +39,8 @@
                 android:textColor="@color/btn_collect_text_color_selector"
                 android:textSize="13sp" />
 
-            <RadioButton
-                android:id="@+id/btn_collect"
+            <TextView
+                android:id="@+id/tv_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -65,7 +63,7 @@
 
         <com.zhy.autolayout.AutoLinearLayout
             android:id="@+id/ll_all_chapter"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"

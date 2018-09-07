@@ -1,20 +1,25 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import butterknife.BindView
-import com.smart.framework.library.base.mvp.IBaseView
+import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
+import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.framework.library.common.utils.ScreenUtil
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
+import com.smart.novel.bean.NovelBean
 import com.smart.novel.dialog.DIA_ReadSetting
-import com.smart.novel.mvp.model.BookShelfModel
-import com.smart.novel.mvp.presenter.BookShelfPresenter
+import com.smart.novel.mvp.contract.NovelDetailContract
+import com.smart.novel.mvp.model.NovelDetailModel
+import com.smart.novel.mvp.presenter.NovelDetailPresenter
+import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.read.ReadView
 import com.smart.novel.wights.SonnyJackDragView
@@ -27,10 +32,14 @@ import org.jsoup.Jsoup
  *wechat：18510829974
  *description：章节阅读页面-抓取解析网页：view-source:https://www.zhuishu.tw/id61823/534992.html
  */
-class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseView {
+class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), NovelDetailContract.View {
     var chapterBean: ChapterBean? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
+    @BindView(R.id.iv_right_two) lateinit var ivRightTwo: ImageView
     var mTotalPage = 1
+    var mDiaSetting: DIA_ReadSetting? = null
+    var novelDetailBean: NovelBean? = null
+    var mTotalSize = 100
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_read
     }
@@ -41,27 +50,24 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
 
     override fun startEvents() {
         ivLeft.visibility = View.VISIBLE
+        ivRightTwo.visibility = View.VISIBLE
         setHeaderTitle(chapterBean!!.name_cn)
-        requestChapters()
+        mDiaSetting = DIA_ReadSetting(this)
 
-        val imageView = ImageView(this)
-        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-        imageView.setImageResource(R.drawable.ic_btn_fiction_details_set)
-        imageView.setOnClickListener { v ->
-            Toast.makeText(this@ACT_Read, "点击了...", Toast.LENGTH_SHORT).show()
-            DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
-        }
+        requestNovelDetail()
 
-        val sonnyJackDragView = SonnyJackDragView.Builder()
-                .setActivity(this)//当前Activity，不可为空
-                .setDefaultLeft(ScreenUtil.getScreenWidth(this) - 140)//初始位置左边距
-                .setDefaultTop(ScreenUtil.getScreenHeight(this) - ScreenUtil.getStatusBarHeight(this) - 400)//初始位置上边距
-                .setNeedNearEdge(false)//拖动停止后，是否移到边沿
-                .setSize(100)//DragView大小
-                .setView(imageView)//设置自定义的DragView，切记不可为空
-                .build()
+        //请求当然章节内容
+        requestChapters(true)
 
-        //阅读的view的点击事件
+        //悬浮可拖动的设置按钮
+//        initSettingButton()
+
+        initListener()
+
+    }
+
+    //阅读的view的点击事件
+    private fun initListener() {
         readView.setOnItemSelectListener(object : ReadView.OnItemSelectListener {
             override fun onTotalPage(totalPage: Int) {
                 mTotalPage = totalPage
@@ -80,14 +86,75 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
 
         })
 
+        mDiaSetting!!.setOnBoardClickListener(object : DIA_ReadSetting.OnBoardClickListener {
+            override fun onClickLastChapter() {
+                mMvpPresenter.getLastChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
+            }
+
+            override fun onClickNextChapter() {
+                mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
+            }
+
+            override fun onClickCollect() {
+                if (novelDetailBean == null) {
+                    mMvpPresenter.getNovelDetail(chapterBean!!.book_id)
+                    return
+                }
+                if (TextUtils.isEmpty(novelDetailBean!!.like)) mMvpPresenter.doCollect(chapterBean!!.book_id) else mMvpPresenter.deleteCollect(chapterBean!!.book_id)
+            }
+
+            override fun onClickAllChapter() {
+                if (chapterBean!!.totol_size <= 0) chapterBean!!.totol_size = 100
+                IntentUtil.intentToAllChapters(this@ACT_Read, chapterBean!!.book_id, chapterBean!!.totol_size)
+            }
+
+        })
+
+    }
+
+    @OnClick(R.id.iv_setting, R.id.iv_right_two)
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.iv_setting -> mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
+            R.id.iv_right_two -> IntentUtil.intentToOriginWebsite(this,chapterBean!!)
+        }
     }
 
     /**
-     * 请求章节内容-解析chapterBean!!.chapter_url
+     * 创建悬浮可拖动的设置按钮
      */
-    private fun requestChapters() {
+    private fun initSettingButton() {
+        val ivSetting = ImageView(this)
+        ivSetting.scaleType = ImageView.ScaleType.CENTER_CROP
+        ivSetting.setImageResource(R.drawable.ic_btn_fiction_details_set)
+        //        IntentUtil.intentToAllChapters(mContext!!, mChapterBean!!.book_id, mChapterBean!!.totol_size)
+        ivSetting.setOnClickListener { v ->
+            mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
+        }
+        val sonnyJackDragView = SonnyJackDragView.Builder()
+                .setActivity(this)//当前Activity，不可为空
+                .setDefaultLeft(ScreenUtil.getScreenWidth(this) - 140)//初始位置左边距
+                .setDefaultTop(ScreenUtil.getScreenHeight(this) - ScreenUtil.getStatusBarHeight(this) - 400)//初始位置上边距
+                .setNeedNearEdge(false)//拖动停止后，是否移到边沿
+                .setSize(100)//DragView大小
+                .setView(ivSetting)//设置自定义的DragView，切记不可为空
+                .build()
+    }
+
+    /**
+     * 请求小说详情获取收藏状态和章节总数total_size
+     */
+    private fun requestNovelDetail() {
+        mMvpPresenter.getNovelDetail(chapterBean!!.book_id)
+    }
+
+    /**
+     * 请求章节内容-解析chapterBean!!.chapter_url-----切换上下章节刷新页面时，使用了 multipleStatusView.showLoading()，会抛出窗口泄露异常
+     */
+    private fun requestChapters(isShowLoading: Boolean) {
+        var handler = Handler()
         Thread(Runnable {
-            multipleStatusView.showLoading()
+            if (isShowLoading) multipleStatusView.showLoading()
             val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
             conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
             conn.header("Accept-Encoding", "gzip, deflate, sdch");
@@ -95,26 +162,51 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
             conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
             val content = conn.get().getElementById("content")
             Elog.e("content", content.text())
-            readView.post({
-                multipleStatusView.showContent()
+//            readView.post({
+//                tv_chapter_name.setText(chapterBean!!.chapter_name)
+//                readView.setText(content.text())
+//                multipleStatusView.showContent()
+//            })
+            handler.post({
+                if (isShowLoading) multipleStatusView.showContent()
                 tv_chapter_name.setText(chapterBean!!.chapter_name)
                 readView.setText(content.text())
-    //                readview.loadDataWithBaseURL(null, ScreenUtil.getNewContent(content.text()), "text/html", "UTF-8", null)
             })
+//            runOnUiThread({
+//                tv_chapter_name.setText(chapterBean!!.chapter_name)
+//                readView.setText(content.text())
+//                multipleStatusView.showContent()
+//            })
         }).start()
     }
 
-//    @OnClick(R.id.iv_setting)
-//    fun onClick(view: View) {
-//        when (view.id) {
-//            R.id.iv_setting -> {
-////                readView.setFontSize(100)
-////                ll_root.setBackgroundColor(Color.parseColor("#f8000000"))
-//                DIA_ReadSetting(this).refreshData(chapterBean!!).dialog.show()
-//
-//            }
-//        }
-//    }
+    /**
+     * 获取上一章
+     */
+    override fun getLastChapter(dataList: List<ChapterBean>) {
+        if (dataList == null || dataList.size == 0) {
+            CommonUtils.makeShortToast("没有上一章啦")
+            return
+        }
+        chapterBean = dataList.get(0)
+        chapterBean!!.totol_size = mTotalSize
+        requestChapters(false)
+        mDiaSetting!!.refreshData(chapterBean!!)
+    }
+
+    /**
+     * 获取下一章
+     */
+    override fun getNextChapter(dataList: List<ChapterBean>) {
+        if (dataList == null || dataList.size == 0) {
+            CommonUtils.makeShortToast("已经是最后一章啦")
+            return
+        }
+        chapterBean = dataList.get(0)
+        chapterBean!!.totol_size = mTotalSize
+        requestChapters(false)
+        mDiaSetting!!.refreshData(chapterBean!!)
+    }
 
     override fun showException(error: ErrorBean?) {
 
@@ -128,6 +220,38 @@ class ACT_Read : BaseMVPActivity<BookShelfPresenter, BookShelfModel>(), IBaseVie
         return false
     }
 
+    override fun getChapterList(dataList: List<ChapterBean>) {
+    }
+
+    override fun doCollect(result: Any) {
+        mDiaSetting!!.setCollectStatus(true)
+        CommonUtils.makeShortToast("添加收藏成功")
+        requestNovelDetail()
+    }
+
+    override fun deleteCollect(result: Any) {
+        mDiaSetting!!.setCollectStatus(false)
+        CommonUtils.makeShortToast("删除收藏成功")
+        requestNovelDetail()
+    }
+
+    override fun addReadRecord(result: Any) {
+    }
+
+    override fun getNovelDetail(dataList: List<NovelBean>) {
+        if (dataList == null || dataList.size == 0) return
+        novelDetailBean = dataList.get(0)
+        if (novelDetailBean == null) return
+
+        mTotalSize = novelDetailBean!!.total_size
+
+        if (!TextUtils.isEmpty(novelDetailBean!!.like)) mDiaSetting!!.setCollectStatus(true) else mDiaSetting!!.setCollectStatus(false)
+
+        if (chapterBean != null) {
+            chapterBean!!.totol_size = mTotalSize
+        }
+        requestChapters(true)
+    }
 }
 
 

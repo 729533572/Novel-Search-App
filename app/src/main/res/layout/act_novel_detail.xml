@@ -164,7 +164,7 @@
         </com.smart.framework.library.widgets.IOSScrollView>
 
         <include
-            layout="@layout/layout_title_divider_line"
+            layout="@layout/layout_title_divider_line_f9f9f9"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_above="@+id/ll_footer"></include>

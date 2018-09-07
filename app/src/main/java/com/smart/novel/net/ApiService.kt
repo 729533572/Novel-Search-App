@@ -98,4 +98,12 @@ interface ApiService {
     //通过小说名称、小说作者获取该小说其他网站的小说信息
     @GET("fictions/get/info/backup/website/list")
     fun getWebsiteList(@Query("author") author: String, @Query("book_name") book_name: String): Observable<BaseHttpResponse<List<WebsiteBean>>>
+
+    //通过小说id,当前章节获取上章节信息
+    @GET("fictions/{book_id}/last/chapter")
+    fun getLastChapter(@Path("book_id") book_id: String, @Query("chapter_number") chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+
+    //通过小说id,当前章节获取下章节信息
+    @GET("fictions/{book_id}/next/chapter")
+    fun getNextChapter(@Path("book_id") book_id: String, @Query("chapter_number") chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
 }

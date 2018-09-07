@@ -121,7 +121,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 var realPos = position - 1
                 var bean = mAdapter!!.dataList.get(realPos)
                 if (bean.type.equals(TYPE_READ)) {
-                    var chapterBean = ChapterBean(bean.book_id, bean.name_cn, bean.chapter_number, bean.chapter_name, bean.chapter_url, bean.origin_website)
+                    var chapterBean = ChapterBean(bean.book_id, bean.name_cn, bean.chapter_number.toInt(), bean.chapter_name, bean.chapter_url, bean.origin_website)
                     IntentUtil.intentToReadNovel(activity, chapterBean)
                 } else {
                     IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))

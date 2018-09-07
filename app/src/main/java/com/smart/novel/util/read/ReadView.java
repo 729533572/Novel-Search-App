@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -90,6 +91,10 @@ public class ReadView extends View {
 
     public void setText(String str) {
         eBook = str;
+
+        init();//切换上下章节设置内容时，从第一页开始，而非当前页开始
+        mCurrentPage = 1;
+
         requestLayout();
         invalidate();
     }
@@ -125,6 +130,7 @@ public class ReadView extends View {
         readTool.init();
         readTool.setStrCaptal(fontSize, textColor);
         int lineWidth = 2 * fontSize;
+        if (TextUtils.isEmpty(str)) return;
         for (int i = 0; i < str.length(); i++) {
             String subStr;
             if (i < str.length() - 1) {
@@ -207,7 +213,7 @@ public class ReadView extends View {
             listener.onTotalPage(chapterModel.getPageModels().size());
             mCurrentPage = chapterModel.getIndex() + 1;
         }
-        if (chapterModel.getIndex() < chapterModel.getPageModels().size()) {
+        if (chapterModel.getPageModels() != null && chapterModel.getIndex() < chapterModel.getPageModels().size()) {
             PageModel page = chapterModel.getPageModels().get(chapterModel.getIndex());
             for (int i = 0; i < page.getLineModels().size(); i++) {
                 LineModel line = page.getLineModels().get(i);

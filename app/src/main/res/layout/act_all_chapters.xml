@@ -69,7 +69,7 @@
 
         </com.zhy.autolayout.AutoLinearLayout>
 
-        <include layout="@layout/layout_title_divider_line"></include>
+        <include layout="@layout/layout_title_divider_line_f9f9f9"></include>
 
         <!--小说全部章节列表-->
         <com.smart.framework.library.loading.MultipleStatusView

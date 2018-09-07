@@ -14,7 +14,6 @@ import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
  */
 
 class NovelDetailPresenter : NovelDetailContract.Presenter() {
-
     override fun getNovelDetail(id: String) {
         rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getNovelDetail(id), object : RxObserverListener<List<NovelBean>>(mView) {
             override fun onSuccess(result: List<NovelBean>) {
@@ -59,5 +58,19 @@ class NovelDetailPresenter : NovelDetailContract.Presenter() {
             }
         }))
     }
+    override fun getNextChapter(book_id: String, chapter_number: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getNextChapter(book_id, chapter_number), object : RxObserverListener<List<ChapterBean>>(mView) {
+            override fun onSuccess(result: List<ChapterBean>) {
+                mView.getNextChapter(result)
+            }
+        }))
+    }
 
+    override fun getLastChapter(book_id: String, chapter_number: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getLastChapter(book_id,chapter_number), object : RxObserverListener<List<ChapterBean>>(mView) {
+            override fun onSuccess(result: List<ChapterBean>) {
+                mView.getLastChapter(result)
+            }
+        }))
+    }
 }

@@ -2,20 +2,19 @@ package com.smart.novel.dialog
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.RadioButton
+import android.widget.SeekBar
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.smart.framework.library.common.utils.CommonUtils
-import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ChapterList
 import com.smart.novel.bean.ChapterBean
-import com.smart.novel.util.IntentUtil
 
 /**
  * Created by JoJo on 2018/9/6.
@@ -23,13 +22,14 @@ import com.smart.novel.util.IntentUtil
  * description: 阅读设置弹窗
  */
 
-class DIA_ReadSetting(protected var context: Activity) : Dialog(context) {
+class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Context?) {
     protected var mDialog: Dialog
     protected var mContentView: View
     var mAdapter: ADA_ChapterList? = null
     var mContext: Activity? = null
     var mChapterBean: ChapterBean? = null
-    @BindView(R.id.tv_chapter_name) lateinit var tvChapterName:TextView
+    @BindView(R.id.rb_collect) lateinit var rbCollect: RadioButton
+    @BindView(R.id.sb_progress) lateinit var sbProgress: SeekBar
 
     init {
         mContext = context
@@ -37,6 +37,7 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context) {
         mContentView = LayoutInflater.from(mContext).inflate(R.layout.dia_read_setting, null)
         ButterKnife.bind(this, mContentView)
         mDialog.setContentView(mContentView)
+        sbProgress.isEnabled = false
     }
 
     val dialog: Dialog
@@ -57,16 +58,19 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context) {
             return mDialog
         }
 
-    @OnClick(R.id.rb_collect, R.id.ll_all_chapter)
+    @OnClick(R.id.ll_collect, R.id.rb_collect, R.id.tv_collect, R.id.ll_all_chapter, R.id.tv_last_chapter, R.id.tv_next_chapter)
     fun onClick(view: View) {
         when (view.id) {
-            R.id.rb_collect -> CommonUtils.makeEventToast(MyApplication.context, "收藏", false)
+            R.id.ll_collect -> if (mListener != null) mListener!!.onClickCollect()
+            R.id.rb_collect -> if (mListener != null) mListener!!.onClickCollect()
+            R.id.tv_collect -> if (mListener != null) mListener!!.onClickCollect()
+            R.id.tv_last_chapter -> if (mListener != null) mListener!!.onClickLastChapter()
+            R.id.tv_next_chapter -> if (mListener != null) mListener!!.onClickNextChapter()
             R.id.ll_all_chapter -> {
-                IntentUtil.intentToAllChapters(mContext!!, mChapterBean!!.book_id, mChapterBean!!.totol_size)
-
+                if (mListener != null) mListener!!.onClickAllChapter()
+                mDialog.dismiss()
             }
         }
-        mDialog.dismiss()
     }
 
     /**
@@ -77,14 +81,25 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context) {
      */
     fun refreshData(chapterBean: ChapterBean): DIA_ReadSetting {
         mChapterBean = chapterBean
-        tvChapterName.setText(mChapterBean!!.chapter_name)
+        sbProgress.progress = ((chapterBean.chapter_number * 1.0f / chapterBean.totol_size) * 100).toInt()
         return this
     }
 
-    //    }
-    interface OnShareBoardClickListener {
-        fun onShareBoardClick(position: Int)
+    interface OnBoardClickListener {
+        fun onClickCollect()
+        fun onClickAllChapter()
+        fun onClickLastChapter()
+        fun onClickNextChapter()
     }
 
-    var mListener: OnShareBoardClickListener? = null
+    var mListener: OnBoardClickListener? = null
+
+    fun setOnBoardClickListener(listener: OnBoardClickListener) {
+        mListener = listener
+    }
+
+    fun setCollectStatus(isCollected: Boolean) {
+        if (isCollected) rbCollect.isSelected = true else rbCollect.isSelected = false
+    }
+
 }

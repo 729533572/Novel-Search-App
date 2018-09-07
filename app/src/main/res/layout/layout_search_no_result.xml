@@ -72,7 +72,7 @@
                     android:textColor="@color/color_2E3439"
                     android:textSize="15sp" />
 
-                <include layout="@layout/layout_title_divider_line"></include>
+                <include layout="@layout/layout_title_divider_line_f9f9f9"></include>
 
                 <com.smart.framework.library.widgets.BanSlideListView
                     android:id="@+id/listviewSearchHistory"

@@ -118,7 +118,7 @@
                 android:textSize="12sp" />
         </com.zhy.autolayout.AutoRelativeLayout>
 
-        <include layout="@layout/layout_title_divider_line"></include>
+        <include layout="@layout/layout_title_divider_line_f9f9f9"></include>
 
         <include layout="@layout/layout_common_recyclview"></include>
 

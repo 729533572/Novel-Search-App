@@ -5,10 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
-import com.smart.novel.ui.ACT_AllChapters
-import com.smart.novel.ui.ACT_NovelDetail
-import com.smart.novel.ui.ACT_Read
-import com.smart.novel.ui.ACT_WebView
+import com.smart.novel.ui.*
 
 /**
  * 跳转工具类
@@ -43,6 +40,16 @@ class IntentUtil {
             bundle.putString(PageDataConstants.NOVEL_ID, book_id)
             bundle.putInt(PageDataConstants.TOTAL_SIZE, total_size)
             intent.setClass(context, ACT_AllChapters::class.java)
+            intent.putExtras(bundle)
+            context.startActivity(intent)
+        }
+
+        //跳转到原网页设置页面
+        fun intentToOriginWebsite(context: Context, chapterBean: ChapterBean) {
+            val intent = Intent()
+            val bundle = Bundle()
+            bundle.putSerializable(PageDataConstants.CHAPTER_BEAN, chapterBean)
+            intent.setClass(context, ACT_OriginWebsite::class.java)
             intent.putExtras(bundle)
             context.startActivity(intent)
         }

@@ -91,7 +91,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 chapterBean.totol_size = mTotalSize
                 //跳转到阅读页面
                 IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)
-                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
+                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
@@ -124,6 +124,12 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
     }
 
+    override fun getLastChapter(dataList: List<ChapterBean>) {
+    }
+
+    override fun getNextChapter(dataList: List<ChapterBean>) {
+    }
+
     override fun isBindEventBusHere(): Boolean {
         return false
     }
@@ -151,6 +157,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             var bean = ChapterFilterBean("第" + (i * 100 + 1) + "-" + (i + 1) * 100 + "章")
             mFilterList.add(bean)
         }
+        tv_chapter_filter.setText(mFilterList.get(0).filterRange)
     }
 
     /**

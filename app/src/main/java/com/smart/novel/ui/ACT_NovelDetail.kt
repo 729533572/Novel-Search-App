@@ -82,7 +82,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                 val chapterBean = mAdapter!!.dataList.get(position)
-                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number)
+                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
 
                 //跳转到阅读页面
                 chapterBean.totol_size = novelDetailBean!!.total_size
@@ -128,6 +128,12 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     override fun showException(error: ErrorBean?) {
     }
 
+    override fun getLastChapter(dataList: List<ChapterBean>) {
+    }
+
+    override fun getNextChapter(dataList: List<ChapterBean>) {
+    }
+
     override fun getChapterList(dataList: List<ChapterBean>) {
         if (dataList == null) return
 
@@ -136,22 +142,21 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         data.add(newestChapterBean)
         data.addAll(dataList)
         if (dataList.size >= 5) mAdapter!!.update(data.subList(0, 5), true) else mAdapter!!.update(data, true)
-
     }
 
     override fun doCollect(result: Any) {
         requestNovelDetail()
-        CommonUtils.makeEventToast(MyApplication.context, "添加收藏成功", false)
+        CommonUtils.makeShortToast("添加收藏成功")
     }
 
     override fun deleteCollect(result: Any) {
-        CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
+        CommonUtils.makeShortToast("删除收藏成功")
         requestNovelDetail()
     }
 
 
     override fun addReadRecord(result: Any) {
-        CommonUtils.makeEventToast(MyApplication.context, "添加阅读记录成功", false)
+        CommonUtils.makeShortToast("添加阅读记录成功")
     }
 
     /**

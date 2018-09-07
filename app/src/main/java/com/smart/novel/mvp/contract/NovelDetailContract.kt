@@ -26,6 +26,12 @@ class NovelDetailContract {
         fun deleteCollect(result: Any)
         //增加阅读记录
         fun addReadRecord(result: Any)
+
+        //获取上一章节
+        fun getLastChapter(dataList: List<ChapterBean>)
+
+        //获取下一章节
+        fun getNextChapter(dataList: List<ChapterBean>)
     }
 
     interface Model : BaseModel {
@@ -34,6 +40,10 @@ class NovelDetailContract {
         fun doCollect(id: String): Observable<BaseHttpResponse<Any>>
         fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>>
         fun addReadRecord(id: String, chapter_name: String, chapter_number: String): Observable<BaseHttpResponse<Any>>
+        //获取上一章节
+        fun getLastChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+        //获取下一章节
+        fun getNextChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
     }
 
     abstract class Presenter : BasePresenter<View, Model>() {
@@ -42,5 +52,7 @@ class NovelDetailContract {
         abstract fun doCollect(id: String)
         abstract fun deleteCollect(id: String)
         abstract fun addReadRecord(id: String, chapter_name: String, chapter_number: String)
+        abstract fun getLastChapter(book_id: String, chapter_number: String)
+        abstract fun getNextChapter(book_id: String, chapter_number: String)
     }
 }

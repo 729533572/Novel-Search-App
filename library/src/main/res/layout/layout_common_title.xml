@@ -31,13 +31,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:onClick="onActionFinish"
             android:paddingBottom="20px"
             android:paddingLeft="30px"
             android:paddingRight="30px"
             android:paddingTop="20px"
-            android:onClick="onActionFinish"
-            android:visibility="gone"
-            android:src="@drawable/ic_nav_bar_back" />
+            android:src="@drawable/ic_nav_bar_back"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_right"
@@ -52,7 +52,19 @@
             android:text="管理"
             android:textColor="@color/color_2F9FF2"
             android:textSize="15sp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_right_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:button="@null"
+            android:padding="10px"
+            android:src="@drawable/ic_nav_bar_yuan"
+            android:visibility="gone" />
 
     </com.zhy.autolayout.AutoRelativeLayout>
 

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"></com.smart.novel.wights.RankTitleView>
         <!--<include layout="@layout/layout_ranking_title_list"></include>-->
 
-        <include layout="@layout/layout_title_divider_line"></include>
+        <include layout="@layout/layout_title_divider_line_f9f9f9"></include>
 
         <include layout="@layout/layout_common_recyclview"></include>
     </com.zhy.autolayout.AutoLinearLayout>

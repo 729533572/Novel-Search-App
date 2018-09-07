@@ -14,6 +14,7 @@ import io.reactivex.Observable
  */
 
 class NovelDetailModel : NovelDetailContract.Model {
+
     override fun getNovelDetail(id: String): Observable<BaseHttpResponse<List<NovelBean>>> {
         return RetrofitRxManager.getRequestService().getNovelDetail(id)
     }
@@ -29,7 +30,16 @@ class NovelDetailModel : NovelDetailContract.Model {
     override fun deleteCollect(id: String): Observable<BaseHttpResponse<Any>> {
         return RetrofitRxManager.getRequestService().deleteCollect(id)
     }
-    override fun addReadRecord(id: String,chapter_name:String,chapter_number:String): Observable<BaseHttpResponse<Any>> {
-        return RetrofitRxManager.getRequestService().addReadRecord(id,chapter_name,chapter_number)
+
+    override fun addReadRecord(id: String, chapter_name: String, chapter_number: String): Observable<BaseHttpResponse<Any>> {
+        return RetrofitRxManager.getRequestService().addReadRecord(id, chapter_name, chapter_number)
+    }
+
+    override fun getLastChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().getLastChapter(book_id, chapter_number)
+    }
+
+    override fun getNextChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().getNextChapter(book_id, chapter_number)
     }
 }

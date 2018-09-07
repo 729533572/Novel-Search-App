@@ -12,12 +12,15 @@ import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_OriginWebsite
 import com.smart.novel.base.BaseMVPActivity
+import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.WebsiteBean
 import com.smart.novel.mvp.contract.WebsiteContract
 import com.smart.novel.mvp.model.WebsiteModel
 import com.smart.novel.mvp.presenter.WebsitePresenter
+import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.act_origin_website.*
+import kotlinx.android.synthetic.main.layout_common_progress.*
 
 /**
  * Created by JoJo on 2018/9/5.
@@ -26,8 +29,10 @@ import kotlinx.android.synthetic.main.act_origin_website.*
  */
 class ACT_OriginWebsite : BaseMVPActivity<WebsitePresenter, WebsiteModel>(), WebsiteContract.View {
     var mAdapter: ADA_OriginWebsite? = null
+    var chapterBean: ChapterBean? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     override fun getBundleExtras(extras: Bundle?) {
+        chapterBean = extras!!.getSerializable(PageDataConstants.CHAPTER_BEAN) as ChapterBean?
     }
 
     override fun getContentViewLayoutID(): Int {
@@ -36,7 +41,8 @@ class ACT_OriginWebsite : BaseMVPActivity<WebsitePresenter, WebsiteModel>(), Web
 
     override fun startEvents() {
         ivLeft.visibility = View.VISIBLE
-        setHeaderTitle("张苏静的幸福日常")
+        setHeaderTitle(chapterBean!!.name_cn)
+        sb_progress.progress = ((chapterBean!!.chapter_number * 1.0f / chapterBean!!.totol_size) * 100).toInt()
 
         mAdapter = ADA_OriginWebsite(this)
         RecyclerViewHelper.initNormalRecyclerView(this, recyclerviewWebsite, mAdapter!!, LinearLayoutManager(this))

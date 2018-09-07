@@ -80,7 +80,6 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     private fun initListener() {
         listviewMine.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             when (position) {
-                1 -> readyGo(ACT_OriginWebsite::class.java)
                 2 -> readyGo(ACT_AboutUs::class.java)
             }
         }
