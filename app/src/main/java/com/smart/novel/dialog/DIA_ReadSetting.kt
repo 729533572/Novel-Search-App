@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.SeekBar
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -30,6 +31,8 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
     var mChapterBean: ChapterBean? = null
     @BindView(R.id.rb_collect) lateinit var rbCollect: RadioButton
     @BindView(R.id.sb_progress) lateinit var sbProgress: SeekBar
+    @BindView(R.id.sb_textsize) lateinit var sbTextsize: SeekBar
+    @BindView(R.id.ll_read_mode) lateinit var llReadMode: RadioGroup
 
     init {
         mContext = context
@@ -38,6 +41,7 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
         ButterKnife.bind(this, mContentView)
         mDialog.setContentView(mContentView)
         sbProgress.isEnabled = false
+        sbTextsize.isEnabled = false
     }
 
     val dialog: Dialog
@@ -58,7 +62,7 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
             return mDialog
         }
 
-    @OnClick(R.id.ll_collect, R.id.rb_collect, R.id.tv_collect, R.id.ll_all_chapter, R.id.tv_last_chapter, R.id.tv_next_chapter)
+    @OnClick(R.id.ll_collect, R.id.rb_collect, R.id.tv_collect, R.id.ll_all_chapter, R.id.tv_last_chapter, R.id.tv_next_chapter, R.id.tv_down_size, R.id.tv_up_size)
     fun onClick(view: View) {
         when (view.id) {
             R.id.ll_collect -> if (mListener != null) mListener!!.onClickCollect()
@@ -66,6 +70,8 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
             R.id.tv_collect -> if (mListener != null) mListener!!.onClickCollect()
             R.id.tv_last_chapter -> if (mListener != null) mListener!!.onClickLastChapter()
             R.id.tv_next_chapter -> if (mListener != null) mListener!!.onClickNextChapter()
+            R.id.tv_down_size -> if (mListener != null) mListener!!.onClickDownSize(sbTextsize)
+            R.id.tv_up_size -> if (mListener != null) mListener!!.onClickUpSize(sbTextsize)
             R.id.ll_all_chapter -> {
                 if (mListener != null) mListener!!.onClickAllChapter()
                 mDialog.dismiss()
@@ -90,6 +96,8 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
         fun onClickAllChapter()
         fun onClickLastChapter()
         fun onClickNextChapter()
+        fun onClickDownSize(sbTextsize: SeekBar)
+        fun onClickUpSize(sbTextsize: SeekBar)
     }
 
     var mListener: OnBoardClickListener? = null

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -22,11 +23,12 @@ import com.smart.novel.util.read.modle.LineModel;
 import com.smart.novel.util.read.modle.PageModel;
 
 public class ReadView extends View {
+    private Context mContext;
     int lineNum = 1;
     int lineHeight = 8;
     int viewWidth, viewHeight, textWidth, textHeight, readWidth, readHeight;
-    int fontSize = 24;
-    int textColor = Color.BLACK;
+    public int fontSize;
+    int textColor;
     int paddingLeft, paddingTop, paddingRight, paddingBottom;
     int background;
     public ReadTool readTool;
@@ -41,19 +43,18 @@ public class ReadView extends View {
 
 
     public ReadView(Context context) {
-        super(context);
-        init();
+        this(context,null);
     }
 
     public ReadView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
         initCustomAttrs(context, attrs);
-        init();
 
     }
 
     public ReadView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.mContext = context;
         initCustomAttrs(context, attrs);
         init();
     }
@@ -65,17 +66,18 @@ public class ReadView extends View {
         //获取自定义属性。
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ReadView);
         //获取字体大小,默认大小是16dp
-        fontSize = (int) ta.getDimension(R.styleable.ReadView_fontSize, 24);
+        fontSize = (int) ta.getDimension(R.styleable.ReadView_fontSize, 30);
         //获取文字内容
         eBook = ta.getString(R.styleable.ReadView_text);
         //获取文字颜色，默认颜色是BLUE
+//        textColor = ta.getColor(R.styleable.ReadView_color, ContextCompat.getColor(mContext,R.color.color_2E3439));
         textColor = ta.getColor(R.styleable.ReadView_color, Color.BLACK);
         //获取背景
         background = ta.getResourceId(R.styleable.ReadView_background, R.drawable.bg_reading);
         ta.recycle();
     }
 
-    private void init() {
+    public void init() {
         // 创建画笔
         mPaint = new Paint();
         // 设置画笔颜色
@@ -91,10 +93,6 @@ public class ReadView extends View {
 
     public void setText(String str) {
         eBook = str;
-
-        init();//切换上下章节设置内容时，从第一页开始，而非当前页开始
-        mCurrentPage = 1;
-
         requestLayout();
         invalidate();
     }
@@ -280,8 +278,9 @@ public class ReadView extends View {
         void onTotalPage(int totalPage);
     }
 
-    public void setWatchMode() {
-        mPaint.setColor(Color.RED);
+    public void setTextColor(int textColor) {
+        this.textColor = textColor;
+        mPaint.setColor(ContextCompat.getColor(mContext,textColor));
         invalidate();
     }
 
@@ -292,7 +291,6 @@ public class ReadView extends View {
      */
     public void setFontSize(int fontSize) {
         this.fontSize = fontSize;
-        mPaint.setColor(Color.RED);
         mPaint.setTextSize(fontSize);
         setText(eBook);
     }

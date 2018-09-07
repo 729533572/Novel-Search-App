@@ -9,6 +9,66 @@
 
     <include layout="@layout/layout_title_divider_line_e5e5e5"></include>
 
+    <include layout="@layout/layout_reading_mode"></include>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20px"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_down_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:padding="10px"
+            android:text="A-"
+            android:textColor="@color/color_2E3439"
+            android:textSize="12sp" />
+
+        <com.zhy.autolayout.AutoFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingLeft="10px"
+                android:paddingRight="10px"
+                android:src="@drawable/bg_kedu_line"
+                android:visibility="gone" />
+
+            <SeekBar
+                android:id="@+id/sb_textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:max="600"
+                android:maxHeight="2dp"
+                android:minHeight="2dp"
+                android:progress="300"
+                android:progressDrawable="@drawable/seek_bar_progress_style"
+                android:thumb="@drawable/ic_slide_button" />
+        </com.zhy.autolayout.AutoFrameLayout>
+
+        <TextView
+            android:id="@+id/tv_up_size"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:paddingLeft="10px"
+            android:text="A+"
+            android:textColor="@color/color_2E3439"
+            android:textSize="15sp" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

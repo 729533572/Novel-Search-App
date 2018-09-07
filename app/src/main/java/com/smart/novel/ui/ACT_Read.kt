@@ -2,14 +2,16 @@ package com.smart.novel.ui
 
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
+import android.widget.*
 import butterknife.BindView
 import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.CommonUtils
+import com.smart.framework.library.common.utils.DP2PX
 import com.smart.framework.library.common.utils.ScreenUtil
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
@@ -36,10 +38,13 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     var chapterBean: ChapterBean? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     @BindView(R.id.iv_right_two) lateinit var ivRightTwo: ImageView
+    @BindView(R.id.ll_common_title) lateinit var llCommonTitle: LinearLayout
     var mTotalPage = 1
     var mDiaSetting: DIA_ReadSetting? = null
     var novelDetailBean: NovelBean? = null
     var mTotalSize = 100
+    var i = 3
+    var listColor = listOf<Int>(R.color.color_f9f9f9, R.color.color_f8efde, R.color.color_f2e7e9, R.color.color_e7f4e9, R.color.color_101419)
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_read
     }
@@ -85,7 +90,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             }
 
         })
-
+        //文本文字大小
+        var defaultTextSize = 48
+        var space = 5
+        var listSize = listOf<Int>(defaultTextSize - space * 3, defaultTextSize - 2 * space, defaultTextSize - space, defaultTextSize, defaultTextSize + space, defaultTextSize + 2 * space, defaultTextSize + 3 * space)
+        readView.setFontSize(listSize[3])
+        //阅读设置弹窗事件处理
         mDiaSetting!!.setOnBoardClickListener(object : DIA_ReadSetting.OnBoardClickListener {
             override fun onClickLastChapter() {
                 mMvpPresenter.getLastChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
@@ -108,6 +118,66 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
                 IntentUtil.intentToAllChapters(this@ACT_Read, chapterBean!!.book_id, chapterBean!!.totol_size)
             }
 
+            //            var default_size = DP2PX.dip2px(context, readView.fontSize.toFloat())
+            //缩小文字
+            override fun onClickDownSize(sbTextsize: SeekBar) {
+                var default_size = DP2PX.dip2px(mContext, readView.fontSize.toFloat())
+                if (sbTextsize.progress > 0) {
+                    i--
+                    sbTextsize.progress = i * 100
+                    readView.setFontSize(listSize[i])
+                }
+            }
+
+            //放大文字
+            override fun onClickUpSize(sbTextsize: SeekBar) {
+                var default_size = DP2PX.dip2px(mContext, readView.fontSize.toFloat())
+                if (sbTextsize.progress < 600) {
+                    i++
+                    sbTextsize.progress = i * 100
+                    readView.setFontSize(listSize[i])
+                }
+            }
+
+        })
+
+        //阅读模式
+        mDiaSetting!!.llReadMode.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                var position = 0
+                when (checkedId) {
+                    R.id.rb_grey -> {
+                        position = 0
+                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+                    }
+                    R.id.rb_yellow -> {
+                        position = 1
+                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+                    }
+                    R.id.rb_pink -> {
+                        position = 2
+                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+                    }
+                    R.id.rb_green -> {
+                        position = 3
+                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+                    }
+                    R.id.rb_night -> {
+                        position = 4
+                        readView.setTextColor(R.color.color_adadad)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_f7f7f7))
+                    }
+                }
+                ll_content_root.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                llCommonTitle.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                rl_root.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                (mDiaSetting!!.llReadMode.getChildAt(position) as RadioButton).isChecked = true
+            }
+
         })
 
     }
@@ -116,7 +186,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     fun onClick(view: View) {
         when (view.id) {
             R.id.iv_setting -> mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
-            R.id.iv_right_two -> IntentUtil.intentToOriginWebsite(this,chapterBean!!)
+            R.id.iv_right_two -> IntentUtil.intentToOriginWebsite(this, chapterBean!!)
         }
     }
 
@@ -192,6 +262,10 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         chapterBean!!.totol_size = mTotalSize
         requestChapters(false)
         mDiaSetting!!.refreshData(chapterBean!!)
+
+        //切换上下章节设置内容时，从第一页开始，而非当前页开始
+        readView.init()
+        readView.mCurrentPage = 1
     }
 
     /**
@@ -206,6 +280,10 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         chapterBean!!.totol_size = mTotalSize
         requestChapters(false)
         mDiaSetting!!.refreshData(chapterBean!!)
+
+        //切换上下章节设置内容时，从第一页开始，而非当前页开始
+        readView.init()
+        readView.mCurrentPage = 1
     }
 
     override fun showException(error: ErrorBean?) {
@@ -250,7 +328,6 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         if (chapterBean != null) {
             chapterBean!!.totol_size = mTotalSize
         }
-        requestChapters(true)
     }
 }
 

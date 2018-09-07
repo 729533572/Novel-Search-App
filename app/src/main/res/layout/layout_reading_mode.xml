@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_read_mode"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40px"
+    android:layout_marginTop="40px"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/rb_grey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20px"
+        android:background="@drawable/read_mode_grey_selector"
+        android:button="@null"
+        android:checked="true" />
+
+    <RadioButton
+        android:id="@+id/rb_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/read_mode_yellow_selector"
+        android:button="@null" />
+
+    <RadioButton
+        android:id="@+id/rb_pink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/read_mode_pink_selector"
+        android:button="@null" />
+
+    <RadioButton
+        android:id="@+id/rb_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px"
+        android:background="@drawable/read_mode_green_selector"
+        android:button="@null" />
+
+    <RadioButton
+        android:id="@+id/rb_night"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20px"
+        android:background="@drawable/read_mode_night_selector"
+        android:button="@null" />
+</RadioGroup>

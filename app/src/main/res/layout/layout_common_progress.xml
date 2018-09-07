@@ -29,7 +29,7 @@
         android:maxHeight="2dp"
         android:minHeight="2dp"
         android:progressDrawable="@drawable/seek_bar_progress_style"
-        android:thumb="@drawable/ic_btn_check_selected" />
+        android:thumb="@drawable/ic_slide_button" />
     <!--<TextView-->
     <!--android:id="@+id/tv_chapter_name"-->
     <!--android:layout_width="wrap_content"-->
