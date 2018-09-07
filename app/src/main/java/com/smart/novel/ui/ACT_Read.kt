@@ -39,6 +39,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     @BindView(R.id.iv_right_two) lateinit var ivRightTwo: ImageView
     @BindView(R.id.ll_common_title) lateinit var llCommonTitle: LinearLayout
+    @BindView(R.id.title_divider) lateinit var titleDivider: View
     var mTotalPage = 1
     var mDiaSetting: DIA_ReadSetting? = null
     var novelDetailBean: NovelBean? = null
@@ -148,33 +149,43 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
                 when (checkedId) {
                     R.id.rb_grey -> {
                         position = 0
-                        readView.setTextColor(R.color.color_2E3439)
-                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+//                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_999999))
+                        titleDivider.visibility = View.VISIBLE
+                        titleDivider.setBackgroundResource(R.drawable.bg_shape_gradient_line_reverse)
+                        llCommonTitle.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_ffffff))
+                        rl_root.setBackgroundColor(ContextCompat.getColor(mContext, R.color.color_ffffff))
                     }
                     R.id.rb_yellow -> {
                         position = 1
-                        readView.setTextColor(R.color.color_2E3439)
-                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+//                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_999999))
+                        titleDivider.visibility = View.INVISIBLE
                     }
                     R.id.rb_pink -> {
                         position = 2
-                        readView.setTextColor(R.color.color_2E3439)
-                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+//                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_999999))
+                        titleDivider.visibility = View.INVISIBLE
                     }
                     R.id.rb_green -> {
                         position = 3
-                        readView.setTextColor(R.color.color_2E3439)
-                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_999999))
+//                        readView.setTextColor(R.color.color_2E3439)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_999999))
+                        titleDivider.visibility = View.INVISIBLE
                     }
                     R.id.rb_night -> {
                         position = 4
-                        readView.setTextColor(R.color.color_adadad)
-                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext,R.color.color_f7f7f7))
+//                        readView.setTextColor(R.color.color_3AC270)
+                        tv_chapter_name.setTextColor(ContextCompat.getColor(mContext, R.color.color_2E3439))
+                        titleDivider.visibility = View.INVISIBLE
                     }
                 }
                 ll_content_root.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
-                llCommonTitle.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
-                rl_root.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                if (position != 0) {
+                    llCommonTitle.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                    rl_root.setBackgroundColor(ContextCompat.getColor(mContext, listColor[position]))
+                }
                 (mDiaSetting!!.llReadMode.getChildAt(position) as RadioButton).isChecked = true
             }
 

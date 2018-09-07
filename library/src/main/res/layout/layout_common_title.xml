@@ -10,7 +10,6 @@
         android:id="@+id/rl_common_title"
         android:layout_width="match_parent"
         android:layout_height="100px"
-        android:background="#ffffff"
         android:orientation="horizontal">
 
 

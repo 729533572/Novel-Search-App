@@ -43,11 +43,11 @@ public class ReadView extends View {
 
 
     public ReadView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ReadView(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
         initCustomAttrs(context, attrs);
 
     }
@@ -78,6 +78,7 @@ public class ReadView extends View {
     }
 
     public void init() {
+        textColor = ContextCompat.getColor(mContext, R.color.color_2E3439);
         // 创建画笔
         mPaint = new Paint();
         // 设置画笔颜色
@@ -280,7 +281,6 @@ public class ReadView extends View {
 
     public void setTextColor(int textColor) {
         this.textColor = textColor;
-        mPaint.setColor(ContextCompat.getColor(mContext,textColor));
         invalidate();
     }
 
