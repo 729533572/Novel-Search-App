@@ -34,6 +34,9 @@ wechat：18510829974
 description：小说详情页
  */
 class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), NovelDetailContract.View {
+    companion object {
+        val FROM = "ACT_NovelDetail"
+    }
     var novelBean: NovelBean? = null
     var mAdapter: ADA_ChapterList? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
@@ -111,7 +114,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             R.id.btn_share -> mShareDialog!!.dialog.show()
         //跳转到所有章节页面
             R.id.btn_all_chapters -> {
-                IntentUtil.intentToAllChapters(this, novelBean!!.book_id, total_size)
+                IntentUtil.intentToAllChapters(this, FROM, novelBean!!.book_id, total_size)
             }
             R.id.btn_read -> {
             }

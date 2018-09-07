@@ -34,11 +34,12 @@ class IntentUtil {
         }
 
         //跳转到所有章节
-        fun intentToAllChapters(context: Context, book_id: String, total_size: Int) {
+        fun intentToAllChapters(context: Context, from: String, book_id: String, total_size: Int) {
             val intent = Intent()
             val bundle = Bundle()
             bundle.putString(PageDataConstants.NOVEL_ID, book_id)
             bundle.putInt(PageDataConstants.TOTAL_SIZE, total_size)
+            bundle.putString(PageDataConstants.FROM,from)
             intent.setClass(context, ACT_AllChapters::class.java)
             intent.putExtras(bundle)
             context.startActivity(intent)

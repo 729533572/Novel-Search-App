@@ -25,6 +25,8 @@ import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.read.ReadView
 import com.smart.novel.wights.SonnyJackDragView
+import de.greenrobot.event.Subscribe
+import de.greenrobot.event.ThreadMode
 import kotlinx.android.synthetic.main.act_read.*
 import org.jsoup.Jsoup
 
@@ -35,17 +37,28 @@ import org.jsoup.Jsoup
  *description：章节阅读页面-抓取解析网页：view-source:https://www.zhuishu.tw/id61823/534992.html
  */
 class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), NovelDetailContract.View {
-    var chapterBean: ChapterBean? = null
+    companion object {
+        val FROM = "ACT_Read"
+    }
+
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
     @BindView(R.id.iv_right_two) lateinit var ivRightTwo: ImageView
     @BindView(R.id.ll_common_title) lateinit var llCommonTitle: LinearLayout
     @BindView(R.id.title_divider) lateinit var titleDivider: View
+    var chapterBean: ChapterBean? = null
     var mTotalPage = 1
     var mDiaSetting: DIA_ReadSetting? = null
     var novelDetailBean: NovelBean? = null
     var mTotalSize = 100
     var i = 3
     var listColor = listOf<Int>(R.color.color_f9f9f9, R.color.color_f8efde, R.color.color_f2e7e9, R.color.color_e7f4e9, R.color.color_101419)
+    //接收全部章节页面
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    fun onSwitchChapter(bean: ChapterBean) {
+        chapterBean = bean
+        requestChapters(false)
+    }
+
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_read
     }
@@ -116,7 +129,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
             override fun onClickAllChapter() {
                 if (chapterBean!!.totol_size <= 0) chapterBean!!.totol_size = 100
-                IntentUtil.intentToAllChapters(this@ACT_Read, chapterBean!!.book_id, chapterBean!!.totol_size)
+                IntentUtil.intentToAllChapters(this@ACT_Read, FROM, chapterBean!!.book_id, chapterBean!!.totol_size)
             }
 
             //            var default_size = DP2PX.dip2px(context, readView.fontSize.toFloat())
@@ -138,6 +151,28 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
                     sbTextsize.progress = i * 100
                     readView.setFontSize(listSize[i])
                 }
+            }
+
+        })
+        mDiaSetting!!.sbTextsize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                var progress = seekBar!!.progress
+                when (progress) {
+                    in 0..49 -> seekBar.progress = 0
+                    in 50..99 -> seekBar.progress = 100
+                    in 100..199 -> seekBar.progress = 200
+                    in 200..299 -> seekBar.progress = 300
+                    in 300..399 -> seekBar.progress = 400
+                    in 400..499 -> seekBar.progress = 500
+                    in 500..600 -> seekBar.progress = 600
+                }
+                readView.setFontSize(listSize[seekBar.progress / 100])
             }
 
         })
@@ -251,6 +286,10 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             handler.post({
                 if (isShowLoading) multipleStatusView.showContent()
                 tv_chapter_name.setText(chapterBean!!.chapter_name)
+                //从全部章节返回时切换上下章节设置内容时，从第一页开始，而非当前页开始
+                readView.init()
+                readView.mCurrentPage = 1
+
                 readView.setText(content.text())
             })
 //            runOnUiThread({
@@ -306,7 +345,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     }
 
     override fun isBindEventBusHere(): Boolean {
-        return false
+        return true
     }
 
     override fun getChapterList(dataList: List<ChapterBean>) {

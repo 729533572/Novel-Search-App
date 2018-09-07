@@ -41,7 +41,7 @@ class DIA_ReadSetting(protected var context: Activity) : Dialog(context as Conte
         ButterKnife.bind(this, mContentView)
         mDialog.setContentView(mContentView)
         sbProgress.isEnabled = false
-        sbTextsize.isEnabled = false
+//        sbTextsize.isEnabled = false
     }
 
     val dialog: Dialog

@@ -24,6 +24,7 @@ import com.smart.novel.mvp.presenter.NovelDetailPresenter
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.RecyclerViewHelper
+import de.greenrobot.event.EventBus
 import kotlinx.android.synthetic.main.act_all_chapters.*
 
 /**
@@ -44,9 +45,11 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     var novelId: String = ""
     var mData: List<ChapterBean> = ArrayList()
     var mAdapter: ADA_ChapterList? = null
+    var fromType = ""
     override fun getBundleExtras(extras: Bundle?) {
         novelId = extras!!.getString(PageDataConstants.NOVEL_ID, "")
         mTotalSize = extras!!.getInt(PageDataConstants.TOTAL_SIZE, 0)
+        fromType = extras!!.getString(PageDataConstants.FROM, ACT_NovelDetail.FROM)
     }
 
     override fun getContentViewLayoutID(): Int {
@@ -89,9 +92,14 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 var realPos = position - 1
                 val chapterBean = mAdapter!!.dataList.get(realPos)
                 chapterBean.totol_size = mTotalSize
-                //跳转到阅读页面
-                IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)
                 mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
+                if (fromType.equals(ACT_NovelDetail.FROM)) {
+                    //跳转到阅读页面
+                    IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)
+                } else {
+                    finish()
+                    EventBus.getDefault().post(chapterBean)
+                }
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {

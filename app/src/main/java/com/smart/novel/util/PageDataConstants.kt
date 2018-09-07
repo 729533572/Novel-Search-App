@@ -12,5 +12,6 @@ class PageDataConstants {
         val NOVEL_ID = "novel_id"
         val CHAPTER_BEAN = "chapter_bean"
         val TOTAL_SIZE = "total_size"
+        val FROM: String = "FROM" //进入所有章节页面的入口页面
     }
 }
