@@ -65,12 +65,13 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
         }
         mAdapter!!.update(data, true)
 
+        requestGroupInfo()
+
         //展示用户信息
         showUserInfo(MyApplication.isLogin)
 
         initListener()
 
-        requestGroupInfo()
     }
 
 

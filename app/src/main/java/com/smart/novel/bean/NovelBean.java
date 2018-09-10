@@ -34,10 +34,9 @@ public class NovelBean implements Serializable {
     private String name_cn;
     private String author;
     private String content_update_time;
-    private int catagory;
     private String covor_url;
     private String origin_website;
-    private int is_finished;
+    private int is_finished; // 0为更新中 1 为已完成更新
     private int word_count;
     private int read_count;
     private String comment;
@@ -54,6 +53,15 @@ public class NovelBean implements Serializable {
     private String chapter_url;
     private String chapter_number;
     private String chapter_name;
+    private String category; //所属分类
+
+    public String getCategory() {
+        return category == null ? "" : category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public String getBook_id() {
         return book_id == null ? "" : book_id;
@@ -93,14 +101,6 @@ public class NovelBean implements Serializable {
 
     public void setContent_update_time(String content_update_time) {
         this.content_update_time = content_update_time;
-    }
-
-    public int getCatagory() {
-        return catagory;
-    }
-
-    public void setCatagory(int catagory) {
-        this.catagory = catagory;
     }
 
     public String getCovor_url() {

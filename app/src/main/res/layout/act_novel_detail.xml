@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -78,10 +79,10 @@
 
 
                         <TextView
+                            android:id="@+id/tv_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="38px"
-                            android:text="234万字          1小时10分前更新"
                             android:textColor="@color/color_999999"
                             android:textSize="12sp" />
 
@@ -100,7 +101,7 @@
                                 android:paddingLeft="24px"
                                 android:paddingRight="24px"
                                 android:paddingTop="6px"
-                                android:text="励志"
+                                bind:category="@{novelBean.category}"
                                 android:textColor="@color/color_F1B52F"
                                 android:textSize="10sp" />
 
@@ -113,9 +114,9 @@
                                 android:paddingLeft="24px"
                                 android:paddingRight="24px"
                                 android:paddingTop="6px"
-                                android:text="更新中"
                                 android:textColor="@color/color_3AC270"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                bind:isFinished="@{novelBean.is_finished}" />
                         </com.zhy.autolayout.AutoLinearLayout>
                     </com.zhy.autolayout.AutoLinearLayout>
                     <!--小说详情描述内容-查看更多-->

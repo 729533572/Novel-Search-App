@@ -12,6 +12,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.utils.AppDateUtil
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
@@ -229,6 +230,10 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         btn_collect.isSelected = !TextUtils.isEmpty(bean.like)//like-是否已收藏
         //章节总数
         total_size = bean.total_size
+
+        if(!TextUtils.isEmpty(novelDetailBean!!.content_update_time)){
+            tv_date.setText(AppDateUtil.getTimeStamp(novelDetailBean!!.content_update_time.toLong(), AppDateUtil.HH_MM)+ "前更新")
+        }
     }
 
 }
