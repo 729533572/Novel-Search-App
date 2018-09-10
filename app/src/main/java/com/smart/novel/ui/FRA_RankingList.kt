@@ -1,7 +1,6 @@
 package com.smart.novel.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -33,6 +32,7 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
     var mAdapter: ADA_RankingList? = null
     @BindView(R.id.tv_right) lateinit var tvRight: TextView
     @BindView(R.id.tv_title) lateinit var tvTile: TextView
+    var requestType = "search"
 
     companion object {
         fun getInstance(): FRA_RankingList {
@@ -54,9 +54,10 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
         mAdapter = ADA_RankingList(activity)
         RecyclerViewHelper.initRecyclerView(activity, recyclerview, mAdapter!!, LinearLayoutManager(activity))
         recyclerview.setOnRefreshListener(this)
-        recyclerview.setOnLoadMoreListener(this)
+        recyclerview.setLoadMoreEnabled(false)
+//        recyclerview.setOnLoadMoreListener(this)
 
-        mMvpPresenter.getRankList(multipleStatusView, "read")
+        requestData(requestType)
 
         initListener()
     }
@@ -68,12 +69,13 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
             rankTitleView.adapter!!.notifyDataSetChanged()
             //刷新数据
             when (position) {
-                0 -> mMvpPresenter.getRankList(multipleStatusView, "search")
-                1 -> mMvpPresenter.getRankList(multipleStatusView, "read")
-                2 -> mMvpPresenter.getRankList(multipleStatusView, "new")
-                3 -> mMvpPresenter.getRankList(multipleStatusView, "female")
-                4 -> mMvpPresenter.getRankList(multipleStatusView, "man")
+                0 -> requestType = "search"
+                1 -> requestType = "read"
+                2 -> requestType = "new"
+                3 -> requestType = "female"
+                4 -> requestType = "man"
             }
+            requestData(requestType)
         }
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
@@ -91,12 +93,20 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
         })
     }
 
+    /**
+     * 刷新数据
+     */
+    private fun requestData(requestType: String) {
+        mMvpPresenter.getRankList(multipleStatusView, requestType)
+    }
+
     override fun onRefresh() {
-        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
+        requestData(requestType)
+//        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
     }
 
     override fun onLoadMore() {
-        Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
+//        Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
     }
 
     override fun showBusinessError(error: ErrorBean?) {

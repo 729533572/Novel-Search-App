@@ -46,10 +46,10 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     var requestType = TYPE_READ
     var mCurrentPage = 1
     var isEdit = false//false 管理 true 完成(可编辑)
-    var mData: ArrayList<NovelBean>? = null
+    var mData = ArrayList<NovelBean>()
     var deletePos = -1
     var deleteItem: NovelBean? = null
-    var isRefreshing = false
+    var isRefreshing = true
     override fun onReceiveBroadcast(intent: Int, bundle: Bundle?) {
         when (intent) {
             BroadCastConstant.LOGOUT, BroadCastConstant.LOGIN_SUCCESS -> requestData(requestType, false)
@@ -203,11 +203,13 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                     isEdit = false
                 }
                 var data = ArrayList<NovelBean>()
-                for (i in 0..mData!!.size - 1) {
-                    val bean = mData!!.get(i)
+                Elog.e("data", "list=" + mAdapter!!.dataList.size)
+                for (i in 0..mAdapter!!.dataList.size - 1) {
+                    val bean = mAdapter!!.dataList!!.get(i)
                     bean.isEdit = isEdit
+                    data.add(bean)
                 }
-                mAdapter!!.update(mData, true)
+                mAdapter!!.update(data, true)
             }
         }
     }
@@ -237,27 +239,36 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      * 列表数据
      */
     override fun getBookShelfData(dataList: List<NovelBean>) {
-        tv_total.text = "共" + dataList.size + "本"
-        mData = dataList as ArrayList<NovelBean>
+        Elog.e("TAG", "isRefreshing=" + isRefreshing)
         //下拉刷新
         if (isRefreshing) {
-            if (dataList != null && dataList.size > 0) {
+            if (dataList != null && dataList!!.size > 0) {
                 multipleStatusView.showContent()
+                for (i in 0..dataList.size - 1) {
+                    dataList!!.get(i).isEdit = isEdit
+                }
                 mAdapter!!.update(dataList!!, true)
+                Elog.e("TAG", "dataList=" + dataList!!.size)
             } else {
                 showEmpty()
             }
         } else {
+            Elog.e("TAG", "loadmore")
             //loadmore
-            if (dataList != null && dataList.size > 0) mAdapter!!.update(dataList!!, false) else recyclerview.setNoMore(true)
+            if (dataList != null && dataList!!.size > 0) mAdapter!!.update(dataList!!, false) else recyclerview.setNoMore(true)
         }
         recyclerview.refreshComplete(1)
+        tv_total.text = "共" + mAdapter!!.dataList.size + "本"
     }
 
     /**
      * 删除阅读记录
      */
     override fun deleteReadRecord(result: Any) {
+//        isRefreshing = true
+//        tvRight.setText("管理")
+        isRefreshing = true
+        mCurrentPage = 1
         CommonUtils.makeEventToast(MyApplication.context, "删除阅读记录成功", false)
 //        mAdapter!!.remove(deletePos)
 //        if (mAdapter!!.dataList.size == 0) showEmpty()
@@ -268,6 +279,10 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
      * 删除收藏
      */
     override fun deleteCollect(result: Any) {
+//        tvRight.setText("管理")
+//        isEdit = false
+        isRefreshing = true
+        mCurrentPage = 1
         CommonUtils.makeEventToast(MyApplication.context, "删除收藏成功", false)
 //        mAdapter!!.remove(deletePos)
 //        if (mAdapter!!.dataList.size == 0) showEmpty()
