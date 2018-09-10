@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.smart.framework.library.BaseApplication;
+
 import java.util.Locale;
 
 /**
@@ -57,7 +59,18 @@ public class NetUtils {
         }
         return false;
     }
-
+    /**
+     * 网络是否连接成功
+     * @return
+     */
+    public static boolean isNetworkConnected() {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) BaseApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            return mNetworkInfo.isAvailable();
+        }
+        return false;
+    }
     /**
      * wifi网络连接是否可用
      * @param context

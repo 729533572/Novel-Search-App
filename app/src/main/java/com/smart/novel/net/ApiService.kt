@@ -106,4 +106,8 @@ interface ApiService {
     //通过小说id,当前章节获取下章节信息
     @GET("fictions/{book_id}/next/chapter")
     fun getNextChapter(@Path("book_id") book_id: String, @Query("chapter_number") chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+
+    //获取QQ阅读群
+    @GET("customer/qq/group/info")
+    fun getGroupQQ(): Observable<GroupInfo>
 }

@@ -27,5 +27,14 @@
     <string name="string_clear_history_success">清除成功</string>
     <string name="string_title_ranking">排行榜</string>
 
+    <!--分享-->
+    <string name="string_share_failed">分享失败</string>
+    <string name="string_share_canceled">分享取消</string>
+    <string name="string_share_successful">分享成功</string>
+    <string name="string_collect_success">收藏成功</string>
+    <string name="note_weixin">微信</string>
+    <string name="note_qq">QQ</string>
+    <string name="note_weibo">微博</string>
+    <string name="no_install_platform">您尚未安装</string>
 
 </resources>

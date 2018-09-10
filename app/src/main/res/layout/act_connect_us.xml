@@ -12,8 +12,8 @@
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:background="@color/color_ffffff"
         android:layout_height="match_parent"
+        android:background="@color/color_ffffff"
         android:orientation="vertical">
 
         <include layout="@layout/layout_common_title"></include>
@@ -34,22 +34,13 @@
                 android:paddingRight="34px">
 
                 <TextView
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="80px"
-                    android:text="关于我们"
-                    android:textColor="@color/color_333333"
-                    android:textSize="17sp" />
-
-                <TextView
                     android:id="@+id/tv_hot_search_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20px"
-                    android:text="小说搜索神器是一个仅提供搜索服务的搜索引擎，根据用户发送的请求，以非人工检索的方式搜索网络上的内容列出索引，以方便用户查看网络上的文档图片等信息。查找结果将完全根据您输入的关键词返回位于其他网站上的相应内容的链接。本软件自身不存储，控制编辑或修改被链接的第三方网页上的信息内容或其表现形式。
-如您有意见或建议，欢迎发送至我们的联系邮箱：yulekeji@qingqingshuwu.club"
+                    android:text="邮箱：yulekeji@qingqingshuwu.club
+电话：18516987934
+QQ：872995601"
                     android:textColor="@color/color_333333"
                     android:textSize="13sp" />
             </com.zhy.autolayout.AutoLinearLayout>

@@ -99,6 +99,9 @@ public class ReadView extends View {
     }
 
     public void PageUp() {
+        if(chapterModel.getPageModels()==null) {
+            return;
+        }
         if (chapterModel.getIndex() + 1 < chapterModel.getPageModels().size()) {
             chapterModel.setIndex(chapterModel.getIndex() + 1);
         }
@@ -107,6 +110,9 @@ public class ReadView extends View {
     }
 
     public void PageDn() {
+        if(chapterModel.getPageModels()==null) {
+            return;
+        }
         if (chapterModel.getIndex() - 1 >= 0) {
             chapterModel.setIndex(chapterModel.getIndex() - 1);
             mCurrentPage = chapterModel.getIndex() - 1;

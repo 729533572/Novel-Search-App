@@ -271,32 +271,28 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         var handler = Handler()
         Thread(Runnable {
             if (isShowLoading) multipleStatusView.showLoading()
-            val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
-            conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-            conn.header("Accept-Encoding", "gzip, deflate, sdch");
-            conn.header("Accept-Language", "zh-CN,zh;q=0.8");
-            conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-            val content = conn.get().getElementById("content")
-            Elog.e("content", content.text())
-//            readView.post({
-//                tv_chapter_name.setText(chapterBean!!.chapter_name)
-//                readView.setText(content.text())
-//                multipleStatusView.showContent()
-//            })
-            handler.post({
-                if (isShowLoading) multipleStatusView.showContent()
-                tv_chapter_name.setText(chapterBean!!.chapter_name)
-                //从全部章节返回时切换上下章节设置内容时，从第一页开始，而非当前页开始
-                readView.init()
-                readView.mCurrentPage = 1
-
-                readView.setText(content.text())
-            })
-//            runOnUiThread({
-//                tv_chapter_name.setText(chapterBean!!.chapter_name)
-//                readView.setText(content.text())
-//                multipleStatusView.showContent()
-//            })
+            try {
+                val conn = Jsoup.connect(chapterBean!!.chapter_url).timeout(5000)
+                conn.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+                conn.header("Accept-Encoding", "gzip, deflate, sdch");
+                conn.header("Accept-Language", "zh-CN,zh;q=0.8");
+                conn.header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+                val content = conn.get().getElementById("content")
+                Elog.e("content", content.text())
+                handler.post({
+                    if (isShowLoading) multipleStatusView.showContent()
+                    tv_chapter_name.setText(chapterBean!!.chapter_name)
+                    //从全部章节返回时切换上下章节设置内容时，从第一页开始，而非当前页开始
+                    readView.init()
+                    readView.mCurrentPage = 1
+                    readView.setText(content.text())
+                })
+            } catch (e: Exception) {
+                handler.post({
+                    CommonUtils.makeShortToast("章节阅读失败")
+                })
+                Elog.e("TAG", e.toString())
+            }
         }).start()
     }
 

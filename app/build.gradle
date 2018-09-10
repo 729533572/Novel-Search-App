@@ -63,8 +63,8 @@ dependencies {
     compile project(':library')
     compile 'jp.wasabeef:glide-transformations:3.0.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-//    compile 'com.android.support:appcompat-v7:25.3.1'
-//    compile 'com.android.support:design:25.0.0-alpha1'
+    //    compile 'com.android.support:appcompat-v7:25.3.1'
+    //    compile 'com.android.support:design:25.0.0-alpha1'
     //最新版本
     //    compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
     //卡片cardview
@@ -80,8 +80,8 @@ dependencies {
     //butterknife控件插件
     //    compile 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
-//    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
-//    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+    //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
+    //    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
 }
 repositories {
     mavenCentral()

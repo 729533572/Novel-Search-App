@@ -8,6 +8,11 @@
     <!-- 适配Android8.0未知来源应用安装权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
+    <!--分享-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name="com.smart.novel.MyApplication"
         android:allowBackup="true"
@@ -31,14 +36,78 @@
             android:name="design_height"
             android:value="1280" />
 
+        <!--友盟第三方分享 友盟 appkey -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5b960349f43e480fda000079" />
+        <!-- 微博 6.4.5 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 腾讯qq -->
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1106572836" />
+            </intent-filter>
+        </activity>
+        <!-- qq -->
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <uses-library
+            android:name="com.google.android.maps"
+            android:required="false" />
+        <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!-- 友盟第三方分享 -->
+
+
+
         <activity android:name=".ui.ACT_Login"></activity>
         <!--小说详情页-->
         <activity android:name=".ui.ACT_NovelDetail"></activity>
-        <activity android:name=".ui.ACT_AboutUs"></activity>
         <activity android:name=".ui.ACT_AllChapters"></activity>
         <activity android:name=".ui.ACT_Read"></activity>
         <activity android:name=".ui.ACT_OriginWebsite"></activity>
         <activity android:name=".ui.ACT_WebView"></activity>
+        <activity android:name=".ui.ACT_AboutUs"></activity>
+        <activity android:name=".ui.ACT_ConnectUs"></activity>
+        <activity android:name=".ui.ACT_Announcement"></activity>
     </application>
 
 </manifest>

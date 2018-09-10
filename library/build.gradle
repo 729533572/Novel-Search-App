@@ -48,7 +48,7 @@ dependencies {
     compile files('src/main/libs/fastjson-1.1.31.jar')
     compile files('src/main/libs/core.jar')
     compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'com.umeng.analytics:analytics:latest.integration'
+//    compile 'com.umeng.analytics:analytics:latest.integration'
     //    布局适配
     compile 'com.zhy:autolayout:1.4.5'
     compile 'com.github.bumptech.glide:glide:4.0.0'
@@ -69,10 +69,13 @@ dependencies {
     //butterknife控件插件
     compile 'com.jakewharton:butterknife:8.8.1'
     compile project(':LRecyclerview_library')
-//    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
+    //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
     compile project(':okhttp3-persistent-cookiejar')
-//    rxbinding
+    //    rxbinding
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     //网页html格式数据解析
     compile 'org.jsoup:jsoup:1.10.3'
+    compile project(':ushare_library')
+    compile files('src/main/libs/umeng-analytics-7.4.0.jar')
+    compile files('src/main/libs/umeng-common-1.4.0.jar')
 }

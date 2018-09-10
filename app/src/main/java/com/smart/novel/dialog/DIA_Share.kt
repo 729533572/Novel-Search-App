@@ -49,13 +49,22 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
             return mDialog
         }
 
-    @OnClick(R.id.btn_cancel)
+    @OnClick(R.id.btn_cancel, R.id.btn_wechat, R.id.btn_qq, R.id.btn_weibo)
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_cancel -> mDialog.dismiss()
-            R.id.btn_wechat -> mListener!!.onShareBoardClick(0)
-            R.id.btn_qq -> mListener!!.onShareBoardClick(1)
-            R.id.btn_weibo -> mListener!!.onShareBoardClick(2)
+            R.id.btn_wechat ->{
+                mListener!!.onShareBoardClick(0)
+                mDialog.dismiss()
+            }
+            R.id.btn_qq -> {
+                mListener!!.onShareBoardClick(1)
+                mDialog.dismiss()
+            }
+            R.id.btn_weibo -> {
+                mListener!!.onShareBoardClick(2)
+                mDialog.dismiss()
+            }
         }
     }
 
@@ -79,5 +88,9 @@ class DIA_Share(protected var mContext: Activity) : Dialog(mContext) {
     }
 
     var mListener: OnShareBoardClickListener? = null
+
+    fun setOnShareBoardClickListener(listener: OnShareBoardClickListener) {
+        mListener = listener
+    }
 }
 

@@ -1,5 +1,6 @@
 package com.smart.novel.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -25,6 +26,11 @@ import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
+import com.smart.novel.util.share.ShareEntity
+import com.smart.novel.util.share.UMShareUtils.WEIXIN_PAKAGENAME
+import com.smart.novel.util.share.UMShareUtils.isPlatformInstalled
+import com.umeng.socialize.UMShareAPI
+import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.act_novel_detail.*
 import kotlinx.android.synthetic.main.layout_novel_detail_footer.*
 
@@ -37,6 +43,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     companion object {
         val FROM = "ACT_NovelDetail"
     }
+
     var novelBean: NovelBean? = null
     var mAdapter: ADA_ChapterList? = null
     @BindView(R.id.iv_left) lateinit var ivLeft: ImageView
@@ -44,6 +51,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     var mShareDialog: DIA_Share? = null
     var total_size = 100
     var novelDetailBean: NovelBean? = null
+    var dataRealShow = ArrayList<ChapterBean>()
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_novel_detail
     }
@@ -97,6 +105,32 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             }
 
         })
+        mShareDialog!!.setOnShareBoardClickListener(object : DIA_Share.OnShareBoardClickListener {
+            override fun onShareBoardClick(position: Int) {
+                CommonUtils.makeShortToast("pos=" + position)
+                when (position) {
+                //微信
+                    0 -> {
+                        var shareBean = ShareEntity()
+                        shareBean.shareUrl = "https://www.baidu.com/"
+                        isPlatformInstalled(this@ACT_NovelDetail, SHARE_MEDIA.WEIXIN, WEIXIN_PAKAGENAME, shareBean)
+                    }
+                //QQ
+                    1 -> {
+                        var shareBean = ShareEntity()
+                        shareBean.shareUrl = "https://www.baidu.com/"
+                        isPlatformInstalled(this@ACT_NovelDetail, SHARE_MEDIA.QQ, WEIXIN_PAKAGENAME, shareBean)
+                    }
+                //微博
+                    2 -> {
+                        var shareBean = ShareEntity()
+                        shareBean.shareUrl = "https://www.baidu.com/"
+                        isPlatformInstalled(this@ACT_NovelDetail, SHARE_MEDIA.SINA, WEIXIN_PAKAGENAME, shareBean)
+                    }
+                }
+            }
+
+        })
     }
 
     @OnClick(R.id.btn_collect, R.id.btn_share, R.id.btn_all_chapters, R.id.btn_read)
@@ -116,9 +150,24 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             R.id.btn_all_chapters -> {
                 IntentUtil.intentToAllChapters(this, FROM, novelBean!!.book_id, total_size)
             }
-            R.id.btn_read -> {
+            R.id.btn_read -> if (dataRealShow.size > 0) {
+                mMvpPresenter.addReadRecord(dataRealShow.get(0).book_id.toString(), dataRealShow.get(0).chapter_name, dataRealShow.get(0).chapter_number.toString())
+                IntentUtil.intentToReadNovel(this@ACT_NovelDetail, dataRealShow.get(0))
             }
+
         }
+    }
+
+    /**
+     * 在分享所在的Activity里复写onActivityResult方法,如果不实现onActivityResult方法，会导致分享或回调无法正常进行
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        UMShareAPI.get(MyApplication.context).onActivityResult(requestCode, resultCode, data)
     }
 
     override fun isBindEventBusHere(): Boolean {
@@ -139,12 +188,13 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
     override fun getChapterList(dataList: List<ChapterBean>) {
         if (dataList == null) return
-
+        //第一页的最后一个为最新章节
         val newestChapterBean = dataList.get(dataList.size - 1)
-        var data = ArrayList<ChapterBean>()
-        data.add(newestChapterBean)
-        data.addAll(dataList)
-        if (dataList.size >= 5) mAdapter!!.update(data.subList(0, 5), true) else mAdapter!!.update(data, true)
+        dataRealShow.clear()
+
+        if (newestChapterBean.isLatest) dataRealShow.add(newestChapterBean)
+        dataRealShow.addAll(dataList)
+        if (dataList.size >= 5) mAdapter!!.update(dataRealShow.subList(0, 5), true) else mAdapter!!.update(dataRealShow, true)
     }
 
     override fun doCollect(result: Any) {

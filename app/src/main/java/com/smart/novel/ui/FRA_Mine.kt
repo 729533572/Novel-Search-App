@@ -1,16 +1,22 @@
 package com.smart.novel.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import butterknife.OnClick
 import com.smart.framework.library.base.BaseMVPFragment
+import com.smart.framework.library.base.mvp.RxSchedulers
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.AppSharedPreferences
+import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_MineList
+import com.smart.novel.bean.GroupInfo
 import com.smart.novel.bean.MineBean
 import com.smart.novel.db.AppDBHelper
 import com.smart.novel.dialog.DialogUtils
@@ -19,7 +25,9 @@ import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.SharePreConstants
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
+import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.fra_mine.*
+
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -31,6 +39,7 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     var iconArray = listOf<Int>(R.drawable.ic_btn_mine_qq_read_group, R.drawable.ic_btn_mine_customer_service, R.drawable.ic_btn_mine_about_us, R.drawable.ic_btn_mine_statement_clause, R.drawable.ic_btn_mine_update)
     val nameArray = listOf<String>("QQ阅读群", "联系客服", "关于我们", "声明条款", "检查更新")
     var sharePre: AppSharedPreferences? = null
+    var groupInfo: GroupInfo? = null
 
     companion object {
         fun getInstance(): FRA_Mine {
@@ -60,7 +69,10 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
         showUserInfo(MyApplication.isLogin)
 
         initListener()
+
+        requestGroupInfo()
     }
+
 
     private fun showUserInfo(isLogin: Boolean) {
         if (isLogin) {
@@ -77,12 +89,57 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
         }
     }
 
+    /**
+     *  展示用户信息
+     */
     private fun initListener() {
         listviewMine.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             when (position) {
+            // QQ 群号：872995601  对应的key:Uqbhti3rqGDEnV8SnTnxMFXtnpHJm9HY
+                0 -> joinQQGroup(groupInfo!!.id)
+                1 -> readyGo(ACT_ConnectUs::class.java)
                 2 -> readyGo(ACT_AboutUs::class.java)
+                3 -> readyGo(ACT_Announcement::class.java)
             }
         }
+    }
+
+    /**
+     * 获取QQ群
+     */
+    private fun requestGroupInfo() {
+        //默认的群号 872995601
+        groupInfo = GroupInfo("Uqbhti3rqGDEnV8SnTnxMFXtnpHJm9HY")
+        RetrofitRxManager.getRequestService().getGroupQQ()
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(object : DisposableObserver<GroupInfo>() {
+                    override fun onNext(bean: GroupInfo) {
+                        if (bean != null && TextUtils.isEmpty(bean.id)) groupInfo!!.id = bean.id
+                    }
+
+                    override fun onError(e: Throwable) {
+                    }
+
+                    override fun onComplete() {
+                    }
+                })
+    }
+
+    /**
+     * 跳转到QQ群
+     */
+    fun joinQQGroup(QQkey: String): Boolean {
+        val intent = Intent()
+        intent.data = Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D" + QQkey)
+        // 此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        try {
+            startActivity(intent)
+            return true
+        } catch (e: Exception) {
+            CommonUtils.makeShortToast("请检查是否安装QQ")
+            return false
+        }
+
     }
 
     @OnClick(R.id.tv_un_login, R.id.btn_logot)

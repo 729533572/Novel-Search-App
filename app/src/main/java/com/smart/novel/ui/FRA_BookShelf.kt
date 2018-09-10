@@ -2,7 +2,6 @@ package com.smart.novel.ui
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -16,6 +15,7 @@ import com.smart.framework.library.base.BaseMVPFragment
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.CommonUtils
+import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.adapter.ADA_ReadHistory
@@ -148,15 +148,26 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun onRefresh() {
 //        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
-//        Elog.e("type", requestType)
+//        Elog.e("type", requestType).
         isRefreshing = true
-        requestData(requestType, false)
+        if (!NetUtils.isNetworkConnected()) {
+            CommonUtils.makeShortToast(MyApplication.context.getString(R.string.network_error))
+        } else {
+            mCurrentPage = 1
+            requestData(requestType, false)
+        }
     }
 
     override fun onLoadMore() {
-        isRefreshing = false
-        Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
+//        Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
 //        Elog.e("type", requestType)
+        isRefreshing = false
+        if (!NetUtils.isNetworkConnected()) {
+            CommonUtils.makeShortToast(MyApplication.context.getString(R.string.network_error))
+        } else {
+            mCurrentPage++
+            requestData(requestType, false)
+        }
     }
 
     @OnClick(R.id.ll_read_history, R.id.ll_my_collected, R.id.tv_right)
@@ -168,6 +179,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_read_history.getChildAt(1).visibility = View.GONE
                 ll_my_collected.getChildAt(0).visibility = View.GONE
                 ll_my_collected.getChildAt(1).visibility = View.VISIBLE
+                isRefreshing = true
                 mCurrentPage = 1
                 requestData(TYPE_READ, true)
             }
@@ -177,6 +189,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 ll_my_collected.getChildAt(1).visibility = View.GONE
                 ll_read_history.getChildAt(0).visibility = View.GONE
                 ll_read_history.getChildAt(1).visibility = View.VISIBLE
+                isRefreshing = true
                 mCurrentPage = 1
                 requestData(TYPE_LIKE, true)
             }
@@ -226,13 +239,19 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     override fun getBookShelfData(dataList: List<NovelBean>) {
         tv_total.text = "共" + dataList.size + "本"
         mData = dataList as ArrayList<NovelBean>
-        if (dataList!!.size > 0) {
-            mAdapter!!.update(dataList!!, true)
-            multipleStatusView.showContent()
+        //下拉刷新
+        if (isRefreshing) {
+            if (dataList != null && dataList.size > 0) {
+                multipleStatusView.showContent()
+                mAdapter!!.update(dataList!!, true)
+            } else {
+                showEmpty()
+            }
         } else {
-            showEmpty()
+            //loadmore
+            if (dataList != null && dataList.size > 0) mAdapter!!.update(dataList!!, false) else recyclerview.setNoMore(true)
         }
-        if (isRefreshing) recyclerview.refreshComplete(1)
+        recyclerview.refreshComplete(1)
     }
 
     /**
