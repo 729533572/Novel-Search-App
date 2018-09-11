@@ -22,7 +22,6 @@ import com.smart.novel.adapter.ADA_ReadHistory
 import com.smart.novel.adapter.ADA_ReadHistoryNodataBinding
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
-import com.smart.novel.db.manager.DbManager
 import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
@@ -122,7 +121,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 var realPos = position - 1
                 var bean = mAdapter!!.dataList.get(realPos)
                 if (bean.type.equals(TYPE_READ)) {
-                    var chapterBean = ChapterBean(bean.book_id, bean.name_cn, bean.chapter_number.toInt(), bean.chapter_name, bean.chapter_url, bean.origin_website)
+                    var chapterBean = ChapterBean(bean.book_id, bean.name_cn, bean.chapter_number.toInt(), bean.chapter_name, bean.chapter_url, bean.origin_website, bean.covor_url)
                     IntentUtil.intentToReadNovel(activity, chapterBean)
                 } else {
                     IntentUtil.intentToNovelDetail(activity, mAdapter!!.dataList.get(realPos))
@@ -230,23 +229,25 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun showBusinessError(error: ErrorBean?) {
         //本地阅读记录
-        if (requestType.equals(TYPE_READ)) {
-            val localList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
-            if (localList == null || localList.size == 0) {
-                showEmpty()
-                return
-            }
-            var mLocalList = ArrayList<NovelBean>()
-            for (i in 0..localList.size - 1) {
-                val chapterBean = localList.get(i)
-                var novelBean = NovelBean(chapterBean.book_id, chapterBean.name_cn, chapterBean.origin_website, chapterBean.chapter_url, chapterBean.chapter_number.toString(), chapterBean.chapter_name)
-                Elog.e("TAG", "yyy=" + novelBean.name_cn)
-                mLocalList.add(novelBean)
-            }
-            mAdapter!!.update(mLocalList, true)
-        } else {
-            multipleStatusView.showError()
-        }
+//        if (requestType.equals(TYPE_READ)) {
+//            val localList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
+//            if (localList == null || localList.size == 0) {
+//                showEmpty()
+//                return
+//            }
+//            var mLocalList = ArrayList<NovelBean>()
+//            for (i in 0..localList.size - 1) {
+//                val chapterBean = localList.get(i)
+//                var novelBean = NovelBean(chapterBean.book_id, chapterBean.name_cn, chapterBean.covor_url, "read", chapterBean.origin_website, chapterBean.chapter_url, chapterBean.chapter_number.toString(), chapterBean.chapter_name)
+//                Elog.e("TAG", "yyy=" + novelBean.name_cn)
+//                mLocalList.add(novelBean)
+//            }
+//            multipleStatusView.showContent()
+//            mAdapter!!.update(mLocalList, true)
+//        } else {
+//            multipleStatusView.showError()
+//        }
+        showEmpty()
     }
 
     override fun showException(error: ErrorBean?) {

@@ -36,16 +36,17 @@ public class ChapterBean implements Serializable{
     private String chapter_name;
     private String chapter_url;
     private String origin_website;
+    private String covor_url;
     private int word_count;
     private int read_count;
     private String create_time;
     private String update_time;
     private boolean latest; //是否是最新章节
     private int totol_size;//总章节数
-    @Generated(hash = 1454180653)
+    @Generated(hash = 672694251)
     public ChapterBean(String id, String book_id, String name_cn,
             int chapter_number, String chapter_name, String chapter_url,
-            String origin_website, int word_count, int read_count,
+            String origin_website, String covor_url, int word_count, int read_count,
             String create_time, String update_time, boolean latest,
             int totol_size) {
         this.id = id;
@@ -55,6 +56,7 @@ public class ChapterBean implements Serializable{
         this.chapter_name = chapter_name;
         this.chapter_url = chapter_url;
         this.origin_website = origin_website;
+        this.covor_url = covor_url;
         this.word_count = word_count;
         this.read_count = read_count;
         this.create_time = create_time;
@@ -63,19 +65,19 @@ public class ChapterBean implements Serializable{
         this.totol_size = totol_size;
     }
 
-    public ChapterBean(String book_id, String name_cn, int chapter_number, String chapter_name, String chapter_url, String origin_website) {
+    public ChapterBean(String book_id, String name_cn, int chapter_number, String chapter_name, String chapter_url, String origin_website, String covor_url) {
         this.book_id = book_id;
         this.name_cn = name_cn;
         this.chapter_number = chapter_number;
         this.chapter_name = chapter_name;
         this.chapter_url = chapter_url;
         this.origin_website = origin_website;
+        this.covor_url = covor_url;
     }
 
     @Generated(hash = 1028095945)
     public ChapterBean() {
     }
-
     public String getId() {
         return this.id;
     }
@@ -117,6 +119,12 @@ public class ChapterBean implements Serializable{
     }
     public void setOrigin_website(String origin_website) {
         this.origin_website = origin_website;
+    }
+    public String getCovor_url() {
+        return this.covor_url;
+    }
+    public void setCovor_url(String covor_url) {
+        this.covor_url = covor_url;
     }
     public int getWord_count() {
         return this.word_count;

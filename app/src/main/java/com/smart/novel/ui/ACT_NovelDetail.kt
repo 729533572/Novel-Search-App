@@ -155,8 +155,12 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             R.id.btn_all_chapters -> {
                 IntentUtil.intentToAllChapters(this, FROM, novelBean!!.book_id, total_size)
             }
-            R.id.btn_read -> if (dataRealShow.size > 0) {
+            R.id.btn_read -> {
+                if (dataRealShow.size == 0) {
 //                mMvpPresenter.addReadRecord(dataRealShow.get(0).book_id.toString(), dataRealShow.get(0).chapter_name, dataRealShow.get(0).chapter_number.toString())
+                    CommonUtils.makeShortToast("没有可读的章节~")
+                    return
+                }
                 IntentUtil.intentToReadNovel(this@ACT_NovelDetail, dataRealShow.get(0))
             }
 
@@ -192,7 +196,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun getChapterList(dataList: List<ChapterBean>) {
-        if (dataList == null) return
+        if (dataList == null || dataList.size == 0) return
         //第一页的最后一个为最新章节
         val newestChapterBean = dataList.get(dataList.size - 1)
         dataRealShow.clear()
@@ -236,7 +240,17 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         total_size = bean.total_size
 
         if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)) {
-            tv_date.setText(AppDateUtil.getTimeStamp(novelDetailBean!!.content_update_time.toLong(), AppDateUtil.HH_MM) + "前更新")
+            //20:40
+            val time = AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.HH_MM)
+            val splitTime = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val hour = splitTime[0]
+            val minute = splitTime[1]
+            val hourTime = Integer.parseInt(hour)
+            if (hourTime < 24) {
+                tv_date.setText(hour + "小时" + minute + "分前更新")
+            } else {
+                tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新")
+            }
         }
     }
 

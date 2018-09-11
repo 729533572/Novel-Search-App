@@ -55,9 +55,11 @@ public class NovelBean implements Serializable {
     private String chapter_name;
     private String category; //所属分类
 
-    public NovelBean(String book_id, String name_cn, String origin_website, String chapter_url, String chapter_number, String chapter_name) {
+    public NovelBean(String book_id, String name_cn, String covor_url, String type, String origin_website, String chapter_url, String chapter_number, String chapter_name) {
         this.book_id = book_id;
         this.name_cn = name_cn;
+        this.covor_url = covor_url;
+        this.type = type;
         this.origin_website = origin_website;
         this.chapter_url = chapter_url;
         this.chapter_number = chapter_number;
