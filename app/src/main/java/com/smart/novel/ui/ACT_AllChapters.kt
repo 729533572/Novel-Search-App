@@ -92,7 +92,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 var realPos = position - 1
                 val chapterBean = mAdapter!!.dataList.get(realPos)
                 chapterBean.totol_size = mTotalSize
-                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
+//                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
                 if (fromType.equals(ACT_NovelDetail.FROM)) {
                     //跳转到阅读页面
                     IntentUtil.intentToReadNovel(this@ACT_AllChapters, chapterBean)

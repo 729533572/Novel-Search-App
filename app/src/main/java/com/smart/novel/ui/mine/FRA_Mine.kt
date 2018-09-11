@@ -1,4 +1,4 @@
-package com.smart.novel.ui
+package com.smart.novel.ui.mine
 
 import android.content.Intent
 import android.net.Uri
@@ -22,6 +22,8 @@ import com.smart.novel.db.AppDBHelper
 import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
+import com.smart.novel.net.BaseHttpResponse
+import com.smart.novel.ui.ACT_Login
 import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.SharePreConstants
 import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
@@ -55,6 +57,9 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
     }
 
     override fun startEvents() {
+        //默认的群号 872995601
+        groupInfo = GroupInfo("Uqbhti3rqGDEnV8SnTnxMFXtnpHJm9HY")
+
         sharePre = AppSharedPreferences(activity)
         mAdapter = ADA_MineList(activity)
         listviewMine.adapter = mAdapter
@@ -97,7 +102,7 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
         listviewMine.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             when (position) {
             // QQ 群号：872995601  对应的key:Uqbhti3rqGDEnV8SnTnxMFXtnpHJm9HY
-                0 -> joinQQGroup(groupInfo!!.id)
+                0 -> joinQQGroup(groupInfo!!.key)
                 1 -> readyGo(ACT_ConnectUs::class.java)
                 2 -> readyGo(ACT_AboutUs::class.java)
                 3 -> readyGo(ACT_Announcement::class.java)
@@ -109,13 +114,12 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
      * 获取QQ群
      */
     private fun requestGroupInfo() {
-        //默认的群号 872995601
-        groupInfo = GroupInfo("Uqbhti3rqGDEnV8SnTnxMFXtnpHJm9HY")
         RetrofitRxManager.getRequestService().getGroupQQ()
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(object : DisposableObserver<GroupInfo>() {
-                    override fun onNext(bean: GroupInfo) {
-                        if (bean != null && TextUtils.isEmpty(bean.id)) groupInfo!!.id = bean.id
+                .subscribeWith(object : DisposableObserver<BaseHttpResponse<GroupInfo>>() {
+                    override fun onNext(response: BaseHttpResponse<GroupInfo>) {
+                        val group = response.data as GroupInfo
+                        if (group != null && !TextUtils.isEmpty(group.key)) groupInfo!!.key = group.key
                     }
 
                     override fun onError(e: Throwable) {

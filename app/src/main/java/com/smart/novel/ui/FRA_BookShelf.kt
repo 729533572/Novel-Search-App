@@ -22,6 +22,7 @@ import com.smart.novel.adapter.ADA_ReadHistory
 import com.smart.novel.adapter.ADA_ReadHistoryNodataBinding
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
+import com.smart.novel.db.manager.DbManager
 import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
@@ -228,7 +229,24 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     }
 
     override fun showBusinessError(error: ErrorBean?) {
-        multipleStatusView.showError()
+        //本地阅读记录
+        if (requestType.equals(TYPE_READ)) {
+            val localList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
+            if (localList == null || localList.size == 0) {
+                showEmpty()
+                return
+            }
+            var mLocalList = ArrayList<NovelBean>()
+            for (i in 0..localList.size - 1) {
+                val chapterBean = localList.get(i)
+                var novelBean = NovelBean(chapterBean.book_id, chapterBean.name_cn, chapterBean.origin_website, chapterBean.chapter_url, chapterBean.chapter_number.toString(), chapterBean.chapter_name)
+                Elog.e("TAG", "yyy=" + novelBean.name_cn)
+                mLocalList.add(novelBean)
+            }
+            mAdapter!!.update(mLocalList, true)
+        } else {
+            multipleStatusView.showError()
+        }
     }
 
     override fun showException(error: ErrorBean?) {

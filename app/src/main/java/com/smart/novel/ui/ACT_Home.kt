@@ -6,6 +6,7 @@ import android.view.View
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
+import com.smart.novel.ui.mine.FRA_Mine
 import kotlinx.android.synthetic.main.act_home.*
 
 /**

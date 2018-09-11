@@ -105,9 +105,9 @@
         <activity android:name=".ui.ACT_Read"></activity>
         <activity android:name=".ui.ACT_OriginWebsite"></activity>
         <activity android:name=".ui.ACT_WebView"></activity>
-        <activity android:name=".ui.ACT_AboutUs"></activity>
-        <activity android:name=".ui.ACT_ConnectUs"></activity>
-        <activity android:name=".ui.ACT_Announcement"></activity>
+        <activity android:name=".ui.mine.ACT_AboutUs"></activity>
+        <activity android:name=".ui.mine.ACT_ConnectUs"></activity>
+        <activity android:name=".ui.mine.ACT_Announcement"></activity>
     </application>
 
 </manifest>

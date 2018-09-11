@@ -59,8 +59,19 @@ public class ViewBindingAdapter {
 
     @BindingAdapter("bind:formatdate")
     public static void setFormatTime(TextView tv, String timesec) {
+//        24内的展示 xx小时xx分更新，超过的直接显示日期时分秒
         if (!TextUtils.isEmpty(timesec)) {
-            tv.setText(AppDateUtil.getTimeStamp(Long.parseLong(timesec), AppDateUtil.YYYY_MM_DD_HH_MM) + "前更新");
+            //20:40
+            String time = AppDateUtil.getTimeStamp(Long.parseLong(timesec), AppDateUtil.HH_MM);
+            String[] splitTime = time.split(":");
+            String hour = splitTime[0];
+            String minute = splitTime[1];
+            int hourTime = Integer.parseInt(hour);
+            if (hourTime < 24) {
+                tv.setText(hour + "小时" + minute + "分前更新");
+            } else {
+                tv.setText(AppDateUtil.getTimeStamp(Long.parseLong(timesec), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新");
+            }
         }
     }
 }

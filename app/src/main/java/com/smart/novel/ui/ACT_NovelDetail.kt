@@ -94,7 +94,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                 val chapterBean = mAdapter!!.dataList.get(position)
-                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
+//                mMvpPresenter.addReadRecord(chapterBean.book_id.toString(), chapterBean.chapter_name, chapterBean.chapter_number.toString())
 
                 //跳转到阅读页面
                 chapterBean.totol_size = novelDetailBean!!.total_size
@@ -108,7 +108,6 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         })
         mShareDialog!!.setOnShareBoardClickListener(object : DIA_Share.OnShareBoardClickListener {
             override fun onShareBoardClick(position: Int) {
-                CommonUtils.makeShortToast("pos=" + position)
                 when (position) {
                 //微信
                     0 -> {
@@ -138,21 +137,26 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_collect -> {
+                if (!MyApplication.isLogin) {
+                    CommonUtils.makeShortToast("请先登录~")
+                    return
+                }
                 if (btn_collect.isSelected) {
                     mMvpPresenter.deleteCollect(novelBean!!.book_id)
-                    CommonUtils.makeEventToast(MyApplication.context, "取消收藏", false)
                 } else {
                     mMvpPresenter.doCollect(novelBean!!.book_id)
-                    CommonUtils.makeEventToast(MyApplication.context, "收藏", false)
                 }
             }
-            R.id.btn_share -> mShareDialog!!.dialog.show()
+            R.id.btn_share -> {
+                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
+//                mShareDialog!!.dialog.show()
+            }
         //跳转到所有章节页面
             R.id.btn_all_chapters -> {
                 IntentUtil.intentToAllChapters(this, FROM, novelBean!!.book_id, total_size)
             }
             R.id.btn_read -> if (dataRealShow.size > 0) {
-                mMvpPresenter.addReadRecord(dataRealShow.get(0).book_id.toString(), dataRealShow.get(0).chapter_name, dataRealShow.get(0).chapter_number.toString())
+//                mMvpPresenter.addReadRecord(dataRealShow.get(0).book_id.toString(), dataRealShow.get(0).chapter_name, dataRealShow.get(0).chapter_number.toString())
                 IntentUtil.intentToReadNovel(this@ACT_NovelDetail, dataRealShow.get(0))
             }
 
@@ -193,7 +197,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         val newestChapterBean = dataList.get(dataList.size - 1)
         dataRealShow.clear()
 
-        if (newestChapterBean.isLatest) dataRealShow.add(newestChapterBean)
+        if (newestChapterBean.latest) dataRealShow.add(newestChapterBean)
         dataRealShow.addAll(dataList)
         if (dataList.size >= 5) mAdapter!!.update(dataRealShow.subList(0, 5), true) else mAdapter!!.update(dataRealShow, true)
     }
@@ -231,8 +235,8 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //章节总数
         total_size = bean.total_size
 
-        if(!TextUtils.isEmpty(novelDetailBean!!.content_update_time)){
-            tv_date.setText(AppDateUtil.getTimeStamp(novelDetailBean!!.content_update_time.toLong(), AppDateUtil.HH_MM)+ "前更新")
+        if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)) {
+            tv_date.setText(AppDateUtil.getTimeStamp(novelDetailBean!!.content_update_time.toLong(), AppDateUtil.HH_MM) + "前更新")
         }
     }
 

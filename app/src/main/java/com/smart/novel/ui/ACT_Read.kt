@@ -13,10 +13,12 @@ import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.framework.library.common.utils.DP2PX
 import com.smart.framework.library.common.utils.ScreenUtil
+import com.smart.novel.MyApplication
 import com.smart.novel.R
 import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
+import com.smart.novel.db.manager.DbManager
 import com.smart.novel.dialog.DIA_ReadSetting
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
@@ -73,6 +75,11 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         setHeaderTitle(chapterBean!!.name_cn)
         mDiaSetting = DIA_ReadSetting(this)
 
+        //添加本地阅读记录
+        DbManager.getInstance().insertOrReplace(ChapterBean::class.java,chapterBean)
+        //阅读记录上传服务器
+        mMvpPresenter.addReadRecord(chapterBean!!.book_id.toString(), chapterBean!!.chapter_name, chapterBean!!.chapter_number.toString())
+
         requestNovelDetail()
 
         //请求当然章节内容
@@ -120,6 +127,10 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             }
 
             override fun onClickCollect() {
+                if (!MyApplication.isLogin) {
+                    CommonUtils.makeShortToast("请先登录~")
+                    return
+                }
                 if (novelDetailBean == null) {
                     mMvpPresenter.getNovelDetail(chapterBean!!.book_id)
                     return
@@ -232,7 +243,10 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     fun onClick(view: View) {
         when (view.id) {
             R.id.iv_setting -> mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
-            R.id.iv_right_two -> IntentUtil.intentToOriginWebsite(this, chapterBean!!)
+            R.id.iv_right_two -> {
+                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
+//                IntentUtil.intentToOriginWebsite(this, chapterBean!!)
+            }
         }
     }
 
@@ -360,6 +374,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     }
 
     override fun addReadRecord(result: Any) {
+        CommonUtils.makeShortToast("添加阅读记录成功")
     }
 
     override fun getNovelDetail(dataList: List<NovelBean>) {

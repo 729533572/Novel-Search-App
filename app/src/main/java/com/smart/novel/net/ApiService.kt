@@ -109,5 +109,5 @@ interface ApiService {
 
     //获取QQ阅读群
     @GET("customer/qq/group/info")
-    fun getGroupQQ(): Observable<GroupInfo>
+    fun getGroupQQ(): Observable<BaseHttpResponse<GroupInfo>>
 }

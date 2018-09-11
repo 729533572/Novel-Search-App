@@ -13,23 +13,23 @@ public class GroupInfo {
      * name : 小说搜索神器用户群
      */
 
-    private String id;
+    private String key;
     private String name;
 
-    public GroupInfo(String id) {
-        this.id = id;
+    public GroupInfo(String key) {
+        this.key = key;
     }
 
-    public String getId() {
-        return id;
+    public String getKey() {
+        return key == null ? "" : key;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {

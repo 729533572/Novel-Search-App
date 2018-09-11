@@ -34,13 +34,10 @@
                 android:paddingRight="34px">
 
                 <TextView
-                    android:id="@+id/tv_hot_search_txt"
+                    android:id="@+id/tv_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20px"
-                    android:text="邮箱：yulekeji@qingqingshuwu.club
-电话：18516987934
-QQ：872995601"
                     android:textColor="@color/color_333333"
                     android:textSize="13sp" />
             </com.zhy.autolayout.AutoLinearLayout>
