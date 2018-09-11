@@ -162,7 +162,13 @@
 }
 #--------------App定制-------------
 # 保留实体类和成员不被混淆(根据具体情况修改entity的路径)
--keep class com.smart.tvpos.bean.**{*;}
+-keep class com.smart.novel.bean.** { *; }
+-keep class com.smart.novel.db.bean.** { *; }
+#保留mvp中的model 和presenter 解决混淆打包后报：Caused by: java.lang.ClassCastException: java.lang.Object cannot be cast to com.smart.framework.library.base.mvp.BaseModel
+-keep class com.smart.novel.mvp.** { *; }
+-keep class com.smart.novel.net.** { *; }
+-keep class com.smart.framework.library.base.** { *; }
+
 
 #butterknife
 -keep class butterknife.** { *; }
@@ -225,14 +231,13 @@
 -keep class com.zhy.** {*;}
 
 #GreenDao混淆配置
--keep class de.greenrobot.event.** {*;}
--keep class de.greenrobot.** {*;}
-#保持greenDao的方法不被混淆
-#用来保持生成的表名不被混淆
--keepclassmembers class * extends de.greenrobot.dao.AbstractDao {
-    public static java.lang.String TABLENAME;
+#greendao3.2.0,此是针对3.2.0，如果是之前的，可能需要更换下包名
+-keep class org.greenrobot.greendao.**{*;}
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
 }
 -keep class **$Properties
+
 
 #kotlin过滤警告
 -dontwarn kotlin.**

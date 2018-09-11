@@ -4,7 +4,7 @@ import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.framework.library.loading.MultipleStatusView
 import com.smart.novel.bean.WebsiteBean
 import com.smart.novel.mvp.contract.WebsiteContract
-import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
+import com.smart.novel.net.RetrofitRxManager
 
 /**
  * Created by JoJo on 2018/9/6.

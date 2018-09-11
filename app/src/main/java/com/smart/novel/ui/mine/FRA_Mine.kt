@@ -23,10 +23,10 @@ import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.model.BookShelfModel
 import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.net.BaseHttpResponse
+import com.smart.novel.net.RetrofitRxManager
 import com.smart.novel.ui.ACT_Login
 import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.SharePreConstants
-import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.fra_mine.*
 

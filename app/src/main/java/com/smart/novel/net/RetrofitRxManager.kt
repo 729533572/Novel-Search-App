@@ -1,7 +1,5 @@
-package com.zongxueguan.naochanle_android.retrofitrx
-
+package com.smart.novel.net
 import android.content.Context
-import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -10,12 +8,11 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.smart.framework.library.base.mvp.RxSchedulers
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
-import com.smart.framework.library.common.utils.StringUtil
 import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
 import com.smart.novel.global.API
-import com.smart.novel.net.BaseHttpResponse
+import com.zongxueguan.naochanle_android.retrofitrx.ApiService
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.*
@@ -59,7 +56,7 @@ object RetrofitRxManager {
                             .cache(cache)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
-                            .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
+                            .addInterceptor(EloggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
                             .addInterceptor(CacheInterceptor())
                             .addNetworkInterceptor(CacheInterceptor())//必须要有，否则会返回504
                             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -97,7 +94,7 @@ object RetrofitRxManager {
                             .cookieJar(persistentCookieJar)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
-                            .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
+                            .addInterceptor(EloggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
                             .addInterceptor(CacheInterceptor())
                             .addNetworkInterceptor(CacheInterceptor())//必须要有，否则会返回504
                             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -194,11 +191,11 @@ object RetrofitRxManager {
             var response = chain.proceed(request)
             if (NetUtils.isNetworkConnected(MyApplication.context)) {
                 var cacheControl: String = request.cacheControl().toString()
-//                Log.e("Tag", "有网")
+//                Elog.e("Tag", "有网")
                 return response.newBuilder().header("Cache-Control", cacheControl)
                         .removeHeader("Pragma").build() // 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
             } else {
-//                Log.e("Tag", "无网")
+//                Elog.e("Tag", "无网")
                 //无网络时，设置超时为CACHE_STALE_LONG  只对get有用, post没有缓冲
                 return response.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
                         .removeHeader("Pragma").build()
@@ -208,9 +205,9 @@ object RetrofitRxManager {
     }
 
     /**
-     * 自定义log日志打印:http://blog.csdn.net/csdn_lqr/article/details/61420753
+     * 自定义Elog日志打印:http://bElog.csdn.net/csdn_lqr/article/details/61420753
      */
-    class LoggingInterceptor : Interceptor {
+    class EloggingInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain?): Response {
             //这个chain里面包含了request和response，所以你要什么都可以从这里拿
             val request = chain!!.request()
@@ -230,7 +227,7 @@ object RetrofitRxManager {
 
                         }
                     }
-                    Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
+                    Elog.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                             request.url(), chain!!.connection(), jsonObject.toString(), request.method()))
                 } else {
                     val buffer = Buffer()
@@ -238,18 +235,18 @@ object RetrofitRxManager {
                     if (requestBody != null) {
                         request.body()!!.writeTo(buffer)
                         val body = buffer.readUtf8()
-                        Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
+                        Elog.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                                 request.url(), chain!!.connection(), body, request.method()))
                     }
                 }
             } else {
-                Log.e("request", String.format("发送请求 %s on %s%nMethod:%s",
+                Elog.e("request", String.format("发送请求 %s on %s%nMethod:%s",
                         request.url(), chain!!.connection(), request.method()))
             }
             val response = chain!!.proceed(request)
             val t2 = System.nanoTime()//收到响应的时间
             val responseBody = response.peekBody((1024 * 1024).toLong())
-            Log.e("request",
+            Elog.e("request",
                     String.format("Retrofit接收响应： %s %n返回json:%s %n耗时：%.1fms %nCode:%s",
                             response.request().url(),
                             responseBody.string(),
@@ -263,23 +260,23 @@ object RetrofitRxManager {
     /**
      * 该拦截器用于记录应用中的网络请求的信息
      */
-    fun getHttpLogingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+    fun getHttpElogingInterceptor(): HttpLoggingInterceptor {
+        val httpEloggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
             //包含所有的请求信息
             //如果收到响应是json才打印
             if ("{" == message || "[" == message) {
-                Log.d("TAG", "收到响应: " + message)
+                Elog.d("TAG", "收到响应: " + message)
             }
-            Log.d("TAG", "message=" + message)
+            Elog.d("TAG", "message=" + message)
         })
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return httpLoggingInterceptor
+        httpEloggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return httpEloggingInterceptor
     }
 
     private val BASE_URL_OTHER = "http://wthrcdn.etouch.cn/"
 
     /**
-     *  添加可以处理多个Baseurl的拦截器：http://blog.csdn.net/qq_36707431/article/details/77680252
+     *  添加可以处理多个Baseurl的拦截器：http://bElog.csdn.net/qq_36707431/article/details/77680252
      * Retrofit(OKHttp)多BaseUrl情况下url实时自动替换完美解决方法:https://www.2cto.com/kf/201708/663977.html
      */
     class MutiBaseUrlInterceptor : Interceptor {
@@ -315,7 +312,7 @@ object RetrofitRxManager {
                         .build()
                 //重建这个request，通过builder.url(newFullUrl).build()；
                 // 然后返回一个response至此结束修改
-                Log.e("Url", "intercept: " + newFullUrl.toString())
+                Elog.e("Url", "intercept: " + newFullUrl.toString())
                 return chain!!.proceed(builder.url(newFullUrl).build())
             }
             return chain!!.proceed(request)
@@ -349,7 +346,7 @@ object RetrofitRxManager {
                             observerListener.onSuccess(result.data)
                         } else {
                             var errorBean = ErrorBean()
-                            errorBean.code = StringUtil.getString(result.status)
+                            errorBean.code = result.status.toString()
                             errorBean.msg = result.msg
                             observerListener.onBusinessError(errorBean)
                         }

@@ -3,7 +3,7 @@ package com.smart.novel.mvp.presenter
 import com.smart.framework.library.base.mvp.RxObserverListener
 import com.smart.novel.bean.UserBean
 import com.smart.novel.mvp.contract.LoginContract
-import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
+import com.smart.novel.net.RetrofitRxManager
 
 /**
  * Created by JoJo on 2018/8/31.

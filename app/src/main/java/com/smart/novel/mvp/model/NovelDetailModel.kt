@@ -4,7 +4,7 @@ import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.net.BaseHttpResponse
-import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
+import com.smart.novel.net.RetrofitRxManager
 import io.reactivex.Observable
 
 /**
