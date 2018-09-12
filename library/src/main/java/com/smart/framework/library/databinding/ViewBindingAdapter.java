@@ -3,7 +3,6 @@ package com.smart.framework.library.databinding;
 import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,10 +40,11 @@ public class ViewBindingAdapter {
     @BindingAdapter("bind:category")
     public static void setCategoryText(TextView tv, String text) {
         if (!TextUtils.isEmpty(text)) {
-            tv.setVisibility(View.VISIBLE);
+//            tv.setVisibility(View.VISIBLE);
             tv.setText(text);
         } else {
-            tv.setVisibility(View.GONE);
+//            tv.setVisibility(View.GONE);
+            tv.setText("其他小说");
         }
     }
 

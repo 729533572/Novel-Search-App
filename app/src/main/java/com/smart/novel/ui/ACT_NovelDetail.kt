@@ -65,8 +65,8 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         ivLeft.visibility = View.VISIBLE
         tvTile.setText(novelBean!!.name_cn)
 
-        //展示小说详情信息
-        (viewDataBinding as ActNovelDetailBinding).novelBean = novelBean
+        //展示小说详情信息 要求从接口获取
+//        (viewDataBinding as ActNovelDetailBinding).novelBean = novelBean
 
         //分享弹窗
         mShareDialog = DIA_Share(this)
@@ -234,6 +234,11 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     override fun getNovelDetail(dataList: List<NovelBean>) {
         val bean = dataList!!.get(0)
         novelDetailBean = bean
+        if(bean==null) return
+
+        //展示小说详情信息
+        (viewDataBinding as ActNovelDetailBinding).novelBean = bean
+
         //设置是否收藏的状态
         btn_collect.isSelected = !TextUtils.isEmpty(bean.like)//like-是否已收藏
         //章节总数
