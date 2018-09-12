@@ -26,7 +26,7 @@ public class RankTitleView extends LinearLayout {
     private Context mContext;
     private ADA_RankingTitle mAdapter;
     private List<RankTitleBean> datas = new ArrayList<>();
-    private String[] titles = {"搜索榜", "阅读榜", "新书榜", "女生榜", "男生榜"};
+    private String[] titles = {"热搜榜", "阅读榜", "新书榜", "女生榜", "男生榜"};
 
     public RankTitleView(Context context) {
         this(context, null);

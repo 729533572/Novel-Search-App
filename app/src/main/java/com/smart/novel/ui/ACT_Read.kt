@@ -75,10 +75,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         setHeaderTitle(chapterBean!!.name_cn)
         mDiaSetting = DIA_ReadSetting(this)
 
-        //添加本地阅读记录
-        DbManager.getInstance().insertOrReplace(ChapterBean::class.java,chapterBean)
-        //阅读记录上传服务器
-        mMvpPresenter.addReadRecord(chapterBean!!.book_id.toString(), chapterBean!!.chapter_name, chapterBean!!.chapter_number.toString())
+//        //添加本地阅读记录
+//        DbManager.getInstance().insertOrReplace(ChapterBean::class.java,chapterBean)
+//        //阅读记录上传服务器
+//        mMvpPresenter.addReadRecord(chapterBean!!.book_id.toString(), chapterBean!!.chapter_name, chapterBean!!.chapter_number.toString())
+        //添加阅读记录
+        uploadReadRecord()
 
         requestNovelDetail()
 
@@ -101,12 +103,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             }
 
             override fun onScrollRight() {
-                readView.PageUp()
+                readView.PageDn()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
             override fun onScrollLeft() {
-                readView.PageDn()
+                readView.PageUp()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
@@ -326,6 +328,9 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         //切换上下章节设置内容时，从第一页开始，而非当前页开始
         readView.init()
         readView.mCurrentPage = 1
+
+        //切换章节，重新添加阅读记录
+        uploadReadRecord()
     }
 
     /**
@@ -344,6 +349,26 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         //切换上下章节设置内容时，从第一页开始，而非当前页开始
         readView.init()
         readView.mCurrentPage = 1
+
+        //切换章节，重新添加阅读记录
+        uploadReadRecord()
+    }
+
+    /**
+     * 进入章节阅读、切换章节，添加阅读记录
+     */
+    private fun uploadReadRecord() {
+        //添加本地阅读记录
+        addLocalCache()
+        //阅读记录上传服务器
+        if (MyApplication.isLogin) mMvpPresenter.addReadRecord(chapterBean!!.book_id.toString(), chapterBean!!.chapter_name, chapterBean!!.chapter_number.toString())
+    }
+
+    /**
+     * 添加本地阅读记录
+     */
+    private fun addLocalCache() {
+        DbManager.getInstance().insertOrReplace(ChapterBean::class.java, chapterBean)
     }
 
     override fun showException(error: ErrorBean?) {

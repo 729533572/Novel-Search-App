@@ -16,7 +16,7 @@ import com.smart.novel.adapter.ADA_SearchHistory
 import com.smart.novel.adapter.ADA_SearchList
 import com.smart.novel.bean.HotSearchBean
 import com.smart.novel.bean.NovelBean
-import com.smart.novel.db.bean.SearchHistoryBean
+import com.smart.novel.bean.SearchHistoryBean
 import com.smart.novel.db.manager.DbManager
 import com.smart.novel.mvp.contract.SearchContract
 import com.smart.novel.mvp.model.SearchModel
@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.layout_common_recyclview.*
 import kotlinx.android.synthetic.main.layout_search_no_result.*
 import kotlinx.android.synthetic.main.layout_search_no_result_header.*
 import kotlinx.android.synthetic.main.layout_search_title.*
+import java.util.*
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -189,6 +190,16 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
         var history = SearchHistoryBean()
         if (!TextUtils.isEmpty(et_search_keywords.text.toString())) {
             history.searchKeyWords = et_search_keywords.text.toString()
+
+            val localList = DbManager.getInstance().queryAll(SearchHistoryBean::class.java) as ArrayList<SearchHistoryBean>
+            //如果搜索名称一样，就不重复添加搜索记录,倒序排列
+            for (i in 0..localList.size - 1){
+                val historyBean = localList.get(i)
+                if (history.searchKeyWords.equals(localList.get(i).searchKeyWords)){
+                    DbManager.getInstance().delete(SearchHistoryBean::class.java,historyBean)
+                    break
+                }
+            }
             DbManager.getInstance().insertOrReplace(SearchHistoryBean::class.java, history)
         }
     }
@@ -198,6 +209,8 @@ class FRA_Search : BaseMVPFragment<SearchPresenter, SearchModel>(), SearchContra
      */
     private fun refreshSearchHistory() {
         mSearchHistoryList = (DbManager.getInstance().queryAll(SearchHistoryBean::class.java) as ArrayList<SearchHistoryBean>)
+        //时间倒序
+        Collections.reverse(mSearchHistoryList)
         mSearchHistoryAdapyer!!.update(mSearchHistoryList!!, true)
     }
 

@@ -1,4 +1,4 @@
-package com.smart.novel.db.bean;
+package com.smart.novel.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

@@ -5,7 +5,7 @@ import android.view.View
 import com.smart.framework.library.adapter.lv.normal.CommonAdapterListView
 import com.smart.framework.library.adapter.lv.normal.ViewHolderListView
 import com.smart.novel.R
-import com.smart.novel.db.bean.SearchHistoryBean
+import com.smart.novel.bean.SearchHistoryBean
 
 /**
  * Created by JoJo on 2018/8/28.

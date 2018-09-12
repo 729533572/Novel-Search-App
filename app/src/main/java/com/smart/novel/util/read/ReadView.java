@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,7 +23,7 @@ import com.smart.novel.util.read.modle.ChapterModel;
 import com.smart.novel.util.read.modle.LineModel;
 import com.smart.novel.util.read.modle.PageModel;
 
-public class ReadView extends View {
+public class ReadView extends View implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
     private Context mContext;
     int lineNum = 1;
     int lineHeight = 8;
@@ -40,6 +41,11 @@ public class ReadView extends View {
     //    private Bitmap bitmap;
     private Matrix matrix;
     public int mCurrentPage = 1;
+    //手势识别
+    private final String TAG = "Readiew";
+    private static final int MIN_OFFSET_VALUE = 20;
+    private GestureDetector mGestureDetector;
+    private DirectionControlView.DirectionControlListener mDirectionControlListener;
 
 
     public ReadView(Context context) {
@@ -57,6 +63,12 @@ public class ReadView extends View {
         this.mContext = context;
         initCustomAttrs(context, attrs);
         init();
+        initGestureDetector();
+    }
+
+    private void initGestureDetector() {
+        mGestureDetector = new GestureDetector(this);
+        mGestureDetector.setOnDoubleTapListener(this);
     }
 
     /**
@@ -99,7 +111,7 @@ public class ReadView extends View {
     }
 
     public void PageUp() {
-        if(chapterModel.getPageModels()==null) {
+        if (chapterModel.getPageModels() == null) {
             return;
         }
         if (chapterModel.getIndex() + 1 < chapterModel.getPageModels().size()) {
@@ -110,7 +122,7 @@ public class ReadView extends View {
     }
 
     public void PageDn() {
-        if(chapterModel.getPageModels()==null) {
+        if (chapterModel.getPageModels() == null) {
             return;
         }
         if (chapterModel.getIndex() - 1 >= 0) {
@@ -247,16 +259,12 @@ public class ReadView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 downX = event.getX();
-                int index = 0;
                 //点击屏幕左边，上一页
                 if (downX < viewWidth / 2) {
-                    index = 0;
-                    listener.onScrollLeft();
-                } else {
-                    index = 1;
                     listener.onScrollRight();
+                } else {
+                    listener.onScrollLeft();
                 }
-
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -268,6 +276,125 @@ public class ReadView extends View {
                 return true;
         }
         return super.onTouchEvent(event);
+    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        return mGestureDetector.onTouchEvent(event);
+//    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+
+        Log.i(TAG, "onDown");
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+        Log.i(TAG, "onShowPress");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        Log.i(TAG, "onSingleTapUp");
+
+        if (mDirectionControlListener != null) {//单击事件
+            mDirectionControlListener.singleClick();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        Log.i(TAG, "onScroll");
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+        Log.i(TAG, "onLongPress");
+
+        if (mDirectionControlListener != null) {//长按点击事件
+            mDirectionControlListener.longClick();
+        }
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        Log.i(TAG, "onFling");
+
+        float offsetX = e1.getX() - e2.getX();//X方向偏移量
+        float offsetY = e1.getY() - e2.getY();//Y方向偏移量
+
+        if (Math.abs(offsetX) > Math.abs(offsetY)) {//左滑或者右滑
+            if (e1.getX() - e2.getX() > MIN_OFFSET_VALUE) {
+                if (listener != null) {//左滑
+                    listener.onScrollLeft();
+//                    CommonUtils.makeShortToast("左滑");
+                    invalidate();
+                }
+            } else {
+                if (listener != null) {//右滑
+                    listener.onScrollRight();
+//                    CommonUtils.makeShortToast("右滑");
+                    invalidate();
+                }
+            }
+        } else {//上滑或者下滑
+            if (e1.getY() - e2.getY() > MIN_OFFSET_VALUE) {
+                if (mDirectionControlListener != null) {//上滑
+                    mDirectionControlListener.upSlide();
+                    invalidate();
+                }
+            } else {
+                if (mDirectionControlListener != null) {//下滑
+                    mDirectionControlListener.downSlide();
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+        Log.i(TAG, "onSingleTapConfirmed");
+        return false;
+    }
+
+    @Override
+    public boolean onDoubleTap(MotionEvent motionEvent) {
+        Log.i(TAG, "onDoubleTap");
+
+        if (mDirectionControlListener != null) {//双击事件
+            mDirectionControlListener.doubleClick();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTapEvent(MotionEvent motionEvent) {
+        Log.i(TAG, "onDoubleTapEvent");
+        return false;
+    }
+
+    public interface DirectionControlListener {
+        void singleClick();
+
+        void longClick();
+
+        void doubleClick();
+
+        void leftSlide();
+
+        void rightSlide();
+
+        void upSlide();
+
+        void downSlide();
+    }
+
+    public void setControlStateListener(DirectionControlView.DirectionControlListener listener) {
+        mDirectionControlListener = listener;
     }
 
     //获得接口对象的方法。

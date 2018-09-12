@@ -22,6 +22,7 @@ import com.smart.novel.adapter.ADA_ReadHistory
 import com.smart.novel.adapter.ADA_ReadHistoryNodataBinding
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
+import com.smart.novel.db.manager.DbManager
 import com.smart.novel.dialog.DialogUtils
 import com.smart.novel.mvp.contract.BookShelfContract
 import com.smart.novel.mvp.model.BookShelfModel
@@ -31,6 +32,7 @@ import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.RecyclerViewHelper
 import kotlinx.android.synthetic.main.fra_bookshelf.*
 import kotlinx.android.synthetic.main.layout_common_recyclview.*
+import java.util.*
 
 /**
  * Created by JoJo on 2018/8/23.
@@ -72,13 +74,20 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         return R.layout.fra_bookshelf
     }
 
+    override fun onFirstUserVisible() {
+    }
+
+    override fun onUserVisible() {
+        loadData()
+    }
+
     override fun startEvents() {
 //        var actHome = activity as ACT_Home
 //        actHome.lightModeStatusBar()
         tvRight.visibility = View.VISIBLE
         initRecyclerView()
 
-        requestData(TYPE_READ, true)
+        if (MyApplication.isLogin) requestData(TYPE_READ, true) else loadLocalList()
 
         initListener()
     }
@@ -136,6 +145,13 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 Elog.e("TAG", "deletePos=" + deletePos)
                 DialogUtils.showConfirmDialog(activity, "书架", "确定要移除吗?", object : DialogUtils.OnConfirmListener {
                     override fun onDialogConfirm() {
+                        //未登录，删除本地记录
+                        if (!MyApplication.isLogin) {
+                            DbManager.getInstance().deleteByKey(ChapterBean::class.java, bean.book_id.toLong())
+
+                            loadLocalList()
+                            return
+                        }
                         if (bean.type.equals(TYPE_READ)) mMvpPresenter.deleteReadRecord(bean.book_id) else mMvpPresenter.deleteCollect(bean.book_id)
                     }
                 })
@@ -149,9 +165,20 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     override fun onRefresh() {
 //        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
 //        Elog.e("type", requestType).
+        loadData()
+    }
+
+    /**
+     * 未登录：加载本地记录，登录：请求网络
+     */
+    private fun loadData() {
+        if (!MyApplication.isLogin) {
+            loadLocalList()
+        }
         isRefreshing = true
         if (!NetUtils.isNetworkConnected()) {
             CommonUtils.makeShortToast(MyApplication.context.getString(R.string.network_error))
+            recyclerview.refreshComplete(1)
         } else {
             mCurrentPage = 1
             requestData(requestType, false)
@@ -214,12 +241,6 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
         }
     }
 
-    override fun onFirstUserVisible() {
-    }
-
-    override fun onUserVisible() {
-    }
-
     override fun onUserInvisible() {
     }
 
@@ -229,25 +250,36 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
 
     override fun showBusinessError(error: ErrorBean?) {
         //本地阅读记录
-//        if (requestType.equals(TYPE_READ)) {
-//            val localList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
-//            if (localList == null || localList.size == 0) {
-//                showEmpty()
-//                return
-//            }
-//            var mLocalList = ArrayList<NovelBean>()
-//            for (i in 0..localList.size - 1) {
-//                val chapterBean = localList.get(i)
-//                var novelBean = NovelBean(chapterBean.book_id, chapterBean.name_cn, chapterBean.covor_url, "read", chapterBean.origin_website, chapterBean.chapter_url, chapterBean.chapter_number.toString(), chapterBean.chapter_name)
-//                Elog.e("TAG", "yyy=" + novelBean.name_cn)
-//                mLocalList.add(novelBean)
-//            }
-//            multipleStatusView.showContent()
-//            mAdapter!!.update(mLocalList, true)
-//        } else {
-//            multipleStatusView.showError()
-//        }
-        showEmpty()
+        loadLocalList()
+//        showEmpty()
+    }
+
+    /**
+     * 未登录，从本地取阅读记录
+     */
+    private fun loadLocalList() {
+        if (requestType.equals(TYPE_READ)) {
+            val localList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
+            if (localList == null || localList.size == 0) {
+                showEmpty()
+                return
+            }
+            var mLocalList = ArrayList<NovelBean>()
+            for (i in 0..localList.size - 1) {
+                val chapterBean = localList.get(i)
+                var novelBean = NovelBean(chapterBean.book_id, chapterBean.name_cn, chapterBean.covor_url, "read", chapterBean.origin_website, chapterBean.chapter_url, chapterBean.chapter_number.toString(), chapterBean.chapter_name)
+                Elog.e("TAG", "yyy=" + novelBean.name_cn)
+                novelBean.isEdit = isEdit
+                mLocalList.add(novelBean)
+            }
+            multipleStatusView.showContent()
+            //时间倒序
+            Collections.reverse(mLocalList)
+            mAdapter!!.update(mLocalList, true)
+        } else {
+            multipleStatusView.showError()
+        }
+        recyclerview.refreshComplete(1)
     }
 
     override fun showException(error: ErrorBean?) {

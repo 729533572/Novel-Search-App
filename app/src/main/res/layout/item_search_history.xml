@@ -5,7 +5,7 @@
 
         <variable
             name="searchHistory"
-            type="com.smart.novel.db.bean.SearchHistoryBean"></variable>
+            type="com.smart.novel.bean.SearchHistoryBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout
