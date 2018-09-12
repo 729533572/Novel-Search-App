@@ -1,11 +1,13 @@
 package com.smart.novel.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -257,6 +259,25 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新")
             }
         }
-    }
 
+        tv_comment.setText(bean.comment)
+
+        tv_comment.getViewTreeObserver().addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+            override fun onGlobalLayout() {
+                tv_comment.replaceTips()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    tv_comment.getViewTreeObserver()
+                            .removeOnGlobalLayoutListener(this);
+                } else {
+                    tv_comment.getViewTreeObserver()
+                            .removeGlobalOnLayoutListener(this);
+                }
+            }
+        })
+        tv_comment.setOnCustomLinkClickListener {
+            tv_comment.setText(bean.comment)
+            tv_comment.setMaxLines(Integer.MAX_VALUE)
+            tv_comment.requestLayout()
+        }
+    }
 }

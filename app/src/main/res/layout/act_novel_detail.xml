@@ -120,14 +120,15 @@
                         </com.zhy.autolayout.AutoLinearLayout>
                     </com.zhy.autolayout.AutoLinearLayout>
                     <!--小说详情描述内容-查看更多-->
-                    <TextView
+                    <com.smart.novel.wights.OverTextView
+                        android:id="@+id/tv_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_cover"
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="22px"
                         android:layout_marginTop="10px"
-                        android:text="@{novelBean.comment}"
+                        android:maxLines="3"
                         android:textColor="@color/color_999999"
                         android:textSize="12sp" />
                 </com.zhy.autolayout.AutoRelativeLayout>
