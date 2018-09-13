@@ -14,6 +14,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.AppDateUtil
 import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.novel.MyApplication
@@ -133,9 +134,10 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             }
 
         })
+
     }
 
-    @OnClick(R.id.btn_collect, R.id.btn_share, R.id.btn_all_chapters, R.id.btn_read)
+    @OnClick(R.id.btn_collect, R.id.btn_share, R.id.btn_all_chapters, R.id.btn_read, R.id.iv_arrow_down)
     fun onClick(view: View) {
         when (view.id) {
             R.id.btn_collect -> {
@@ -165,7 +167,12 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 }
                 IntentUtil.intentToReadNovel(this@ACT_NovelDetail, dataRealShow.get(0))
             }
-
+            R.id.iv_arrow_down -> {
+                iv_arrow_down.visibility = View.GONE
+                tv_comment.setText(novelDetailBean!!.comment)
+                tv_comment.setMaxLines(Integer.MAX_VALUE)
+                tv_comment.requestLayout()
+            }
         }
     }
 
@@ -236,7 +243,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     override fun getNovelDetail(dataList: List<NovelBean>) {
         val bean = dataList!!.get(0)
         novelDetailBean = bean
-        if(bean==null) return
+        if (bean == null) return
 
         //展示小说详情信息
         (viewDataBinding as ActNovelDetailBinding).novelBean = bean
@@ -259,10 +266,9 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新")
             }
         }
-
-        tv_comment.setText(bean.comment)
-
-        tv_comment.getViewTreeObserver().addOnGlobalLayoutListener(object :ViewTreeObserver.OnGlobalLayoutListener{
+        if (!TextUtils.isEmpty(bean.comment)) tv_comment.setText(bean.comment) else tv_comment.setText("暂无简介")
+//        //超过固定行数，展示....
+        tv_comment.getViewTreeObserver().addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 tv_comment.replaceTips()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -274,10 +280,17 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
                 }
             }
         })
-        tv_comment.setOnCustomLinkClickListener {
-            tv_comment.setText(bean.comment)
-            tv_comment.setMaxLines(Integer.MAX_VALUE)
-            tv_comment.requestLayout()
-        }
+        tv_comment.getViewTreeObserver().addOnPreDrawListener((object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                //这个回调会调用多次，获取完行数记得注销监听
+                tv_comment.getViewTreeObserver().removeOnPreDrawListener(this);
+
+                Elog.e("TAG", "TextView 行数：" + tv_comment.getLineCount())
+                if (tv_comment.getLineCount() != 0) iv_arrow_down.visibility = View.GONE
+                return false
+            }
+
+        }))
+
     }
 }

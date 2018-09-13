@@ -86,24 +86,24 @@ public class OverTextView extends TextView {
         ClickableSpan[] link = buffer.getSpans(off, off, ClickableSpan.class);
 
         if (link.length != 0) {
-            if (action == MotionEvent.ACTION_DOWN) {
-                mStart = buffer.getSpanStart(link[0]);
-                mEnd = buffer.getSpanEnd(link[0]);
-                if (mStart >= 0 && mEnd >= mStart) {
-                    buffer.setSpan(new BackgroundColorSpan(getBackColor()),
-                            mStart, mEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            } else if (action == MotionEvent.ACTION_UP
-                    || action == MotionEvent.ACTION_CANCEL) {
-
-                if (mStart >= 0 && mEnd >= mStart) {
-                    buffer.setSpan(new BackgroundColorSpan(Color.TRANSPARENT),
-                            mStart, mEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                    mStart = -1;
-                    mEnd = -1;
-                }
-            }
+//            if (action == MotionEvent.ACTION_DOWN) {
+//                mStart = buffer.getSpanStart(link[0]);
+//                mEnd = buffer.getSpanEnd(link[0]);
+//                if (mStart >= 0 && mEnd >= mStart) {
+//                    buffer.setSpan(new BackgroundColorSpan(getBackColor()),
+//                            mStart, mEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                }
+//            } else if (action == MotionEvent.ACTION_UP
+//                    || action == MotionEvent.ACTION_CANCEL) {
+//
+//                if (mStart >= 0 && mEnd >= mStart) {
+//                    buffer.setSpan(new BackgroundColorSpan(Color.TRANSPARENT),
+//                            mStart, mEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//                    mStart = -1;
+//                    mEnd = -1;
+//                }
+//            }
 
             return true;
         } else {
@@ -183,10 +183,10 @@ public class OverTextView extends TextView {
             /**
              * 多截取几个，避免显示不统一（有些文本时，提示文本可能会显示不全）
              */
-            String sl="……";//此省略号为中文的。
+            String sl="…";//此省略号为中文的。
             String willText = getText().toString()
                     .substring(0, index-sl.length());
-            willText = willText +"… "+ tips;
+            willText = willText +"……"+ tips;
             SpannableStringBuilder s = new SpannableStringBuilder(willText);
             SpannableString style = new SpannableString(s);
             // style.setSpan(new ForegroundColorSpan(Color.BLUE),
@@ -288,7 +288,7 @@ public class OverTextView extends TextView {
         @Override
         public void updateDrawState(TextPaint ds) {
             ds.setUnderlineText(false);
-            ds.setColor(ContextCompat.getColor(mContext, R.color.color_3AC270));
+            ds.setColor(ContextCompat.getColor(mContext, R.color.color_00000000));
         }
     }
 

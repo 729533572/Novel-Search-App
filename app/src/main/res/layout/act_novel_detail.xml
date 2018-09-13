@@ -101,9 +101,9 @@
                                 android:paddingLeft="24px"
                                 android:paddingRight="24px"
                                 android:paddingTop="6px"
-                                bind:category="@{novelBean.category}"
                                 android:textColor="@color/color_F1B52F"
-                                android:textSize="10sp" />
+                                android:textSize="10sp"
+                                bind:category="@{novelBean.category}" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -119,18 +119,36 @@
                                 bind:isFinished="@{novelBean.is_finished}" />
                         </com.zhy.autolayout.AutoLinearLayout>
                     </com.zhy.autolayout.AutoLinearLayout>
-                    <!--小说详情描述内容-查看更多-->
-                    <com.smart.novel.wights.OverTextView
-                        android:id="@+id/tv_comment"
+
+                    <com.zhy.autolayout.AutoRelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/iv_cover"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="22px"
-                        android:layout_marginTop="10px"
-                        android:maxLines="3"
-                        android:textColor="@color/color_999999"
-                        android:textSize="12sp" />
+                        android:layout_below="@+id/iv_cover">
+                        <!--小说详情描述内容-查看更多-->
+                        <com.smart.novel.wights.OverTextView
+                            android:id="@+id/tv_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/iv_cover"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="22px"
+                            android:layout_marginTop="10px"
+                            android:lines="3"
+                            android:textColor="@color/color_999999"
+                            android:textSize="12sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_arrow_down"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/tv_comment"
+                            android:layout_alignRight="@+id/tv_comment"
+                            android:paddingLeft="10px"
+                            android:paddingTop="10px"
+                            android:paddingRight="10px"
+                            android:src="@drawable/ic_btn_down_open" />
+                    </com.zhy.autolayout.AutoRelativeLayout>
+
                 </com.zhy.autolayout.AutoRelativeLayout>
 
                 <include layout="@layout/layout_wide_10_divider_f7f7f7"></include>
