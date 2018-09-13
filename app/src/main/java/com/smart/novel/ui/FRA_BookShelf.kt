@@ -188,6 +188,10 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
     override fun onLoadMore() {
 //        Handler().postDelayed({ recyclerview.setNoMore(true) }, 2000)
 //        Elog.e("type", requestType)
+        if (!MyApplication.isLogin) {
+            recyclerview.setNoMore(true)
+            return
+        }
         isRefreshing = false
         if (!NetUtils.isNetworkConnected()) {
             CommonUtils.makeShortToast(MyApplication.context.getString(R.string.network_error))

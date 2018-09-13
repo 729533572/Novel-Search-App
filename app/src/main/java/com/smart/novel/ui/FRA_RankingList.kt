@@ -57,7 +57,7 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
         recyclerview.setLoadMoreEnabled(false)
 //        recyclerview.setOnLoadMoreListener(this)
 
-        requestData(requestType)
+        requestData(requestType,true)
 
         initListener()
     }
@@ -75,7 +75,7 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
                 3 -> requestType = "female"
                 4 -> requestType = "man"
             }
-            requestData(requestType)
+            requestData(requestType,true)
         }
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
@@ -96,12 +96,12 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
     /**
      * 刷新数据
      */
-    private fun requestData(requestType: String) {
-        mMvpPresenter.getRankList(multipleStatusView, requestType)
+    private fun requestData(requestType: String, isShowLoading: Boolean) {
+        if(isShowLoading) mMvpPresenter.getRankList(multipleStatusView, requestType) else mMvpPresenter.getRankList(null, requestType)
     }
 
     override fun onRefresh() {
-        requestData(requestType)
+        requestData(requestType,false)
 //        Handler().postDelayed({ recyclerview.refreshComplete(1) }, 2000)
     }
 
@@ -134,7 +134,10 @@ class FRA_RankingList : BaseMVPFragment<RankingPresenter, RankingModel>(), Ranki
     }
 
     override fun getRankList(dataList: List<NovelBean>) {
-        mAdapter!!.update(dataList!!, true)
+        dataList?.let {
+            mAdapter!!.update(it, true)
+        }
+        recyclerview.refreshComplete(1)
     }
 
     fun tabCheck() {

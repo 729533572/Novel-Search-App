@@ -13,11 +13,15 @@ import com.smart.novel.net.RetrofitRxManager
  */
 
 class RankingPresenter : RankingContract.Presenter() {
-    override fun getRankList(multipleStatusView: MultipleStatusView, type: String) {
-        multipleStatusView.showLoading()
+    override fun getRankList(multipleStatusView: MultipleStatusView?, type: String) {
+        multipleStatusView?.let {
+            it.showLoading()
+        }
         rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getRankList(type), object : RxObserverListener<List<NovelBean>>(mView) {
             override fun onSuccess(result: List<NovelBean>) {
-                multipleStatusView.showContent()
+                multipleStatusView?.let {
+                    it.showContent()
+                }
                 mView.getRankList(result)
             }
         }))

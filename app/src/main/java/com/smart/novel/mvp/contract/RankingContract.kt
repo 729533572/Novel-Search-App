@@ -23,6 +23,6 @@ class RankingContract {
     }
 
     abstract class Presenter : BasePresenter<View, Model>() {
-        abstract fun getRankList(multipleStatusView: MultipleStatusView, type: String)
+        abstract fun getRankList(multipleStatusView: MultipleStatusView?, type: String)
     }
 }
