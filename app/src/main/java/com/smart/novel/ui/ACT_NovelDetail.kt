@@ -24,6 +24,7 @@ import com.smart.novel.base.BaseMVPActivity
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ActNovelDetailBinding
+import com.smart.novel.db.manager.DbManager
 import com.smart.novel.dialog.DIA_Share
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
@@ -37,6 +38,7 @@ import com.umeng.socialize.UMShareAPI
 import com.umeng.socialize.bean.SHARE_MEDIA
 import kotlinx.android.synthetic.main.act_novel_detail.*
 import kotlinx.android.synthetic.main.layout_novel_detail_footer.*
+import java.util.*
 
 /**
  * Created by JoJo on 2018/9/2.
@@ -74,7 +76,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //分享弹窗
         mShareDialog = DIA_Share(this)
 
-        mAdapter = ADA_ChapterList(this)
+        mAdapter = ADA_ChapterList(this, true)
 
         val layoutManager = object : LinearLayoutManager(this) {
             override fun canScrollVertically(): Boolean {
@@ -142,7 +144,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         when (view.id) {
             R.id.btn_collect -> {
                 if (!MyApplication.isLogin) {
-                    CommonUtils.makeShortToast("请先登录~")
+                    readyGo(ACT_Login::class.java)
                     return
                 }
                 if (btn_collect.isSelected) {
@@ -159,13 +161,31 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             R.id.btn_all_chapters -> {
                 IntentUtil.intentToAllChapters(this, FROM, novelBean!!.book_id, total_size)
             }
+        //优化阅读:有阅读过，取最近阅读的章节，没有阅读过，取第一章节
             R.id.btn_read -> {
-                if (dataRealShow.size == 0) {
-//                mMvpPresenter.addReadRecord(dataRealShow.get(0).book_id.toString(), dataRealShow.get(0).chapter_name, dataRealShow.get(0).chapter_number.toString())
+                val localChapterList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
+                if (localChapterList == null || localChapterList.size == 0 || dataRealShow.size == 0) {
                     CommonUtils.makeShortToast("没有可读的章节~")
                     return
                 }
-                IntentUtil.intentToReadNovel(this@ACT_NovelDetail, dataRealShow.get(0))
+                Collections.reverse(localChapterList)
+                var localReadBean: ChapterBean? = null
+                var firstChapter: ChapterBean? = null
+                for (i in 0..localChapterList.size - 1) {
+                    novelBean?.let {
+                        if (novelBean!!.book_id.equals(localChapterList.get(i).book_id)) {
+                            localReadBean = localChapterList.get(i)
+                            return@let
+                        }
+                    }
+                }
+                if (dataRealShow.get(0).latest) {
+                    if (dataRealShow.size > 1) firstChapter = dataRealShow.get(1)
+                } else {
+                    firstChapter = dataRealShow.get(0)
+                }
+
+                if (localReadBean != null) IntentUtil.intentToReadNovel(this@ACT_NovelDetail, localReadBean!!) else IntentUtil.intentToReadNovel(this@ACT_NovelDetail, firstChapter!!)
             }
             R.id.iv_arrow_down -> {
                 iv_arrow_down.visibility = View.GONE
@@ -261,9 +281,9 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
             val minute = splitTime[1]
             val hourTime = Integer.parseInt(hour)
             if (hourTime < 24) {
-                tv_date.setText(hour + "小时" + minute + "分前更新")
+                tv_date.setText(hour + "小时" + minute + "分 前更新")
             } else {
-                tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新")
+                tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + " 更新")
             }
         }
         if (!TextUtils.isEmpty(bean.comment)) tv_comment.setText(bean.comment) else tv_comment.setText("暂无简介")

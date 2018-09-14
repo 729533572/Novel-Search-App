@@ -388,18 +388,18 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
     override fun doCollect(result: Any) {
         mDiaSetting!!.setCollectStatus(true)
-        CommonUtils.makeShortToast("添加收藏成功")
+        CommonUtils.makeShortToast("收藏成功")
         requestNovelDetail()
     }
 
     override fun deleteCollect(result: Any) {
         mDiaSetting!!.setCollectStatus(false)
-        CommonUtils.makeShortToast("删除收藏成功")
+        CommonUtils.makeShortToast("取消收藏成功")
         requestNovelDetail()
     }
 
     override fun addReadRecord(result: Any) {
-        CommonUtils.makeShortToast("添加阅读记录成功")
+//        CommonUtils.makeShortToast("添加阅读记录成功")
     }
 
     override fun getNovelDetail(dataList: List<NovelBean>) {

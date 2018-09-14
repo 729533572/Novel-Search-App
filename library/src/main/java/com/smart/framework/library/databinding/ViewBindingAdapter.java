@@ -68,9 +68,9 @@ public class ViewBindingAdapter {
             String minute = splitTime[1];
             int hourTime = Integer.parseInt(hour);
             if (hourTime < 24) {
-                tv.setText(hour + "小时" + minute + "分前更新");
+                tv.setText(hour + "小时" + minute + "分_前更新");
             } else {
-                tv.setText(AppDateUtil.getTimeStamp(Long.parseLong(timesec), AppDateUtil.YYYY_MM_DD_HH_MM1) + "更新");
+                tv.setText(AppDateUtil.getTimeStamp(Long.parseLong(timesec), AppDateUtil.YYYY_MM_DD_HH_MM1) + "_更新");
             }
         }
     }

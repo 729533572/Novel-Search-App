@@ -12,11 +12,19 @@ import com.smart.novel.databinding.ItemNovelChapterBinding
 wechat：18510829974
 description：章节列表适配器
  */
-class ADA_ChapterList constructor(context: Context) : CommonAdapter<ChapterBean, ItemNovelChapterBinding>(context) {
+class ADA_ChapterList constructor(context: Context, isShowLatest: Boolean) : CommonAdapter<ChapterBean, ItemNovelChapterBinding>(context) {
+    var showLatest = true
+
+    init {
+        showLatest = isShowLatest
+    }
+
     override fun convert(viewBinding: ItemNovelChapterBinding?, holder: ViewHolder.BindingHolder?, bean: ChapterBean?, position: Int) {
         viewBinding!!.chapter = bean
+
         if (bean!!.latest) holder!!.setVisible(R.id.iv_newest_chapter, true) else holder!!.setVisible(R.id.iv_newest_chapter, false)
 
+        if (!showLatest) holder!!.setVisible(R.id.iv_newest_chapter, false)
     }
 
     override fun itemLayoutId(): Int {

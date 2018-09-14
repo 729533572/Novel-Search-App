@@ -65,7 +65,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mPopWindow = initPopupWindow(this, mAdapterFilter!!)
 
         //全部章节列表
-        mAdapter = ADA_ChapterList(this)
+        mAdapter = ADA_ChapterList(this,false)
         recyclerviewAllChapters.setPullRefreshEnabled(false)
         RecyclerViewHelper.initRecyclerView(this, recyclerviewAllChapters, mAdapter!!, LinearLayoutManager(this))
 
@@ -144,8 +144,9 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
     override fun getChapterList(dataList: List<ChapterBean>) {
         mData = dataList
-        if (dataList == null) return
-        if (dataList.size > 0) mAdapter!!.update(dataList, true)
+        dataList?.let {
+            mAdapter!!.update(it, true)
+        }
     }
 
     /**

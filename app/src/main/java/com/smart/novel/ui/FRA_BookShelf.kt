@@ -215,6 +215,11 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                 requestData(TYPE_READ, true)
             }
             R.id.ll_my_collected -> {
+                if (!MyApplication.isLogin) {
+                    readyGo(ACT_Login::class.java)
+                    return
+                }
+                
                 if (isEdit) return
                 ll_my_collected.getChildAt(0).visibility = View.VISIBLE
                 ll_my_collected.getChildAt(1).visibility = View.GONE

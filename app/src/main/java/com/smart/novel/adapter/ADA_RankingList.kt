@@ -1,11 +1,13 @@
 package com.smart.novel.adapter
 
 import android.content.Context
+import android.view.View
 import com.smart.framework.library.adapter.rv.normal.databinding.CommonAdapter
 import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder
 import com.smart.novel.R
 import com.smart.novel.bean.NovelBean
 import com.smart.novel.databinding.ItemRankingListBinding
+import com.smart.novel.util.IntentUtil
 
 /**
  * Created by JoJo on 2018/8/31.
@@ -37,6 +39,16 @@ class ADA_RankingList constructor(context: Context) : CommonAdapter<NovelBean, I
                 holder.setText(R.id.tv_rank_num, position.toString())
             }
         }
+        holder!!.itemView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                IntentUtil.intentToNovelDetail(mContext, bean!!)
+            }
+        })
+        holder!!.setOnClickListener(R.id.tv_comment, object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                IntentUtil.intentToNovelDetail(mContext, bean!!)
+            }
+        })
     }
 
     override fun itemLayoutId(): Int {

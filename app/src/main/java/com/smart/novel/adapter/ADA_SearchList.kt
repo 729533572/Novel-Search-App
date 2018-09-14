@@ -19,7 +19,12 @@ class ADA_SearchList constructor(context: Context) : CommonAdapter<NovelBean, It
         viewBinding!!.searchBean = bean
         holder!!.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-              IntentUtil.intentToNovelDetail(mContext,bean!!)
+                IntentUtil.intentToNovelDetail(mContext, bean!!)
+            }
+        })
+        holder!!.setOnClickListener(R.id.tv_comment, object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                IntentUtil.intentToNovelDetail(mContext, bean!!)
             }
         })
     }
