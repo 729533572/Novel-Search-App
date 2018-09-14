@@ -253,34 +253,35 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
     float downX = 0;
     float distance = 0;
 
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                downX = event.getX();
-                //点击屏幕左边，上一页
-                if (downX < viewWidth / 2) {
-                    listener.onScrollRight();
-                } else {
-                    listener.onScrollLeft();
-                }
-                invalidate();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                distance = event.getX() - downX;
-//                break;
-            case MotionEvent.ACTION_UP:
-                Log.e("TAG", "distance=" + distance);
-                invalidate();
-                return true;
-        }
-        return super.onTouchEvent(event);
-    }
+//    @SuppressLint("ClickableViewAccessibility")
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
-//        return mGestureDetector.onTouchEvent(event);
+//        switch (event.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                downX = event.getX();
+//                //点击屏幕左边，上一页
+//                if (downX < viewWidth / 2) {
+//                    listener.onScrollRight();
+//                } else {
+//                    listener.onScrollLeft();
+//                }
+//                invalidate();
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                distance = event.getX() - downX;
+////                break;
+//            case MotionEvent.ACTION_UP:
+//                Log.e("TAG", "distance=" + distance);
+//                invalidate();
+//                return true;
+//        }
+//        return super.onTouchEvent(event);
 //    }
+    //手势滑动翻页
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return mGestureDetector.onTouchEvent(event);
+    }
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {

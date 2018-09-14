@@ -3,6 +3,7 @@ package com.smart.novel.ui
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.webkit.*
 import com.smart.novel.R
 import com.smart.novel.base.ACT_Base
@@ -42,12 +43,12 @@ class ACT_WebView : ACT_Base() {
         //设置加载网页时的进度
         webView.setWebChromeClient(object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, newProgress: Int) {
-//                if (newProgress == 100) {
-//                    pb_loading.setVisibility(View.GONE)//加载完网页进度条消失
-//                } else {
-//                    pb_loading.setVisibility(View.VISIBLE)//开始加载网页时显示进度条
-//                    pb_loading.setProgress(newProgress)//设置进度值
-//                }
+                if (newProgress == 100) {
+                    pb_loading.setVisibility(View.GONE)//加载完网页进度条消失
+                } else {
+                    pb_loading.setVisibility(View.VISIBLE)//开始加载网页时显示进度条
+                    pb_loading.setProgress(newProgress)//设置进度值
+                }
             }
         })
         webView.setWebViewClient(object : WebViewClient() {

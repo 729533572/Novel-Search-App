@@ -246,8 +246,8 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         when (view.id) {
             R.id.iv_setting -> mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
             R.id.iv_right_two -> {
-                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
-//                IntentUtil.intentToOriginWebsite(this, chapterBean!!)
+//                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
+                IntentUtil.intentToOriginWebsite(this, chapterBean!!)
             }
         }
     }
