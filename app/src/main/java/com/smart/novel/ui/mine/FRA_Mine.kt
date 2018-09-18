@@ -106,6 +106,7 @@ class FRA_Mine : BaseMVPFragment<BookShelfPresenter, BookShelfModel>() {
                 1 -> readyGo(ACT_ConnectUs::class.java)
                 2 -> readyGo(ACT_AboutUs::class.java)
                 3 -> readyGo(ACT_Announcement::class.java)
+                4 -> CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
             }
         }
     }

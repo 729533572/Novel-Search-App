@@ -1,5 +1,6 @@
 package com.smart.novel.mvp.model
 
+import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.WebsiteBean
 import com.smart.novel.mvp.contract.WebsiteContract
 import com.smart.novel.net.BaseHttpResponse
@@ -13,6 +14,10 @@ import io.reactivex.Observable
  */
 
 class WebsiteModel : WebsiteContract.Model {
+    override fun switchWebsite(website_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().switchWebsite(website_id,chapter_number)
+    }
+
     override fun getOtherWebsiteList( author: String,book_name: String): Observable<BaseHttpResponse<List<WebsiteBean>>> {
         return RetrofitRxManager.getRequestService().getWebsiteList(author,book_name)
     }

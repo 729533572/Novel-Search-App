@@ -110,4 +110,8 @@ interface ApiService {
     //获取QQ阅读群
     @GET("customer/qq/group/info")
     fun getGroupQQ(): Observable<BaseHttpResponse<GroupInfo>>
+
+    //根据当前小说来源，切换网址解析
+    @GET("fictions/{website_id}/this/chapter")
+    fun switchWebsite(@Path("website_id") website_id: String, @Query("chapter_number") chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
 }

@@ -41,7 +41,7 @@ class ACT_OriginWebsite : BaseMVPActivity<WebsitePresenter, WebsiteModel>(), Web
 
     override fun startEvents() {
         ivLeft.visibility = View.VISIBLE
-        setHeaderTitle(chapterBean!!.name_cn)
+        setHeaderTitle(chapterBean!!.chapter_name)
         sb_progress.progress = ((chapterBean!!.chapter_number * 1.0f / chapterBean!!.totol_size) * 100).toInt()
 
         mAdapter = ADA_OriginWebsite(this)
@@ -55,8 +55,11 @@ class ACT_OriginWebsite : BaseMVPActivity<WebsitePresenter, WebsiteModel>(), Web
     private fun initListener() {
         mAdapter!!.setOnItemClickListener(object : MultiTypeAdapterNormal.OnItemClickListener, MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
+                val bean = mAdapter!!.dataList.get(position)
                 mAdapter!!.setSelectItem(position)
                 mAdapter!!.notifyDataSetChanged()
+
+                mMvpPresenter.switchWebsite(bean.id.toString(), chapterBean!!.chapter_number.toString())
             }
 
             override fun onItemLongClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int): Boolean {
@@ -79,6 +82,12 @@ class ACT_OriginWebsite : BaseMVPActivity<WebsitePresenter, WebsiteModel>(), Web
     override fun getOtherWebsiteList(dataList: List<WebsiteBean>) {
         if (dataList != null && dataList.size > 0) mAdapter!!.update(dataList, true)
 
+    }
+
+    override fun switchWebsite(dataList: List<ChapterBean>) {
+        if (dataList != null && dataList.size > 0){
+            var mSwitchChapterBean = dataList.get(0)
+        }
     }
 
 }
