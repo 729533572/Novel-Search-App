@@ -22,7 +22,7 @@
             <!--热门搜索-->
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="340px"
+                android:layout_height="wrap_content"
                 android:paddingBottom="32px"
                 android:paddingLeft="30px"
                 android:paddingRight="30px"

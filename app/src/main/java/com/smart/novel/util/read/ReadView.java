@@ -121,7 +121,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
 //        }
 //        Elog.e("TAG", "PageUp-mCurrentPage=" + chapterModel.getIndex());
 //        mCurrentPage = chapterModel.getIndex() + 1;
-        if (mCurrentPage <= chapterModel.getPageModels().size()) {
+        if (mCurrentPage < chapterModel.getPageModels().size()) {
             mCurrentPage++;
         }
     }

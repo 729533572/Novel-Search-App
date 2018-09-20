@@ -8,8 +8,8 @@ package com.smart.novel.global;
  */
 public class API {
     //正式环境
-//    public static final String BASE_SERVER_IP = "http://www.hafuyun.com";
+    public static final String BASE_SERVER_IP = "http://qingqingshuwu.club/api/";
     //开发环境
-    public static final String BASE_SERVER_IP = "http://47.93.24.205/api/";
+//    public static final String BASE_SERVER_IP = "http://47.93.24.205/api/";
 
 }
