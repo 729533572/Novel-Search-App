@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_white_rounded_corner_radius_30"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_double_confirm_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44px"
+            android:layout_marginLeft="44px"
+            android:layout_marginRight="44px"
+            android:layout_marginTop="54px"
+            android:gravity="center"
+            android:text="确定要退出当前账号吗？"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_content_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="44px"
+            android:layout_marginRight="44px"
+            android:gravity="center"
+            android:text="版本号：xxxxx"
+            android:textColor="@color/color_5c5c5c"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_content_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="44px"
+            android:layout_marginRight="44px"
+            android:layout_marginTop="24px"
+            android:gravity="center"
+            android:text="版本大小"
+            android:textColor="@color/color_5c5c5c"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_little_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginLeft="44px"
+            android:layout_marginRight="44px"
+            android:layout_marginTop="50px"
+            android:gravity="center"
+            android:text="确定操作吗？"
+            android:textColor="@color/color_5c5c5c"
+            android:textSize="13sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="30px"
+            android:background="#989898" />
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/rl_double_confirm_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_double_confirm_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="取消"
+                    android:textColor="@color/color_999999"
+                    android:textSize="14sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:background="#d1d2d2" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/rl_double_confirm_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_shape_a78f78_radius_30"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_double_confirm_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:textColor="@color/color_333333"
+                    android:textSize="14sp" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -77,14 +77,11 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
     override fun showBusinessError(error: ErrorBean?) {
 
     }
-
     override fun showException(error: ErrorBean?) {
     }
-
     override fun isBindEventBusHere(): Boolean {
         return false
     }
-
     override fun getTestData(weather: WeatherEntity.DataBean) {
         mMutiAdapter!!.update(data, true)
     }
