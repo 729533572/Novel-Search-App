@@ -130,7 +130,9 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
             override fun onClickCollect() {
                 if (!MyApplication.isLogin) {
-                    CommonUtils.makeShortToast("请先登录~")
+//                    CommonUtils.makeShortToast("请先登录~")
+                    readyGo(ACT_Login::class.java)
+                    mDiaSetting!!.dismiss()
                     return
                 }
                 if (novelDetailBean == null) {
@@ -246,8 +248,11 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         when (view.id) {
             R.id.iv_setting -> mDiaSetting!!.refreshData(chapterBean!!).dialog.show()
             R.id.iv_right_two -> {
-                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
-//                IntentUtil.intentToOriginWebsite(this, chapterBean!!)
+//                CommonUtils.makeShortToast("功能正在开发中，请耐心等待~")
+                novelDetailBean?.let {
+                    chapterBean!!.author = novelDetailBean!!.author
+                    IntentUtil.intentToOriginWebsite(this, chapterBean!!)
+                }
             }
         }
     }
@@ -320,17 +325,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             CommonUtils.makeShortToast("没有上一章啦")
             return
         }
-        chapterBean = dataList.get(0)
-        chapterBean!!.totol_size = mTotalSize
-        requestChapters(false)
-        mDiaSetting!!.refreshData(chapterBean!!)
-
-        //切换上下章节设置内容时，从第一页开始，而非当前页开始
-        readView.init()
-        readView.mCurrentPage = 1
-
-        //切换章节，重新添加阅读记录
-        uploadReadRecord()
+        switchChapter(dataList)
     }
 
     /**
@@ -341,6 +336,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             CommonUtils.makeShortToast("已经是最后一章啦")
             return
         }
+        switchChapter(dataList)
+    }
+    /**
+     * 切换章节，刷新页面
+     */
+    private fun switchChapter(dataList: List<ChapterBean>) {
         chapterBean = dataList.get(0)
         chapterBean!!.totol_size = mTotalSize
         requestChapters(false)
@@ -353,7 +354,6 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         //切换章节，重新添加阅读记录
         uploadReadRecord()
     }
-
     /**
      * 进入章节阅读、切换章节，添加阅读记录
      */
@@ -413,6 +413,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
         if (chapterBean != null) {
             chapterBean!!.totol_size = mTotalSize
+
         }
     }
 }

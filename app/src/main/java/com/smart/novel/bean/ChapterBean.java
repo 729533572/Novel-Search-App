@@ -43,12 +43,10 @@ public class ChapterBean implements Serializable{
     private String update_time;
     private boolean latest; //是否是最新章节
     private int totol_size;//总章节数
-    @Generated(hash = 672694251)
-    public ChapterBean(String id, String book_id, String name_cn,
-            int chapter_number, String chapter_name, String chapter_url,
-            String origin_website, String covor_url, int word_count, int read_count,
-            String create_time, String update_time, boolean latest,
-            int totol_size) {
+    private String author;
+    @Generated(hash = 979729514)
+    public ChapterBean(String id, String book_id, String name_cn, int chapter_number, String chapter_name, String chapter_url, String origin_website,
+            String covor_url, int word_count, int read_count, String create_time, String update_time, boolean latest, int totol_size, String author) {
         this.id = id;
         this.book_id = book_id;
         this.name_cn = name_cn;
@@ -63,6 +61,7 @@ public class ChapterBean implements Serializable{
         this.update_time = update_time;
         this.latest = latest;
         this.totol_size = totol_size;
+        this.author = author;
     }
 
     public ChapterBean(String book_id, String name_cn, int chapter_number, String chapter_name, String chapter_url, String origin_website, String covor_url) {
@@ -162,4 +161,6 @@ public class ChapterBean implements Serializable{
     public void setTotol_size(int totol_size) {
         this.totol_size = totol_size;
     }
+    public String getAuthor() {return author == null ? "" : author;}
+    public void setAuthor(String author) {this.author = author;}
 }

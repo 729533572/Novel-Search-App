@@ -65,7 +65,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mPopWindow = initPopupWindow(this, mAdapterFilter!!)
 
         //全部章节列表
-        mAdapter = ADA_ChapterList(this,false)
+        mAdapter = ADA_ChapterList(this, false)
         recyclerviewAllChapters.setPullRefreshEnabled(false)
         RecyclerViewHelper.initRecyclerView(this, recyclerviewAllChapters, mAdapter!!, LinearLayoutManager(this))
 
@@ -78,6 +78,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         mAdapterFilter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {
             override fun onItemClick(view: View?, holder: RecyclerView.ViewHolder?, position: Int) {
                 mMvpPresenter.getChapterList(multipleStatusView, novelId!!, "n", (position + 1).toString())
+                mCurrentPage = (position + 1)
                 tv_chapter_filter.setText(mAdapterFilter!!.dataList.get(position).filterRange)
                 mPopWindow!!.dismiss()
             }
@@ -143,7 +144,7 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     }
 
     override fun getChapterList(dataList: List<ChapterBean>) {
-        mData = dataList
+//        mData = dataList
         dataList?.let {
             mAdapter!!.update(it, true)
         }

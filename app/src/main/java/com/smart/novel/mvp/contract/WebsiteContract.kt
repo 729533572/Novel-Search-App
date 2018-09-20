@@ -21,15 +21,27 @@ class WebsiteContract {
 
         //根据当前小说来源，切换网址解析
         fun switchWebsite(dataList: List<ChapterBean>)
+
+        //获取上一章节
+        fun getLastChapter(dataList: List<ChapterBean>)
+
+        //获取下一章节
+        fun getNextChapter(dataList: List<ChapterBean>)
     }
 
     interface Model : BaseModel {
         fun getOtherWebsiteList(author: String, book_name: String): Observable<BaseHttpResponse<List<WebsiteBean>>>
         fun switchWebsite(website_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+        //获取上一章节
+        fun getLastChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
+        //获取下一章节
+        fun getNextChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>>
     }
 
     abstract class Presenter : BasePresenter<View, Model>() {
         abstract fun getOtherWebsiteList(multipleStatusView: MultipleStatusView?, book_name: String, author: String)
         abstract fun switchWebsite(website_id: String, chapter_number: String)
+        abstract fun getLastChapter(book_id: String, chapter_number: String)
+        abstract fun getNextChapter(book_id: String, chapter_number: String)
     }
 }

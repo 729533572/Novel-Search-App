@@ -51,7 +51,7 @@ public class ViewBindingAdapter {
     @BindingAdapter("bind:isFinished")
     public static void setUpdateStatus(TextView tv, int isFinished) {
         if (isFinished == 0) {
-            tv.setText("更新中");
+            tv.setText("未完结");
         } else {
             tv.setText("已完结");
         }

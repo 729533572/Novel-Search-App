@@ -33,4 +33,19 @@ class WebsitePresenter : WebsiteContract.Presenter() {
             }
         }))
     }
+    override fun getNextChapter(book_id: String, chapter_number: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getNextChapter(book_id, chapter_number), object : RxObserverListener<List<ChapterBean>>(mView) {
+            override fun onSuccess(result: List<ChapterBean>) {
+                mView.getNextChapter(result)
+            }
+        }))
+    }
+
+    override fun getLastChapter(book_id: String, chapter_number: String) {
+        rxManager.addObserver(RetrofitRxManager.doRequest(mModel.getLastChapter(book_id,chapter_number), object : RxObserverListener<List<ChapterBean>>(mView) {
+            override fun onSuccess(result: List<ChapterBean>) {
+                mView.getLastChapter(result)
+            }
+        }))
+    }
 }

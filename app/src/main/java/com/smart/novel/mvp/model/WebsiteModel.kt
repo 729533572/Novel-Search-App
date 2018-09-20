@@ -21,4 +21,11 @@ class WebsiteModel : WebsiteContract.Model {
     override fun getOtherWebsiteList( author: String,book_name: String): Observable<BaseHttpResponse<List<WebsiteBean>>> {
         return RetrofitRxManager.getRequestService().getWebsiteList(author,book_name)
     }
+    override fun getLastChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().getLastChapter(book_id, chapter_number)
+    }
+
+    override fun getNextChapter(book_id: String, chapter_number: String): Observable<BaseHttpResponse<List<ChapterBean>>> {
+        return RetrofitRxManager.getRequestService().getNextChapter(book_id, chapter_number)
+    }
 }

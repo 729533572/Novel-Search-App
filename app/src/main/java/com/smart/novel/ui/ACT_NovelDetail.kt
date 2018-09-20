@@ -273,19 +273,19 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //章节总数
         total_size = bean.total_size
 
-        if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)) {
-            //20:40
-            val time = AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.HH_MM)
-            val splitTime = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            val hour = splitTime[0]
-            val minute = splitTime[1]
-            val hourTime = Integer.parseInt(hour)
-            if (hourTime < 24) {
-                tv_date.setText(hour + "小时" + minute + "分 前更新")
+        if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)){
+            var updateTime = Math.abs(System.currentTimeMillis() - novelDetailBean!!.content_update_time.toLong())
+            val hms = AppDateUtil.getHMS(updateTime)
+            var splitTime = hms.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            var hour = splitTime[0].toInt()
+            var minute = splitTime[1]
+            if (hour < 24) {
+                tv_date.setText(hour.toString() + "小时" + minute + "分 前更新")
             } else {
-                tv_date.setText(AppDateUtil.getTimeStamp(java.lang.Long.parseLong(novelDetailBean!!.content_update_time), AppDateUtil.YYYY_MM_DD_HH_MM1) + " 更新")
+                tv_date.setText(AppDateUtil.getTimeStamp(novelDetailBean!!.content_update_time.toLong(), AppDateUtil.YYYY_MM_DD_HH_MM1) + " 更新")
             }
         }
+
         if (!TextUtils.isEmpty(bean.comment)) tv_comment.setText(bean.comment) else tv_comment.setText("暂无简介")
 //        //超过固定行数，展示....
         tv_comment.getViewTreeObserver().addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
