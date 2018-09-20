@@ -164,25 +164,33 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //优化阅读:有阅读过，取最近阅读的章节，没有阅读过，取第一章节
             R.id.btn_read -> {
                 val localChapterList = DbManager.getInstance().queryAll(ChapterBean::class.java) as List<ChapterBean>
-                if (localChapterList == null || localChapterList.size == 0 || dataRealShow.size == 0) {
-                    CommonUtils.makeShortToast("没有可读的章节~")
-                    return
-                }
+
                 Collections.reverse(localChapterList)
                 var localReadBean: ChapterBean? = null
                 var firstChapter: ChapterBean? = null
-                for (i in 0..localChapterList.size - 1) {
-                    novelBean?.let {
-                        if (novelBean!!.book_id.equals(localChapterList.get(i).book_id)) {
-                            localReadBean = localChapterList.get(i)
-                            return@let
+                //从本地匹配当前书籍是否有最近阅读的章节。
+                localChapterList?.let {
+                    for (i in 0..localChapterList.size - 1) {
+                        novelBean?.let {
+                            if (novelBean!!.book_id.equals(localChapterList.get(i).book_id)) {
+                                localReadBean = localChapterList.get(i)
+                                return@let
+                            }
                         }
                     }
                 }
-                if (dataRealShow.get(0).latest) {
-                    if (dataRealShow.size > 1) firstChapter = dataRealShow.get(1)
-                } else {
-                    firstChapter = dataRealShow.get(0)
+                if (dataRealShow != null && dataRealShow.size > 0) {
+                    //如果集合中有最新章节，则取第一条为第一章，反之，0条为第一章
+                    if (dataRealShow.get(0).latest) {
+                        if (dataRealShow.size > 1) firstChapter = dataRealShow.get(1)
+                    } else {
+                        firstChapter = dataRealShow.get(0)
+                    }
+                }
+
+                if (localReadBean == null && firstChapter == null) {
+                    CommonUtils.makeShortToast("没有可读的章节~")
+                    return
                 }
 
                 if (localReadBean != null) IntentUtil.intentToReadNovel(this@ACT_NovelDetail, localReadBean!!) else IntentUtil.intentToReadNovel(this@ACT_NovelDetail, firstChapter!!)
@@ -273,7 +281,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         //章节总数
         total_size = bean.total_size
 
-        if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)){
+        if (!TextUtils.isEmpty(novelDetailBean!!.content_update_time)) {
             var updateTime = Math.abs(System.currentTimeMillis() - novelDetailBean!!.content_update_time.toLong())
             val hms = AppDateUtil.getHMS(updateTime)
             var splitTime = hms.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
