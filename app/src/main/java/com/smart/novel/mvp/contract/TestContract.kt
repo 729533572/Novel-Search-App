@@ -4,6 +4,7 @@ import com.smart.framework.library.base.mvp.BaseModel
 import com.smart.framework.library.base.mvp.BasePresenter
 import com.smart.framework.library.base.mvp.IBaseView
 import com.smart.framework.library.loading.MultipleStatusView
+import com.smart.novel.net.BaseHttpResponse
 import com.smart.novel.net.WeatherEntity
 import io.reactivex.Observable
 
@@ -14,11 +15,11 @@ import io.reactivex.Observable
  */
 class TestContract {
     interface View : IBaseView {
-        fun getTestData(weather: WeatherEntity)
+        fun getTestData(weather: WeatherEntity.DataBean)
     }
 
     interface Model : BaseModel {
-        fun getTestData(): Observable<WeatherEntity>
+        fun getTestData(): Observable<BaseHttpResponse<WeatherEntity.DataBean>>
     }
 
     abstract class Presenter : BasePresenter<TestContract.View, TestContract.Model>() {

@@ -18,30 +18,34 @@ public class TimeCount extends CountDownTimer {
 
     private RadioButton btnGetSecurityCode;
     private Activity context;
+    //倒计时间隔时间
+    private static final int countDownInterval = 1000;
+    //验证码倒计时总时间
+    private static final int msgTime = 60 * 1000;
 
-    public TimeCount(long millisInFuture, long countDownInterval, RadioButton btnGetSecurityCode,
+    public TimeCount(RadioButton btnGetSecurityCode,
                      Activity context) {
-        super(millisInFuture, countDownInterval);// 参数依次为总时长,和计时的时间间隔
+        super(msgTime, countDownInterval);// 参数依次为总时长,和计时的时间间隔
         this.btnGetSecurityCode = btnGetSecurityCode;
         this.context = context;
     }
 
     @Override
     public void onFinish() {// 计时完毕时触发
-        // 设置倒计时结束后显示的提示文字
+        btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_3AC270));
+        btnGetSecurityCode.setText(context.getString(R.string.string_re_get_verify_code));
+        // 设置倒计时完恢复点击
         btnGetSecurityCode.setChecked(true);
-        btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_519bef));
-        btnGetSecurityCode.setText(context.getString(R.string.string_get_verify_code));
-        // 设置倒计时时不能点击
         btnGetSecurityCode.setClickable(true);
     }
 
     @SuppressLint("ResourceAsColor")
     @Override
     public void onTick(long millisUntilFinished) {// 计时过程显示
+        // 设置倒计时时不能点击
         btnGetSecurityCode.setChecked(false);
         btnGetSecurityCode.setClickable(false);
-        btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_b9b9b9));
-        btnGetSecurityCode.setText(millisUntilFinished / 1000 + "S");
+        btnGetSecurityCode.setTextColor(ContextCompat.getColor(context, R.color.color_999999));
+        btnGetSecurityCode.setText("剩余" + millisUntilFinished / 1000 + "s");
     }
 }

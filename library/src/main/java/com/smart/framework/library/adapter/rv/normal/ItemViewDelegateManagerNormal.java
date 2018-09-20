@@ -2,7 +2,7 @@ package com.smart.framework.library.adapter.rv.normal;
 
 import android.support.v4.util.SparseArrayCompat;
 
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
 
 
 /**

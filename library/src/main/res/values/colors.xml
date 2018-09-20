@@ -50,4 +50,11 @@
     <color name="color_tab_unchecked">@color/color_b1b1b1</color>
     <color name="color_2F9FF2">#2F9FF2</color>
     <color name="color_f9f9f9">#f9f9f9</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_00000000">#00000000</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_ebebeb">#ebebeb</color>
+    <color name="color_5c5c5c">#5c5c5c</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_e5e5e5">#e5e5e5</color>
 </resources>

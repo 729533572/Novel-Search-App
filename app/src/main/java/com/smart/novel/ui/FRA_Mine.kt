@@ -22,6 +22,7 @@ class FRA_Mine : BaseMVPFragment<TestPresenter, TestModel>() {
             return fragment
         }
     }
+
     override fun startEvents() {
     }
 
@@ -30,6 +31,9 @@ class FRA_Mine : BaseMVPFragment<TestPresenter, TestModel>() {
     }
 
     override fun showBusinessError(error: ErrorBean?) {
+    }
+
+    override fun showException(error: ErrorBean?) {
     }
 
     override fun onFirstUserVisible() {
@@ -48,5 +52,8 @@ class FRA_Mine : BaseMVPFragment<TestPresenter, TestModel>() {
 
     override fun isBindEventBusHere(): Boolean {
         return false
+    }
+
+    fun tabCheck() {
     }
 }

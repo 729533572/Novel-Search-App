@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_title_divider_line"></include>
+    <include layout="@layout/layout_title_divider_line_e5e5e5"></include>
 
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
@@ -42,5 +42,5 @@
             android:textSize="13sp" />
     </com.zhy.autolayout.AutoLinearLayout>
 
-    <include layout="@layout/layout_title_divider_line"></include>
+    <include layout="@layout/layout_title_divider_line_e5e5e5"></include>
 </com.zhy.autolayout.AutoLinearLayout>

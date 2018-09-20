@@ -1,5 +1,6 @@
 package com.smart.framework.library.adapter.lv;
 
+import android.databinding.ViewDataBinding;
 import android.support.v4.util.SparseArrayCompat;
 
 
@@ -81,7 +82,7 @@ public class ItemViewDelegateManagerListView<T>
                 "No ItemViewDelegateListView added that matches position=" + position + " in data source");
     }
 
-    public void convert(ViewHolderListView holder, T item, int position)
+    public void convert(ViewDataBinding viewDataBinding, ViewHolderListView holder, T item, int position)
     {
         int delegatesCount = delegates.size();
         for (int i = 0; i < delegatesCount; i++)
@@ -90,7 +91,7 @@ public class ItemViewDelegateManagerListView<T>
 
             if (delegate.isForViewType(item, position))
             {
-                delegate.convert(holder, item, position);
+                delegate.convert(viewDataBinding,holder, item, position);
                 return;
             }
         }

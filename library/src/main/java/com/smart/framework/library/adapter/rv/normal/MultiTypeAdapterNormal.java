@@ -5,7 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +22,7 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
     protected List<T> mDatas = new ArrayList<>();
 
     protected ItemViewDelegateManagerNormal mItemViewDelegateManager;
-    protected com.smart.framework.library.adapter.rv.MultiItemTypeAdapter.OnItemClickListener mOnItemClickListener;
+    protected MultiItemTypeAdapter.OnItemClickListener mOnItemClickListener;
 
     public MultiTypeAdapterNormal(Context mContext) {
         this.mContext = mContext;
@@ -125,7 +126,7 @@ public class MultiTypeAdapterNormal<T> extends RecyclerView.Adapter<ViewHolder.B
         boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position);
     }
 
-    public void setOnItemClickListener(com.smart.framework.library.adapter.rv.MultiItemTypeAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(MultiItemTypeAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 

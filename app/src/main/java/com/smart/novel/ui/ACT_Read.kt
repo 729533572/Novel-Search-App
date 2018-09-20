@@ -15,6 +15,9 @@ import com.smart.novel.mvp.presenter.TestPresenter
  *description：抓取网页：https://www.zhuishu.tw/id50438
  */
 class ACT_Read : BaseMVPActivity<TestPresenter, TestModel>(), IBaseView {
+    override fun showException(error: ErrorBean?) {
+    }
+
     override fun startEvents() {
 
     }

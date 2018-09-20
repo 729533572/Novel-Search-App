@@ -1,7 +1,7 @@
 package com.smart.framework.library.adapter.rv.normal;
 
 
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
 
 /**
  * Created by zhy on 16/6/22.

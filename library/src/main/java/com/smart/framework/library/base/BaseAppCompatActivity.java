@@ -46,7 +46,7 @@ import de.greenrobot.event.EventBus;
  * 作者：addison on 11/12/15 14:01
  * 邮箱：lsf@yonyou.com
  */
-public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends BaseModel> extends AppCompatActivity {
+public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends BaseModel> extends AppCompatActivity {
     /**
      * 日志标签，值为子类的classname
      */
@@ -81,6 +81,11 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
      */
     public enum TransitionMode {
         LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE, ZOOM
+    }
+
+    public enum StatusBarMode {
+        //黑色icon、文字——DARK   非沉浸式——NO_FULLSCREEN   白色icon、文字——LIGHT
+        DARK_NO_FULLSCREEN, DARK_FULLSCREEN, LIGHT_FULLSCREEN, LIGHT_NO_FULLSCREEN
     }
 
     private LoadingDialog mLoadingDialog;
@@ -145,7 +150,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
         } else {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
-        handleStatusBar();
+        handleStatusBar(StatusBarMode.DARK_NO_FULLSCREEN);
 
         mNetChangeObserver = new NetChangeObserver() {
             @Override
@@ -170,7 +175,7 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
         registerReceiver();
     }
 
-    protected abstract void handleStatusBar();
+    protected abstract void handleStatusBar(StatusBarMode mode);
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -570,6 +575,14 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter,M extends Ba
         }
         TextView titleTV = (TextView) this.findViewById(R.id.tv_title);
         titleTV.setText(title);
+    }
+
+    /**
+     * 隐藏右边标题
+     */
+    public void hideTitleRightText() {
+        TextView titleTV = (TextView) this.findViewById(R.id.tv_right);
+        titleTV.setVisibility(View.GONE);
     }
 
     /**

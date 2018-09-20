@@ -10,8 +10,8 @@ import com.smart.framework.library.loading.MultipleStatusView;
 
 /**
  * Created by JoJo on 2018/8/27.
-   wechat：18510829974
-  description：mvp的BaseFramen,需联网获取数据的Fragment的父类
+ wechat：18510829974
+ description：mvp的BaseFramen,需联网获取数据的Fragment的父类
  */
 public abstract class BaseMVPFragment<P extends BasePresenter,M extends BaseModel> extends BaseLazyFragment implements IBaseView {
 

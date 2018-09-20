@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.smart.framework.library.BaseApplication;
 import com.smart.framework.library.R;
 
 
@@ -21,6 +22,7 @@ public class CommonUtils {
 
     /**
      * 字符串为空判断
+     *
      * @param str
      * @return
      */
@@ -66,6 +68,31 @@ public class CommonUtils {
     /**
      * 显示toast
      *
+     * @param text
+     */
+    public static void makeShortToast(String text) {
+        if (null == text)
+            return;
+
+        View v = LayoutInflater.from(BaseApplication.getInstance()).inflate(R.layout.toast_view,
+                null);
+        TextView textView = (TextView) v.findViewById(R.id.text);
+        textView.setText(text);
+
+        //每次创建Toast时先做一下判断
+        //如果前面已经有Toast在显示，则只是更新toast内容，而不再创建，提升用户体验
+        if (toast != null) {
+            textView.setText(text);
+        } else {
+            toast = Toast.makeText(BaseApplication.getInstance(), text,Toast.LENGTH_SHORT);
+        }
+        toast.setView(v);
+        toast.show();
+    }
+
+    /**
+     * 显示toast
+     *
      * @param context
      * @param id
      * @param isLongToast
@@ -93,13 +120,15 @@ public class CommonUtils {
         toast.show();
 
     }
+
     /**
      * 调用拨打电话
+     *
      * @param context 上下文
-     * @param number 电话号码
+     * @param number  电话号码
      */
-    public static void callPhone(Context context, String number){
-        if(null!=number){
+    public static void callPhone(Context context, String number) {
+        if (null != number) {
             try {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_DIAL);
@@ -108,7 +137,7 @@ public class CommonUtils {
             } catch (Throwable e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             CommonUtils.makeEventToast(context, "电话号码不存在！", false);
         }
     }

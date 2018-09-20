@@ -2,6 +2,8 @@ package com.smart.framework.library.adapter.lv;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -21,6 +23,8 @@ import android.widget.TextView;
 
 public class ViewHolderListView
 {
+//    有bug，删除数据，刷新数据的时候界面刷新有问题
+    public static ViewDataBinding viewDataBinding;
     private SparseArray<View> mViews;
     protected int mPosition;
     private View mConvertView;
@@ -42,9 +46,10 @@ public class ViewHolderListView
     {
         if (convertView == null)
         {
-            View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
-                    false);
-            ViewHolderListView holder = new ViewHolderListView(context, itemView, parent, position);
+//            View itemView = LayoutInflater.from(context).inflate(layoutId, parent,
+//                    false);
+            viewDataBinding = DataBindingUtil.inflate(LayoutInflater.from(context), layoutId, parent, false);
+            ViewHolderListView holder = new ViewHolderListView(context, viewDataBinding.getRoot(), parent, position);
             holder.mLayoutId = layoutId;
             return holder;
         } else

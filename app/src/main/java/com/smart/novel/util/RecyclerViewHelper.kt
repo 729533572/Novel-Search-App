@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.github.jdsjlzx.recyclerview.LRecyclerView
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter
 import com.github.jdsjlzx.recyclerview.ProgressStyle
-import com.smart.framework.library.adapter.rv.MultiItemTypeAdapter
 import com.smart.framework.library.adapter.rv.normal.MultiTypeAdapterNormal
+import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.novel.MyApplication
 import com.smart.novel.R
 

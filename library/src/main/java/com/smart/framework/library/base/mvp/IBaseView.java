@@ -36,4 +36,5 @@ public interface IBaseView {
      */
     void showBusinessError(ErrorBean error);
 
+    void showException(ErrorBean error);
 }

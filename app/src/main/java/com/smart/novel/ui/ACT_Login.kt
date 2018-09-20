@@ -26,11 +26,26 @@ import kotlinx.android.synthetic.main.act_login.*
  * description: 登录页面
  */
 class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View, OnRefreshListener, OnLoadMoreListener {
+
     var mAdapter: ADA_SearchList? = null
     var mMutiAdapter: ADA_TestMultiple? = null
     var mLrecyclViewAdapter: LRecyclerViewAdapter? = null
 
     var data = ArrayList<UserEntity>()
+
+    override fun getContentViewLayoutID(): Int {
+        return R.layout.act_login
+    }
+
+    @OnClick(R.id.tv_do_search, R.id.et_search_keywords)
+    fun onClick(view: View) {
+        when (view.id) {
+            R.id.tv_do_search -> {
+                mMvpPresenter.getTestData(multipleStatusView)
+            }
+            R.id.et_search_keywords -> mMutiAdapter!!.update(data.subList(0, 10), true)
+        }
+    }
 
     override fun getBundleExtras(extras: Bundle?) {
 
@@ -39,7 +54,7 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
     override fun startEvents() {
 //        mAdapter = ADA_SearchList(this)
         mMutiAdapter = ADA_TestMultiple(this)
-        RecyclerViewHelper.initMutiTypeRecyclerView(recyclerview, mMutiAdapter!!,this)
+        RecyclerViewHelper.initMutiTypeRecyclerView(recyclerview, mMutiAdapter!!, this)
         recyclerview.setOnRefreshListener(this)
         recyclerview.setOnLoadMoreListener(this)
 
@@ -63,26 +78,14 @@ class ACT_Login : BaseMVPActivity<TestPresenter, TestModel>(), TestContract.View
 
     }
 
-    override fun getContentViewLayoutID(): Int {
-        return R.layout.act_login
-    }
-
-    @OnClick(R.id.tv_do_search, R.id.et_search_keywords)
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.tv_do_search -> {
-                mMvpPresenter.getTestData(multipleStatusView)
-            }
-            R.id.et_search_keywords -> mMutiAdapter!!.update(data.subList(0, 10), true)
-        }
+    override fun showException(error: ErrorBean?) {
     }
 
     override fun isBindEventBusHere(): Boolean {
         return false
     }
 
-    override fun getTestData(weather: WeatherEntity) {
-//        mAdapter!!.update(data, true)
+    override fun getTestData(weather: WeatherEntity.DataBean) {
         mMutiAdapter!!.update(data, true)
     }
 }

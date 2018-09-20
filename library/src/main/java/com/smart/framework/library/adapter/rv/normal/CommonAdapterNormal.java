@@ -3,7 +3,7 @@ package com.smart.framework.library.adapter.rv.normal;
 import android.content.Context;
 import android.view.LayoutInflater;
 
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
 
 import java.util.Collection;
 import java.util.List;

@@ -8,7 +8,7 @@
 
         <variable
             name="weather"
-            type="com.smart.novel.net.WeatherEntity"></variable>
+            type="com.smart.novel.net.WeatherEntity.DataBean"></variable>
     </data>
 
     <com.zhy.autolayout.AutoLinearLayout
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{weather.city}"
+                    android:text="@{weather.shidu}"
                     android:textSize="20dp" />
 
                 <TextView
@@ -81,21 +81,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{weather.date}"
+                    android:text="@{weather.wendu}"
                     android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{weather.message}"
+                    android:text="@{weather.quality}"
                     android:textSize="20dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@{weather.data.ganmao}"
+                    android:text="@{weather.ganmao}"
                     android:textSize="20dp" />
             </com.zhy.autolayout.AutoLinearLayout>
 

@@ -12,6 +12,11 @@ import android.widget.ListView;
 
 import com.smart.framework.library.common.log.Elog;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 
 /**
  * 屏幕参数处理工具类
@@ -137,6 +142,19 @@ public class ScreenUtil {
         Elog.v("navigation bar", "height:" + height);
         return height;
     }
+    /**
+     * WebView加载网页图片显示太大的解决方案 图片尺寸超过屏幕宽度，最大显示屏幕的宽度，否则展示原图的大小 https://blog.csdn.net/qq_35008536/article/details/52281161
+     * @param htmltext
+     * @return
+     */
+    public static String getNewContent(String htmltext) {
 
+        Document doc = Jsoup.parse(htmltext);
+        Elements elements = doc.getElementsByTag("img");
+        for (Element element : elements) {
+            element.attr("width", "100%").attr("max-width", "100%").attr("height", "auto");
+        }
+        return doc.toString();
+    }
 
 }

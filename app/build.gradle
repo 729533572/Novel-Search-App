@@ -25,10 +25,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('resthome.jks')
-            storePassword 'resthome123'
-            keyAlias 'resthome'
-            keyPassword 'resthome123'
+            storeFile file('yule_novel.jks')
+            storePassword 'yule123'
+            keyAlias 'yulenovel'
+            keyPassword 'yule123'
         }
     }
     buildTypes {
@@ -37,7 +37,7 @@ android {
             minifyEnabled false
         }
         release {
-            shrinkResources true
+            shrinkResources false
             minifyEnabled true
             zipAlignEnabled true
             proguardFile('proguard-rules.pro')

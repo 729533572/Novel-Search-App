@@ -1,15 +1,15 @@
-package com.zongxueguan.naochanle_android.retrofitrx
-
+package com.smart.novel.net
 import android.content.Context
-import android.os.Handler
-import android.util.Log
 import com.alibaba.fastjson.JSONException
 import com.alibaba.fastjson.JSONObject
 import com.smart.framework.library.base.mvp.RxSchedulers
+import com.smart.framework.library.bean.ErrorBean
+import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.net.retrofit.BaseObserverListener
 import com.smart.framework.library.netstatus.NetUtils
 import com.smart.novel.MyApplication
-import com.smart.novel.net.WeatherEntity
+import com.smart.novel.global.API
+import com.zongxueguan.naochanle_android.retrofitrx.ApiService
 import io.reactivex.Observable
 import io.reactivex.observers.DisposableObserver
 import okhttp3.*
@@ -21,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 
+
 /**
  * Created by JoJo on 2018/1/15.
  * wechat:18510829974
@@ -31,23 +32,28 @@ object RetrofitRxManager {
     private var retrofit: Retrofit? = null
     //请求头信息
     private val HEADER_CONNECTION = "keep-alive"
-    private val BASE_URL = "https://www.sojson.com/open/api/"
+    //    private val BASE_URL = "https://www.sojson.com/open/api/"
+//    var persistentCookieJar: PersistentCookieJar? = null
 
     fun getRetrofit(context: Context): Retrofit? {
         if (retrofit == null) {
             synchronized(RetrofitRxManager::class.java) {
                 if (retrofit == null) {
                     ///getExternalFilesDir:Android/data/包名/files/okhttp… (该路径通常挂载在/mnt/sdcard/下)
+//                    val sharedPrefsCookiePersistor = SharedPrefsCookiePersistor(context)
+//                    val setCookieCache = SetCookieCache()
+//                    persistentCookieJar = PersistentCookieJar(setCookieCache, sharedPrefsCookiePersistor)
                     val cache = Cache(File(context.getExternalFilesDir("ok"), ""), 14 * 1024 * 100)
                     var mClient = OkHttpClient.Builder()
                             //添加公告查询参数
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
+//                            .cookieJar(persistentCookieJar)
                             .cache(cache)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
-                            .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
+                            .addInterceptor(EloggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
                             .addInterceptor(CacheInterceptor())
                             .addNetworkInterceptor(CacheInterceptor())//必须要有，否则会返回504
                             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -55,7 +61,7 @@ object RetrofitRxManager {
                             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                             .build()
                     retrofit = Retrofit.Builder()
-                            .baseUrl(BASE_URL)
+                            .baseUrl(API.BASE_SERVER_IP)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .client(mClient)
@@ -71,6 +77,9 @@ object RetrofitRxManager {
      */
     fun getRetrofit(): Retrofit? {
         if (retrofit == null) {
+//            val sharedPrefsCookiePersistor = SharedPrefsCookiePersistor(MyApplication.context)
+//            val setCookieCache = SetCookieCache()
+//            persistentCookieJar = PersistentCookieJar(setCookieCache, sharedPrefsCookiePersistor)
             synchronized(RetrofitRxManager::class.java) {
                 if (retrofit == null) {
                     ///getExternalFilesDir:Android/data/包名/files/okhttp… (该路径通常挂载在/mnt/sdcard/下)
@@ -79,9 +88,10 @@ object RetrofitRxManager {
 //                            .addInterceptor(CommonQueryParamsInterceptor ())
                             //处理多个Baseurl的拦截器
 //                            .addInterceptor(MutiBaseUrlInterceptor())
+//                            .cookieJar(persistentCookieJar)
                             .retryOnConnectionFailure(true)
                             .addInterceptor(getHeaderInterceptor())
-                            .addInterceptor(LoggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
+                            .addInterceptor(EloggingInterceptor())//添加请求拦截(可以在此处打印请求信息和响应信息)
                             .addInterceptor(CacheInterceptor())
                             .addNetworkInterceptor(CacheInterceptor())//必须要有，否则会返回504
                             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -89,7 +99,7 @@ object RetrofitRxManager {
                             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                             .build()
                     retrofit = Retrofit.Builder()
-                            .baseUrl(BASE_URL)
+                            .baseUrl(API.BASE_SERVER_IP)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .client(mClient)
@@ -148,7 +158,6 @@ object RetrofitRxManager {
             val request = chain!!.request()
             val requestBuilder = request.newBuilder()
                     .addHeader("Connection", HEADER_CONNECTION)
-                    .addHeader("api_key", "mingjiazongxueguan")
 //                    .addHeader("authorization", UserConstants.AUTHORIZATION)// TOKEN
                     .method(request.method(), request.body())
                     .build()
@@ -179,11 +188,11 @@ object RetrofitRxManager {
             var response = chain.proceed(request)
             if (NetUtils.isNetworkConnected(MyApplication.context)) {
                 var cacheControl: String = request.cacheControl().toString()
-                Log.e("Tag", "有网")
+//                Elog.e("Tag", "有网")
                 return response.newBuilder().header("Cache-Control", cacheControl)
                         .removeHeader("Pragma").build() // 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
             } else {
-                Log.e("Tag", "无网")
+//                Elog.e("Tag", "无网")
                 //无网络时，设置超时为CACHE_STALE_LONG  只对get有用, post没有缓冲
                 return response.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + CACHE_STALE_LONG)
                         .removeHeader("Pragma").build()
@@ -193,9 +202,9 @@ object RetrofitRxManager {
     }
 
     /**
-     * 自定义log日志打印:http://blog.csdn.net/csdn_lqr/article/details/61420753
+     * 自定义Elog日志打印:http://bElog.csdn.net/csdn_lqr/article/details/61420753
      */
-    class LoggingInterceptor : Interceptor {
+    class EloggingInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain?): Response {
             //这个chain里面包含了request和response，所以你要什么都可以从这里拿
             val request = chain!!.request()
@@ -215,7 +224,7 @@ object RetrofitRxManager {
 
                         }
                     }
-                    Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
+                    Elog.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                             request.url(), chain!!.connection(), jsonObject.toString(), request.method()))
                 } else {
                     val buffer = Buffer()
@@ -223,23 +232,24 @@ object RetrofitRxManager {
                     if (requestBody != null) {
                         request.body()!!.writeTo(buffer)
                         val body = buffer.readUtf8()
-                        Log.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
+                        Elog.e("request", String.format("发送请求 %s on %s  %nRequestParams:%s%nMethod:%s",
                                 request.url(), chain!!.connection(), body, request.method()))
                     }
                 }
             } else {
-                Log.e("request", String.format("发送请求 %s on %s%nMethod:%s",
+                Elog.e("request", String.format("发送请求 %s on %s%nMethod:%s",
                         request.url(), chain!!.connection(), request.method()))
             }
             val response = chain!!.proceed(request)
             val t2 = System.nanoTime()//收到响应的时间
             val responseBody = response.peekBody((1024 * 1024).toLong())
-            Log.e("request",
+            Elog.e("request",
                     String.format("Retrofit接收响应： %s %n返回json:%s %n耗时：%.1fms %nCode:%s",
                             response.request().url(),
                             responseBody.string(),
                             (t2 - t1) / 1e6, response.code()
                     ))
+//            Elog.e("request", "cookie=" + SharedPrefsCookiePersistor(MyApplication.context))
             return response
         }
     }
@@ -247,23 +257,23 @@ object RetrofitRxManager {
     /**
      * 该拦截器用于记录应用中的网络请求的信息
      */
-    fun getHttpLogingInterceptor(): HttpLoggingInterceptor {
-        val httpLoggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+    fun getHttpElogingInterceptor(): HttpLoggingInterceptor {
+        val httpEloggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
             //包含所有的请求信息
             //如果收到响应是json才打印
             if ("{" == message || "[" == message) {
-                Log.d("TAG", "收到响应: " + message)
+                Elog.d("TAG", "收到响应: " + message)
             }
-            Log.d("TAG", "message=" + message)
+            Elog.d("TAG", "message=" + message)
         })
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        return httpLoggingInterceptor
+        httpEloggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return httpEloggingInterceptor
     }
 
     private val BASE_URL_OTHER = "http://wthrcdn.etouch.cn/"
 
     /**
-     *  添加可以处理多个Baseurl的拦截器：http://blog.csdn.net/qq_36707431/article/details/77680252
+     *  添加可以处理多个Baseurl的拦截器：http://bElog.csdn.net/qq_36707431/article/details/77680252
      * Retrofit(OKHttp)多BaseUrl情况下url实时自动替换完美解决方法:https://www.2cto.com/kf/201708/663977.html
      */
     class MutiBaseUrlInterceptor : Interceptor {
@@ -299,7 +309,7 @@ object RetrofitRxManager {
                         .build()
                 //重建这个request，通过builder.url(newFullUrl).build()；
                 // 然后返回一个response至此结束修改
-                Log.e("Url", "intercept: " + newFullUrl.toString())
+                Elog.e("Url", "intercept: " + newFullUrl.toString())
                 return chain!!.proceed(builder.url(newFullUrl).build())
             }
             return chain!!.proceed(request)
@@ -321,12 +331,22 @@ object RetrofitRxManager {
 
     }
 
-    fun <T> doRequest(observable: Observable<T>, observerListener: BaseObserverListener<in Any>): DisposableObserver<T> {
+    /**
+     * 建立请求 ：要求后端错误情况统一返回data 为null,否则返回[]或者""会报解析异常,无法回调到onBusinessError的情况
+     */
+    fun <T> doRequest(observable: Observable<BaseHttpResponse<T>>, observerListener: BaseObserverListener<T>): DisposableObserver<BaseHttpResponse<T>> {
         return observable
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(object : DisposableObserver<T>() {
-                    override fun onNext(result: T) {
-                        observerListener.onNext(result)
+                .subscribeWith(object : DisposableObserver<BaseHttpResponse<T>>() {
+                    override fun onNext(result: BaseHttpResponse<T>) {
+                        if (result.status == 0) {
+                            observerListener.onSuccess(result.data)
+                        } else {
+                            var errorBean = ErrorBean()
+                            errorBean.code = result.status.toString()
+                            errorBean.msg = result.msg
+                            observerListener.onBusinessError(errorBean)
+                        }
                     }
 
                     override fun onError(e: Throwable) {
@@ -336,31 +356,43 @@ object RetrofitRxManager {
                     override fun onComplete() {
                         observerListener.onComplete()
                     }
+                    //未统一封装数据格式
+//                    override fun onNext(result: T) {
+//                        observerListener.onNext(result)
+//                    }
+//
+//                    override fun onError(e: Throwable) {
+//                        observerListener.onError(e)
+//                    }
+//
+//                    override fun onComplete() {
+//                        observerListener.onComplete()
+//                    }
                 })
     }
 
     /**
      * 直接使用RetrofitRxManager请求
      */
-    fun doNormalRequest() {
-//        multipleStatusView.showLoading()
-        Handler().postDelayed({
-            RetrofitRxManager.getRequestService().getWeather("北京")
-                    .compose(RxSchedulers.io_main())
-                    .subscribeWith(object : DisposableObserver<WeatherEntity>() {
-                        override fun onNext(bean: WeatherEntity) {
-//                            var viewBinder = viewDataBinding as FraBookshelfBinding
-//                            viewBinder.weather = bean
-////                            multipleStatusView.showContent()
-//                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
-                        }
-
-                        override fun onError(e: Throwable) {
-                        }
-
-                        override fun onComplete() {
-                        }
-                    })
-        }, 1500)
-    }
+//    fun doNormalRequest() {
+////        multipleStatusView.showLoading()
+//        Handler().postDelayed({
+//            RetrofitRxManager.getRequestService().getWeather("北京")
+//                    .compose(RxSchedulers.io_main())
+//                    .subscribeWith(object : DisposableObserver<WeatherEntity>() {
+//                        override fun onNext(bean: WeatherEntity) {
+////                            var viewBinder = viewDataBinding as FraBookshelfBinding
+////                            viewBinder.weather = bean
+//////                            multipleStatusView.showContent()
+////                            multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+//                        }
+//
+//                        override fun onError(e: Throwable) {
+//                        }
+//
+//                        override fun onComplete() {
+//                        }
+//                    })
+//        }, 1500)
+//    }
 }

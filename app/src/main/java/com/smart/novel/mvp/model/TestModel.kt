@@ -1,8 +1,9 @@
 package com.smart.novel.mvp.model
 
 import com.smart.novel.mvp.contract.TestContract
+import com.smart.novel.net.BaseHttpResponse
+import com.smart.novel.net.RetrofitRxManager
 import com.smart.novel.net.WeatherEntity
-import com.zongxueguan.naochanle_android.retrofitrx.RetrofitRxManager
 import io.reactivex.Observable
 
 /**
@@ -12,7 +13,7 @@ import io.reactivex.Observable
  */
 
 class TestModel:TestContract.Model{
-    override fun getTestData(): Observable<WeatherEntity> {
+    override fun getTestData(): Observable<BaseHttpResponse<WeatherEntity.DataBean>> {
         return RetrofitRxManager.getRequestService().getWeather("北京")
     }
 //    override fun getTestData() {

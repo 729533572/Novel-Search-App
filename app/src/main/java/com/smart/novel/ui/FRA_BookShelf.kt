@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fra_bookshelf.*
  * description: 书架
  */
 class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.View {
-
     /**
      * companion object {}内：静态方法
      */
@@ -62,10 +61,13 @@ class FRA_BookShelf : BaseMVPFragment<TestPresenter, TestModel>(), TestContract.
     override fun showBusinessError(error: ErrorBean?) {
         multipleStatusView.showError()
     }
-
-    override fun getTestData(weatherEntity: WeatherEntity) {
-//        multipleStatusView.showEmpty(R.drawable.ic_reading_no_data, MyApplication.context.getString(R.string.string_empty_bookshelf))
+    override fun showException(error: ErrorBean?) {
+    }
+    override fun getTestData(weather: WeatherEntity.DataBean) {
         var viewBinder = viewDataBinding as FraBookshelfBinding
-        viewBinder.weather = weatherEntity
+        viewBinder.weather = weather
+    }
+
+    fun tabCheck() {
     }
 }

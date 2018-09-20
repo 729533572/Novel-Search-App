@@ -55,12 +55,31 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
     }
 
     @Override
-    protected void handleStatusBar() {
+    protected void handleStatusBar(StatusBarMode mode) {
         ViewGroup rootView = (ViewGroup) findViewById(android.R.id.content);
         ViewGroup contentView = (ViewGroup) rootView.getChildAt(0);
-        StatusBarUtil.Companion.darkMode(this);
-        contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop() + StatusBarUtil.Companion.getStatusBarHeight(this),
-                contentView.getPaddingRight(), contentView.getPaddingBottom());
+        switch (mode) {
+            case DARK_FULLSCREEN:
+                StatusBarUtil.Companion.darkMode(this);
+                contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop(),
+                        contentView.getPaddingRight(), contentView.getPaddingBottom());
+                break;
+            case DARK_NO_FULLSCREEN:
+                StatusBarUtil.Companion.darkMode(this);
+                contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop() + StatusBarUtil.Companion.getStatusBarHeight(this),
+                        contentView.getPaddingRight(), contentView.getPaddingBottom());
+                break;
+            case LIGHT_FULLSCREEN:
+                StatusBarUtil.Companion.immersive(this);
+                contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop(),
+                        contentView.getPaddingRight(), contentView.getPaddingBottom());
+                break;
+            case LIGHT_NO_FULLSCREEN:
+                StatusBarUtil.Companion.immersive(this);
+                contentView.setPadding(contentView.getPaddingLeft(), contentView.getPaddingTop() + StatusBarUtil.Companion.getStatusBarHeight(this),
+                        contentView.getPaddingRight(), contentView.getPaddingBottom());
+                break;
+        }
     }
 
     @Override
@@ -72,6 +91,7 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
     protected void onNetworkDisConnected() {
 
     }
+
     //使用MultipleStatusView，暂时无用
     @Override
     protected View getLoadingTargetView() {

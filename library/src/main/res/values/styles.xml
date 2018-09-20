@@ -100,4 +100,24 @@
         <item name="android:textColor">#a9b7b7</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <!--DIA_Alert-->
+    <style name="style_custom_dialog_fade">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowEnterAnimation">@anim/dd_mask_in</item>
+        <item name="android:windowExitAnimation">@anim/dd_mask_out</item>
+    </style>
+    <!--dialog style-->
+    <style name="style_custom_dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
 </resources>

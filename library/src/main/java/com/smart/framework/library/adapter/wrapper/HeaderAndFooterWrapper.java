@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smart.framework.library.adapter.rv.ViewHolder;
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder;
 import com.smart.framework.library.adapter.utils.WrapperUtils;
 
 

@@ -1,8 +1,8 @@
 package com.smart.novel.adapter
 
 import android.app.Activity
-import com.smart.framework.library.adapter.rv.ViewHolder
 import com.smart.framework.library.adapter.rv.normal.ItemViewDelegateNormal
+import com.smart.framework.library.adapter.rv.normal.databinding.ViewHolder
 import com.smart.novel.R
 import com.smart.novel.bean.UserEntity
 import com.smart.novel.databinding.ItemSearchResultBinding

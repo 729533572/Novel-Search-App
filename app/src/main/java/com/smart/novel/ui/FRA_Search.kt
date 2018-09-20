@@ -14,6 +14,9 @@ import com.smart.novel.mvp.presenter.TestPresenter
  * description: 搜索小说
  */
 class FRA_Search : BaseMVPFragment<TestPresenter, TestModel>() {
+    override fun showException(error: ErrorBean?) {
+    }
+
     companion object {
         fun getInstance(): FRA_Search {
             val fragment = FRA_Search()
@@ -49,5 +52,8 @@ class FRA_Search : BaseMVPFragment<TestPresenter, TestModel>() {
 
     override fun isBindEventBusHere(): Boolean {
         return false
+    }
+
+    fun tabCheck() {
     }
 }

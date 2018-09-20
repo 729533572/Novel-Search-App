@@ -10,7 +10,6 @@
         android:id="@+id/rl_common_title"
         android:layout_width="match_parent"
         android:layout_height="100px"
-        android:background="#ffffff"
         android:orientation="horizontal">
 
 
@@ -27,11 +26,16 @@
             android:textSize="17sp" />
 
         <ImageView
-            android:id="@+id/iv_title"
+            android:id="@+id/iv_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:onClick="onActionFinish"
+            android:paddingBottom="20px"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            android:paddingTop="20px"
+            android:src="@drawable/ic_nav_bar_back"
             android:visibility="gone" />
 
         <TextView
@@ -40,12 +44,26 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingBottom="20px"
             android:paddingLeft="30px"
             android:paddingRight="30px"
+            android:paddingTop="20px"
             android:text="管理"
             android:textColor="@color/color_2F9FF2"
             android:textSize="15sp"
-            android:visibility="visible" />
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_right_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30px"
+            android:button="@null"
+            android:padding="10px"
+            android:src="@drawable/ic_nav_bar_yuan"
+            android:visibility="gone" />
 
     </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -55,4 +73,5 @@
         android:layout_height="2px"
         android:background="@drawable/bg_shape_gradient_line_reverse"
         android:focusableInTouchMode="true" />
+    <!-- android:focusableInTouchMode="true"  使列表RecyclerView能正常获取焦点，避免出现下列刷新不灵敏的问题-->
 </com.zhy.autolayout.AutoLinearLayout>

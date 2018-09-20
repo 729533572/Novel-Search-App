@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -41,16 +41,17 @@ dependencies {
     compile files('src/main/libs/nineoldandroids-2.4.0.jar')
     compile files('src/main/libs/eventbus-3.0.0-beta1.jar')
     compile files('src/main/libs/dom4j-2.0.0-RC1.jar')
-//    compile files('src/main/libs/butterknife-7.0.1.jar')
+    //    compile files('src/main/libs/butterknife-7.0.1.jar')
     compile files('src/main/libs/systembartint-1.0.4.jar')
     compile files('src/main/libs/picasso-2.5.2.jar')
     //    compile files('src/main/libs/android-support-v7-cardview.jar')
     compile files('src/main/libs/fastjson-1.1.31.jar')
     compile files('src/main/libs/core.jar')
     compile 'com.android.support:recyclerview-v7:25.0.1'
-    compile 'com.umeng.analytics:analytics:latest.integration'
+//    compile 'com.umeng.analytics:analytics:latest.integration'
     //    布局适配
     compile 'com.zhy:autolayout:1.4.5'
+    compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     //    新版本的rxjava + retrofit
     //rxandroid
@@ -68,4 +69,13 @@ dependencies {
     //butterknife控件插件
     compile 'com.jakewharton:butterknife:8.8.1'
     compile project(':LRecyclerview_library')
+    //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
+//    compile project(':okhttp3-persistent-cookiejar')
+    //    rxbinding
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //网页html格式数据解析
+    compile 'org.jsoup:jsoup:1.10.3'
+//    compile project(':ushare_library')
+    compile files('src/main/libs/umeng-analytics-7.4.0.jar')
+    compile files('src/main/libs/umeng-common-1.4.0.jar')
 }

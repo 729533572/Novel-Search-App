@@ -10,7 +10,8 @@
     <string name="string_re_try">重新获取</string>
 
     <string name="hint_input_phone">请输入账号</string>
-    <string name="string_get_verify_code">获取验证码</string>
+    <string name="string_get_verify_code">点击获取</string>
+    <string name="string_re_get_verify_code">重新获取</string>
 
 
     <!--接口异常处理-->
@@ -25,4 +26,11 @@
     <string name="loading_text">加载中&#8230;</string>
     <string name="data_error">内容丢失在火星了(ㄒoㄒ)~~</string>
     <string name="no_network">请检查网络后点击重新加载</string>
+    <!--dialog-->
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="confim">确定</string>
+    <string name="i_know">我知道了</string>
+    <string name="reject">残忍拒绝</string>
+    <string name="accept">我再想想</string>
 </resources>
