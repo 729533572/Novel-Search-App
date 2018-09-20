@@ -2,6 +2,7 @@ package com.smart.novel.util
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.smart.novel.bean.ChapterBean
 import com.smart.novel.bean.NovelBean
@@ -64,6 +65,14 @@ class IntentUtil {
             bundle.putString(PageDataConstants.WEB_URL, linkUrl)
             intent.setClass(context, ACT_WebView::class.java)
             intent.putExtras(bundle)
+            context.startActivity(intent)
+        }
+        /**
+         * 打开内置浏览器
+         */
+        fun intentDefaultWebClient(context: Context, linkUrl: String) {
+            val uri = Uri.parse(linkUrl)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(intent)
         }
 

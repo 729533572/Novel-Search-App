@@ -4,6 +4,8 @@ package com.smart.novel.util.read;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -114,23 +116,29 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         if (chapterModel.getPageModels() == null) {
             return;
         }
-        if (chapterModel.getIndex() + 1 < chapterModel.getPageModels().size()) {
-            chapterModel.setIndex(chapterModel.getIndex() + 1);
+//        if (chapterModel.getIndex() + 1 < chapterModel.getPageModels().size()) {
+//            chapterModel.setIndex(chapterModel.getIndex() + 1);
+//        }
+//        Elog.e("TAG", "PageUp-mCurrentPage=" + chapterModel.getIndex());
+//        mCurrentPage = chapterModel.getIndex() + 1;
+        if (mCurrentPage <= chapterModel.getPageModels().size()) {
+            mCurrentPage++;
         }
-        Elog.e("TAG", "PageUp-mCurrentPage=" + chapterModel.getIndex());
-        mCurrentPage = chapterModel.getIndex() + 1;
     }
 
     public void PageDn() {
         if (chapterModel.getPageModels() == null) {
             return;
         }
-        if (chapterModel.getIndex() - 1 >= 0) {
-            chapterModel.setIndex(chapterModel.getIndex() - 1);
-            mCurrentPage = chapterModel.getIndex() - 1;
+//        if (chapterModel.getIndex() - 1 >= 0) {
+//            chapterModel.setIndex(chapterModel.getIndex() - 1);
+//            mCurrentPage = chapterModel.getIndex() - 1;
+//        }
+//        Elog.e("TAG", "pageDn-mCurrentPage=" + chapterModel.getIndex());
+//        mCurrentPage = chapterModel.getIndex() + 1;
+        if (mCurrentPage > 1) {
+            mCurrentPage--;
         }
-        Elog.e("TAG", "pageDn-mCurrentPage=" + chapterModel.getIndex());
-        mCurrentPage = chapterModel.getIndex() + 1;
     }
 
     private void setMatrix() {
@@ -228,8 +236,10 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         super.onDraw(canvas);
         if (listener != null && chapterModel.getPageModels() != null) {
             listener.onTotalPage(chapterModel.getPageModels().size());
-            mCurrentPage = chapterModel.getIndex() + 1;
+//            mCurrentPage = chapterModel.getIndex() + 1;
         }
+
+        chapterModel.setIndex(mCurrentPage - 1);
         if (chapterModel.getPageModels() != null && chapterModel.getIndex() < chapterModel.getPageModels().size()) {
             PageModel page = chapterModel.getPageModels().get(chapterModel.getIndex());
             for (int i = 0; i < page.getLineModels().size(); i++) {
@@ -243,17 +253,25 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
                 }
                 for (int j = 0; j < num; j++) {
 //                mPaint.setColor(line.getStrColors().get(j));
+                    Elog.e("TAG", "drawText-----" + line.getStringList().get(j));
                     canvas.drawText(line.getStringList().get(j), line.getStrX().get(j) + paddingLeft + j * spacing,
                             (i + 1) * fontSize * 1.5f + paddingTop - 4, mPaint);
                 }
             }
+        }
+
+        //章节的最后一页，绘制广告页
+        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
+        if (chapterModel.getPageModels() != null && mCurrentPage == chapterModel.getPageModels().size() + 1) {
+            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
+            canvas.drawBitmap(bitmap, 0, 0, mPaint);
         }
     }
 
     float downX = 0;
     float distance = 0;
 
-//    @SuppressLint("ClickableViewAccessibility")
+    //    @SuppressLint("ClickableViewAccessibility")
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {
 //        switch (event.getAction()) {

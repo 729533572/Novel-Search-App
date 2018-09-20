@@ -8,6 +8,7 @@ import com.smart.novel.bean.WebsiteBean
 import com.smart.novel.databinding.ItemOriginWebsiteBinding
 import com.smart.novel.util.IntentUtil
 
+
 /**
  * Created by JoJo on 2018/9/5.
 wechat：18510829974
@@ -19,7 +20,9 @@ class ADA_OriginWebsite constructor(context: Context) : CommonAdapter<WebsiteBea
         viewBinding!!.websiteBean = bean
         if (mSelectPos == position) holder!!.setChecked(R.id.iv_newest_chapter, true) else holder!!.setChecked(R.id.iv_newest_chapter, false)
 
-        holder!!.setOnClickListener(R.id.tv_go_website, { IntentUtil.intentToWebView(mContext,bean!!.origin_website) })
+        holder!!.setOnClickListener(R.id.tv_go_website, {
+            IntentUtil.intentDefaultWebClient(mContext,bean!!.origin_website)
+        })
     }
 
     override fun itemLayoutId(): Int {

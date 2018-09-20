@@ -108,6 +108,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             }
 
             override fun onScrollLeft() {
+                //如果是最后一页，广告页，滑动下一页，则切换下一章节
+                if (readView.mCurrentPage > mTotalPage) {
+                    mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
+                    CommonUtils.makeShortToast("切换下一章")
+                    return
+                }
                 readView.PageUp()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
@@ -338,6 +344,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         }
         switchChapter(dataList)
     }
+
     /**
      * 切换章节，刷新页面
      */
@@ -354,6 +361,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         //切换章节，重新添加阅读记录
         uploadReadRecord()
     }
+
     /**
      * 进入章节阅读、切换章节，添加阅读记录
      */
