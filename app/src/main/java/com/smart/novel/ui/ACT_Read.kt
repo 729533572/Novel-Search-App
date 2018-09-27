@@ -94,27 +94,39 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
     }
 
+    //标记是否是手势滑动切换章节，如果是手势滑动切换，则左滑切换上一章节，需要切到上一章节最后一页而非第一页
+    var isScroll = false
+
     //阅读的view的点击事件
     private fun initListener() {
         readView.setOnItemSelectListener(object : ReadView.OnItemSelectListener {
             override fun onTotalPage(totalPage: Int) {
                 mTotalPage = totalPage
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
+                Elog.e("page",readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
             override fun onScrollRight() {
-                readView.PageDn()
+                isScroll = true
+                if (readView.mCurrentPage == 1) {
+                    mMvpPresenter.getLastChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
+//                    CommonUtils.makeShortToast("切换上一章")
+                    return
+
+                }
+                readView.lastPage()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
             override fun onScrollLeft() {
+                isScroll = false
                 //如果是最后一页，广告页，滑动下一页，则切换下一章节
-                if (readView.mCurrentPage > mTotalPage) {
+                if (readView.mCurrentPage == mTotalPage) {
                     mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
-                    CommonUtils.makeShortToast("切换下一章")
+//                    CommonUtils.makeShortToast("切换下一章")
                     return
                 }
-                readView.PageUp()
+                readView.nextPage()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
@@ -127,10 +139,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         //阅读设置弹窗事件处理
         mDiaSetting!!.setOnBoardClickListener(object : DIA_ReadSetting.OnBoardClickListener {
             override fun onClickLastChapter() {
+                isScroll = false
                 mMvpPresenter.getLastChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
             }
 
             override fun onClickNextChapter() {
+                isScroll = false
                 mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
             }
 
@@ -312,7 +326,12 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
                     //从全部章节返回时切换上下章节设置内容时，从第一页开始，而非当前页开始
                     readView.init()
                     readView.mCurrentPage = 1
+                    readView.setIsScroll(isScroll)
                     readView.setText(content.text())
+//                    if (isScroll) {
+//                        readView.mCurrentPage = mTotalPage
+//                        readView.nextPage()
+//                    }
                 })
             } catch (e: Exception) {
                 handler.post({
@@ -349,14 +368,15 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
      * 切换章节，刷新页面
      */
     private fun switchChapter(dataList: List<ChapterBean>) {
+        //更新章节bean
         chapterBean = dataList.get(0)
         chapterBean!!.totol_size = mTotalSize
-        requestChapters(false)
         mDiaSetting!!.refreshData(chapterBean!!)
 
         //切换上下章节设置内容时，从第一页开始，而非当前页开始
         readView.init()
         readView.mCurrentPage = 1
+        requestChapters(false)
 
         //切换章节，重新添加阅读记录
         uploadReadRecord()

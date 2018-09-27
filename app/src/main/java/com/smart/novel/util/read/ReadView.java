@@ -19,7 +19,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.smart.framework.library.common.log.Elog;
 import com.smart.novel.R;
 import com.smart.novel.util.read.modle.ChapterModel;
 import com.smart.novel.util.read.modle.LineModel;
@@ -48,6 +47,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
     private static final int MIN_OFFSET_VALUE = 20;
     private GestureDetector mGestureDetector;
     private DirectionControlView.DirectionControlListener mDirectionControlListener;
+    private boolean isScrollLastChapter;//是否为→右滑切换上一章的操作
 
 
     public ReadView(Context context) {
@@ -112,7 +112,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         invalidate();
     }
 
-    public void PageUp() {
+    public void nextPage() {
         if (chapterModel.getPageModels() == null) {
             return;
         }
@@ -126,7 +126,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         }
     }
 
-    public void PageDn() {
+    public void lastPage() {
         if (chapterModel.getPageModels() == null) {
             return;
         }
@@ -234,11 +234,16 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (chapterModel.getPageModels() != null && isScrollLastChapter) {
+            mCurrentPage = chapterModel.getPageModels().size();
+            isScrollLastChapter = false;
+        }
+
         if (listener != null && chapterModel.getPageModels() != null) {
             listener.onTotalPage(chapterModel.getPageModels().size());
 //            mCurrentPage = chapterModel.getIndex() + 1;
         }
-
+        //设置章节开始的页数索引
         chapterModel.setIndex(mCurrentPage - 1);
         if (chapterModel.getPageModels() != null && chapterModel.getIndex() < chapterModel.getPageModels().size()) {
             PageModel page = chapterModel.getPageModels().get(chapterModel.getIndex());
@@ -253,7 +258,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
                 }
                 for (int j = 0; j < num; j++) {
 //                mPaint.setColor(line.getStrColors().get(j));
-                    Elog.e("TAG", "drawText-----" + line.getStringList().get(j));
+//                    Elog.e("TAG", "drawText-----" + line.getStringList().get(j));
                     canvas.drawText(line.getStringList().get(j), line.getStrX().get(j) + paddingLeft + j * spacing,
                             (i + 1) * fontSize * 1.5f + paddingTop - 4, mPaint);
                 }
@@ -261,7 +266,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         }
 
         //章节的最后一页，绘制广告页
-        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
+//        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
         if (chapterModel.getPageModels() != null && mCurrentPage == chapterModel.getPageModels().size() + 1) {
             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
             canvas.drawBitmap(bitmap, 0, 0, mPaint);
@@ -445,5 +450,14 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         this.fontSize = fontSize;
         mPaint.setTextSize(fontSize);
         setText(eBook);
+    }
+
+    /**
+     * 是否为→右滑切换上一章的操作
+     *
+     * @param scroll
+     */
+    public void setIsScroll(boolean scroll) {
+        this.isScrollLastChapter = scroll;
     }
 }
