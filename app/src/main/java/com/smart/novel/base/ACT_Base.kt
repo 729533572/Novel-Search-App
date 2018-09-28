@@ -79,12 +79,4 @@ abstract class ACT_Base : BaseActivity() {
     override fun getLoadingTargetView(): View? {
         return null
     }
-
-    override fun toggleOverridePendingTransition(): Boolean {
-        return true
-    }
-
-    override fun getOverridePendingTransitionMode(): TransitionMode? {
-        return TransitionMode.RIGHT
-    }
 }

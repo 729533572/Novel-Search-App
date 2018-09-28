@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\build\\intermediates\\res\\merged\\debug\\menu\\banner.xml",
+        "source": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\src\\main\\res\\menu\\banner.xml"
+    },
+    {
+        "merged": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\build\\intermediates\\res\\merged\\debug\\menu\\interstitial_ad.xml",
+        "source": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\src\\main\\res\\menu\\interstitial_ad.xml"
+    },
+    {
+        "merged": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\build\\intermediates\\res\\merged\\debug\\menu\\splash.xml",
+        "source": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\src\\main\\res\\menu\\splash.xml"
+    },
+    {
+        "merged": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\build\\intermediates\\res\\merged\\debug\\menu\\main.xml",
+        "source": "D:\\android-project\\other-work\\novel-search-app\\gDTUnionDemo\\src\\main\\res\\menu\\main.xml"
+    }
+]

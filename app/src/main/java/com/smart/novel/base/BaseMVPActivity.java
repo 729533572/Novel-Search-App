@@ -104,12 +104,12 @@ public abstract class BaseMVPActivity<P extends BasePresenter, M extends BaseMod
     }
 
     @Override
-    protected boolean toggleOverridePendingTransition() {
+    protected boolean toggleOverridePendingTransition(boolean b) {
         return true;
     }
 
     @Override
-    protected TransitionMode getOverridePendingTransitionMode() {
-        return TransitionMode.RIGHT;
+    protected TransitionMode getOverridePendingTransitionMode(TransitionMode transitionMode) {
+        return super.getOverridePendingTransitionMode(TransitionMode.RIGHT);
     }
 }

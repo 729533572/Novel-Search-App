@@ -82,6 +82,8 @@ dependencies {
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     //    PersistentCookieJar:Retrofit在客户端保持Cookie:https://blog.csdn.net/u014752325/article/details/53557876
     //    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.0'
+    compile files('src/main/libs/android-query-full.0.26.7.jar')
+    compile files('src/main/libs/GDTUnionSDK.TBS.4.19.574.min.jar')
 }
 repositories {
     mavenCentral()

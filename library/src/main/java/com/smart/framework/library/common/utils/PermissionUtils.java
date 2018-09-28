@@ -49,6 +49,8 @@ public class PermissionUtils {
     public static final int REQUEST_CALL_PHONE = 107;
     //获取手机设备信息权限
     public static final int REQUEST_READ_PHONE_STATUS = 108;
+    //获取广点通sdk需要的权限
+    public static final int REQUEST_ADVERTISE_NEED = 109;
 
     /**
      * 提供单例
@@ -76,12 +78,25 @@ public class PermissionUtils {
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.REQUEST_INSTALL_PACKAGES ,
+                Manifest.permission.REQUEST_INSTALL_PACKAGES,
                 Manifest.permission.READ_PHONE_STATE};
 //        ActivityCompat.requestPermissions(mContext, allPermissions, REQUEST_ALL_NEED_PERMISSION);
         ActivityCompat.requestPermissions(mContext, getDeniedPermisson(allPermissions), REQUEST_ALL_NEED_PERMISSION);
         //释放资源，防止内存泄露
         mContext = null;
+    }
+
+    /**
+     * 第一次进入安装应用启动应用时申请所有的权限
+     * 暂时保留该方法不使用
+     */
+    public void requestNeed(Activity context) {
+        String[] allPermissions = {
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION};
+//        ActivityCompat.requestPermissions(context, allPermissions, REQUEST_ALL_NEED_PERMISSION);
+        ActivityCompat.requestPermissions(context, getDeniedPermisson(allPermissions), REQUEST_ADVERTISE_NEED);
     }
 
     /**
@@ -170,7 +185,6 @@ public class PermissionUtils {
 //            }
 //        }, true);
 //    }
-
     /**
      * 权限被拒后的处理
      *

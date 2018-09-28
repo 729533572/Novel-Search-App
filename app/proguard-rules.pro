@@ -254,3 +254,14 @@ public static java.lang.String TABLENAME;
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
+
+#腾讯广点通
+-keep class com.qq.e.** {
+    public protected *;
+}
+-keep class android.support.v4.**{
+    public *;
+}
+-keep class android.support.v7.**{
+    public *;
+}

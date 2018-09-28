@@ -164,7 +164,7 @@ class ACT_Home : ACT_Base(), View.OnClickListener {
         }
     }
 
-    override fun toggleOverridePendingTransition(): Boolean {
+    override fun toggleOverridePendingTransition(b: Boolean): Boolean {
         return false
     }
 

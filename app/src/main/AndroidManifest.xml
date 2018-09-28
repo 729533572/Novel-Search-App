@@ -11,8 +11,16 @@
     <!--分享-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!--广点通SDK接入需要的相关权限-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:name="com.smart.novel.MyApplication"
         android:allowBackup="true"
@@ -96,8 +104,28 @@
             android:theme="@style/Theme.UMDefault" />
         <!-- 友盟第三方分享 -->
 
+        <!--广点通 sdk-->
+        <!--7.0以上权限适配-->
+        <!-- targetSDKVersion >= 24时才需要添加这个 provider。provider 的 authorities 属性的值为 ${applicationId:即包名}.fileprovider，请开发者根据自己的 ${applicationId} 来设置这个值 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.smart.novel.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/gdt_file_path" />
+        </provider>
+        <!--7.0以上权限适配-->
+        <service
+            android:name="com.qq.e.comm.DownloadService"
+            android:exported="false" />
+        <activity
+            android:name="com.qq.e.ads.ADActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+        <!--广点通 sdk-->
 
-
+        <!--<activity android:name=".ui.ACT_Home"></activity>-->
         <activity android:name=".ui.ACT_Login"></activity>
         <!--小说详情页-->
         <activity android:name=".ui.ACT_NovelDetail"></activity>
@@ -108,6 +136,7 @@
         <activity android:name=".ui.mine.ACT_AboutUs"></activity>
         <activity android:name=".ui.mine.ACT_ConnectUs"></activity>
         <activity android:name=".ui.mine.ACT_Announcement"></activity>
+        <activity android:name=".ui.ACT_SplashAD"></activity>
     </application>
 
 </manifest>

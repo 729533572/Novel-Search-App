@@ -101,8 +101,8 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
             getBundleExtras(extras);
         }
 
-        if (toggleOverridePendingTransition()) {
-            switch (getOverridePendingTransitionMode()) {
+        if (toggleOverridePendingTransition(true)) {
+            switch (getOverridePendingTransitionMode(TransitionMode.RIGHT)) {
                 case LEFT:
                     overridePendingTransition(R.anim.left_in, R.anim.left_out);
                     break;
@@ -175,6 +175,10 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
         registerReceiver();
     }
 
+    protected  TransitionMode getOverridePendingTransitionMode(TransitionMode transitionMode){
+        return transitionMode;
+    }
+
     protected abstract void handleStatusBar(StatusBarMode mode);
 
     @Override
@@ -210,8 +214,8 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
     public void finish() {
         super.finish();
         BaseActManager.getInstance().removeActivity(this);
-        if (toggleOverridePendingTransition()) {
-            switch (getOverridePendingTransitionMode()) {
+        if (toggleOverridePendingTransition(true)) {
+            switch (getOverridePendingTransitionMode(TransitionMode.RIGHT)) {
                 case LEFT:
                     overridePendingTransition(R.anim.left_in, R.anim.left_out);
                     break;
@@ -304,13 +308,15 @@ public abstract class BaseAppCompatActivity<P extends BasePresenter, M extends B
      * toggle overridePendingTransition
      *
      * @return
+     * @param isToggle
      */
-    protected abstract boolean toggleOverridePendingTransition();
+    protected boolean toggleOverridePendingTransition(boolean isToggle){
+        return isToggle;
+    }
 
     /**
      * get the overridePendingTransition mode
      */
-    protected abstract TransitionMode getOverridePendingTransitionMode();
 
     /**
      * startActivity

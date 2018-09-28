@@ -1,1 +1,2 @@
 include ':app', ':library', ':LRecyclerview_library', ':okhttp3-persistent-cookiejar', ':ushare_library'
+include ':gDTUnionDemo'

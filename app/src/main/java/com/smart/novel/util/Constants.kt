@@ -8,5 +8,7 @@ package com.smart.novel.util
 class Constants {
     companion object {
         var DB_NAME: String = "novel_search.db"
+        var SplashPosID: String = "SplashPosID"  //开屏广告id
+        var APPID: String = "1101152570"
     }
 }

@@ -25,7 +25,7 @@ class RecyclerViewHelper {
             mRecyclerView.setHasFixedSize(true)
             mRecyclerView.layoutManager = LinearLayoutManager(context)
             mRecyclerView.setRefreshProgressStyle(ProgressStyle.TriangleSkewSpin)
-            mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallBeat);
+            mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallBeat)
             //设置头部文字颜色
             mRecyclerView.setHeaderViewColor(R.color.color_3AC270, R.color.color_73787d, R.color.color_f9f9f9)
             //设置底部加载颜色-loading动画颜色,文字颜色,footer的背景颜色
