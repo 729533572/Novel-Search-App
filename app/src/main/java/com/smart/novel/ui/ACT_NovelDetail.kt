@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
+import com.qq.e.ads.banner.ADSize
+import com.qq.e.ads.banner.AbstractBannerADListener
+import com.qq.e.ads.banner.BannerView
+import com.qq.e.comm.util.AdError
 import com.smart.framework.library.adapter.rv.normal.databinding.MultiItemTypeAdapter
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
@@ -29,6 +34,7 @@ import com.smart.novel.dialog.DIA_Share
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
+import com.smart.novel.util.Constants
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.share.ShareEntity
@@ -58,6 +64,7 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
     var total_size = 100
     var novelDetailBean: NovelBean? = null
     var dataRealShow = ArrayList<ChapterBean>()
+
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_novel_detail
     }
@@ -93,7 +100,44 @@ class ACT_NovelDetail : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         requestNovelDetail()
 
         initListener()
+
+        //加载banner广告
+        getBanner().loadAD()
     }
+
+    var bv: BannerView? = null
+    var posId = ""
+    private fun getBanner(): BannerView {
+        val posId = Constants.BannerPosID
+        if (this.bv != null && this.posId == posId) {
+            return this.bv!!
+        }
+        if (this.bv != null) {
+            bannerContainer.removeView(bv)
+            bv!!.destroy()
+        }
+        this.posId = posId
+        this.bv = BannerView(this, ADSize.BANNER, Constants.APPID, posId)
+        // 注意：如果开发者的banner不是始终展示在屏幕中的话，请关闭自动刷新，否则将导致曝光率过低。
+        // 并且应该自行处理：当banner广告区域出现在屏幕后，再手动loadAD。
+        bv!!.setRefresh(30)
+        bv!!.setADListener(object : AbstractBannerADListener() {
+
+            override fun onNoAD(error: AdError) {
+                Log.i(
+                        "AD_DEMO",
+                        String.format("Banner onNoAD，eCode = %d, eMsg = %s", error.errorCode,
+                                error.errorMsg))
+            }
+
+            override fun onADReceiv() {
+                Log.i("AD_DEMO", "ONBannerReceive")
+            }
+        })
+        bannerContainer.addView(bv)
+        return this.bv!!
+    }
+
 
     private fun initListener() {
         mAdapter!!.setOnItemClickListener(object : MultiItemTypeAdapter.OnItemClickListener {

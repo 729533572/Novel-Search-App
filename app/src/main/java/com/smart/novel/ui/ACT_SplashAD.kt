@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
+import android.view.KeyEvent
 import android.view.ViewGroup
 import com.qq.e.ads.splash.SplashAD
 import com.qq.e.ads.splash.SplashADListener
@@ -31,21 +32,29 @@ class ACT_SplashAD : ACT_Base(), SplashADListener {
      * 广告加载的回调
      */
     override fun onADExposure() {
+        Elog.e("TAG","AD-onADExposure()")
     }
 
     override fun onADDismissed() {
+        Elog.e("TAG","AD-onADDismissed()")
+        startActivity(Intent(this, ACT_Home::class.java))
+        finish()
     }
 
     override fun onADPresent() {
+        Elog.e("TAG","AD-onADPresent()")
     }
 
     override fun onNoAD(p0: AdError?) {
+        Elog.e("TAG","AD-onNoAD()")
     }
 
     override fun onADClicked() {
+        Elog.e("TAG","AD-onADClicked()")
     }
 
     override fun onADTick(p0: Long) {
+        Elog.e("TAG","AD-onADTick()")
     }
 
     override fun getBundleExtras(extras: Bundle?) {
@@ -132,4 +141,11 @@ class ACT_SplashAD : ACT_Base(), SplashADListener {
     override fun toggleOverridePendingTransition(isToggle: Boolean): Boolean {
         return super.toggleOverridePendingTransition(false)
     }
+
+//    /** 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费  */
+//    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+//        return if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+//            true
+//        } else super.onKeyDown(keyCode, event)
+//    }
 }

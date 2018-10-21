@@ -144,8 +144,8 @@
                             android:layout_alignBottom="@+id/tv_comment"
                             android:layout_alignRight="@+id/tv_comment"
                             android:paddingLeft="10px"
-                            android:paddingTop="10px"
                             android:paddingRight="10px"
+                            android:paddingTop="10px"
                             android:src="@drawable/ic_btn_down_open" />
                     </com.zhy.autolayout.AutoRelativeLayout>
 
@@ -162,6 +162,12 @@
                     android:text="小说章节"
                     android:textColor="@color/color_2E3439"
                     android:textSize="15sp" />
+                <!--banner广告-->
+                <com.zhy.autolayout.AutoFrameLayout
+                    android:id="@+id/bannerContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"></com.zhy.autolayout.AutoFrameLayout>
 
                 <!--小说全部章节列表-显示前五条-->
                 <com.smart.framework.library.loading.MultipleStatusView

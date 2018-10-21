@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/style_darkactionbar_activity">
 
-        <activity android:name=".ui.ACT_Home">
+        <activity android:name=".ui.ACT_SplashAD">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -136,7 +136,7 @@
         <activity android:name=".ui.mine.ACT_AboutUs"></activity>
         <activity android:name=".ui.mine.ACT_ConnectUs"></activity>
         <activity android:name=".ui.mine.ACT_Announcement"></activity>
-        <activity android:name=".ui.ACT_SplashAD"></activity>
+        <activity android:name=".ui.ACT_Home"></activity>
     </application>
 
 </manifest>
