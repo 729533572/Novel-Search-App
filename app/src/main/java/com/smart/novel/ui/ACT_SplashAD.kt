@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.KeyEvent
@@ -28,42 +30,100 @@ import kotlinx.android.synthetic.main.act_splash_advertisement.*
  * description: 开屏广告页面
  */
 class ACT_SplashAD : ACT_Base(), SplashADListener {
+    var canJump = false
     /**
-     * 广告加载的回调
+     * 为防止无广告时造成视觉上类似于"闪退"的情况，设定无广告时页面跳转根据需要延迟一定时间，demo
+     * 给出的延时逻辑是从拉取广告开始算开屏最少持续多久，仅供参考，开发者可自定义延时逻辑，如果开发者采用demo
+     * 中给出的延时逻辑，也建议开发者考虑自定义minSplashTimeWhenNoAD的值（单位ms）
      */
-    override fun onADExposure() {
-        Elog.e("TAG","AD-onADExposure()")
-    }
+    private val minSplashTimeWhenNoAD = 2000
 
-    override fun onADDismissed() {
-        Elog.e("TAG","AD-onADDismissed()")
-        startActivity(Intent(this, ACT_Home::class.java))
-        finish()
-    }
+    val handler = Handler(Looper.getMainLooper())
 
-    override fun onADPresent() {
-        Elog.e("TAG","AD-onADPresent()")
-    }
-
-    override fun onNoAD(p0: AdError?) {
-        Elog.e("TAG","AD-onNoAD()")
-    }
-
-    override fun onADClicked() {
-        Elog.e("TAG","AD-onADClicked()")
-    }
-
-    override fun onADTick(p0: Long) {
-        Elog.e("TAG","AD-onADTick()")
-    }
-
-    override fun getBundleExtras(extras: Bundle?) {
-    }
+    /**
+     * 记录拉取广告的时间
+     */
+    private var fetchSplashADTime: Long = 0
+    private var splashAD: SplashAD? = null
 
     override fun getContentViewLayoutID(): Int {
         return R.layout.act_splash_advertisement
     }
 
+    override fun onADPresent() {
+        Elog.e("TAG", "AD-onADPresent()")
+    }
+
+    /**
+     * 广告加载的回调
+     */
+    override fun onADExposure() {
+        Elog.e("TAG", "AD-onADExposure()")
+    }
+
+    override fun onADDismissed() {
+        Elog.e("TAG", "AD-onADDismissed()")
+        next()
+    }
+
+    override fun onADClicked() {
+        Elog.e("TAG", "AD-onADClicked()")
+        //如果点击了，会先打开广告链接，再执行下面的代码
+        startActivity(Intent(this, ACT_Home::class.java))
+        finish()
+    }
+
+    override fun onADTick(p0: Long) {
+        Elog.e("TAG", "AD-onADTick()")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        canJump = false
+        Elog.e("TAG", "AD-onPause()")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (canJump) {
+            next()
+        }
+        canJump = true
+        Elog.e("TAG", "AD-onResume()")
+    }
+
+    override fun onNoAD(p0: AdError?) {
+        Elog.e("TAG", "AD-onNoAD()")
+        /**
+         * 为防止无广告时造成视觉上类似于"闪退"的情况，设定无广告时页面跳转根据需要延迟一定时间，demo
+         * 给出的延时逻辑是从拉取广告开始算开屏最少持续多久，仅供参考，开发者可自定义延时逻辑，如果开发者采用demo
+         * 中给出的延时逻辑，也建议开发者考虑自定义minSplashTimeWhenNoAD的值
+         **/
+        val alreadyDelayMills = System.currentTimeMillis() - fetchSplashADTime//从拉广告开始到onNoAD已经消耗了多少时间
+        val shouldDelayMills = if (alreadyDelayMills > minSplashTimeWhenNoAD)
+            0
+        else
+            minSplashTimeWhenNoAD - alreadyDelayMills//为防止加载广告失败后立刻跳离开屏可能造成的视觉上类似于"闪退"的情况，根据设置的minSplashTimeWhenNoAD
+        // 计算出还需要延时多久
+        handler.postDelayed({
+            startActivity(Intent(this, ACT_Home::class.java))
+            finish()
+        }, shouldDelayMills)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
+    }
+
+    private fun next() {
+        if (canJump) {
+            startActivity(Intent(this, ACT_Home::class.java))
+            finish()
+        } else {
+            canJump = true
+        }
+    }
 
     override fun initViewsAndEvents() {
         //首次进入首页，申请所需要的权限
@@ -75,9 +135,6 @@ class ACT_SplashAD : ACT_Base(), SplashADListener {
             fetchSplashAD(this, splash_container, Constants.APPID, getPosId(), this, 0)
         }
 
-//        Handler().postDelayed({
-//            readyGo(ACT_Home::class.java)
-//        }, 2000)
     }
 
     /**
@@ -108,11 +165,6 @@ class ACT_SplashAD : ACT_Base(), SplashADListener {
     }
 
     /**
-     * 记录拉取广告的时间
-     */
-    private var fetchSplashADTime: Long = 0
-    private var splashAD: SplashAD? = null
-    /**
      * 拉取开屏广告，开屏广告的构造方法有3种，详细说明请参考开发者文档。
      *
      * @param activity        展示广告的activity
@@ -142,10 +194,15 @@ class ACT_SplashAD : ACT_Base(), SplashADListener {
         return super.toggleOverridePendingTransition(false)
     }
 
-//    /** 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费  */
-//    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-//        return if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
-//            true
-//        } else super.onKeyDown(keyCode, event)
-//    }
+    override fun getBundleExtras(extras: Bundle?) {
+    }
+
+    /** 开屏页一定要禁止用户对返回按钮的控制，否则将可能导致用户手动退出了App而广告无法正常曝光和计费  */
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) {
+            true
+        } else super.onKeyDown(keyCode, event)
+    }
+
+
 }
