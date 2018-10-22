@@ -19,6 +19,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.smart.framework.library.common.log.Elog;
 import com.smart.novel.R;
 import com.smart.novel.util.read.modle.ChapterModel;
 import com.smart.novel.util.read.modle.LineModel;
@@ -121,7 +122,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
 //        }
 //        Elog.e("TAG", "PageUp-mCurrentPage=" + chapterModel.getIndex());
 //        mCurrentPage = chapterModel.getIndex() + 1;
-        if (mCurrentPage < chapterModel.getPageModels().size()) {
+        if (mCurrentPage <= chapterModel.getPageModels().size()) {
             mCurrentPage++;
         }
     }
@@ -240,11 +241,13 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         }
 
         if (listener != null && chapterModel.getPageModels() != null) {
-            listener.onTotalPage(chapterModel.getPageModels().size());
+            listener.onTotalPage(chapterModel.getPageModels().size() + 1);
 //            mCurrentPage = chapterModel.getIndex() + 1;
         }
         //设置章节开始的页数索引
-        chapterModel.setIndex(mCurrentPage - 1);
+        if (mCurrentPage >= 1) {
+            chapterModel.setIndex(mCurrentPage - 1);
+        }
         if (chapterModel.getPageModels() != null && chapterModel.getIndex() < chapterModel.getPageModels().size()) {
             PageModel page = chapterModel.getPageModels().get(chapterModel.getIndex());
             for (int i = 0; i < page.getLineModels().size(); i++) {
@@ -267,9 +270,12 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
 
         //章节的最后一页，绘制广告页
 //        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
-        if (chapterModel.getPageModels() != null && mCurrentPage == chapterModel.getPageModels().size() + 1) {
-            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
-            canvas.drawBitmap(bitmap, 0, 0, mPaint);
+        if (listener != null && chapterModel.getPageModels() != null && mCurrentPage == chapterModel.getPageModels().size() + 1) {
+//            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
+//            canvas.drawBitmap(bitmap, 0, 0, mPaint);
+            Elog.e("TAG", "onEndPageShowAD-mCurrentPage=" + mCurrentPage);
+            listener.onEndPageShowAD();
+            mCurrentPage = 0;
         }
     }
 
@@ -434,6 +440,8 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         void onScrollRight();
 
         void onTotalPage(int totalPage);
+
+        void onEndPageShowAD();
     }
 
     public void setTextColor(int textColor) {

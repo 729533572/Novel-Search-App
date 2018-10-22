@@ -4,10 +4,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.*
 import butterknife.BindView
 import butterknife.OnClick
+import com.qq.e.ads.interstitial.AbstractInterstitialADListener
+import com.qq.e.ads.interstitial.InterstitialAD
+import com.qq.e.comm.util.AdError
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.CommonUtils
@@ -23,6 +27,8 @@ import com.smart.novel.dialog.DIA_ReadSetting
 import com.smart.novel.mvp.contract.NovelDetailContract
 import com.smart.novel.mvp.model.NovelDetailModel
 import com.smart.novel.mvp.presenter.NovelDetailPresenter
+import com.smart.novel.util.Constants
+import com.smart.novel.util.DemoUtil
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.PageDataConstants
 import com.smart.novel.util.read.ReadView
@@ -100,10 +106,11 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
     //阅读的view的点击事件
     private fun initListener() {
         readView.setOnItemSelectListener(object : ReadView.OnItemSelectListener {
+
             override fun onTotalPage(totalPage: Int) {
                 mTotalPage = totalPage
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
-                Elog.e("page",readView.mCurrentPage.toString() + "/" + mTotalPage)
+                Elog.e("page", readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
             override fun onScrollRight() {
@@ -121,13 +128,17 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             override fun onScrollLeft() {
                 isScroll = false
                 //如果是最后一页，广告页，滑动下一页，则切换下一章节
-                if (readView.mCurrentPage == mTotalPage) {
+                if (readView.mCurrentPage == mTotalPage + 1) {
                     mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
 //                    CommonUtils.makeShortToast("切换下一章")
                     return
                 }
                 readView.nextPage()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
+            }
+
+            override fun onEndPageShowAD() {
+                showAD()
             }
 
         })
@@ -444,6 +455,45 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
         }
     }
+
+    var iad: InterstitialAD? = null
+    lateinit var posId: String
+    private fun showAD() {
+        getIAD().setADListener(object : AbstractInterstitialADListener() {
+
+            override fun onNoAD(error: AdError) {
+                Log.i(
+                        "AD_DEMO",
+                        String.format("LoadInterstitialAd Fail, error code: %d, error msg: %s",
+                                error.errorCode, error.errorMsg))
+            }
+
+            override fun onADReceive() {
+                Log.i("AD_DEMO", "onADReceive")
+                iad!!.show()
+            }
+        })
+        iad!!.loadAD()
+        DemoUtil.hideSoftInput(this)
+    }
+
+    private fun getIAD(): InterstitialAD {
+        val posId = Constants.InsertPosID
+        if (iad != null && this.posId == posId) {
+            return iad!!
+        }
+        this.posId = posId
+        if (this.iad != null) {
+            iad!!.closePopupWindow()
+            iad!!.destroy()
+            iad = null
+        }
+        if (iad == null) {
+            iad = InterstitialAD(this, Constants.APPID, posId)
+        }
+        return iad!!
+    }
+
 }
 
 
