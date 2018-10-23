@@ -265,3 +265,9 @@ public static java.lang.String TABLENAME;
 -keep class android.support.v7.**{
     public *;
 }
+#解决混淆打包无法正常加载广告的问题
+-keep class MTT.ThirdAppInfoNew {
+}
+-keep class com.tencent.** {
+        *;
+}
