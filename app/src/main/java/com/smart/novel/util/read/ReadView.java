@@ -122,7 +122,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
 //        }
 //        Elog.e("TAG", "PageUp-mCurrentPage=" + chapterModel.getIndex());
 //        mCurrentPage = chapterModel.getIndex() + 1;
-        if (mCurrentPage <= chapterModel.getPageModels().size()) {
+        if (mCurrentPage < chapterModel.getPageModels().size()) {
             mCurrentPage++;
         }
     }
@@ -241,7 +241,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         }
 
         if (listener != null && chapterModel.getPageModels() != null) {
-            listener.onTotalPage(chapterModel.getPageModels().size() + 1);
+            listener.onTotalPage(chapterModel.getPageModels().size());
 //            mCurrentPage = chapterModel.getIndex() + 1;
         }
         //设置章节开始的页数索引

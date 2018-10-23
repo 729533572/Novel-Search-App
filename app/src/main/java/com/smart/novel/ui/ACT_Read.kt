@@ -139,8 +139,8 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             }
 
             override fun onEndPageShowAD() {
-                showAD()
-                CommonUtils.makeShortToast("加载插屏广告")
+//                showAD()
+                Elog.e("TAG", "加载插屏广告")
             }
 
         })
