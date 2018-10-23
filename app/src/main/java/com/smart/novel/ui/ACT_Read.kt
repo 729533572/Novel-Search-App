@@ -128,7 +128,8 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             override fun onScrollLeft() {
                 isScroll = false
                 //如果是最后一页，广告页，滑动下一页，则切换下一章节
-                if (readView.mCurrentPage == mTotalPage + 1) {
+                Elog.e("TAG", "mCurrentPage=" + readView.mCurrentPage + "---" + mTotalPage)
+                if (readView.mCurrentPage == mTotalPage) {
                     mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
 //                    CommonUtils.makeShortToast("切换下一章")
                     return
@@ -139,6 +140,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
             override fun onEndPageShowAD() {
                 showAD()
+                CommonUtils.makeShortToast("加载插屏广告")
             }
 
         })
@@ -462,15 +464,25 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
         getIAD().setADListener(object : AbstractInterstitialADListener() {
 
             override fun onNoAD(error: AdError) {
-                Log.i(
+                Elog.e(
                         "AD_DEMO",
                         String.format("LoadInterstitialAd Fail, error code: %d, error msg: %s",
                                 error.errorCode, error.errorMsg))
             }
 
             override fun onADReceive() {
-                Log.i("AD_DEMO", "onADReceive")
+                Elog.e("AD_DEMO", "onADReceive")
                 iad!!.show()
+            }
+
+            override fun onADClosed() {
+                super.onADClosed()
+                Elog.e("AD_DEMO", "onADClosed")
+            }
+
+            override fun onADExposure() {
+                super.onADExposure()
+                Elog.e("AD_DEMO", "onADExposure")
             }
         })
         iad!!.loadAD()

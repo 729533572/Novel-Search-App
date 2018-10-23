@@ -275,7 +275,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
 //            canvas.drawBitmap(bitmap, 0, 0, mPaint);
             Elog.e("TAG", "onEndPageShowAD-mCurrentPage=" + mCurrentPage);
             listener.onEndPageShowAD();
-            mCurrentPage = 0;
+//            mCurrentPage = 0;
         }
     }
 
