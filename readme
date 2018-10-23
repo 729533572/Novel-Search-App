@@ -1,0 +1,12 @@
+  版本更新说明：
+  1.第一个试上线版本，完成项目主功能：搜索小说，阅读小说，添加删除阅读记录等
+
+  versionCode 1
+  versionName "1.0"
+  schemaVersion 1
+
+  2.加入腾讯广点通，接入广告功能
+
+  versionCode 2
+  versionName "1.0.1"
+  schemaVersion 2
