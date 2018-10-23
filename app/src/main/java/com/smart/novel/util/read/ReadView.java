@@ -10,10 +10,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -235,6 +237,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
         if (chapterModel.getPageModels() != null && isScrollLastChapter) {
             mCurrentPage = chapterModel.getPageModels().size();
             isScrollLastChapter = false;
@@ -262,6 +265,7 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
                 for (int j = 0; j < num; j++) {
 //                mPaint.setColor(line.getStrColors().get(j));
 //                    Elog.e("TAG", "drawText-----" + line.getStringList().get(j));
+                    mPaint.setColor(textColor);
                     canvas.drawText(line.getStringList().get(j), line.getStrX().get(j) + paddingLeft + j * spacing,
                             (i + 1) * fontSize * 1.5f + paddingTop - 4, mPaint);
                 }
@@ -271,17 +275,22 @@ public class ReadView extends View implements GestureDetector.OnGestureListener,
         //章节的最后一页，绘制广告页
 //        Elog.e("TAG", "mCurrentPage=" + mCurrentPage);
         if (listener != null && chapterModel.getPageModels() != null && mCurrentPage == chapterModel.getPageModels().size() + 1) {
+            //绘制图片
 //            Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.app_logo);
 //            canvas.drawBitmap(bitmap, 0, 0, mPaint);
-            Elog.e("TAG", "onEndPageShowAD-mCurrentPage=" + mCurrentPage);
+            String text = "新的章节正在努力的赶来~";
+            Rect rect = new Rect();
+            mPaint.getTextBounds(text, 0, text.length(), rect);
+            mPaint.setColor(ContextCompat.getColor(mContext, R.color.color_3AC270));
+            // 获取屏幕宽度
+            //最后一页绘制文字
+            canvas.drawText(text, 120, 100, mPaint);
             listener.onEndPageShowAD();
-//            mCurrentPage = 0;
         }
     }
 
-    float downX = 0;
-    float distance = 0;
-
+    //    float downX = 0;
+//    float distance = 0;
     //    @SuppressLint("ClickableViewAccessibility")
 //    @Override
 //    public boolean onTouchEvent(MotionEvent event) {

@@ -102,7 +102,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
     //标记是否是手势滑动切换章节，如果是手势滑动切换，则左滑切换上一章节，需要切到上一章节最后一页而非第一页
     var isScroll = false
-
+    var isSwitchNextChapter = false //标记是否是切换下一章的动作(解决切换下一章时，也加载插屏广告的bug)
     //阅读的view的点击事件
     private fun initListener() {
         readView.setOnItemSelectListener(object : ReadView.OnItemSelectListener {
@@ -128,19 +128,25 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             override fun onScrollLeft() {
                 isScroll = false
                 //如果是最后一页，广告页，滑动下一页，则切换下一章节
-                Elog.e("TAG", "mCurrentPage=" + readView.mCurrentPage + "---" + mTotalPage)
-                if (readView.mCurrentPage == mTotalPage) {
+                if (readView.mCurrentPage == mTotalPage && isADShowed) {
                     mMvpPresenter.getNextChapter(chapterBean!!.book_id, chapterBean!!.chapter_number.toString())
 //                    CommonUtils.makeShortToast("切换下一章")
+                    Elog.e("TAG", "切换下一章")
+                    isSwitchNextChapter = true
+                    isADShowed = false
                     return
                 }
+                isSwitchNextChapter = false
+                isADShowed = false
                 readView.nextPage()
                 tv_page_num.setText(readView.mCurrentPage.toString() + "/" + mTotalPage)
             }
 
             override fun onEndPageShowAD() {
-                showAD()
-                CommonUtils.makeShortToast("加载插屏广告")
+                Elog.e("TAG", "isSwitchNextChapter=" + isSwitchNextChapter)
+                Elog.e("TAG", "加载插屏广告") //翻页到最后一页和切换下一章节时，该方法都会走
+                if (!isSwitchNextChapter) showAD()
+
             }
 
         })
@@ -460,6 +466,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
 
     var iad: InterstitialAD? = null
     lateinit var posId: String
+    var isADShowed = false //插屏广告是否展示了
     private fun showAD() {
         getIAD().setADListener(object : AbstractInterstitialADListener() {
 
@@ -468,6 +475,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
                         "AD_DEMO",
                         String.format("LoadInterstitialAd Fail, error code: %d, error msg: %s",
                                 error.errorCode, error.errorMsg))
+                isADShowed = true
             }
 
             override fun onADReceive() {
@@ -478,6 +486,7 @@ class ACT_Read : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(), Nove
             override fun onADClosed() {
                 super.onADClosed()
                 Elog.e("AD_DEMO", "onADClosed")
+                isADShowed = true
             }
 
             override fun onADExposure() {
