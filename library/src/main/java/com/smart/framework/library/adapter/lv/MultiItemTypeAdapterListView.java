@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiItemTypeAdapterListView<T> extends BaseAdapter {
+public class MultiItemTypeAdapterListView<T, B extends ViewDataBinding> extends BaseAdapter {
     protected Context mContext;
     protected List<T> mDatas = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class MultiItemTypeAdapterListView<T> extends BaseAdapter {
         mItemViewDelegateManagerListView = new ItemViewDelegateManagerListView();
     }
 
-    public MultiItemTypeAdapterListView addItemViewDelegate(ItemViewDelegateListView<T> itemViewDelegateListView) {
+    public MultiItemTypeAdapterListView addItemViewDelegate(ItemViewDelegateListView<T, B> itemViewDelegateListView) {
         mItemViewDelegateManagerListView.addDelegate(itemViewDelegateListView);
         return this;
     }
@@ -66,12 +66,12 @@ public class MultiItemTypeAdapterListView<T> extends BaseAdapter {
             viewHolder.mPosition = position;
         }
 
-        convert(viewDataBinding, viewHolder, getItem(position), position);
+        convert((B) viewDataBinding, viewHolder, getItem(position), position);
         return viewHolder.getConvertView();
     }
 
-    protected void convert(ViewDataBinding viewDataBinding, ViewHolderListView viewHolder, T item, int position) {
-        mItemViewDelegateManagerListView.convert(viewDataBinding,viewHolder, item, position);
+    protected void convert(B viewDataBinding, ViewHolderListView viewHolder, T item, int position) {
+        mItemViewDelegateManagerListView.convert(viewDataBinding, viewHolder, item, position);
         //!!!!!重要!!!!!      加一行，解决adapter加了databinding页面刷新闪烁的问题
         viewDataBinding.executePendingBindings();
     }
