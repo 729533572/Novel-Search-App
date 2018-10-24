@@ -13,11 +13,15 @@ import com.smart.novel.bean.MineBean
  * wechat:18510829974
  * description:我的页面列表
  */
-class ADA_MineList constructor(context: Context) : CommonAdapterListView<MineBean>(context) {
-    override fun convert(viewDataBinding: ViewDataBinding?, holder: ViewHolderListView?, bean: MineBean?, position: Int) {
-        var viewBinding = viewDataBinding as ItemMineListBinding
-        viewBinding.mineBean = bean
+class ADA_MineList constructor(context: Context) : CommonAdapterListView<MineBean,ItemMineListBinding>(context) {
+    override fun convert(viewDataBinding: ItemMineListBinding, holder: ViewHolderListView?, bean: MineBean?, position: Int) {
+        viewDataBinding.mineBean = bean
     }
+
+//    override fun convert(viewDataBinding: ItemMineListBinding?, holder: ViewHolderListView?, bean: MineBean?, position: Int) {
+////        var viewBinding = viewDataBinding as ItemMineListBinding
+//        viewDataBinding.mineBean = bean
+//    }
 
     override fun itemLayoutId(): Int {
         return R.layout.item_mine_list

@@ -10,6 +10,7 @@ import butterknife.OnClick
 import com.smart.framework.library.bean.ErrorBean
 import com.smart.framework.library.common.log.Elog
 import com.smart.framework.library.common.utils.AppSharedPreferences
+import com.smart.framework.library.common.utils.CommonUtils
 import com.smart.framework.library.common.utils.TimeCount
 import com.smart.framework.library.common.utils.login.VerifyInputUtils
 import com.smart.novel.MyApplication
@@ -107,7 +108,7 @@ class ACT_Login : BaseMVPActivity<LoginPresenter, LoginModel>(), LoginContract.V
     }
 
     override fun showBusinessError(error: ErrorBean?) {
-
+        CommonUtils.makeShortToast(error!!.msg)
     }
 
     override fun showException(error: ErrorBean?) {
