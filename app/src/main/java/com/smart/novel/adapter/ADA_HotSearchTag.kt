@@ -17,7 +17,7 @@ import com.smart.novel.bean.HotSearchBean
 class ADA_HotSearchTag constructor(hotList: List<HotSearchBean>) : TagAdapter<HotSearchBean>(hotList) {
     override fun getView(parent: FlowLayout?, position: Int, bean: HotSearchBean?): View {
         var itemTagView = LayoutInflater.from(context).inflate(R.layout.item_hot_search, null);
-        var tvItemTxt = itemTagView.findViewById(R.id.tv_item_name) as TextView
+        var tvItemTxt = itemTagView.findViewById<TextView>(R.id.tv_item_name)
         tvItemTxt.setText(bean!!.search_keyword)
         return itemTagView
     }

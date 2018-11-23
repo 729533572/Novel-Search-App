@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
@@ -30,6 +31,7 @@ import com.smart.novel.mvp.presenter.BookShelfPresenter
 import com.smart.novel.util.BroadCastConstant
 import com.smart.novel.util.IntentUtil
 import com.smart.novel.util.RecyclerViewHelper
+import com.smart.novel.util.bindView
 import kotlinx.android.synthetic.main.fra_bookshelf.*
 import kotlinx.android.synthetic.main.layout_common_recyclview.*
 import java.util.*
@@ -40,7 +42,8 @@ import java.util.*
  * description: 书架
  */
 class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), BookShelfContract.View, OnLoadMoreListener, OnRefreshListener {
-    @BindView(R.id.tv_right) lateinit var tvRight: TextView
+    //    @BindView(R.id.tv_right) lateinit var tvRight: TextView
+    private val tvRight by bindView<TextView>(R.id.tv_right)
     var mAdapter: ADA_ReadHistory? = null
     val mColumnNum = 3//列表每行展示的个数
     val TYPE_READ = "read"
@@ -219,7 +222,7 @@ class FRA_BookShelf : BaseMVPFragment<BookShelfPresenter, BookShelfModel>(), Boo
                     readyGo(ACT_Login::class.java)
                     return
                 }
-                
+
                 if (isEdit) return
                 ll_my_collected.getChildAt(0).visibility = View.VISIBLE
                 ll_my_collected.getChildAt(1).visibility = View.GONE
