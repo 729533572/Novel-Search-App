@@ -10,8 +10,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/LRecyclerview_library" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/gDTUnionDemo" />
             <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/okhttp3-persistent-cookiejar" />
+            <option value="$PROJECT_DIR$/ushare_library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

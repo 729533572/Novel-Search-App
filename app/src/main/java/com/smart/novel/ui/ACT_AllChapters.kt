@@ -109,6 +109,9 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
 
         })
 
+        mPopWindow?.setOnDismissListener {
+            view_shadow.visibility = View.GONE
+        }
     }
 
     @OnClick(R.id.ll_down_filter)
@@ -116,10 +119,12 @@ class ACT_AllChapters : BaseMVPActivity<NovelDetailPresenter, NovelDetailModel>(
         when (view.id) {
             R.id.ll_down_filter -> {
                 if (mPopWindow!!.isShowing) {
+                    view_shadow.visibility = View.GONE
                     mPopWindow!!.dismiss()
                 } else {
                     mAdapterFilter!!.update(mFilterList, true)
                     mPopWindow!!.showAsDropDown(ll_down_filter)
+                    view_shadow.visibility = View.VISIBLE
                 }
             }
         }

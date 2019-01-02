@@ -24,8 +24,8 @@ class PopupChapterFilter {
         fun initPopupWindow(mContext: Activity, mAdapterFilter: ADA_ChapterFilter): MyPopupWindow {
             //设置contentView，在布局中外层macthParent的布局中设置半透明的背景阴影
             var contentView = LayoutInflater.from(mContext).inflate(R.layout.popup_chapters_filter, null)
-            var recyclerviewFilter = contentView.findViewById(R.id.recyclerviewFilter) as RecyclerView
-            var ll_popup_root = contentView.findViewById(R.id.ll_popup_root) as LinearLayout
+            var recyclerviewFilter = contentView.findViewById<RecyclerView>(R.id.recyclerviewFilter)
+            var ll_popup_root = contentView.findViewById<LinearLayout>(R.id.ll_popup_root)
             ll_popup_root.setOnClickListener { mPopWindow!!.dismiss() }
             //适配7.0版本
             mPopWindow = MyPopupWindow(contentView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
